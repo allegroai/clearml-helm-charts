@@ -4,7 +4,7 @@
 
 MLOps platform
 
-**Homepage:** <https://allegro.ai>
+**Homepage:** <https://clear.ml>
 
 ## Maintainers
 
