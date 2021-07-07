@@ -1,4 +1,4 @@
-# Contributing to pipelines-examples
+# Contributing to AllegroAI helm charts repository
 
 :+1::tada: First off, thank you for taking the time to contribute! :tada::+1:
 
