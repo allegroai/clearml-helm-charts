@@ -9,6 +9,9 @@ icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-lo
 sources:
   - https://github.com/allegroai/clearml-helm-charts
   - https://github.com/allegroai/clearml
+maintainers:
+  - name: valeriano-manassero
+    url: https://github.com/valeriano-manassero
 keywords:
   - clearml
   - "machine learning"
