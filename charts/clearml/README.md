@@ -6,6 +6,12 @@ MLOps platform
 
 **Homepage:** <https://allegro.ai>
 
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| valeriano-manassero |  | https://github.com/valeriano-manassero |
+
 ## Source Code
 
 * <https://github.com/allegroai/clearml-helm-charts>
