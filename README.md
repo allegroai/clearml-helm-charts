@@ -1,6 +1,6 @@
 # ClearML Helm Charts Library for Kubernetes
 
-Helm charts provided by [AllegroAI](https://www.allegro.ai), ready to launch on Kubernetes using [Kubernetes Helm](https://github.com/helm/helm).
+Helm charts provided by [Allegro AI](https://clear.ml), ready to launch on Kubernetes using [Kubernetes Helm](https://github.com/helm/helm).
 
 ## Requirements
 
