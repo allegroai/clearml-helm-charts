@@ -1,0 +1,12 @@
+dependencies:
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 10.9.0
+- name: mongodb
+  repository: https://charts.bitnami.com/bitnami
+  version: 10.3.4
+- name: elasticsearch
+  repository: https://helm.elastic.co
+  version: 7.10.1
+digest: sha256:aefd3992b2ab085161e4cca35c6f73dd33f8d19272a9405b5ee4e8c2a0e79bba
+generated: "2021-01-05T14:26:33.629164+01:00"
