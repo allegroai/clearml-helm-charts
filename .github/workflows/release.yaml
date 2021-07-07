@@ -13,6 +13,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Add bitnami repo
+        run: helm repo add bitnami https://charts.bitnami.com/bitnami
+      - name: Add elastic repo
+        run: helm repo add elastic https://helm.elastic.co
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
