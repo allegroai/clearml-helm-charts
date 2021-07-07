@@ -1,5 +1,5 @@
 apiVersion: v2
-name: ClearML Ecosystem for Kubernetes
+name: clearml
 description: MLOps platform
 type: application
 version: "2.0.0-alpha2"
