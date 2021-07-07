@@ -18,7 +18,7 @@ To install Helm, refer to the [Helm install guide](https://github.com/helm/helm#
 
 ```bash
 $ helm repo add allegroai https://allegroai.github.io/clearml-helm-charts
-$ helm search repo allegroai
 $ helm repo update
-$ helm install my-release allegroai/<chart>
+$ helm search repo allegroai
+$ helm install <release-name> allegroai/<chart>
 ```
