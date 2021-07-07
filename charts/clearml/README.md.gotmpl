@@ -1,0 +1,68 @@
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.badgesSection" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+## Introduction
+
+The **clearml-server** is the backend service infrastructure for [ClearML](https://github.com/allegroai/clearml).
+It allows multiple users to collaborate and manage their experiments.
+By default, *ClearML is set up to work with the ClearML Demo Server, which is open to anyone and resets periodically. 
+In order to host your own server, you will need to install **clearml-server** and point ClearML to it.
+
+**clearml-server** contains the following components:
+
+* The ClearML Web-App, a single-page UI for experiment management and browsing
+* RESTful API for:
+    * Documenting and logging experiment information, statistics and results
+    * Querying experiments history, logs and results
+* Locally-hosted file server for storing images and models making them easily accessible using the Web-App
+
+## Port Mapping
+
+After **clearml-server** is deployed, the services expose the following node ports:
+
+* API server on `30008`
+* Web server on `30080`
+* File server on `30081`
+
+## Accessing ClearML Server
+
+Access **clearml-server** by creating a load balancer and domain name with records pointing to the load balancer.
+
+Once you have a load balancer and domain name set up, follow these steps to configure access to clearml-server on your k8s cluster:
+
+1. Create domain records
+
+   * Create 3 records to be used for Web-App, File server and API access using the following rules: 
+     * `app.<your domain name>` 
+     * `files.<your domain name>`
+     * `api.<your domain name>`
+     
+     (*for example, `app.clearml.mydomainname.com`, `files.clearml.mydomainname.com` and `api.clearml.mydomainname.com`*)
+2. Point the records you created to the load balancer
+3. Configure the load balancer to redirect traffic coming from the records you created:
+     * `app.<your domain name>` should be redirected to k8s cluster nodes on port `30080`
+     * `files.<your domain name>` should be redirected to k8s cluster nodes on port `30081`
+     * `api.<your domain name>` should be redirected to k8s cluster nodes on port `30008`
+
+## Additional Configuration for ClearML Server
+
+You can also configure the **clearml-server** for:
+ 
+* fixed users (users with credentials)
+* non-responsive experiment watchdog settings
+ 
+For detailed instructions, see the [Optional Configuration](https://github.com/allegroai/clearml-server#optional-configuration) section in the **clearml-server** repository README file.
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
