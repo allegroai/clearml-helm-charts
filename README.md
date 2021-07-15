@@ -8,6 +8,10 @@ Helm charts provided by [Allegro AI](https://clear.ml), ready to launch on Kuber
 
 For setting up Kubernetes on various platforms refer to the Kubernetes [getting started guide](http://kubernetes.io/docs/getting-started-guides/).
 
+### Setup a single node LOCAL Kubernetes on laptop/desktop
+
+For setting up Kubernetes on your laptop/desktop we suggest [kind](https://kind.sigs.k8s.io).
+
 ### Install Helm
 
 Helm is a tool for managing Kubernetes charts. Charts are packages of pre-configured Kubernetes resources.
