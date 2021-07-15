@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 2.0.0-alpha2](https://img.shields.io/badge/Version-2.0.0--alpha2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.2](https://img.shields.io/badge/AppVersion-1.0.2-informational?style=flat-square)
+![Version: 2.0.0-beta1](https://img.shields.io/badge/Version-2.0.0--beta1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.2](https://img.shields.io/badge/AppVersion-1.0.2-informational?style=flat-square)
 
 MLOps platform
 
@@ -16,8 +16,6 @@ MLOps platform
 
 The **clearml-server** is the backend service infrastructure for [ClearML](https://github.com/allegroai/clearml).
 It allows multiple users to collaborate and manage their experiments.
-By default, *ClearML is set up to work with the ClearML Demo Server, which is open to anyone and resets periodically.
-In order to host your own server, you will need to install **clearml-server** and point ClearML to it.
 
 **clearml-server** contains the following components:
 
@@ -27,33 +25,59 @@ In order to host your own server, you will need to install **clearml-server** an
     * Querying experiments history, logs and results
 * Locally-hosted file server for storing images and models making them easily accessible using the Web-App
 
-## Port Mapping
+## Local environment
 
-After **clearml-server** is deployed, the services expose the following node ports:
+For development/evaluation it's possible to use [kind](https://kind.sigs.k8s.io).
+After installation, following commands will create a complete ClearML insatllation:
+
+```
+cat <<EOF > /tmp/clearml-kind.yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+  extraPortMappings:
+  - containerPort: 30008
+    hostPort: 30008
+    listenAddress: "127.0.0.1"
+    protocol: TCP
+  - containerPort: 30080
+    hostPort: 30080
+    listenAddress: "127.0.0.1"
+    protocol: TCP
+  - containerPort: 30081
+    hostPort: 30081
+    listenAddress: "127.0.0.1"
+    protocol: TCP
+  extraMounts:
+  - hostPath: /var/folders/kind/
+    containerPath: /var/local-path-provisioner
+EOF
+
+kind create cluster --config /tmp/clearml-kind.yaml
+
+helm install clearml allegroai/clearml
+```
+
+After deployment, the services will be exposed on localhost on the following ports:
 
 * API server on `30008`
 * Web server on `30080`
 * File server on `30081`
 
-## Accessing ClearML Server
+## Production cluster environment
 
-Access **clearml-server** by creating a load balancer and domain name with records pointing to the load balancer.
+In a production environment it's suggested to install an ingress controller and verify that is working correctly.
+During ClearML deployment enable `ingress` section of chart values.
+This will create 3 ingress rules:
 
-Once you have a load balancer and domain name set up, follow these steps to configure access to clearml-server on your k8s cluster:
+* `app.<your domain name>`
+* `files.<your domain name>`
+* `api.<your domain name>`
 
-1. Create domain records
+(*for example, `app.clearml.mydomainname.com`, `files.clearml.mydomainname.com` and `api.clearml.mydomainname.com`*)
 
-   * Create 3 records to be used for Web-App, File server and API access using the following rules:
-     * `app.<your domain name>`
-     * `files.<your domain name>`
-     * `api.<your domain name>`
-    
-     (*for example, `app.clearml.mydomainname.com`, `files.clearml.mydomainname.com` and `api.clearml.mydomainname.com`*)
-2. Point the records you created to the load balancer
-3. Configure the load balancer to redirect traffic coming from the records you created:
-     * `app.<your domain name>` should be redirected to k8s cluster nodes on port `30080`
-     * `files.<your domain name>` should be redirected to k8s cluster nodes on port `30081`
-     * `api.<your domain name>` should be redirected to k8s cluster nodes on port `30008`
+Just pointing the domain records to the IP where ingress controller is responding will complete the deployment process.
 
 ## Additional Configuration for ClearML Server
 
@@ -81,28 +105,50 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agentGroups.agent-group0.affinity | object | `{}` |  |
-| agentGroups.agent-group0.agentVersion | string | `""` |  |
-| agentGroups.agent-group0.awsAccessKeyId | string | `nil` |  |
-| agentGroups.agent-group0.awsDefaultRegion | string | `nil` |  |
-| agentGroups.agent-group0.awsSecretAccessKey | string | `nil` |  |
-| agentGroups.agent-group0.azureStorageAccount | string | `nil` |  |
-| agentGroups.agent-group0.azureStorageKey | string | `nil` |  |
-| agentGroups.agent-group0.clearmlAccessKey | string | `nil` |  |
-| agentGroups.agent-group0.clearmlConfig | string | `"sdk {\n}"` |  |
-| agentGroups.agent-group0.clearmlGitPassword | string | `nil` |  |
-| agentGroups.agent-group0.clearmlGitUser | string | `nil` |  |
-| agentGroups.agent-group0.clearmlSecretKey | string | `nil` |  |
-| agentGroups.agent-group0.image.pullPolicy | string | `"IfNotPresent"` |  |
-| agentGroups.agent-group0.image.repository | string | `"nvidia/cuda"` |  |
-| agentGroups.agent-group0.image.tag | string | `"11.0-base-ubuntu18.04"` |  |
-| agentGroups.agent-group0.name | string | `"agent-group0"` |  |
-| agentGroups.agent-group0.nodeSelector | object | `{}` |  |
-| agentGroups.agent-group0.nvidiaGpusPerAgent | int | `1` |  |
-| agentGroups.agent-group0.podAnnotations | object | `{}` |  |
-| agentGroups.agent-group0.queues | string | `"default"` |  |
-| agentGroups.agent-group0.replicaCount | int | `0` |  |
-| agentGroups.agent-group0.tolerations | list | `[]` |  |
+| agentGroups.agent-group-cpu.affinity | object | `{}` |  |
+| agentGroups.agent-group-cpu.agentVersion | string | `""` |  |
+| agentGroups.agent-group-cpu.awsAccessKeyId | string | `nil` |  |
+| agentGroups.agent-group-cpu.awsDefaultRegion | string | `nil` |  |
+| agentGroups.agent-group-cpu.awsSecretAccessKey | string | `nil` |  |
+| agentGroups.agent-group-cpu.azureStorageAccount | string | `nil` |  |
+| agentGroups.agent-group-cpu.azureStorageKey | string | `nil` |  |
+| agentGroups.agent-group-cpu.clearmlAccessKey | string | `nil` |  |
+| agentGroups.agent-group-cpu.clearmlConfig | string | `"sdk {\n}"` |  |
+| agentGroups.agent-group-cpu.clearmlGitPassword | string | `nil` |  |
+| agentGroups.agent-group-cpu.clearmlGitUser | string | `nil` |  |
+| agentGroups.agent-group-cpu.clearmlSecretKey | string | `nil` |  |
+| agentGroups.agent-group-cpu.image.pullPolicy | string | `"IfNotPresent"` |  |
+| agentGroups.agent-group-cpu.image.repository | string | `"ubuntu"` |  |
+| agentGroups.agent-group-cpu.image.tag | string | `"18.04"` |  |
+| agentGroups.agent-group-cpu.name | string | `"agent-group-cpu"` |  |
+| agentGroups.agent-group-cpu.nodeSelector | object | `{}` |  |
+| agentGroups.agent-group-cpu.nvidiaGpusPerAgent | int | `0` |  |
+| agentGroups.agent-group-cpu.podAnnotations | object | `{}` |  |
+| agentGroups.agent-group-cpu.queues | string | `"default"` |  |
+| agentGroups.agent-group-cpu.replicaCount | int | `1` |  |
+| agentGroups.agent-group-cpu.tolerations | list | `[]` |  |
+| agentGroups.agent-group-gpu.affinity | object | `{}` |  |
+| agentGroups.agent-group-gpu.agentVersion | string | `""` |  |
+| agentGroups.agent-group-gpu.awsAccessKeyId | string | `nil` |  |
+| agentGroups.agent-group-gpu.awsDefaultRegion | string | `nil` |  |
+| agentGroups.agent-group-gpu.awsSecretAccessKey | string | `nil` |  |
+| agentGroups.agent-group-gpu.azureStorageAccount | string | `nil` |  |
+| agentGroups.agent-group-gpu.azureStorageKey | string | `nil` |  |
+| agentGroups.agent-group-gpu.clearmlAccessKey | string | `nil` |  |
+| agentGroups.agent-group-gpu.clearmlConfig | string | `"sdk {\n}"` |  |
+| agentGroups.agent-group-gpu.clearmlGitPassword | string | `nil` |  |
+| agentGroups.agent-group-gpu.clearmlGitUser | string | `nil` |  |
+| agentGroups.agent-group-gpu.clearmlSecretKey | string | `nil` |  |
+| agentGroups.agent-group-gpu.image.pullPolicy | string | `"IfNotPresent"` |  |
+| agentGroups.agent-group-gpu.image.repository | string | `"nvidia/cuda"` |  |
+| agentGroups.agent-group-gpu.image.tag | string | `"11.0-base-ubuntu18.04"` |  |
+| agentGroups.agent-group-gpu.name | string | `"agent-group-gpu"` |  |
+| agentGroups.agent-group-gpu.nodeSelector | object | `{}` |  |
+| agentGroups.agent-group-gpu.nvidiaGpusPerAgent | int | `1` |  |
+| agentGroups.agent-group-gpu.podAnnotations | object | `{}` |  |
+| agentGroups.agent-group-gpu.queues | string | `"default"` |  |
+| agentGroups.agent-group-gpu.replicaCount | int | `0` |  |
+| agentGroups.agent-group-gpu.tolerations | list | `[]` |  |
 | agentservices.affinity | object | `{}` |  |
 | agentservices.agentVersion | string | `""` |  |
 | agentservices.awsAccessKeyId | string | `nil` |  |
