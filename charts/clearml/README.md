@@ -81,28 +81,50 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agentGroups.agent-group0.affinity | object | `{}` |  |
-| agentGroups.agent-group0.agentVersion | string | `""` |  |
-| agentGroups.agent-group0.awsAccessKeyId | string | `nil` |  |
-| agentGroups.agent-group0.awsDefaultRegion | string | `nil` |  |
-| agentGroups.agent-group0.awsSecretAccessKey | string | `nil` |  |
-| agentGroups.agent-group0.azureStorageAccount | string | `nil` |  |
-| agentGroups.agent-group0.azureStorageKey | string | `nil` |  |
-| agentGroups.agent-group0.clearmlAccessKey | string | `nil` |  |
-| agentGroups.agent-group0.clearmlConfig | string | `"sdk {\n}"` |  |
-| agentGroups.agent-group0.clearmlGitPassword | string | `nil` |  |
-| agentGroups.agent-group0.clearmlGitUser | string | `nil` |  |
-| agentGroups.agent-group0.clearmlSecretKey | string | `nil` |  |
-| agentGroups.agent-group0.image.pullPolicy | string | `"IfNotPresent"` |  |
-| agentGroups.agent-group0.image.repository | string | `"nvidia/cuda"` |  |
-| agentGroups.agent-group0.image.tag | string | `"11.0-base-ubuntu18.04"` |  |
-| agentGroups.agent-group0.name | string | `"agent-group0"` |  |
-| agentGroups.agent-group0.nodeSelector | object | `{}` |  |
-| agentGroups.agent-group0.nvidiaGpusPerAgent | int | `1` |  |
-| agentGroups.agent-group0.podAnnotations | object | `{}` |  |
-| agentGroups.agent-group0.queues | string | `"default"` |  |
-| agentGroups.agent-group0.replicaCount | int | `0` |  |
-| agentGroups.agent-group0.tolerations | list | `[]` |  |
+| agentGroups.agent-group-cpu.affinity | object | `{}` |  |
+| agentGroups.agent-group-cpu.agentVersion | string | `""` |  |
+| agentGroups.agent-group-cpu.awsAccessKeyId | string | `nil` |  |
+| agentGroups.agent-group-cpu.awsDefaultRegion | string | `nil` |  |
+| agentGroups.agent-group-cpu.awsSecretAccessKey | string | `nil` |  |
+| agentGroups.agent-group-cpu.azureStorageAccount | string | `nil` |  |
+| agentGroups.agent-group-cpu.azureStorageKey | string | `nil` |  |
+| agentGroups.agent-group-cpu.clearmlAccessKey | string | `nil` |  |
+| agentGroups.agent-group-cpu.clearmlConfig | string | `"sdk {\n}"` |  |
+| agentGroups.agent-group-cpu.clearmlGitPassword | string | `nil` |  |
+| agentGroups.agent-group-cpu.clearmlGitUser | string | `nil` |  |
+| agentGroups.agent-group-cpu.clearmlSecretKey | string | `nil` |  |
+| agentGroups.agent-group-cpu.image.pullPolicy | string | `"IfNotPresent"` |  |
+| agentGroups.agent-group-cpu.image.repository | string | `"ubuntu"` |  |
+| agentGroups.agent-group-cpu.image.tag | string | `"18.04"` |  |
+| agentGroups.agent-group-cpu.name | string | `"agent-group-cpu"` |  |
+| agentGroups.agent-group-cpu.nodeSelector | object | `{}` |  |
+| agentGroups.agent-group-cpu.nvidiaGpusPerAgent | int | `0` |  |
+| agentGroups.agent-group-cpu.podAnnotations | object | `{}` |  |
+| agentGroups.agent-group-cpu.queues | string | `"default"` |  |
+| agentGroups.agent-group-cpu.replicaCount | int | `1` |  |
+| agentGroups.agent-group-cpu.tolerations | list | `[]` |  |
+| agentGroups.agent-group-gpu.affinity | object | `{}` |  |
+| agentGroups.agent-group-gpu.agentVersion | string | `""` |  |
+| agentGroups.agent-group-gpu.awsAccessKeyId | string | `nil` |  |
+| agentGroups.agent-group-gpu.awsDefaultRegion | string | `nil` |  |
+| agentGroups.agent-group-gpu.awsSecretAccessKey | string | `nil` |  |
+| agentGroups.agent-group-gpu.azureStorageAccount | string | `nil` |  |
+| agentGroups.agent-group-gpu.azureStorageKey | string | `nil` |  |
+| agentGroups.agent-group-gpu.clearmlAccessKey | string | `nil` |  |
+| agentGroups.agent-group-gpu.clearmlConfig | string | `"sdk {\n}"` |  |
+| agentGroups.agent-group-gpu.clearmlGitPassword | string | `nil` |  |
+| agentGroups.agent-group-gpu.clearmlGitUser | string | `nil` |  |
+| agentGroups.agent-group-gpu.clearmlSecretKey | string | `nil` |  |
+| agentGroups.agent-group-gpu.image.pullPolicy | string | `"IfNotPresent"` |  |
+| agentGroups.agent-group-gpu.image.repository | string | `"nvidia/cuda"` |  |
+| agentGroups.agent-group-gpu.image.tag | string | `"11.0-base-ubuntu18.04"` |  |
+| agentGroups.agent-group-gpu.name | string | `"agent-group-gpu"` |  |
+| agentGroups.agent-group-gpu.nodeSelector | object | `{}` |  |
+| agentGroups.agent-group-gpu.nvidiaGpusPerAgent | int | `1` |  |
+| agentGroups.agent-group-gpu.podAnnotations | object | `{}` |  |
+| agentGroups.agent-group-gpu.queues | string | `"default"` |  |
+| agentGroups.agent-group-gpu.replicaCount | int | `0` |  |
+| agentGroups.agent-group-gpu.tolerations | list | `[]` |  |
 | agentservices.affinity | object | `{}` |  |
 | agentservices.agentVersion | string | `""` |  |
 | agentservices.awsAccessKeyId | string | `nil` |  |
