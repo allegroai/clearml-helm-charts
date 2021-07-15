@@ -211,7 +211,7 @@ agentGroups:
     tolerations: []
 
     affinity: {}
-  
+
   agent-group-gpu:
     name: agent-group-gpu
     replicaCount: 0
