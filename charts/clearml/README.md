@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 2.0.0-beta1](https://img.shields.io/badge/Version-2.0.0--beta1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.2](https://img.shields.io/badge/AppVersion-1.0.2-informational?style=flat-square)
+![Version: 2.0.0-beta2](https://img.shields.io/badge/Version-2.0.0--beta2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.2](https://img.shields.io/badge/AppVersion-1.0.2-informational?style=flat-square)
 
 MLOps platform
 
@@ -31,6 +31,8 @@ For development/evaluation it's possible to use [kind](https://kind.sigs.k8s.io)
 After installation, following commands will create a complete ClearML insatllation:
 
 ```
+mkdir -pm 777 /tmp/clearml-kind
+
 cat <<EOF > /tmp/clearml-kind.yaml
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
@@ -50,7 +52,7 @@ nodes:
     listenAddress: "127.0.0.1"
     protocol: TCP
   extraMounts:
-  - hostPath: /var/folders/kind/
+  - hostPath: /tmp/clearml-kind/
     containerPath: /var/local-path-provisioner
 EOF
 
@@ -64,6 +66,8 @@ After deployment, the services will be exposed on localhost on the following por
 * API server on `30008`
 * Web server on `30080`
 * File server on `30081`
+
+Data persisted in every Kubernetes volume by ClearML will be accessible in /tmp/clearml-kind folder on the host.
 
 ## Production cluster environment
 
