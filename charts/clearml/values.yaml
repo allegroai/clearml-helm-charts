@@ -5,6 +5,9 @@ ingress:
   name: clearml-server-ingress
   annotations: {}
   host: ""
+  hostPrefixApp: "app."
+  hostPrefixApi: "api."
+  hostPrefixFiles: "files."
   tls:
     secretName: ""
 
