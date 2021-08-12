@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 2.0.1](https://img.shields.io/badge/Version-2.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
+![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
 
 MLOps platform
 
@@ -252,6 +252,9 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.host | string | `""` |  |
+| ingress.hostPrefixApi | string | `"api."` |  |
+| ingress.hostPrefixApp | string | `"app."` |  |
+| ingress.hostPrefixFiles | string | `"files."` |  |
 | ingress.name | string | `"clearml-server-ingress"` |  |
 | ingress.tls.secretName | string | `""` |  |
 | mongodb.architecture | string | `"standalone"` |  |
