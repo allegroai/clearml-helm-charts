@@ -91,6 +91,13 @@ spec:
               python3 -m pip install -U pip ;
               python3 -m pip install clearml-agent{{ .agentVersion}} ;
               CLEARML_AGENT_K8S_HOST_MOUNT=/root/.clearml:/root/.clearml clearml-agent daemon --queue {{ .queues}}"
+          {{ if .clearmlConfig }}
+          volumeMounts:
+           - name: agent-clearml-conf-volume
+             mountPath: /root/clearml.conf
+             subPath: clearml.conf
+             readOnly: true
+          {{- end }}
       {{- with .nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
