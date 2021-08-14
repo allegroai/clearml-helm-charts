@@ -20,6 +20,8 @@ spec:
       {{- end }}
       labels:
         {{- include "clearml.selectorLabelsAgent" $ | nindent 8 }}
+    strategy:
+      type: Recreate
     spec:
       volumes:
         {{ if .clearmlConfig }}
