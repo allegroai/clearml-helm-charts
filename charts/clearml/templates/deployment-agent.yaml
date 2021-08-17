@@ -9,6 +9,8 @@ metadata:
     {{- include "clearml.labels" $ | nindent 4 }}
 spec:
   replicas: {{ .replicaCount }}
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       {{- include "clearml.selectorLabelsAgent" $ | nindent 6 }}
@@ -20,8 +22,6 @@ spec:
       {{- end }}
       labels:
         {{- include "clearml.selectorLabelsAgent" $ | nindent 8 }}
-    strategy:
-      type: Recreate
     spec:
       volumes:
         {{ if .clearmlConfig }}
