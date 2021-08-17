@@ -10,7 +10,7 @@ metadata:
 spec:
   replicas: {{ .replicaCount }}
   strategy:
-    type: Recreate
+    type: {{ .updateStrategy }}
   selector:
     matchLabels:
       {{- include "clearml.selectorLabelsAgent" $ | nindent 6 }}
