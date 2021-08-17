@@ -131,6 +131,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentGroups.agent-group-cpu.queues | string | `"default"` |  |
 | agentGroups.agent-group-cpu.replicaCount | int | `1` |  |
 | agentGroups.agent-group-cpu.tolerations | list | `[]` |  |
+| agentGroups.agent-group-cpu.updateStrategy | string | `"Recreate"` |  |
 | agentGroups.agent-group-gpu.affinity | object | `{}` |  |
 | agentGroups.agent-group-gpu.agentVersion | string | `""` |  |
 | agentGroups.agent-group-gpu.awsAccessKeyId | string | `nil` |  |
@@ -153,6 +154,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentGroups.agent-group-gpu.queues | string | `"default"` |  |
 | agentGroups.agent-group-gpu.replicaCount | int | `0` |  |
 | agentGroups.agent-group-gpu.tolerations | list | `[]` |  |
+| agentGroups.agent-group-gpu.updateStrategy | string | `"Recreate"` |  |
 | agentservices.affinity | object | `{}` |  |
 | agentservices.agentVersion | string | `""` |  |
 | agentservices.awsAccessKeyId | string | `nil` |  |
