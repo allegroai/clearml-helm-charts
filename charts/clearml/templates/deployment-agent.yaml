@@ -9,6 +9,8 @@ metadata:
     {{- include "clearml.labels" $ | nindent 4 }}
 spec:
   replicas: {{ .replicaCount }}
+  strategy:
+    type: {{ .updateStrategy }}
   selector:
     matchLabels:
       {{- include "clearml.selectorLabelsAgent" $ | nindent 6 }}

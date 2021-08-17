@@ -186,6 +186,7 @@ agentGroups:
   agent-group-cpu:
     name: agent-group-cpu
     replicaCount: 1
+    updateStrategy: Recreate
     nvidiaGpusPerAgent: 0
     agentVersion: ""  # if set, it *MUST* include comparison operator (e.g. ">=0.16.1")
     queues: "default"  # multiple queues can be specified separated by a space (e.g. "important_jobs default")
@@ -218,6 +219,7 @@ agentGroups:
   agent-group-gpu:
     name: agent-group-gpu
     replicaCount: 0
+    updateStrategy: Recreate
     nvidiaGpusPerAgent: 1
     agentVersion: ""  # if set, it *MUST* include comparison operator (e.g. ">=0.16.1")
     queues: "default"  # multiple queues can be specified separated by a space (e.g. "important_jobs default")
