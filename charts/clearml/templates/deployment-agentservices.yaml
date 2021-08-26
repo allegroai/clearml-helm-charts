@@ -30,7 +30,7 @@ spec:
               - -c
               - >
                 set -x;
-                while [ $(curl -sw '%{http_code}' "http://{{ include "clearml.fullname" . }}-apiserver:{{ .Values.apiserver.service.port }}/debug.ping" -o /dev/null) -ne 200 ] ; do
+                while [ $(curl -sw '%{http_code}' "{{ include "clearml.serviceApi" $ }}/debug.ping" -o /dev/null) -ne 200 ] ; do
                   echo "waiting for apiserver" ;
                   sleep 5 ;
                 done
@@ -42,7 +42,7 @@ spec:
           - name: CLEARML_HOST_IP
             value: {{ .Values.agentservices.clearmlHostIp }}
           - name: CLEARML_API_HOST
-            value: "http://{{ include "clearml.fullname" . }}-apiserver:{{ .Values.apiserver.service.port }}"
+            value: {{ include "clearml.serviceApi" $ }}
           - name: CLEARML_WEB_HOST
             value: {{ .Values.agentservices.clearmlWebHost }}
           - name: CLEARML_FILES_HOST
