@@ -40,7 +40,7 @@ spec:
             - -c
             - >
               set -x;
-              while [ $(curl -sw '%{http_code}' "http://{{ include "clearml.fullname" $ }}-apiserver:{{ $.Values.apiserver.service.port }}/debug.ping" -o /dev/null) -ne 200 ] ; do
+              while [ $(curl -sw '%{http_code}' "{{ include "clearml.serviceApi" $ }}/debug.ping" -o /dev/null) -ne 200 ] ; do
                 echo "waiting for apiserver" ;
                 sleep 5 ;
               done
@@ -56,11 +56,11 @@ spec:
                 {{ .nvidiaGpusPerAgent }}
           env:
           - name: CLEARML_API_HOST
-            value: 'http://{{ include "clearml.fullname" $ }}-apiserver:{{ $.Values.apiserver.service.port }}'
+            value: {{ include "clearml.serviceApi" $ }}
           - name: CLEARML_WEB_HOST
-            value: 'http://{{ include "clearml.fullname" $ }}-webserver:{{ $.Values.webserver.service.port }}'
+            value: {{ include "clearml.serviceApp" $ }}
           - name: CLEARML_FILES_HOST
-            value: 'http://{{ include "clearml.fullname" $ }}-fileserver:{{ $.Values.fileserver.service.port }}'
+            value: {{ include "clearml.serviceFiles" $ }}
           - name: CLEARML_AGENT_GIT_USER
             value: {{ .clearmlGitUser}}
           - name: CLEARML_AGENT_GIT_PASS
