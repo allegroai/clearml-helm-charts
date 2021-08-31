@@ -14,11 +14,15 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if .Values.ingress.tls.secretName }}
+  {{- if .Values.ingress.tls.enabled }}
   tls:
     - hosts:
         - "{{ .Values.ingress.hostPrefixFiles }}.{{ .Values.ingress.host }}"
-      secretName: "{{ .Values.ingress.name }}-{{ .Values.ingress.hostPrefixApi }}"
+      {{- if not .Values.ingress.tls.secretName }}
+      secretName: "{{ .Values.ingress.name }}-{{ .Values.ingress.hostPrefixFiles }}"
+      {{- else }}
+      secretName: "{{ .Values.ingress.tls.secretName }}"
+      {{- end }}
   {{- end }}
   rules:
     - host: "{{ .Values.ingress.hostPrefixFiles }}.{{ .Values.ingress.host }}"
