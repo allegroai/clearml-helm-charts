@@ -9,7 +9,6 @@ spec:
   ports:
     - port: {{ .Values.webserver.service.port }}
       targetPort: {{ .Values.webserver.service.port }}
-      nodePort: 30080
       protocol: TCP
   selector:
     {{- include "clearml.selectorLabelsWebServer" . | nindent 4 }}
