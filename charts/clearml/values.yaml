@@ -53,12 +53,16 @@ apiserver:
 
   affinity: {}
 
-  # Optional: used in pvc-apiserver containing optional server configuration files
-  storage:
-    enableConfigVolume: false
-    config:
-      class: "standard"
-      size: 1Gi
+  additionalConfigs: {}
+    # services.conf: |
+    #   tasks {
+    #     non_responsive_tasks_watchdog {
+    #       # In-progress tasks that haven't been updated for at least 'value' seconds will be stopped by the watchdog
+    #       threshold_sec: 21000
+    #       # Watchdog will sleep for this number of seconds after each cycle
+    #       watch_interval_sec: 900
+    #     }
+    #   }
 
 fileserver:
   service:

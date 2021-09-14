@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 2.2.2](https://img.shields.io/badge/Version-2.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
+![Version: 2.3.0](https://img.shields.io/badge/Version-2.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
 
 MLOps platform
 
@@ -180,6 +180,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentservices.storage.data.class | string | `"standard"` |  |
 | agentservices.storage.data.size | string | `"50Gi"` |  |
 | agentservices.tolerations | list | `[]` |  |
+| apiserver.additionalConfigs | object | `{}` |  |
 | apiserver.affinity | object | `{}` |  |
 | apiserver.configDir | string | `"/opt/clearml/config"` |  |
 | apiserver.extraEnvs | list | `[]` |  |
@@ -197,9 +198,6 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | apiserver.resources | object | `{}` |  |
 | apiserver.service.port | int | `8008` |  |
 | apiserver.service.type | string | `"NodePort"` |  |
-| apiserver.storage.config.class | string | `"standard"` |  |
-| apiserver.storage.config.size | string | `"1Gi"` |  |
-| apiserver.storage.enableConfigVolume | bool | `false` |  |
 | apiserver.tolerations | list | `[]` |  |
 | clearml.defaultCompany | string | `"d1bd92a3b039400cbafc60a7a5b1e52b"` |  |
 | elasticsearch.clusterHealthCheckParams | string | `"wait_for_status=yellow&timeout=1s"` |  |
