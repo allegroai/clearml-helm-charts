@@ -18,12 +18,6 @@ spec:
       labels:
         {{- include "clearml.selectorLabelsApiServer" . | nindent 8 }}
     spec:
-      {{- if .Values.apiserver.storage.enableConfigVolume }}
-      volumes:
-        - name: apiserver-config
-          persistentVolumeClaim:
-            claimName: {{ include "clearml.fullname" . }}-apiserver-config
-      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.apiserver.image.repository }}:{{ .Values.apiserver.image.tag | default .Chart.AppVersion }}"
@@ -101,13 +95,19 @@ spec:
             httpGet:
               path: /debug.ping
               port: 8008
-          {{- if .Values.apiserver.storage.enableConfigVolume }}
+          {{- if .Values.apiserver.additionalConfigs }}
           volumeMounts:
            - name: apiserver-config
              mountPath: /opt/clearml/config
           {{- end }}
           resources:
             {{- toYaml .Values.apiserver.resources | nindent 12 }}
+      {{- if .Values.apiserver.additionalConfigs }}
+      volumes:
+        - name: apiserver-config
+          configMap:
+            name: "{{ include "clearml.fullname" . }}-apiserver-configmap"
+      {{- end }}
       {{- with .Values.apiserver.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
