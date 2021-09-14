@@ -107,7 +107,7 @@ Create the name of the App service to use
 {{- printf "%s%s%s" "http://" .Values.ingress.hostPrefixApp .Values.ingress.host }}
 {{- end }}
 {{- else }}
-{{- printf "%s%s%s%s" "http://" (include "clearml.fullname" .) "-webserver:" (.Values.webserver.service.port | quote) }}
+{{- printf "%s%s%s%s" "http://" (include "clearml.fullname" .) "-webserver:" (.Values.webserver.service.port | toString) }}
 {{- end }}
 {{- end }}
 
@@ -122,7 +122,7 @@ Create the name of the Api service to use
 {{- printf "%s%s%s" "http://" .Values.ingress.hostPrefixApi .Values.ingress.host }}
 {{- end }}
 {{- else }}
-{{- printf "%s%s%s%s" "http://" (include "clearml.fullname" .) "-apiserver:" (.Values.apiserver.service.port | quote) }}
+{{- printf "%s%s%s%s" "http://" (include "clearml.fullname" .) "-apiserver:" (.Values.apiserver.service.port | toString) }}
 {{- end }}
 {{- end }}
 
@@ -137,6 +137,6 @@ Create the name of the Files service to use
 {{- printf "%s%s%s" "http://" .Values.ingress.hostPrefixFiles .Values.ingress.host }}
 {{- end }}
 {{- else }}
-{{- printf "%s%s%s%s" "http://" (include "clearml.fullname" .) "-fileserver:" (.Values.fileserver.service.port | quote) }}
+{{- printf "%s%s%s%s" "http://" (include "clearml.fullname" .) "-fileserver:" (.Values.fileserver.service.port | toString) }}
 {{- end }}
 {{- end }}
