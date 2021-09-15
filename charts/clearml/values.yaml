@@ -5,13 +5,13 @@ ingress:
   name: clearml-server-ingress
   annotations: {}
   app:
-    name: "app.clearml.127-0-0-1.nip.io"
+    hostName: "app.clearml.127-0-0-1.nip.io"
     tlsSecretName: ""
   api:
-    name: "api.clearml.127-0-0-1.nip.io"
+    hostName: "api.clearml.127-0-0-1.nip.io"
     tlsSecretName: ""
   files:
-    name: "files.clearml.127-0-0-1.nip.io"
+    hostName: "files.clearml.127-0-0-1.nip.io"
     tlsSecretName: ""
 
 apiserver:

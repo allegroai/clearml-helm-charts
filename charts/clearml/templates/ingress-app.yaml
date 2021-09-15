@@ -19,11 +19,11 @@ spec:
   {{- if .Values.ingress.app.tlsSecretName }}
   tls:
     - hosts:
-        - {{ .Values.ingress.app.hostname }}
+        - {{ .Values.ingress.app.hostName }}
       secretName: {{ .Values.ingress.app.tlsSecretName }}
   {{- end }}
   rules:
-    - host: {{ .Values.ingress.app.hostname }}
+    - host: {{ .Values.ingress.app.hostName }}
       http:
         paths:
           - path: "/"
