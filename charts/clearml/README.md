@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 2.4.0](https://img.shields.io/badge/Version-2.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
+![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
 
 MLOps platform
 
@@ -252,13 +252,14 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | fileserver.storage.data.size | string | `"50Gi"` |  |
 | fileserver.tolerations | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
+| ingress.api.name | string | `"api.clearml.127-0-0-1.nip.io"` |  |
+| ingress.api.tlsSecretName | string | `""` |  |
+| ingress.app.name | string | `"app.clearml.127-0-0-1.nip.io"` |  |
+| ingress.app.tlsSecretName | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
-| ingress.host | string | `""` |  |
-| ingress.hostPrefixApi | string | `"api."` |  |
-| ingress.hostPrefixApp | string | `"app."` |  |
-| ingress.hostPrefixFiles | string | `"files."` |  |
+| ingress.files.name | string | `"files.clearml.127-0-0-1.nip.io"` |  |
+| ingress.files.tlsSecretName | string | `""` |  |
 | ingress.name | string | `"clearml-server-ingress"` |  |
-| ingress.tls.secretName | string | `""` |  |
 | mongodb.architecture | string | `"standalone"` |  |
 | mongodb.auth.enabled | bool | `false` |  |
 | mongodb.enabled | bool | `true` |  |
