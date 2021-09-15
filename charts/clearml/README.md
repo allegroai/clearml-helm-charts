@@ -252,12 +252,12 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | fileserver.storage.data.size | string | `"50Gi"` |  |
 | fileserver.tolerations | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
-| ingress.api.name | string | `"api.clearml.127-0-0-1.nip.io"` |  |
+| ingress.api.hostName | string | `"api.clearml.127-0-0-1.nip.io"` |  |
 | ingress.api.tlsSecretName | string | `""` |  |
-| ingress.app.name | string | `"app.clearml.127-0-0-1.nip.io"` |  |
+| ingress.app.hostName | string | `"app.clearml.127-0-0-1.nip.io"` |  |
 | ingress.app.tlsSecretName | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
-| ingress.files.name | string | `"files.clearml.127-0-0-1.nip.io"` |  |
+| ingress.files.hostName | string | `"files.clearml.127-0-0-1.nip.io"` |  |
 | ingress.files.tlsSecretName | string | `""` |  |
 | ingress.name | string | `"clearml-server-ingress"` |  |
 | mongodb.architecture | string | `"standalone"` |  |
