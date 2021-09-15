@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 2.3.0](https://img.shields.io/badge/Version-2.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
+![Version: 2.4.0](https://img.shields.io/badge/Version-2.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
 
 MLOps platform
 
@@ -121,6 +121,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentGroups.agent-group-cpu.clearmlGitPassword | string | `nil` |  |
 | agentGroups.agent-group-cpu.clearmlGitUser | string | `nil` |  |
 | agentGroups.agent-group-cpu.clearmlSecretKey | string | `nil` |  |
+| agentGroups.agent-group-cpu.enabled | bool | `true` |  |
 | agentGroups.agent-group-cpu.image.pullPolicy | string | `"IfNotPresent"` |  |
 | agentGroups.agent-group-cpu.image.repository | string | `"ubuntu"` |  |
 | agentGroups.agent-group-cpu.image.tag | string | `"18.04"` |  |
@@ -144,6 +145,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentGroups.agent-group-gpu.clearmlGitPassword | string | `nil` |  |
 | agentGroups.agent-group-gpu.clearmlGitUser | string | `nil` |  |
 | agentGroups.agent-group-gpu.clearmlSecretKey | string | `nil` |  |
+| agentGroups.agent-group-gpu.enabled | bool | `true` |  |
 | agentGroups.agent-group-gpu.image.pullPolicy | string | `"IfNotPresent"` |  |
 | agentGroups.agent-group-gpu.image.repository | string | `"nvidia/cuda"` |  |
 | agentGroups.agent-group-gpu.image.tag | string | `"11.0-base-ubuntu18.04"` |  |

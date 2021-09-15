@@ -188,6 +188,7 @@ agentservices:
 
 agentGroups:
   agent-group-cpu:
+    enabled: true
     name: agent-group-cpu
     replicaCount: 1
     updateStrategy: Recreate
@@ -221,6 +222,7 @@ agentGroups:
     affinity: {}
 
   agent-group-gpu:
+    enabled: true
     name: agent-group-gpu
     replicaCount: 0
     updateStrategy: Recreate
