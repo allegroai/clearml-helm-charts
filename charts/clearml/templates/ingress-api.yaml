@@ -23,12 +23,20 @@ spec:
       secretName: {{ .Values.ingress.api.tlsSecretName }}
   {{- end }}
   rules:
-    - host: {{ .Values.ingress.api.hostName }}
-      http:
-        paths:
-          - path: "/"
-            pathType: Prefix
-            backend:
-              serviceName: {{ include "clearml.fullname" . }}-apiserver
-              servicePort: {{ .Values.apiserver.service.port }}
+  - host: {{ .Values.ingress.api.hostName }}
+    http:
+      paths:
+      - path: "/"
+  {{ if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ include "clearml.fullname" . }}-apiserver
+            port:
+              number: {{ .Values.apiserver.service.port }}
+  {{ else }}
+        backend:
+          serviceName: {{ include "clearml.fullname" . }}-apiserver
+          servicePort: {{ .Values.apiserver.service.port }}
+  {{ end }}
 {{- end }}
