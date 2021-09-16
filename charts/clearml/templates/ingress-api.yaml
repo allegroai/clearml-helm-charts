@@ -1,5 +1,4 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "clearml.fullname" . -}}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1
 {{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -17,14 +16,14 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if .Values.ingress.tls.secretName }}
+  {{- if .Values.ingress.api.tlsSecretName }}
   tls:
     - hosts:
-        - "{{ .Values.ingress.hostPrefixApi }}{{ .Values.ingress.host }}"
-      secretName: {{ .Values.ingress.tls.secretName }}
+        - {{ .Values.ingress.api.hostName }}
+      secretName: {{ .Values.ingress.api.tlsSecretName }}
   {{- end }}
   rules:
-    - host: "{{ .Values.ingress.hostPrefixApi }}{{ .Values.ingress.host }}"
+    - host: {{ .Values.ingress.api.hostName }}
       http:
         paths:
           - path: "/"
