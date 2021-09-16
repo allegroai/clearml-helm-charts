@@ -102,9 +102,9 @@ Create the name of the App service to use
 {{- define "clearml.serviceApp" -}}
 {{- if .Values.ingress.enabled }}
 {{- if .Values.ingress.app.tlsSecretName }}
-{{- printf "%s%s%s" "https://" .Values.ingress.app.hostName }}
+{{- printf "%s%s" "https://" .Values.ingress.app.hostName }}
 {{- else }}
-{{- printf "%s%s%s" "http://" .Values.ingress.app.hostName }}
+{{- printf "%s%s" "http://" .Values.ingress.app.hostName }}
 {{- end }}
 {{- else }}
 {{- printf "%s%s%s%s" "http://" (include "clearml.fullname" .) "-webserver:" (.Values.webserver.service.port | toString) }}
@@ -117,9 +117,9 @@ Create the name of the Api service to use
 {{- define "clearml.serviceApi" -}}
 {{- if .Values.ingress.enabled }}
 {{- if .Values.ingress.api.tlsSecretName }}
-{{- printf "%s%s%s" "https://" .Values.ingress.api.hostName }}
+{{- printf "%s%s" "https://" .Values.ingress.api.hostName }}
 {{- else }}
-{{- printf "%s%s%s" "http://" .Values.ingress.api.hostName }}
+{{- printf "%s%s" "http://" .Values.ingress.api.hostName }}
 {{- end }}
 {{- else }}
 {{- printf "%s%s%s%s" "http://" (include "clearml.fullname" .) "-apiserver:" (.Values.apiserver.service.port | toString) }}
@@ -132,9 +132,9 @@ Create the name of the Files service to use
 {{- define "clearml.serviceFiles" -}}
 {{- if .Values.ingress.enabled }}
 {{- if .Values.ingress.files.tlsSecretName }}
-{{- printf "%s%s%s" "https://" .Values.ingress.files.hostName }}
+{{- printf "%s%s" "https://" .Values.ingress.files.hostName }}
 {{- else }}
-{{- printf "%s%s%s" "http://" .Values.ingress.files.hostName }}
+{{- printf "%s%s" "http://" .Values.ingress.files.hostName }}
 {{- end }}
 {{- else }}
 {{- printf "%s%s%s%s" "http://" (include "clearml.fullname" .) "-fileserver:" (.Values.fileserver.service.port | toString) }}
