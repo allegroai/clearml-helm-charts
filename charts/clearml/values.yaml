@@ -4,12 +4,15 @@ ingress:
   enabled: false
   name: clearml-server-ingress
   annotations: {}
-  host: ""
-  hostPrefixApp: "app."
-  hostPrefixApi: "api."
-  hostPrefixFiles: "files."
-  tls:
-    secretName: ""
+  app:
+    hostName: "app.clearml.127-0-0-1.nip.io"
+    tlsSecretName: ""
+  api:
+    hostName: "api.clearml.127-0-0-1.nip.io"
+    tlsSecretName: ""
+  files:
+    hostName: "files.clearml.127-0-0-1.nip.io"
+    tlsSecretName: ""
 
 apiserver:
   prepopulateEnabled: "true"
