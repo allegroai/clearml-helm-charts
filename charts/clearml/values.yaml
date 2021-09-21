@@ -141,6 +141,7 @@ webserver:
   affinity: {}
 
 agentservices:
+  enabled: false
   clearmlHostIp: null
   agentVersion: ""
   clearmlWebHost: null
