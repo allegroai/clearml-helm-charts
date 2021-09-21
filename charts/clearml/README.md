@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.0.3](https://img.shields.io/badge/Version-3.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
+![Version: 3.0.4](https://img.shields.io/badge/Version-3.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
 
 MLOps platform
 
@@ -170,6 +170,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentservices.clearmlHostIp | string | `nil` |  |
 | agentservices.clearmlWebHost | string | `nil` |  |
 | agentservices.clearmlWorkerId | string | `"clearml-services"` |  |
+| agentservices.enabled | bool | `false` |  |
 | agentservices.extraEnvs | list | `[]` |  |
 | agentservices.googleCredentials | string | `nil` |  |
 | agentservices.image.pullPolicy | string | `"IfNotPresent"` |  |

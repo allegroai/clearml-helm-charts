@@ -1,3 +1,4 @@
+{{- if .Values.agentservices.enabled }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -11,3 +12,4 @@ spec:
     requests:
       storage: {{ .Values.agentservices.storage.data.size | quote }}
   storageClassName: {{ .Values.agentservices.storage.data.class | quote }}
+{{- end }}
