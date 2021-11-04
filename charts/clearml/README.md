@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.0.4](https://img.shields.io/badge/Version-3.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
+![Version: 3.0.5](https://img.shields.io/badge/Version-3.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
 
 MLOps platform
 
@@ -281,6 +281,12 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | redis.master.persistence.size | string | `"5Gi"` |  |
 | redis.master.port | int | `6379` |  |
 | redis.usePassword | bool | `false` |  |
+| secret.authToken | string | `"1SCf0ov3Nm544Td2oZ0gXSrsNx5XhMWdVlKz1tOgcx158bD5RV"` |  |
+| secret.credentials.apiserver.accessKey | string | `"5442F3443MJMORWZA3ZH"` |  |
+| secret.credentials.apiserver.secretKey | string | `"BxapIRo9ZINi8x25CRxz8Wdmr2pQjzuWVB4PNASZqCtTyWgWVQ"` |  |
+| secret.credentials.tests.accessKey | string | `"ENP39EQM4SLACGD5FXB7"` |  |
+| secret.credentials.tests.secretKey | string | `"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"` |  |
+| secret.httpSession | string | `"9Tw20RbhJ1bLBiHEOWXvhplKGUbTgLzAtwFN2oLQvWwS0uRpD5"` |  |
 | webserver.affinity | object | `{}` |  |
 | webserver.extraEnvs | list | `[]` |  |
 | webserver.image.pullPolicy | string | `"IfNotPresent"` |  |
