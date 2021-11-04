@@ -14,6 +14,17 @@ ingress:
     hostName: "files.clearml.127-0-0-1.nip.io"
     tlsSecretName: ""
 
+secret:
+  httpSession: "9Tw20RbhJ1bLBiHEOWXvhplKGUbTgLzAtwFN2oLQvWwS0uRpD5"
+  authToken: "1SCf0ov3Nm544Td2oZ0gXSrsNx5XhMWdVlKz1tOgcx158bD5RV"
+  credentials:
+    apiserver:
+      accessKey: "5442F3443MJMORWZA3ZH"
+      secretKey: "BxapIRo9ZINi8x25CRxz8Wdmr2pQjzuWVB4PNASZqCtTyWgWVQ"
+    tests:
+      accessKey: "ENP39EQM4SLACGD5FXB7"
+      secretKey: "lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"
+
 apiserver:
   prepopulateEnabled: "true"
   prepopulateZipFiles: "/opt/clearml/db-pre-populate"
