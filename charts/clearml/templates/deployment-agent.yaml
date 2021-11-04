@@ -17,8 +17,9 @@ spec:
       {{- include "clearml.selectorLabelsAgent" $ | nindent 6 }}
   template:
     metadata:
-      {{- with .podAnnotations }}
       annotations:
+        checksum/secret: {{ include (print $.Template.BasePath "/secrets.yaml") $ | sha256sum }}
+      {{- with .podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
