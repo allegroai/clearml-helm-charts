@@ -11,8 +11,9 @@ spec:
       {{- include "clearml.selectorLabelsApiServer" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.apiserver.podAnnotations }}
       annotations:
+        checksum/secret: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
+      {{- with .Values.apiserver.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
