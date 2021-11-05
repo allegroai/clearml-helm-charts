@@ -199,9 +199,9 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | apiserver.readinessDelay | int | `60` |  |
 | apiserver.replicaCount | int | `1` |  |
 | apiserver.resources | object | `{}` |  |
-| apiserver.service.nodePort | int | `30008` |  |
+| apiserver.service.nodePort | int | `30008` | If service.type set to NodePort, this will be set to service's nodePort field. If service.type is set to others, this field will be ignored |
 | apiserver.service.port | int | `8008` |  |
-| apiserver.service.type | string | `"NodePort"` |  |
+| apiserver.service.type | string | `"NodePort"` | This will set to service's spec.type field |
 | apiserver.tolerations | list | `[]` |  |
 | clearml.defaultCompany | string | `"d1bd92a3b039400cbafc60a7a5b1e52b"` |  |
 | elasticsearch.clusterHealthCheckParams | string | `"wait_for_status=yellow&timeout=1s"` |  |
@@ -248,9 +248,9 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | fileserver.podAnnotations | object | `{}` |  |
 | fileserver.replicaCount | int | `1` |  |
 | fileserver.resources | object | `{}` |  |
-| fileserver.service.nodePort | int | `30081` |  |
+| fileserver.service.nodePort | int | `30081` | If service.type set to NodePort, this will be set to service's nodePort field. If service.type is set to others, this field will be ignored |
 | fileserver.service.port | int | `8081` |  |
-| fileserver.service.type | string | `"NodePort"` |  |
+| fileserver.service.type | string | `"NodePort"` | This will set to service's spec.type field |
 | fileserver.storage.data.class | string | `"standard"` |  |
 | fileserver.storage.data.size | string | `"50Gi"` |  |
 | fileserver.tolerations | list | `[]` |  |
@@ -283,12 +283,12 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | redis.master.persistence.size | string | `"5Gi"` |  |
 | redis.master.port | int | `6379` |  |
 | redis.usePassword | bool | `false` |  |
-| secret.authToken | string | `"1SCf0ov3Nm544Td2oZ0gXSrsNx5XhMWdVlKz1tOgcx158bD5RV"` |  |
-| secret.credentials.apiserver.accessKey | string | `"5442F3443MJMORWZA3ZH"` |  |
-| secret.credentials.apiserver.secretKey | string | `"BxapIRo9ZINi8x25CRxz8Wdmr2pQjzuWVB4PNASZqCtTyWgWVQ"` |  |
-| secret.credentials.tests.accessKey | string | `"ENP39EQM4SLACGD5FXB7"` |  |
-| secret.credentials.tests.secretKey | string | `"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"` |  |
-| secret.httpSession | string | `"9Tw20RbhJ1bLBiHEOWXvhplKGUbTgLzAtwFN2oLQvWwS0uRpD5"` |  |
+| secret.authToken | string | `"1SCf0ov3Nm544Td2oZ0gXSrsNx5XhMWdVlKz1tOgcx158bD5RV"` | Set for auth_token field |
+| secret.credentials.apiserver.accessKey | string | `"5442F3443MJMORWZA3ZH"` | Set for apiserver_key field |
+| secret.credentials.apiserver.secretKey | string | `"BxapIRo9ZINi8x25CRxz8Wdmr2pQjzuWVB4PNASZqCtTyWgWVQ"` | Set for apiserver_secret field |
+| secret.credentials.tests.accessKey | string | `"ENP39EQM4SLACGD5FXB7"` | Set for tests_user_key field |
+| secret.credentials.tests.secretKey | string | `"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"` | Set for tests_user_secret field |
+| secret.httpSession | string | `"9Tw20RbhJ1bLBiHEOWXvhplKGUbTgLzAtwFN2oLQvWwS0uRpD5"` | Set for http_session field |
 | webserver.affinity | object | `{}` |  |
 | webserver.extraEnvs | list | `[]` |  |
 | webserver.image.pullPolicy | string | `"IfNotPresent"` |  |
@@ -298,7 +298,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | webserver.podAnnotations | object | `{}` |  |
 | webserver.replicaCount | int | `1` |  |
 | webserver.resources | object | `{}` |  |
-| webserver.service.nodePort | int | `30080` |  |
+| webserver.service.nodePort | int | `30080` | If service.type set to NodePort, this will be set to service's nodePort field. If service.type is set to others, this field will be ignored |
 | webserver.service.port | int | `80` |  |
-| webserver.service.type | string | `"NodePort"` |  |
+| webserver.service.type | string | `"NodePort"` | This will set to service's spec.type field |
 | webserver.tolerations | list | `[]` |  |
