@@ -199,6 +199,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | apiserver.readinessDelay | int | `60` |  |
 | apiserver.replicaCount | int | `1` |  |
 | apiserver.resources | object | `{}` |  |
+| apiserver.service.nodePort | int | `30008` |  |
 | apiserver.service.port | int | `8008` |  |
 | apiserver.service.type | string | `"NodePort"` |  |
 | apiserver.tolerations | list | `[]` |  |
@@ -247,6 +248,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | fileserver.podAnnotations | object | `{}` |  |
 | fileserver.replicaCount | int | `1` |  |
 | fileserver.resources | object | `{}` |  |
+| fileserver.service.nodePort | int | `30081` |  |
 | fileserver.service.port | int | `8081` |  |
 | fileserver.service.type | string | `"NodePort"` |  |
 | fileserver.storage.data.class | string | `"standard"` |  |
@@ -296,6 +298,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | webserver.podAnnotations | object | `{}` |  |
 | webserver.replicaCount | int | `1` |  |
 | webserver.resources | object | `{}` |  |
+| webserver.service.nodePort | int | `30080` |  |
 | webserver.service.port | int | `80` |  |
 | webserver.service.type | string | `"NodePort"` |  |
 | webserver.tolerations | list | `[]` |  |

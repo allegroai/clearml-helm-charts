@@ -9,7 +9,9 @@ spec:
   ports:
     - port: {{ .Values.fileserver.service.port }}
       targetPort: {{ .Values.fileserver.service.port }}
-      nodePort: 30081
+{{- if eq .Values.fileserver.service.type "NodePort" }}
+      nodePort: {{ .Values.fileserver.service.nodePort }}
+{{- end }}
       protocol: TCP
   selector:
     {{- include "clearml.selectorLabelsFileServer" . | nindent 4 }}

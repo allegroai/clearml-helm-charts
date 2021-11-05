@@ -34,6 +34,7 @@ apiserver:
   service:
     type: NodePort
     port: 8008
+    nodePort: 30008
 
   livenessDelay: 60
   readinessDelay: 60
@@ -82,6 +83,7 @@ fileserver:
   service:
     type: NodePort
     port: 8081
+    nodePort: 30081
 
   replicaCount: 1
 
@@ -123,6 +125,7 @@ webserver:
   service:
     type: NodePort
     port: 80
+    nodePort: 30080
 
   replicaCount: 1
 
