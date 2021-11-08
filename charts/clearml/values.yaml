@@ -15,14 +15,20 @@ ingress:
     tlsSecretName: ""
 
 secret:
+  # -- Set for http_session field
   httpSession: "9Tw20RbhJ1bLBiHEOWXvhplKGUbTgLzAtwFN2oLQvWwS0uRpD5"
+  # -- Set for auth_token field
   authToken: "1SCf0ov3Nm544Td2oZ0gXSrsNx5XhMWdVlKz1tOgcx158bD5RV"
   credentials:
     apiserver:
+      # -- Set for apiserver_key field
       accessKey: "5442F3443MJMORWZA3ZH"
+      # -- Set for apiserver_secret field
       secretKey: "BxapIRo9ZINi8x25CRxz8Wdmr2pQjzuWVB4PNASZqCtTyWgWVQ"
     tests:
+      # -- Set for tests_user_key field
       accessKey: "ENP39EQM4SLACGD5FXB7"
+      # -- Set for tests_user_secret field
       secretKey: "lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"
 
 apiserver:
@@ -32,8 +38,12 @@ apiserver:
   configDir: /opt/clearml/config
 
   service:
+    # -- This will set to service's spec.type field
     type: NodePort
     port: 8008
+    # -- If service.type set to NodePort, this will be set to service's nodePort field.
+    # If service.type is set to others, this field will be ignored
+    nodePort: 30008
 
   livenessDelay: 60
   readinessDelay: 60
@@ -80,8 +90,12 @@ apiserver:
 
 fileserver:
   service:
+    # -- This will set to service's spec.type field
     type: NodePort
     port: 8081
+    # -- If service.type set to NodePort, this will be set to service's nodePort field.
+    # If service.type is set to others, this field will be ignored
+    nodePort: 30081
 
   replicaCount: 1
 
@@ -121,8 +135,12 @@ webserver:
   extraEnvs: []
 
   service:
+    # -- This will set to service's spec.type field
     type: NodePort
     port: 80
+    # -- If service.type set to NodePort, this will be set to service's nodePort field.
+    # If service.type is set to others, this field will be ignored
+    nodePort: 30080
 
   replicaCount: 1
 

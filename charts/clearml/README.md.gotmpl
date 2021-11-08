@@ -36,14 +36,20 @@ apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
 - role: control-plane
   extraPortMappings:
+  # API server's default nodePort is 30008. If you customize it in helm values by
+  # `apiserver.service.nodePort`, `containerPort` should match it
   - containerPort: 30008
     hostPort: 30008
     listenAddress: "127.0.0.1"
     protocol: TCP
+  # Web server's default nodePort is 30080. If you customize it in helm values by
+  # `webserver.service.nodePort`, `containerPort` should match it
   - containerPort: 30080
     hostPort: 30080
     listenAddress: "127.0.0.1"
     protocol: TCP
+  # File server's default nodePort is 30081. If you customize it in helm values by
+  # `fileserver.service.nodePort`, `containerPort` should match it
   - containerPort: 30081
     hostPort: 30081
     listenAddress: "127.0.0.1"
