@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.0.4](https://img.shields.io/badge/Version-3.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
+![Version: 3.1.0](https://img.shields.io/badge/Version-3.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
 
 MLOps platform
 
@@ -238,6 +238,12 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | elasticsearch.roles.remote_cluster_client | string | `"true"` |  |
 | elasticsearch.volumeClaimTemplate.accessModes[0] | string | `"ReadWriteOnce"` |  |
 | elasticsearch.volumeClaimTemplate.resources.requests.storage | string | `"50Gi"` |  |
+| externalServices.elasticsearchHost | string | `""` | Existing ElasticSearch Hostname to use if elasticsearch.enabled is false |
+| externalServices.elasticsearchPort | int | `9200` | Existing ElasticSearch Port to use if elasticsearch.enabled is false |
+| externalServices.mongodbHost | string | `""` | Existing MongoDB Hostname to use if elasticsearch.enabled is false |
+| externalServices.mongodbPort | int | `27017` | Existing MongoDB Port to use if elasticsearch.enabled is false |
+| externalServices.redisHost | string | `""` | Existing Redis Hostname to use if elasticsearch.enabled is false |
+| externalServices.redisPort | int | `6379` | Existing Redis Port to use if elasticsearch.enabled is false |
 | fileserver.affinity | object | `{}` |  |
 | fileserver.extraEnvs | list | `[]` |  |
 | fileserver.image.pullPolicy | string | `"IfNotPresent"` |  |
