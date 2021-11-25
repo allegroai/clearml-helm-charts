@@ -259,6 +259,20 @@ agentGroups:
 
     affinity: {}
 
+externalServices:
+  # -- Existing ElasticSearch Hostname to use if elasticsearch.enabled is false
+  elasticsearchHost: ""
+  # -- Existing ElasticSearch Port to use if elasticsearch.enabled is false
+  elasticsearchPort: 9200
+  # -- Existing MongoDB Hostname to use if elasticsearch.enabled is false
+  mongodbHost: ""
+  # -- Existing MongoDB Port to use if elasticsearch.enabled is false
+  mongodbPort: 27017
+  # -- Existing Redis Hostname to use if elasticsearch.enabled is false
+  redisHost: ""
+  # -- Existing Redis Port to use if elasticsearch.enabled is false
+  redisPort: 6379
+
 redis:  # configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml
   enabled: true
   usePassword: false
