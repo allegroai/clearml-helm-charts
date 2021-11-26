@@ -29,17 +29,41 @@ spec:
               protocol: TCP
           env:
           - name: CLEARML_ELASTIC_SERVICE_HOST
+          {{- if .Values.elasticsearch.enabled }}
             value: "{{ .Values.elasticsearch.clusterName }}-master"
+          {{- else }}
+            value: "{{ .Values.externalServices.elasticsearchHost }}"
+          {{- end }}
           - name: CLEARML_ELASTIC_SERVICE_PORT
+          {{- if .Values.elasticsearch.enabled }}
             value: "{{ .Values.elasticsearch.httpPort }}"
+          {{- else }}
+            value: "{{ .Values.externalServices.elasticsearchPort }}"
+          {{- end }}
           - name: CLEARML_MONGODB_SERVICE_HOST
+          {{- if .Values.mongodb.enabled }}
             value: "{{ tpl .Values.mongodb.service.name . }}"
+          {{- else }}
+            value: "{{ .Values.externalServices.mongodbHost }}"
+          {{- end }}
           - name: CLEARML_MONGODB_SERVICE_PORT
+          {{- if .Values.mongodb.enabled }}
             value: "{{ .Values.mongodb.service.port }}"
+          {{- else }}
+            value: "{{ .Values.externalServices.mongodbPort }}"
+          {{- end }}
           - name: CLEARML_REDIS_SERVICE_HOST
+          {{- if .Values.redis.enabled }}
             value: "{{ tpl .Values.redis.master.name . }}"
+          {{- else }}
+            value: "{{ .Values.externalServices.redisHost }}"
+          {{- end }}
           - name: CLEARML_REDIS_SERVICE_PORT
+          {{- if .Values.redis.enabled }}
             value: "{{ .Values.redis.master.port }}"
+          {{- else }}
+            value: "{{ .Values.externalServices.redisPort }}"
+          {{- end }}
           - name: CLEARML__APISERVER__PRE_POPULATE__ENABLED
             value: "{{ .Values.apiserver.prepopulateEnabled }}"
           - name: CLEARML__APISERVER__PRE_POPULATE__ZIP_FILES
