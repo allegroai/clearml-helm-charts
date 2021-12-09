@@ -71,7 +71,7 @@ spec:
           - name: CLEARML_SERVER_DEPLOYMENT_TYPE
             value: "helm-cloud"
           - name: CLEARML__APISERVER__AUTH__COOKIES__MAX_AGE
-            value: "{{ .Values.apiserver.authCoockiesMaxAge }}"
+            value: "{{ .Values.apiserver.authCookiesMaxAge }}"
           - name: CLEARML_CONFIG_DIR
             value: /opt/clearml/config
           - name: CLEARML__APISERVER__DEFAULT_COMPANY
