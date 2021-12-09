@@ -19,6 +19,7 @@ jobs:
     needs:
       - lint-docs
     strategy:
+      max-parallel: 1
       matrix:
         k8s:
           - v1.21.2
