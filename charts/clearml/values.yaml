@@ -38,7 +38,7 @@ apiserver:
   configDir: /opt/clearml/config
 
   # -- Amount of seconds the authorization cookie will last in user browser
-  authCoockiesMaxAge: 864000
+  authCookiesMaxAge: 864000
 
   service:
     # -- This will set to service's spec.type field
