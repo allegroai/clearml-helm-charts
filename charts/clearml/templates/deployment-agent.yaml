@@ -94,7 +94,7 @@ spec:
               apt-get install -y curl python3-pip git;
               python3 -m pip install -U pip ;
               python3 -m pip install clearml-agent{{ .agentVersion}} ;
-              CLEARML_AGENT_K8S_HOST_MOUNT=/root/.clearml:/root/.clearml clearml-agent daemon --queue {{ .queues}}"
+              CLEARML_AGENT_K8S_HOST_MOUNT=/root/.clearml:/root/.clearml clearml-agent daemon --foreground --queue {{ .queues}}"
           {{ if .clearmlConfig }}
           volumeMounts:
            - name: agent-clearml-conf-volume
