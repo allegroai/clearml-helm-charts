@@ -337,7 +337,7 @@ mongodb:  # configuration from https://github.com/bitnami/charts/blob/master/bit
     port: 27017
     portName: mongo-service
 
-elasticsearch:  # configuration from https://github.com/elastic/helm-charts/blob/7.10/elasticsearch/values.yaml
+elasticsearch:  # configuration from https://github.com/elastic/helm-charts/blob/7.16/elasticsearch/values.yaml
   enabled: true
   httpPort: 9200
   roles:
