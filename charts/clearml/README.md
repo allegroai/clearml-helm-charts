@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.2.2](https://img.shields.io/badge/Version-3.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
+![Version: 3.3.0](https://img.shields.io/badge/Version-3.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
 
 MLOps platform
 
@@ -107,9 +107,9 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | mongodb | ~10.3.2 |
-| https://charts.bitnami.com/bitnami | redis | ~10.9.0 |
-| https://helm.elastic.co | elasticsearch | ~7.10.1 |
+| https://charts.bitnami.com/bitnami | mongodb | 10.3.4 |
+| https://charts.bitnami.com/bitnami | redis | 10.9.0 |
+| https://helm.elastic.co | elasticsearch | 7.16.2 |
 
 ## Values
 
