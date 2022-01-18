@@ -7,12 +7,15 @@ ingress:
   app:
     hostName: "app.clearml.127-0-0-1.nip.io"
     tlsSecretName: ""
+    annotations: {}
   api:
     hostName: "api.clearml.127-0-0-1.nip.io"
     tlsSecretName: ""
+    annotations: {}
   files:
     hostName: "files.clearml.127-0-0-1.nip.io"
     tlsSecretName: ""
+    annotations: {}
 
 secret:
   # -- Set for http_session field
