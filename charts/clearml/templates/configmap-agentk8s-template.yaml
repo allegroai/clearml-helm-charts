@@ -1,0 +1,35 @@
+{{- if .Values.agentk8sglue.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k8sagent-pod-template
+data:
+  template.yaml: |
+    apiVersion: v1
+    metadata:
+      namespace: {{ .Release.namespace }}
+    spec:
+      containers:
+      - env: 
+        - name: CLEARML_API_HOST
+          value: "http://{{ include "clearml.fullname" . }}-apiserver:{{ .Values.clearml.apiserver.service.port }}"
+        - name: CLEARML_WEB_HOST
+          value: "http://{{ include "clearml.fullname" . }}-webserver"
+        - name: CLEARML_FILES_HOST
+          value: "http://{{ include "clearml.fullname" . }}-fileserver:{{ .Values.clearml.fileserver.service.port }}"
+        - name: CLEARML_API_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: clearml-conf
+              key: apiserver_key
+        - name: CLEARML_API_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: clearml-conf
+              key: apiserver_secret
+      tolerations:
+        {{- toYaml .Values.agentk8sglue.podTemplate.tolerations | nindent 8 }}
+      nodeSelector:
+        {{- toYaml .Values.agentk8sglue.podTemplate.nodeSelector | nindent 8 }}
+{{- end }}
+
