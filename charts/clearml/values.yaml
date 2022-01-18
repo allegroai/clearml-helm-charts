@@ -295,7 +295,7 @@ agentGroups:
 # GPU autoscaling nodes.
 # https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue
 agentk8sglue:
-  enabled: true
+  enabled: false
   image:
     repository: "allegroai/clearml-agent-k8s"
     tag: "aws-latest-1.21"
