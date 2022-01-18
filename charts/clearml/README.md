@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.3.0](https://img.shields.io/badge/Version-3.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
+![Version: 3.3.1](https://img.shields.io/badge/Version-3.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
 
 MLOps platform
 
@@ -268,11 +268,14 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | fileserver.storage.data.size | string | `"50Gi"` |  |
 | fileserver.tolerations | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
+| ingress.api.annotations | object | `{}` |  |
 | ingress.api.hostName | string | `"api.clearml.127-0-0-1.nip.io"` |  |
 | ingress.api.tlsSecretName | string | `""` |  |
+| ingress.app.annotations | object | `{}` |  |
 | ingress.app.hostName | string | `"app.clearml.127-0-0-1.nip.io"` |  |
 | ingress.app.tlsSecretName | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
+| ingress.files.annotations | object | `{}` |  |
 | ingress.files.hostName | string | `"files.clearml.127-0-0-1.nip.io"` |  |
 | ingress.files.tlsSecretName | string | `""` |  |
 | ingress.name | string | `"clearml-server-ingress"` |  |
