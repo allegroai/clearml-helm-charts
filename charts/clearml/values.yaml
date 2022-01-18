@@ -294,6 +294,27 @@ agentGroups:
 
     affinity: {}
 
+# This agent will spawn queued experiments in new pods, a good use case is to combine this with
+# GPU autoscaling nodes.
+# https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue
+agentk8sglue:
+  enabled: false
+  image:
+    repository: "allegroai/clearml-agent-k8s"
+    tag: "aws-latest-1.21"
+  maxPods: 10
+  defaultDockerImage: nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu18.04  # default docker image that is spawned as new pod
+  queue: aws-instances  # create this queue manually in the UI first for it to work
+  id: k8s-agent
+  podTemplate:
+    tolerations: {}
+      # - key: "nvidia.com/gpu"
+      #   operator: Exists
+      #   effect: "NoSchedule"
+    nodeSelector: {}
+      # fleet: gpu-nodes
+
+
 externalServices:
   # -- Existing ElasticSearch Hostname to use if elasticsearch.enabled is false
   elasticsearchHost: ""
