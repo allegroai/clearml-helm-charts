@@ -11,10 +11,13 @@ metadata:
   name: {{ include "clearml.fullname" . }}-api
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
-  annotations:
-    {{- toYaml . | nindent 4 }}
+  {{- $annotations := .Values.ingress.annotations }}
+  {{- if .Values.ingress.api.annotations }}
+  {{- $annotations = mergeOverwrite $annotations .Values.ingress.api.annotations }}
   {{- end }}
+  annotations:
+    {{- toYaml $annotations | nindent 4 }}
+
 spec:
   {{- if .Values.ingress.api.tlsSecretName }}
   tls:
