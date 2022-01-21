@@ -25,11 +25,11 @@ spec:
             mountPath: /root/template
         env:
           - name: CLEARML_API_HOST
-            value: "http://{{ include "clearml.fullname" . }}-apiserver:{{ .Values.clearml.apiserver.service.port }}"
+            value: "http://{{ include "clearml.fullname" . }}-apiserver:{{ .Values.apiserver.service.port }}"
           - name: CLEARML_WEB_HOST
             value: "http://{{ include "clearml.fullname" . }}-webserver"
           - name: CLEARML_FILES_HOST
-            value: "http://{{ include "clearml.fullname" . }}-fileserver:{{ .Values.clearml.fileserver.service.port }}"
+            value: "http://{{ include "clearml.fullname" . }}-fileserver:{{ .Values.fileserver.service.port }}"
           - name: K8S_GLUE_MAX_PODS
             value: "{{.Values.agentk8sglue.maxPods}}"
           - name: K8S_GLUE_QUEUE

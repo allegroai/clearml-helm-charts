@@ -10,13 +10,15 @@ data:
       namespace: {{ .Release.namespace }}
     spec:
       containers:
-      - env: 
+      - resources:
+          {{- toYaml .Values.agentk8sglue.podTemplate.resources | nindent 10 }}
+        env: 
         - name: CLEARML_API_HOST
-          value: "http://{{ include "clearml.fullname" . }}-apiserver:{{ .Values.clearml.apiserver.service.port }}"
+          value: "http://{{ include "clearml.fullname" . }}-apiserver:{{ .Values.apiserver.service.port }}"
         - name: CLEARML_WEB_HOST
           value: "http://{{ include "clearml.fullname" . }}-webserver"
         - name: CLEARML_FILES_HOST
-          value: "http://{{ include "clearml.fullname" . }}-fileserver:{{ .Values.clearml.fileserver.service.port }}"
+          value: "http://{{ include "clearml.fullname" . }}-fileserver:{{ .Values.fileserver.service.port }}"
         - name: CLEARML_API_ACCESS_KEY
           valueFrom:
             secretKeyRef:
