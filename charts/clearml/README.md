@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.4.0](https://img.shields.io/badge/Version-3.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
+![Version: 3.4.1](https://img.shields.io/badge/Version-3.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
 
 MLOps platform
 
@@ -170,6 +170,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentk8sglue.image.tag | string | `"aws-latest-1.21"` |  |
 | agentk8sglue.maxPods | int | `10` |  |
 | agentk8sglue.podTemplate.nodeSelector | object | `{}` |  |
+| agentk8sglue.podTemplate.resources | object | `{}` |  |
 | agentk8sglue.podTemplate.tolerations | object | `{}` |  |
 | agentk8sglue.queue | string | `"aws-instances"` |  |
 | agentservices.affinity | object | `{}` |  |
