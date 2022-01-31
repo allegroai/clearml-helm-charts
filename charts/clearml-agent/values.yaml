@@ -1,3 +1,4 @@
+---
 # Default values for clearml-agent.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -31,9 +32,9 @@ args:
 
 env:
   PYTHONUNBUFFERED: "1"
-  CLEARML_API_HOST: "" # "http://10.0.0.10:8008"
-  CLEARML_WEB_HOST: "" # "http://10.0.0.10:8080"
-  CLEARML_FILES_HOST: "" # "http://10.0.0.10:8081"
+  CLEARML_API_HOST: ""  # "http://10.0.0.10:8008"
+  CLEARML_WEB_HOST: ""  # "http://10.0.0.10:8080"
+  CLEARML_FILES_HOST: ""  # "http://10.0.0.10:8081"
   K8S_GLUE_MAX_PODS: "2"
   K8S_GLUE_QUEUE: "k8s-queus"
   K8S_GLUE_TEMPLATE_YAML: "/config/pod-template.yaml"
@@ -58,36 +59,41 @@ serviceAccount:
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
+  # If not set and create is true,
+  # a name is generated using the fullname template
   name: ""
 
 podAnnotations: {}
 
 podSecurityContext: {}
-  # fsGroup: 2000
+# fsGroup: 2000
 
 securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+# capabilities:
+#   drop:
+#   - ALL
+# readOnlyRootFilesystem: true
+# runAsNonRoot: true
+# runAsUser: 1000
 
 resources:
   limits:
-      nvidia.com/gpu: 1
+    nvidia.com/gpu: 1
 
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+# We usually recommend not to specify default
+# resources and to leave this as a conscious
+# choice for the user. This also increases
+# chances charts run on environments with little
+# resources, such as Minikube. If you do want to
+# specify resources, uncomment the following
+# lines, adjust them as necessary, and remove
+# the curly braces after 'resources:'.
+# limits:
+#   cpu: 100m
+#   memory: 128Mi
+# requests:
+#   cpu: 100m
+#   memory: 128Mi
 
 nodeSelector: {}
 
