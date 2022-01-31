@@ -25,3 +25,7 @@ appVersion: "1.16.0"
 
 sources:
   - https://github.com/allegroai/clearml-agent
+
+maintainers:
+  - name: Andrei Okhotnikov
+    email: xadcoh@gmail.com
