@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.4.1](https://img.shields.io/badge/Version-3.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
+![Version: 3.5.0](https://img.shields.io/badge/Version-3.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -206,7 +206,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | apiserver.extraEnvs | list | `[]` |  |
 | apiserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | apiserver.image.repository | string | `"allegroai/clearml"` |  |
-| apiserver.image.tag | string | `"1.1.1"` |  |
+| apiserver.image.tag | string | `"1.2.0"` |  |
 | apiserver.livenessDelay | int | `60` |  |
 | apiserver.nodeSelector | object | `{}` |  |
 | apiserver.podAnnotations | object | `{}` |  |
