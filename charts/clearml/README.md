@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.5.0](https://img.shields.io/badge/Version-3.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square)
+![Version: 3.5.1](https://img.shields.io/badge/Version-3.5.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -266,7 +266,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | fileserver.extraEnvs | list | `[]` |  |
 | fileserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | fileserver.image.repository | string | `"allegroai/clearml"` |  |
-| fileserver.image.tag | string | `"1.1.1"` |  |
+| fileserver.image.tag | string | `"1.2.0"` |  |
 | fileserver.nodeSelector | object | `{}` |  |
 | fileserver.podAnnotations | object | `{}` |  |
 | fileserver.replicaCount | int | `1` |  |
@@ -319,7 +319,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | webserver.extraEnvs | list | `[]` |  |
 | webserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | webserver.image.repository | string | `"allegroai/clearml"` |  |
-| webserver.image.tag | string | `"1.1.1"` |  |
+| webserver.image.tag | string | `"1.2.0"` |  |
 | webserver.nodeSelector | object | `{}` |  |
 | webserver.podAnnotations | object | `{}` |  |
 | webserver.replicaCount | int | `1` |  |
