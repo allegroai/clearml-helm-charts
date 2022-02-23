@@ -304,8 +304,8 @@ agentk8sglue:
     tag: "aws-latest-1.21"
   serviceAccountName: default
   maxPods: 10
-  defaultDockerImage: nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04 # default docker image that is spawned as new pod
-  queue: aws-instances  # create this queue manually in the UI first for it to work
+  defaultDockerImage: nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04   # default docker image that is spawned as new pod
+  queue: aws-instances    # create this queue manually in the UI first for it to work
   id: k8s-agent
   podTemplate:
     volumes: []
