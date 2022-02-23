@@ -9,9 +9,23 @@ data:
     metadata:
       namespace: {{ .Release.namespace }}
     spec:
+      serviceAccountName: {{ .Values.agentk8sglue.serviceAccountName }}
+      volumes:
+      {{- range .Values.agentk8sglue.podTemplate.volumes }}
+      - name: {{ .name }}
+        persistentVolumeClaim:
+          claimName: {{ .name }}
+      {{- end }} 
       containers:
       - resources:
           {{- toYaml .Values.agentk8sglue.podTemplate.resources | nindent 10 }}
+        ports:
+        - containerPort: 10022
+        volumeMounts: 
+        {{- range .Values.agentk8sglue.podTemplate.volumes }}
+        - mountPath: {{ .path }}
+          name: {{ .name }}
+        {{- end }} 
         env: 
         - name: CLEARML_API_HOST
           value: "http://{{ include "clearml.fullname" . }}-apiserver:{{ .Values.apiserver.service.port }}"
@@ -29,6 +43,7 @@ data:
             secretKeyRef:
               name: clearml-conf
               key: apiserver_secret
+        {{- toYaml .Values.agentk8sglue.podTemplate.env | nindent 8 }}
       tolerations:
         {{- toYaml .Values.agentk8sglue.podTemplate.tolerations | nindent 8 }}
       nodeSelector:
