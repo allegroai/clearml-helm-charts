@@ -311,7 +311,7 @@ agentk8sglue:
     volumes: []
       # - name: "yourvolume"
       #   path: "/yourpath"
-    env: {}
+    env: []
       # # to setup access to private repo, setup secret with git credentials:
       # - name: CLEARML_AGENT_GIT_USER
       #   value: mygitusername
@@ -323,7 +323,7 @@ agentk8sglue:
     resources: {}
       # limits:
       #   nvidia.com/gpu: 1
-    tolerations: {}
+    tolerations: []
       # - key: "nvidia.com/gpu"
       #   operator: Exists
       #   effect: "NoSchedule"
