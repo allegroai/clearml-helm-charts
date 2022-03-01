@@ -302,15 +302,28 @@ agentk8sglue:
   image:
     repository: "allegroai/clearml-agent-k8s"
     tag: "aws-latest-1.21"
+  serviceAccountName: default
   maxPods: 10
-  defaultDockerImage: nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu18.04  # default docker image that is spawned as new pod
-  queue: aws-instances  # create this queue manually in the UI first for it to work
+  defaultDockerImage: nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04   # default docker image that is spawned as new pod
+  queue: aws-instances    # create this queue manually in the UI first for it to work
   id: k8s-agent
   podTemplate:
+    volumes: []
+      # - name: "yourvolume"
+      #   path: "/yourpath"
+    env: []
+      # # to setup access to private repo, setup secret with git credentials:
+      # - name: CLEARML_AGENT_GIT_USER
+      #   value: mygitusername
+      # - name: CLEARML_AGENT_GIT_PASS
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: git-password
+      #       key: git-password
     resources: {}
       # limits:
       #   nvidia.com/gpu: 1
-    tolerations: {}
+    tolerations: []
       # - key: "nvidia.com/gpu"
       #   operator: Exists
       #   effect: "NoSchedule"
