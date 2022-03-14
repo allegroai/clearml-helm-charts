@@ -1,4 +1,4 @@
-{{- if .Values.ingress.enabled -}}
+{{- if .Values.ingress.app.enabled -}}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1
 {{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -28,7 +28,7 @@ spec:
   - host: {{ .Values.ingress.app.hostName }}
     http:
       paths:
-      - path: "/"
+      - path: {{ .Values.ingress.app.path }}
   {{ if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
         pathType: Prefix
         backend:

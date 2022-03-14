@@ -15,18 +15,18 @@ data:
       - name: {{ .name }}
         persistentVolumeClaim:
           claimName: {{ .name }}
-      {{- end }} 
+      {{- end }}
       containers:
       - resources:
           {{- toYaml .Values.agentk8sglue.podTemplate.resources | nindent 10 }}
         ports:
         - containerPort: 10022
-        volumeMounts: 
+        volumeMounts:
         {{- range .Values.agentk8sglue.podTemplate.volumes }}
         - mountPath: {{ .path }}
           name: {{ .name }}
-        {{- end }} 
-        env: 
+        {{- end }}
+        env:
         - name: CLEARML_API_HOST
           value: "http://{{ include "clearml.fullname" . }}-apiserver:{{ .Values.apiserver.service.port }}"
         - name: CLEARML_WEB_HOST
