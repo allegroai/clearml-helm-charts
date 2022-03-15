@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.6.0](https://img.shields.io/badge/Version-3.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square)
+![Version: 3.7.0](https://img.shields.io/badge/Version-3.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -282,14 +282,19 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | fileserver.tolerations | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.api.annotations | object | `{}` |  |
+| ingress.api.enabled | bool | `false` |  |
 | ingress.api.hostName | string | `"api.clearml.127-0-0-1.nip.io"` |  |
+| ingress.api.path | string | `"/"` |  |
 | ingress.api.tlsSecretName | string | `""` |  |
 | ingress.app.annotations | object | `{}` |  |
+| ingress.app.enabled | bool | `false` |  |
 | ingress.app.hostName | string | `"app.clearml.127-0-0-1.nip.io"` |  |
+| ingress.app.path | string | `"/"` |  |
 | ingress.app.tlsSecretName | string | `""` |  |
-| ingress.enabled | bool | `false` |  |
 | ingress.files.annotations | object | `{}` |  |
+| ingress.files.enabled | bool | `false` |  |
 | ingress.files.hostName | string | `"files.clearml.127-0-0-1.nip.io"` |  |
+| ingress.files.path | string | `"/"` |  |
 | ingress.files.tlsSecretName | string | `""` |  |
 | ingress.name | string | `"clearml-server-ingress"` |  |
 | mongodb.architecture | string | `"standalone"` |  |
@@ -318,6 +323,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | secret.credentials.tests.accessKey | string | `"ENP39EQM4SLACGD5FXB7"` | Set for tests_user_key field |
 | secret.credentials.tests.secretKey | string | `"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"` | Set for tests_user_secret field |
 | secret.httpSession | string | `"9Tw20RbhJ1bLBiHEOWXvhplKGUbTgLzAtwFN2oLQvWwS0uRpD5"` | Set for http_session field |
+| webserver.additionalConfigs | object | `{}` |  |
 | webserver.affinity | object | `{}` |  |
 | webserver.extraEnvs | list | `[]` |  |
 | webserver.image.pullPolicy | string | `"IfNotPresent"` |  |
