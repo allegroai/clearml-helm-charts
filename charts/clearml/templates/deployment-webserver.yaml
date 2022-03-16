@@ -18,6 +18,7 @@ spec:
       labels:
         {{- include "clearml.selectorLabelsWebServer" . | nindent 8 }}
     spec:
+{{- include "clearml.imagePullSecrets" . | indent 6 }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag | default .Chart.AppVersion }}"
@@ -38,6 +39,11 @@ spec:
                 - curl
                 - -X OPTIONS
                 - http://0.0.0.0:80/
+          {{- if .Values.webserver.additionalConfigs }}
+          volumeMounts:
+          - name: webserver-config
+            mountPath: /opt/clearml/config
+          {{- end }}
           env:
           - name: NGINX_APISERVER_ADDRESS
             value: "http://{{ include "clearml.fullname" . }}-apiserver:{{ .Values.apiserver.service.port }}"
@@ -50,6 +56,12 @@ spec:
             - webserver
           resources:
             {{- toYaml .Values.webserver.resources | nindent 12 }}
+      {{- if .Values.webserver.additionalConfigs }}
+      volumes:
+        - name: webserver-config
+          configMap:
+            name: "{{ include "clearml.fullname" . }}-webserver-configmap"
+      {{- end }}
       {{- with .Values.webserver.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

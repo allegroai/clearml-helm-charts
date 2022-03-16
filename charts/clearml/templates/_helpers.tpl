@@ -140,3 +140,17 @@ Create the name of the Files service to use
 {{- printf "%s%s%s%s" "http://" (include "clearml.fullname" .) "-fileserver:" (.Values.fileserver.service.port | toString) }}
 {{- end }}
 {{- end }}
+
+{{/*
+Return the proper Docker Image Registry Secret Names
+*/}}
+{{- define "clearml.imagePullSecrets" -}}
+{{- if .Values.global }}
+{{- if .Values.global.imagePullSecrets }}
+imagePullSecrets:
+{{- range .Values.global.imagePullSecrets }}
+  - name: {{ . }}
+{{- end }}
+{{- end -}}
+{{- end -}}
+{{- end -}}

@@ -1,21 +1,29 @@
+# global:
+#   imagePullSecrets:
+#   - docker-cfg
 clearml:
   defaultCompany: "d1bd92a3b039400cbafc60a7a5b1e52b"
 ingress:
-  enabled: false
   name: clearml-server-ingress
   annotations: {}
   app:
+    enabled: false
     hostName: "app.clearml.127-0-0-1.nip.io"
     tlsSecretName: ""
     annotations: {}
+    path: "/"
   api:
+    enabled: false
     hostName: "api.clearml.127-0-0-1.nip.io"
     tlsSecretName: ""
     annotations: {}
+    path: "/"
   files:
+    enabled: false
     hostName: "files.clearml.127-0-0-1.nip.io"
     tlsSecretName: ""
     annotations: {}
+    path: "/"
 
 secret:
   # -- Set for http_session field
@@ -174,6 +182,8 @@ webserver:
   tolerations: []
 
   affinity: {}
+
+  additionalConfigs: {}
 
 agentservices:
   enabled: false
