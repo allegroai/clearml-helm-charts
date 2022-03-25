@@ -100,6 +100,25 @@ apiserver:
     #       # Watchdog will sleep for this number of seconds after each cycle
     #       watch_interval_sec: 900
     #     }
+    #   }    
+    # apiserver.conf: |
+    #   auth {
+    #     fixed_users {
+    #       enabled: true
+    #       pass_hashed: false
+    #       users: [
+    #         {
+    #           username: "jane"
+    #           password: "12345678"
+    #           name: "Jane Doe"
+    #         },
+    #         {
+    #           username: "john"
+    #           password: "12345678"
+    #           name: "John Doe"
+    #         },
+    #       ]
+    #     }
     #   }
 
 fileserver:
