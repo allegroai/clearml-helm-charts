@@ -2,8 +2,8 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "3.7.1"
-appVersion: "1.2.0"
+version: "3.8.0"
+appVersion: "1.3.0"
 home: https://clear.ml
 icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
 sources:
