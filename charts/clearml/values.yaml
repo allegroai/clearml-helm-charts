@@ -100,7 +100,7 @@ apiserver:
     #       # Watchdog will sleep for this number of seconds after each cycle
     #       watch_interval_sec: 900
     #     }
-    #   }    
+    #   }
     # apiserver.conf: |
     #   auth {
     #     fixed_users {
