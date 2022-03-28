@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.7.1](https://img.shields.io/badge/Version-3.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square)
+![Version: 3.8.0](https://img.shields.io/badge/Version-3.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -202,14 +202,14 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentservices.storage.data.class | string | `"standard"` |  |
 | agentservices.storage.data.size | string | `"50Gi"` |  |
 | agentservices.tolerations | list | `[]` |  |
-| apiserver.additionalConfigs | object | `{}` |  |
+| apiserver.additionalConfigs | object | `{}` | additional configurations that can be used by api server; check examples in values.yaml file |
 | apiserver.affinity | object | `{}` |  |
 | apiserver.authCookiesMaxAge | int | `864000` | Amount of seconds the authorization cookie will last in user browser |
 | apiserver.configDir | string | `"/opt/clearml/config"` |  |
 | apiserver.extraEnvs | list | `[]` |  |
 | apiserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | apiserver.image.repository | string | `"allegroai/clearml"` |  |
-| apiserver.image.tag | string | `"1.2.0"` |  |
+| apiserver.image.tag | string | `"1.3.0"` |  |
 | apiserver.livenessDelay | int | `60` |  |
 | apiserver.nodeSelector | object | `{}` |  |
 | apiserver.podAnnotations | object | `{}` |  |
@@ -269,7 +269,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | fileserver.extraEnvs | list | `[]` |  |
 | fileserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | fileserver.image.repository | string | `"allegroai/clearml"` |  |
-| fileserver.image.tag | string | `"1.2.0"` |  |
+| fileserver.image.tag | string | `"1.3.0"` |  |
 | fileserver.nodeSelector | object | `{}` |  |
 | fileserver.podAnnotations | object | `{}` |  |
 | fileserver.replicaCount | int | `1` |  |
@@ -328,7 +328,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | webserver.extraEnvs | list | `[]` |  |
 | webserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | webserver.image.repository | string | `"allegroai/clearml"` |  |
-| webserver.image.tag | string | `"1.2.0"` |  |
+| webserver.image.tag | string | `"1.3.0"` |  |
 | webserver.nodeSelector | object | `{}` |  |
 | webserver.podAnnotations | object | `{}` |  |
 | webserver.replicaCount | int | `1` |  |
