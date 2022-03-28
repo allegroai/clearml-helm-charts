@@ -91,6 +91,7 @@ apiserver:
 
   affinity: {}
 
+  # -- additional configurations that can be used by api server; check examples in values.yaml file
   additionalConfigs: {}
     # services.conf: |
     #   tasks {

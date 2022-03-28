@@ -202,7 +202,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentservices.storage.data.class | string | `"standard"` |  |
 | agentservices.storage.data.size | string | `"50Gi"` |  |
 | agentservices.tolerations | list | `[]` |  |
-| apiserver.additionalConfigs | object | `{}` |  |
+| apiserver.additionalConfigs | object | `{}` | additional configurations that can be used by api server; check examples in values.yaml file |
 | apiserver.affinity | object | `{}` |  |
 | apiserver.authCookiesMaxAge | int | `864000` | Amount of seconds the authorization cookie will last in user browser |
 | apiserver.configDir | string | `"/opt/clearml/config"` |  |
