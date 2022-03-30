@@ -43,10 +43,15 @@ data:
             secretKeyRef:
               name: clearml-conf
               key: apiserver_secret
-        {{- toYaml .Values.agentk8sglue.podTemplate.env | nindent 8 }}
-      tolerations:
-        {{- toYaml .Values.agentk8sglue.podTemplate.tolerations | nindent 8 }}
-      nodeSelector:
-        {{- toYaml .Values.agentk8sglue.podTemplate.nodeSelector | nindent 8 }}
+        {{- if .Values.agentk8sglue.podTemplate.env }}
+        {{ toYaml .Values.agentk8sglue.podTemplate.env | nindent 8 }}
+        {{- end }}
+        {{- with .Values.agentk8sglue.podTemplate.nodeSelector}}
+        nodeSelector:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.agentk8sglue.podTemplate.tolerations }}
+        tolerations:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
 {{- end }}
-
