@@ -36,6 +36,8 @@ spec:
             value: "{{.Values.agentk8sglue.queue}}"
           - name: K8S_GLUE_EXTRA_ARGS
             value: "--template-yaml /root/template/template.yaml"
+          - name: K8S_DEFAULT_NAMESPACE
+            value: "{{ .Release.namespace }}"
           - name: CLEARML_API_ACCESS_KEY
             valueFrom:
               secretKeyRef:
