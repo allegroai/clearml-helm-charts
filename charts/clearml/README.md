@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.8.1](https://img.shields.io/badge/Version-3.8.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
+![Version: 3.8.2](https://img.shields.io/badge/Version-3.8.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -31,9 +31,7 @@ For development/evaluation it's possible to use [kind](https://kind.sigs.k8s.io)
 After installation, following commands will create a complete ClearML insatllation:
 
 ```
-mkdir -pm 777 /tmp/clearml-kind
-
-cat <<EOF > /tmp/clearml-kind.yaml
+cat <<EOF | kind create cluster --config=-                                                                  ─╯
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
@@ -62,8 +60,6 @@ nodes:
     containerPath: /var/local-path-provisioner
 EOF
 
-kind create cluster --config /tmp/clearml-kind.yaml
-
 helm install clearml allegroai/clearml
 ```
 
@@ -88,6 +84,24 @@ This will create 3 ingress rules:
 (*for example, `app.clearml.mydomainname.com`, `files.clearml.mydomainname.com` and `api.clearml.mydomainname.com`*)
 
 Just pointing the domain records to the IP where ingress controller is responding will complete the deployment process.
+
+## Upgrades/ Values upgrades
+
+Updating to latest version of this chart can be done in two steps:
+
+```
+helm repo update
+helm upgrade clearml allegroai/clearml
+```
+
+Changing values on existing installation can be done with:
+
+```
+helm upgrade clearml allegroai/clearml --version <CURRENT CHART VERSION> -f custom_values.yaml
+```
+
+Please note: updating values only should always be done setting explicit chart version to avoid a possible chart update.
+Keeping separate updates procedures between version and values can be a good practice to seprate potential concerns.
 
 ## Additional Configuration for ClearML Server
 
