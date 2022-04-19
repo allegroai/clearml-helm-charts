@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.8.2](https://img.shields.io/badge/Version-3.8.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
+![Version: 3.9.0](https://img.shields.io/badge/Version-3.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.4.0](https://img.shields.io/badge/AppVersion-1.4.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -10,7 +10,7 @@ MLOps platform
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| valeriano-manassero |  | https://github.com/valeriano-manassero |
+| valeriano-manassero |  | <https://github.com/valeriano-manassero> |
 
 ## Introduction
 
@@ -223,7 +223,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | apiserver.extraEnvs | list | `[]` |  |
 | apiserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | apiserver.image.repository | string | `"allegroai/clearml"` |  |
-| apiserver.image.tag | string | `"1.3.0"` |  |
+| apiserver.image.tag | string | `"1.4.0"` |  |
 | apiserver.livenessDelay | int | `60` |  |
 | apiserver.nodeSelector | object | `{}` |  |
 | apiserver.podAnnotations | object | `{}` |  |
@@ -283,7 +283,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | fileserver.extraEnvs | list | `[]` |  |
 | fileserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | fileserver.image.repository | string | `"allegroai/clearml"` |  |
-| fileserver.image.tag | string | `"1.3.0"` |  |
+| fileserver.image.tag | string | `"1.4.0"` |  |
 | fileserver.nodeSelector | object | `{}` |  |
 | fileserver.podAnnotations | object | `{}` |  |
 | fileserver.replicaCount | int | `1` |  |
@@ -342,7 +342,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | webserver.extraEnvs | list | `[]` |  |
 | webserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | webserver.image.repository | string | `"allegroai/clearml"` |  |
-| webserver.image.tag | string | `"1.3.0"` |  |
+| webserver.image.tag | string | `"1.4.0"` |  |
 | webserver.nodeSelector | object | `{}` |  |
 | webserver.podAnnotations | object | `{}` |  |
 | webserver.replicaCount | int | `1` |  |
