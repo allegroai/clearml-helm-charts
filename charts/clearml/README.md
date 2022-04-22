@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.9.0](https://img.shields.io/badge/Version-3.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.4.0](https://img.shields.io/badge/AppVersion-1.4.0-informational?style=flat-square)
+![Version: 3.10.0](https://img.shields.io/badge/Version-3.10.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.4.0](https://img.shields.io/badge/AppVersion-1.4.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -141,7 +141,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentGroups.agent-group-cpu.clearmlGitPassword | string | `nil` |  |
 | agentGroups.agent-group-cpu.clearmlGitUser | string | `nil` |  |
 | agentGroups.agent-group-cpu.clearmlSecretKey | string | `nil` |  |
-| agentGroups.agent-group-cpu.enabled | bool | `true` |  |
+| agentGroups.agent-group-cpu.enabled | bool | `false` |  |
 | agentGroups.agent-group-cpu.image.pullPolicy | string | `"IfNotPresent"` |  |
 | agentGroups.agent-group-cpu.image.repository | string | `"ubuntu"` |  |
 | agentGroups.agent-group-cpu.image.tag | string | `"18.04"` |  |
@@ -165,7 +165,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentGroups.agent-group-gpu.clearmlGitPassword | string | `nil` |  |
 | agentGroups.agent-group-gpu.clearmlGitUser | string | `nil` |  |
 | agentGroups.agent-group-gpu.clearmlSecretKey | string | `nil` |  |
-| agentGroups.agent-group-gpu.enabled | bool | `true` |  |
+| agentGroups.agent-group-gpu.enabled | bool | `false` |  |
 | agentGroups.agent-group-gpu.image.pullPolicy | string | `"IfNotPresent"` |  |
 | agentGroups.agent-group-gpu.image.repository | string | `"nvidia/cuda"` |  |
 | agentGroups.agent-group-gpu.image.tag | string | `"11.0-base-ubuntu18.04"` |  |
@@ -178,17 +178,17 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentGroups.agent-group-gpu.tolerations | list | `[]` |  |
 | agentGroups.agent-group-gpu.updateStrategy | string | `"Recreate"` |  |
 | agentk8sglue.defaultDockerImage | string | `"nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04"` |  |
-| agentk8sglue.enabled | bool | `false` |  |
+| agentk8sglue.enabled | bool | `true` |  |
 | agentk8sglue.id | string | `"k8s-agent"` |  |
 | agentk8sglue.image.repository | string | `"allegroai/clearml-agent-k8s"` |  |
-| agentk8sglue.image.tag | string | `"aws-latest-1.21"` |  |
+| agentk8sglue.image.tag | string | `"latest"` |  |
 | agentk8sglue.maxPods | int | `10` |  |
 | agentk8sglue.podTemplate.env | list | `[]` |  |
 | agentk8sglue.podTemplate.nodeSelector | object | `{}` |  |
 | agentk8sglue.podTemplate.resources | object | `{}` |  |
 | agentk8sglue.podTemplate.tolerations | list | `[]` |  |
 | agentk8sglue.podTemplate.volumes | list | `[]` |  |
-| agentk8sglue.queue | string | `"aws-instances"` |  |
+| agentk8sglue.queue | string | `"default"` |  |
 | agentk8sglue.serviceAccountName | string | `"default"` |  |
 | agentservices.affinity | object | `{}` |  |
 | agentservices.agentVersion | string | `""` |  |
