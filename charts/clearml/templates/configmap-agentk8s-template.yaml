@@ -7,7 +7,7 @@ data:
   template.yaml: |
     apiVersion: v1
     metadata:
-      namespace: {{ .Release.namespace }}
+      namespace: {{ .Release.Namespace }}
     spec:
       serviceAccountName: {{ .Values.agentk8sglue.serviceAccountName }}
       volumes:
