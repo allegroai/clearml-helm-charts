@@ -257,7 +257,7 @@ agentservices:
 
 agentGroups:
   agent-group-cpu:
-    enabled: true
+    enabled: false
     name: agent-group-cpu
     replicaCount: 1
     updateStrategy: Recreate
@@ -291,7 +291,7 @@ agentGroups:
     affinity: {}
 
   agent-group-gpu:
-    enabled: true
+    enabled: false
     name: agent-group-gpu
     replicaCount: 0
     updateStrategy: Recreate
@@ -328,14 +328,14 @@ agentGroups:
 # GPU autoscaling nodes.
 # https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue
 agentk8sglue:
-  enabled: false
+  enabled: true
   image:
     repository: "allegroai/clearml-agent-k8s"
-    tag: "aws-latest-1.21"
+    tag: "latest"
   serviceAccountName: default
   maxPods: 10
   defaultDockerImage: nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04   # default docker image that is spawned as new pod
-  queue: aws-instances    # create this queue manually in the UI first for it to work
+  queue: default
   id: k8s-agent
   podTemplate:
     volumes: []
