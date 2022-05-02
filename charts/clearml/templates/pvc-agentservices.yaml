@@ -11,5 +11,7 @@ spec:
   resources:
     requests:
       storage: {{ .Values.agentservices.storage.data.size | quote }}
+  {{- if .Values.agentservices.storage.data.class -}}
   storageClassName: {{ .Values.agentservices.storage.data.class | quote }}
+  {{- end -}}
 {{- end }}

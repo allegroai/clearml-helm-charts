@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.10.1](https://img.shields.io/badge/Version-3.10.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.4.0](https://img.shields.io/badge/AppVersion-1.4.0-informational?style=flat-square)
+![Version: 3.10.2](https://img.shields.io/badge/Version-3.10.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.4.0](https://img.shields.io/badge/AppVersion-1.4.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -213,7 +213,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentservices.podAnnotations | object | `{}` |  |
 | agentservices.replicaCount | int | `1` |  |
 | agentservices.resources | object | `{}` |  |
-| agentservices.storage.data.class | string | `"standard"` |  |
+| agentservices.storage.data.class | string | `""` |  |
 | agentservices.storage.data.size | string | `"50Gi"` |  |
 | agentservices.tolerations | list | `[]` |  |
 | apiserver.additionalConfigs | object | `{}` | additional configurations that can be used by api server; check examples in values.yaml file |
@@ -291,7 +291,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | fileserver.service.nodePort | int | `30081` | If service.type set to NodePort, this will be set to service's nodePort field. If service.type is set to others, this field will be ignored |
 | fileserver.service.port | int | `8081` |  |
 | fileserver.service.type | string | `"NodePort"` | This will set to service's spec.type field |
-| fileserver.storage.data.class | string | `"standard"` |  |
+| fileserver.storage.data.class | string | `""` |  |
 | fileserver.storage.data.size | string | `"50Gi"` |  |
 | fileserver.tolerations | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
