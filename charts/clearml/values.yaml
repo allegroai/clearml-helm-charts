@@ -162,7 +162,7 @@ fileserver:
 
   storage:
     data:
-      class: "standard"
+      class: ""
       size: 50Gi
 
 webserver:
@@ -252,7 +252,7 @@ agentservices:
 
   storage:
     data:
-      class: "standard"
+      class: ""
       size: 50Gi
 
 agentGroups:
