@@ -17,7 +17,7 @@ zookeeper:
   affinity: {}
   resources: {}
 
-kafka: 
+kafka:
   image: bitnami/kafka:3.1.0
   nodeSelector: {}
   tolerations: []
