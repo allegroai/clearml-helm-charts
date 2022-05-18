@@ -23,7 +23,7 @@ ClearML Serving Helm Chart
 | clearml.apiHost | string | `"http://clearml-server-apiserver:8008"` |  |
 | clearml.apiSecretKey | string | `"ClearML API Secret Key"` |  |
 | clearml.filesHost | string | `"http://clearml-server-fileserver:8081"` |  |
-| clearml.servingTaskID | string | `"ClearML Serving Task ID"` |  |
+| clearml.servingTaskId | string | `"ClearML Serving Task ID"` |  |
 | clearml.webHost | string | `"http://clearml-server-webserver:80"` |  |
 | clearml_serving_inference.affinity | object | `{}` |  |
 | clearml_serving_inference.image | string | `"allegroai/clearml-serving-inference"` |  |
@@ -45,7 +45,6 @@ ClearML Serving Helm Chart
 | kafka.nodeSelector | object | `{}` |  |
 | kafka.resources | object | `{}` |  |
 | kafka.tolerations | list | `[]` |  |
-| namespace | string | `"clearml"` |  |
 | prometheus.affinity | object | `{}` |  |
 | prometheus.image | string | `"prom/prometheus:v2.34.0"` |  |
 | prometheus.nodeSelector | object | `{}` |  |
