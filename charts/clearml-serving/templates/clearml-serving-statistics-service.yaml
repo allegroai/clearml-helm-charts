@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations: {}
+  namespace: {{ .Values.namespace }}
+  labels:
+    clearml.serving.service: clearml-serving-statistics
+  name: clearml-serving-statistics
+spec:
+  ports:
+    - name: "9999"
+      port: 9999
+      targetPort: 9999
+  selector:
+    clearml.serving.service: clearml-serving-statistics
+status:
+  loadBalancer: {}

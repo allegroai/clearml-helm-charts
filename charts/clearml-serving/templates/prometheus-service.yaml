@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations: {}
+  namespace: {{ .Values.namespace }}
+  labels:
+    clearml.serving.service: prometheus
+  name: clearml-serving-prometheus
+spec:
+  ports:
+    - name: "9090"
+      port: 9090
+      targetPort: 9090
+  selector:
+    clearml.serving.service: prometheus
+status:
+  loadBalancer: {}

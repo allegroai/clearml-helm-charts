@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations: {}
+  namespace: {{ .Values.namespace }}
+  labels:
+    clearml.serving.service: zookeeper
+  name: clearml-serving-zookeeper
+spec:
+  ports:
+    - name: "2181"
+      port: 2181
+      targetPort: 2181
+  selector:
+    clearml.serving.service: zookeeper
+status:
+  loadBalancer: {}
