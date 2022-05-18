@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations: {}
-  namespace: {{ .Values.namespace }}
   labels:
     clearml.serving.service: grafana
   name: grafana
@@ -16,7 +15,6 @@ spec:
   template:
     metadata:
       annotations: {}
-      namespace: {{ .Values.namespace }}
       labels:
         clearml.serving.network/clearml-serving-backend: "true"
         clearml.serving.service: grafana

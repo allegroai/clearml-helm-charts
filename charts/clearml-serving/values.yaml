@@ -1,7 +1,5 @@
 # Default values for clearml-serving.
 
-namespace: clearml
-
 clearml:
   apiAccessKey: "ClearML API Access Key"
   apiSecretKey: "ClearML API Secret Key"

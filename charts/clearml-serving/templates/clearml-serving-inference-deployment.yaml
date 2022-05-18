@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations: {}
-  namespace: {{ .Values.namespace }}
   labels:
     clearml.serving.service: clearml-serving-inference
   name: clearml-serving-inference
@@ -15,7 +14,6 @@ spec:
   template:
     metadata:
       annotations: {}
-      namespace: {{ .Values.namespace }}
       labels:
         clearml.serving.network/clearml-serving-backend: "true"
         clearml.serving.service: clearml-serving-inference
