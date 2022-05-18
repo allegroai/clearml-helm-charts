@@ -6,7 +6,7 @@ clearml:
   apiHost: http://clearml-server-apiserver:8008
   filesHost: http://clearml-server-fileserver:8081
   webHost: http://clearml-server-webserver:80
-  servingTaskID: "ClearML Serving Task ID"
+  servingTaskId: "ClearML Serving Task ID"
 
 zookeeper:
   image: bitnami/zookeeper:3.7.0
