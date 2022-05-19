@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations: {}
+  labels:
+    clearml.serving.service: grafana
+  name: clearml-serving-grafana
+spec:
+  ports:
+    - name: "3000"
+      port: 3000
+      targetPort: 3000
+  selector:
+    clearml.serving.service: grafana
+status:
+  loadBalancer: {}
