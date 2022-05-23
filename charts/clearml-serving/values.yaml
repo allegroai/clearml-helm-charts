@@ -56,3 +56,10 @@ clearml_serving_inference:
   tolerations: []
   affinity: {}
   resources: {}
+
+clearml_serving_triton:
+  image: allegroai/clearml-serving-triton
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  resources: {}
