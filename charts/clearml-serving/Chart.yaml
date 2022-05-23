@@ -2,9 +2,11 @@ apiVersion: v2
 name: clearml-serving
 description: ClearML Serving Helm Chart
 type: application
-version: 0.1.0
+version: 0.2.0
 appVersion: "0.9.0"
 maintainers:
+  - name: valeriano-manassero
+    url: https://github.com/valeriano-manassero
   - name: stefano-cherchi
     url: https://github.com/stefano-cherchi
 keywords:
