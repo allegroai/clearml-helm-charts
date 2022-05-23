@@ -58,6 +58,7 @@ clearml_serving_inference:
   resources: {}
 
 clearml_serving_triton:
+  enabled: true
   image: allegroai/clearml-serving-triton
   nodeSelector: {}
   tolerations: []

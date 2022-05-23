@@ -36,6 +36,7 @@ ClearML Serving Helm Chart
 | clearml_serving_statistics.resources | object | `{}` |  |
 | clearml_serving_statistics.tolerations | list | `[]` |  |
 | clearml_serving_triton.affinity | object | `{}` |  |
+| clearml_serving_triton.enabled | bool | `true` |  |
 | clearml_serving_triton.image | string | `"allegroai/clearml-serving-triton"` |  |
 | clearml_serving_triton.nodeSelector | object | `{}` |  |
 | clearml_serving_triton.resources | object | `{}` |  |

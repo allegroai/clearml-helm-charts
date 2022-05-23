@@ -1,3 +1,4 @@
+{{ if .Values.clearml_serving_triton.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -43,3 +44,5 @@ spec:
           resources: {}
       restartPolicy: Always
 status: {}
+{{ end }}
+

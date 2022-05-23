@@ -37,7 +37,11 @@ spec:
             - name: CLEARML_DEFAULT_BASE_SERVE_URL
               value: http://127.0.0.1:8080/serve
             - name: CLEARML_DEFAULT_TRITON_GRPC_ADDR
+            {{- if .Values.clearml_serving_triton.enabled }}
               value: "clearml-serving-triton:8001"
+            {{- else }}
+              value: ""
+            {{- end }}
             - name: CLEARML_SERVING_NUM_PROCESS
               value: "2"
             - name: CLEARML_SERVING_PORT
