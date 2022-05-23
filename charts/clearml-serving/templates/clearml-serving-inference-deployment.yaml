@@ -46,6 +46,10 @@ spec:
               value: "{{ .Values.clearml.servingTaskId }}"
             - name: CLEARML_USE_GUNICORN
               value: "true"
+            {{- if .Values.clearml.extraPythonPackages }}
+            - name: EXTRA_PYTHON_PACKAGES
+              value: '{{ join " " .Values.clearml.extraPythonPackages }}'
+            {{- end }}
           image: "{{ .Values.clearml_serving_inference.image }}:{{ .Chart.AppVersion }}"
           name: clearml-serving-inference
           ports:
