@@ -36,9 +36,9 @@ spec:
               value: "1.0"
             - name: CLEARML_SERVING_TASK_ID
               value: "{{ .Values.clearml.servingTaskId }}"
-            {{- if .Values.clearml.extraPythonPackages }}
+            {{- if .Values.clearml_serving_statistics.extraPythonPackages }}
             - name: EXTRA_PYTHON_PACKAGES
-              value: '{{ join " " .Values.clearml.extraPythonPackages }}'
+              value: '{{ join " " .Values.clearml_serving_statistics.extraPythonPackages }}'
             {{- end }}
           image: "{{ .Values.clearml_serving_statistics.image }}:{{ .Chart.AppVersion }}"
           name: clearml-serving-statistics
