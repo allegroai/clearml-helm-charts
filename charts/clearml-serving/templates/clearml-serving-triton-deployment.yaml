@@ -1,22 +1,23 @@
+{{ if .Values.clearml_serving_triton.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations: {}
   labels:
-    clearml.serving.service: clearml-serving-statistics
-  name: clearml-serving-statistics
+    clearml.serving.service: clearml-serving-triton
+  name: clearml-serving-triton
 spec:
   replicas: 1
   selector:
     matchLabels:
-      clearml.serving.service: clearml-serving-statistics
+      clearml.serving.service: clearml-serving-triton
   strategy: {}
   template:
     metadata:
       annotations: {}
       labels:
         clearml.serving.network/clearml-serving-backend: "true"
-        clearml.serving.service: clearml-serving-statistics
+        clearml.serving.service: clearml-serving-triton
     spec:
       containers:
         - env:
@@ -30,20 +31,22 @@ spec:
               value: "{{ .Values.clearml.filesHost }}"
             - name: CLEARML_WEB_HOST
               value: "{{ .Values.clearml.webHost }}"
-            - name: CLEARML_DEFAULT_KAFKA_SERVE_URL
-              value: clearml-serving-kafka:9092
-            - name: CLEARML_SERVING_POLL_FREQ
-              value: "1.0"
             - name: CLEARML_SERVING_TASK_ID
               value: "{{ .Values.clearml.servingTaskId }}"
-            {{- if .Values.clearml_serving_statistics.extraPythonPackages }}
+            - name: CLEARML_TRITON_POLL_FREQ
+              value: "1.0"
+            - name: CLEARML_TRITON_METRIC_FREQ
+              value: "1.0"
+            {{- if .Values.clearml_serving_triton.extraPythonPackages }}
             - name: EXTRA_PYTHON_PACKAGES
-              value: '{{ join " " .Values.clearml_serving_statistics.extraPythonPackages }}'
+              value: '{{ join " " .Values.clearml_serving_triton.extraPythonPackages }}'
             {{- end }}
-          image: "{{ .Values.clearml_serving_statistics.image }}:{{ .Chart.AppVersion }}"
-          name: clearml-serving-statistics
+          image: "{{ .Values.clearml_serving_triton.image }}:{{ .Chart.AppVersion }}"
+          name: clearml-serving-triton
           ports:
-            - containerPort: 9999
+            - containerPort: 8001
           resources: {}
       restartPolicy: Always
 status: {}
+{{ end }}
+

@@ -1,0 +1,18 @@
+{{ if .Values.clearml_serving_triton.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  annotations: {}
+  labels:
+    clearml.serving.service: clearml-serving-triton
+  name: clearml-serving-triton
+spec:
+  ports:
+    - name: "8001"
+      port: 8001
+      targetPort: 8001
+  selector:
+    clearml.serving.service: clearml-serving-triton
+status:
+  loadBalancer: {}
+{{ end }}

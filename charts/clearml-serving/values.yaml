@@ -8,11 +8,6 @@ clearml:
   webHost: http://clearml-server-webserver:80
   servingTaskId: "ClearML Serving Task ID"
 
-  # -- Extra Python Packages to be installed in running pods
-  extraPythonPackages: []
-#    - numpy==1.22.4
-#    - pandas==1.4.2
-
 zookeeper:
   image: bitnami/zookeeper:3.7.0
   nodeSelector: {}
@@ -54,6 +49,10 @@ clearml_serving_statistics:
   tolerations: []
   affinity: {}
   resources: {}
+  # -- Extra Python Packages to be installed in running pods
+  extraPythonPackages: []
+  #  - numpy==1.22.4
+  #  - pandas==1.4.2
 
 clearml_serving_inference:
   image: allegroai/clearml-serving-inference
@@ -61,3 +60,19 @@ clearml_serving_inference:
   tolerations: []
   affinity: {}
   resources: {}
+  # -- Extra Python Packages to be installed in running pods
+  extraPythonPackages: []
+  #  - numpy==1.22.4
+  #  - pandas==1.4.2
+
+clearml_serving_triton:
+  enabled: true
+  image: allegroai/clearml-serving-triton
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  resources: {}
+  # -- Extra Python Packages to be installed in running pods
+  extraPythonPackages: []
+  #  - numpy==1.22.4
+  #  - pandas==1.4.2
