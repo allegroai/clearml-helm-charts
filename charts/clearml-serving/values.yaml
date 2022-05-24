@@ -64,3 +64,4 @@ clearml_serving_triton:
   tolerations: []
   affinity: {}
   resources: {}
+  extraPythonPackages: []

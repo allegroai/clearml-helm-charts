@@ -1,6 +1,6 @@
 # clearml-serving
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.9.0](https://img.shields.io/badge/AppVersion-0.9.0-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.9.0](https://img.shields.io/badge/AppVersion-0.9.0-informational?style=flat-square)
 
 ClearML Serving Helm Chart
 
@@ -37,6 +37,7 @@ ClearML Serving Helm Chart
 | clearml_serving_statistics.tolerations | list | `[]` |  |
 | clearml_serving_triton.affinity | object | `{}` |  |
 | clearml_serving_triton.enabled | bool | `true` |  |
+| clearml_serving_triton.extraPythonPackages | list | `[]` |  |
 | clearml_serving_triton.image | string | `"allegroai/clearml-serving-triton"` |  |
 | clearml_serving_triton.nodeSelector | object | `{}` |  |
 | clearml_serving_triton.resources | object | `{}` |  |

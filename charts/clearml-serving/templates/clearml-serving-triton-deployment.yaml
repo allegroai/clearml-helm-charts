@@ -37,6 +37,10 @@ spec:
               value: "1.0"
             - name: CLEARML_TRITON_METRIC_FREQ
               value: "1.0"
+            {{- if .Values.clearml_serving_triton.extraPythonPackages }}
+            - name: EXTRA_PYTHON_PACKAGES
+              value: '{{ join " " .Values.clearml_serving_triton.extraPythonPackages }}'
+            {{- end }}
           image: "{{ .Values.clearml_serving_triton.image }}:{{ .Chart.AppVersion }}"
           name: clearml-serving-triton
           ports:
