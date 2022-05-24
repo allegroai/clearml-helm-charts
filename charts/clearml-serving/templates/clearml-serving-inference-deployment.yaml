@@ -37,7 +37,11 @@ spec:
             - name: CLEARML_DEFAULT_BASE_SERVE_URL
               value: http://127.0.0.1:8080/serve
             - name: CLEARML_DEFAULT_TRITON_GRPC_ADDR
+            {{- if .Values.clearml_serving_triton.enabled }}
+              value: "clearml-serving-triton:8001"
+            {{- else }}
               value: ""
+            {{- end }}
             - name: CLEARML_SERVING_NUM_PROCESS
               value: "2"
             - name: CLEARML_SERVING_PORT
@@ -46,9 +50,9 @@ spec:
               value: "{{ .Values.clearml.servingTaskId }}"
             - name: CLEARML_USE_GUNICORN
               value: "true"
-            {{- if .Values.clearml.extraPythonPackages }}
+            {{- if .Values.clearml_serving_inference.extraPythonPackages }}
             - name: EXTRA_PYTHON_PACKAGES
-              value: '{{ join " " .Values.clearml.extraPythonPackages }}'
+              value: '{{ join " " .Values.clearml_serving_inference.extraPythonPackages }}'
             {{- end }}
           image: "{{ .Values.clearml_serving_inference.image }}:{{ .Chart.AppVersion }}"
           name: clearml-serving-inference
