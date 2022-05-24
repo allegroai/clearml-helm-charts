@@ -8,6 +8,11 @@ clearml:
   webHost: http://clearml-server-webserver:80
   servingTaskId: "ClearML Serving Task ID"
 
+  # -- Extra Python Packages to be installed in running pods
+  extraPythonPackages: []
+#    - numpy==1.22.4
+#    - pandas==1.4.2
+
 zookeeper:
   image: bitnami/zookeeper:3.7.0
   nodeSelector: {}
