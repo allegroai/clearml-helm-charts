@@ -281,7 +281,7 @@ agentGroups:
       repository: "ubuntu"
       pullPolicy: IfNotPresent
       tag: "18.04"
-    
+
     extraEnvs: []
 
     podAnnotations: {}
