@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.10.2](https://img.shields.io/badge/Version-3.10.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.4.0](https://img.shields.io/badge/AppVersion-1.4.0-informational?style=flat-square)
+![Version: 3.10.3](https://img.shields.io/badge/Version-3.10.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.4.0](https://img.shields.io/badge/AppVersion-1.4.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -142,6 +142,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentGroups.agent-group-cpu.clearmlGitUser | string | `nil` |  |
 | agentGroups.agent-group-cpu.clearmlSecretKey | string | `nil` |  |
 | agentGroups.agent-group-cpu.enabled | bool | `false` |  |
+| agentGroups.agent-group-cpu.extraEnvs | list | `[]` |  |
 | agentGroups.agent-group-cpu.image.pullPolicy | string | `"IfNotPresent"` |  |
 | agentGroups.agent-group-cpu.image.repository | string | `"ubuntu"` |  |
 | agentGroups.agent-group-cpu.image.tag | string | `"18.04"` |  |
