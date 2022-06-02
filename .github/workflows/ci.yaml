@@ -33,7 +33,7 @@ jobs:
           version: v0.11.1
           node_image: kindest/node:${{ matrix.k8s }}
       - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.0.1
+        uses: helm/chart-testing-action@v2.2.1
       - name: Add bitnami repo
         run: helm repo add bitnami https://charts.bitnami.com/bitnami
       - name: Add elastic repo
