@@ -48,4 +48,4 @@ jobs:
             echo "::set-output name=changed::true"
           fi
       - name: Run chart-testing (lint and install)
-        run: ct lint-and-install --chart-dirs=charts --target-branch=main --helm-extra-args="--timeout=15m" --helm-dependency-extra-args=["--skip-refresh"] --debug=true
+        run: ct lint-and-install --chart-dirs=charts --target-branch=main --helm-extra-args="--timeout=15m" --debug=true
