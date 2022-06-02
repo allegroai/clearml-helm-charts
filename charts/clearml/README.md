@@ -121,8 +121,8 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | mongodb | 10.3.4 |
-| https://charts.bitnami.com/bitnami | redis | 10.9.0 |
+| https://charts.bitnami.com/bitnami | mongodb | 10.31.5 |
+| https://charts.bitnami.com/bitnami | redis | 16.0.1 |
 | https://helm.elastic.co | elasticsearch | 7.16.2 |
 
 ## Values
