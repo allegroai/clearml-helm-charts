@@ -18,11 +18,11 @@ keywords:
   - mlops
 dependencies:
   - name: redis
-    version: "16.0.1"
+    version: "10.9.0"
     repository: "https://charts.bitnami.com/bitnami"
     condition: redis.enabled
   - name: mongodb
-    version: "10.31.5"
+    version: "10.3.4"
     repository: "https://charts.bitnami.com/bitnami"
     condition: mongodb.enabled
   - name: elasticsearch
