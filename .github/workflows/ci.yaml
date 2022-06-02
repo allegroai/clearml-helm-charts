@@ -34,6 +34,8 @@ jobs:
           node_image: kindest/node:${{ matrix.k8s }}
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.2.1
+        with:
+          version: v3.6.0
       - name: Add bitnami repo
         run: helm repo add bitnami https://charts.bitnami.com/bitnami
       - name: Add elastic repo
@@ -46,4 +48,4 @@ jobs:
             echo "::set-output name=changed::true"
           fi
       - name: Run chart-testing (lint and install)
-        run: ct lint-and-install --chart-dirs=charts --target-branch=main --helm-extra-args="--timeout=15m" --helm-dependency-extra-args="--skip-refresh" --debug=true
+        run: ct lint-and-install --chart-dirs=charts --target-branch=main --helm-extra-args="--timeout=15m" --helm-dependency-extra-args=["--skip-refresh"] --debug=true
