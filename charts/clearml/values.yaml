@@ -282,6 +282,8 @@ agentGroups:
       pullPolicy: IfNotPresent
       tag: "18.04"
 
+    extraEnvs: []
+
     podAnnotations: {}
 
     nodeSelector: {}
