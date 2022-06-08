@@ -11,8 +11,8 @@ sources:
   - https://github.com/allegroai/clearml-helm-charts
   - https://github.com/allegroai/clearml
 maintainers:
-  - name: Valeriano Manassero
-    email: valeriano.manassero@clear.ml
+  - name: valeriano-manassero
+    url: https://github.com/valeriano-manassero
 keywords:
   - clearml
   - "machine learning"
