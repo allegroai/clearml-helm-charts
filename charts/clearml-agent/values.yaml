@@ -1,0 +1,81 @@
+# -- Private image registry configuration 
+imageCredentials:
+  # -- Use private authentication mode
+  enabled: false
+  # -- If this is set, chart will not generate a secret but will use what is defined here
+  existingSecret: ""
+  # -- Registry name
+  registry: docker.io
+  # -- Registry username
+  username: someone
+  # -- Registry password
+  password: pwd
+  # -- Email
+  email: someone@host.com
+
+# -- ClearMl generic configurations
+clearml:
+  # -- Agent k8s Glue basic auth key
+  agentk8sglueKey: GGS9F4M6XB2DXJ5AFT9F
+  # -- Agent k8s Glue basic auth secret
+  agentk8sglueSecret: 2oGujVFhPfaozhpuz2GzQfA5OyxmMsR3WVJpsCR5hrgHFs20PO
+
+# -- This agent will spawn queued experiments in new pods, a good use case is to combine this with
+# GPU autoscaling nodes.
+# https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue
+agentk8sglue:
+  # -- Glue Agent image configuration
+  image:
+    repository: "allegroai/clearml-agent-k8s"
+    tag: "latest"
+  
+  # -- Glue Agent number of pods
+  replicaCount: 1
+
+  # -- Reference to Api server url
+  apiServerUrlReference: "https://api.clearml.local"
+  # -- Reference to File server url
+  fileServerUrlReference: "https://file.clearml.local"
+  # -- Reference to Web server url
+  webServerUrlReference: "https://app.clearml.local"
+
+  # -- serviceAccountName for pods spawned to consume ClearML Task
+  serviceAccountName: default
+  # -- maximum concurrent consume ClearML Task pod
+  maxPods: 10
+  # -- default container image for ClearML Task pod
+  defaultContainerImage: ubuntu:18.04
+  # -- ClearML queue this agent will consume
+  queue: default
+
+  # -- ClearML worker ID (must be unique across the entire ClearMLenvironment)
+  id: k8s-agent
+  
+  # -- template for pods spawned to consume ClearML Task
+  podTemplate:
+    # -- volumes definition for pods spawned to consume ClearML Task (example in values.yaml comments)
+    volumes: []
+      # - name: "yourvolume"
+      #   path: "/yourpath"
+    # -- environment variables for pods spawned to consume ClearML Task (example in values.yaml comments)
+    env: []
+      # # to setup access to private repo, setup secret with git credentials:
+      # - name: CLEARML_AGENT_GIT_USER
+      #   value: mygitusername
+      # - name: CLEARML_AGENT_GIT_PASS
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: git-password
+      #       key: git-password
+    # -- resources declaration for pods spawned to consume ClearML Task (example in values.yaml comments)
+    resources: {}
+      # limits:
+      #   nvidia.com/gpu: 1
+    # -- tolerations setup for pods spawned to consume ClearML Task (example in values.yaml comments)
+    tolerations: []
+      # - key: "nvidia.com/gpu"
+      #   operator: Exists
+      #   effect: "NoSchedule"
+    # -- nodeSelector setup for pods spawned to consume ClearML Task (example in values.yaml comments)
+    nodeSelector: {}
+      # fleet: gpu-nodes

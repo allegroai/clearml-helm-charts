@@ -1,0 +1,19 @@
+apiVersion: v2
+name: clearml-agent
+description: MLOps platform
+type: application
+version: "1.0.0"
+appVersion: "1.21"
+kubeVersion: ">= 1.19.0-0 < 1.25.0-0"
+home: https://clear.ml
+icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+sources:
+  - https://github.com/allegroai/clearml-helm-charts
+  - https://github.com/allegroai/clearml
+maintainers:
+  - name: Valeriano Manassero
+    email: valeriano.manassero@clear.ml
+keywords:
+  - clearml
+  - "machine learning"
+  - mlops
