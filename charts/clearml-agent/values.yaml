@@ -1,4 +1,4 @@
-# -- Private image registry configuration 
+# -- Private image registry configuration
 imageCredentials:
   # -- Use private authentication mode
   enabled: false
@@ -27,8 +27,8 @@ agentk8sglue:
   # -- Glue Agent image configuration
   image:
     repository: "allegroai/clearml-agent-k8s"
-    tag: "latest"
-  
+    tag: "base-1.21"
+
   # -- Glue Agent number of pods
   replicaCount: 1
 
@@ -50,7 +50,7 @@ agentk8sglue:
 
   # -- ClearML worker ID (must be unique across the entire ClearMLenvironment)
   id: k8s-agent
-  
+
   # -- template for pods spawned to consume ClearML Task
   podTemplate:
     # -- volumes definition for pods spawned to consume ClearML Task (example in values.yaml comments)
