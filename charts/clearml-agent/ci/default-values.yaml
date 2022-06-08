@@ -1,0 +1,3 @@
+clearml:
+  agentk8sglueKey: "AGENTK8SGLUEKEY"
+  agentk8sglueSecret: "AGENTK8SGLUESECRET"
