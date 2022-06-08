@@ -79,9 +79,9 @@ securityContext: {}
 # runAsNonRoot: true
 # runAsUser: 1000
 
-resources:
-  limits:
-    nvidia.com/gpu: 1
+resources: {}
+# limits:
+#   nvidia.com/gpu: 1
 
 # We usually recommend not to specify default
 # resources and to leave this as a conscious
