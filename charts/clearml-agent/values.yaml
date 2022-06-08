@@ -15,6 +15,9 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+apiAccessKey: "APIACCESS"
+apiSecretKey: "APISECRET"
+
 command:
   - python3
 args:
