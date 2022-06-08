@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "agentk8sglue.referenceName" . }}
+  labels:
+    {{- include "clearml.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.agentk8sglue.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "agentk8sglue.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ printf "%s" .Values.clearml | sha256sum }}
+      labels:
+        {{- include "agentk8sglue.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- if .Values.imageCredentials.enabled }}
+      imagePullSecrets:
+      {{- if .Values.imageCredentials.existingSecret }}
+      - name: .Values.imageCredentials.existingSecret
+      {{- else }}
+      - name: clearml-agent-registry-key
+      {{- end }}
+      {{- end }}
+      initContainers:
+          - name: init-k8s-glue
+            image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
+            command:
+              - /bin/sh
+              - -c
+              - >
+                set -x;
+                while [ $(curl -sw '%{http_code}' "{{.Values.agentk8sglue.apiServerUrlReference}}/debug.ping" -o /dev/null) -ne 200 ] ; do
+                  echo "waiting for apiserver" ;
+                  sleep 5 ;
+                done;
+                while [ $(curl -sw '%{http_code}' "{{.Values.agentk8sglue.fileServerUrlReference}}/" -o /dev/null) -ne 403 ] ; do
+                  echo "waiting for fileserver" ;
+                  sleep 5 ;
+                done;
+                while [ $(curl -sw '%{http_code}' "{{.Values.agentk8sglue.webServerUrlReference}}/" -o /dev/null) -ne 200 ] ; do
+                  echo "waiting for webserver" ;
+                  sleep 5 ;
+                done
+      containers:
+      - name: k8s-glue
+        image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
+        imagePullPolicy: Always
+        command: ["/bin/bash", "-c", "export PATH=$PATH:$HOME/bin; source /root/.bashrc && /root/entrypoint.sh"]
+        volumeMounts:
+          - name: k8sagent-pod-template
+            mountPath: /root/template
+        env:
+          - name: CLEARML_API_HOST
+            value: "{{.Values.agentk8sglue.apiServerUrlReference}}"
+          - name: CLEARML_WEB_HOST
+            value: "{{.Values.agentk8sglue.webServerUrlReference}}"
+          - name: CLEARML_FILES_HOST
+            value: "{{.Values.agentk8sglue.fileServerUrlReference}}"
+          - name: K8S_GLUE_MAX_PODS
+            value: "{{.Values.agentk8sglue.maxPods}}"
+          - name: K8S_GLUE_QUEUE
+            value: "{{.Values.agentk8sglue.queue}}"
+          - name: K8S_GLUE_EXTRA_ARGS
+            value: "--namespace {{ .Release.Namespace }} --template-yaml /root/template/template.yaml"
+          - name: K8S_DEFAULT_NAMESPACE
+            value: "{{ .Release.Namespace }}"
+          - name: CLEARML_API_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: clearml-agent-conf
+                key: agentk8sglue_key
+          - name: CLEARML_API_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: clearml-agent-conf
+                key: agentk8sglue_secret
+          - name: CLEARML_WORKER_ID
+            value: "{{.Values.agentk8sglue.id}}"
+          - name: CLEARML_AGENT_UPDATE_REPO
+            value: ""
+          - name: FORCE_CLEARML_AGENT_REPO
+            value: ""
+          - name: CLEARML_DOCKER_IMAGE
+            value: "{{.Values.agentk8sglue.defaultContainerImage}}"
+      volumes:
+        - name: k8sagent-pod-template
+          configMap: 
+            name: k8sagent-pod-template
