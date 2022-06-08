@@ -27,7 +27,7 @@ sources:
   - https://github.com/allegroai/clearml-agent
 
 maintainers:
-  - name: Andrei Okhotnikov
+  - name: xadcoh
     url: https://github.com/xadcoh
-  - name: Valeriano Manassero
+  - name: valeriano-manassero
     url: https://github.com/valeriano-manassero
