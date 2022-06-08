@@ -16,9 +16,9 @@ imageCredentials:
 # -- ClearMl generic configurations
 clearml:
   # -- Agent k8s Glue basic auth key
-  agentk8sglueKey: GGS9F4M6XB2DXJ5AFT9F
+  agentk8sglueKey: "ACCESSKEY"
   # -- Agent k8s Glue basic auth secret
-  agentk8sglueSecret: 2oGujVFhPfaozhpuz2GzQfA5OyxmMsR3WVJpsCR5hrgHFs20PO
+  agentk8sglueSecret: "SECRETKEY"
 
 # -- This agent will spawn queued experiments in new pods, a good use case is to combine this with
 # GPU autoscaling nodes.
@@ -33,11 +33,11 @@ agentk8sglue:
   replicaCount: 1
 
   # -- Reference to Api server url
-  apiServerUrlReference: "https://api.clearml.local"
+  apiServerUrlReference: "https://api.clear.ml"
   # -- Reference to File server url
-  fileServerUrlReference: "https://file.clearml.local"
+  fileServerUrlReference: "https://files.clear.ml"
   # -- Reference to Web server url
-  webServerUrlReference: "https://app.clearml.local"
+  webServerUrlReference: "https://app.clear.ml"
 
   # -- serviceAccountName for pods spawned to consume ClearML Task
   serviceAccountName: default
