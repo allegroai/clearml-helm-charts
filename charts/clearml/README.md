@@ -121,9 +121,9 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | mongodb | 10.3.4 |
-| https://charts.bitnami.com/bitnami | redis | 10.9.0 |
-| https://helm.elastic.co | elasticsearch | 7.16.2 |
+| file://../../dependency_charts/elasticsearch | elasticsearch | 7.16.2 |
+| file://../../dependency_charts/mongodb | mongodb | 10.3.4 |
+| file://../../dependency_charts/redis | redis | 10.9.0 |
 
 ## Values
 
@@ -182,7 +182,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentk8sglue.enabled | bool | `true` |  |
 | agentk8sglue.id | string | `"k8s-agent"` |  |
 | agentk8sglue.image.repository | string | `"allegroai/clearml-agent-k8s"` |  |
-| agentk8sglue.image.tag | string | `"latest"` |  |
+| agentk8sglue.image.tag | string | `"base-1.21"` |  |
 | agentk8sglue.maxPods | int | `10` |  |
 | agentk8sglue.podTemplate.env | list | `[]` |  |
 | agentk8sglue.podTemplate.nodeSelector | object | `{}` |  |
