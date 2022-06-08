@@ -10,7 +10,7 @@ MLOps platform
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Valeriano Manassero | <valeriano.manassero@clear.ml> |  |
+| valeriano-manassero |  | <https://github.com/valeriano-manassero> |
 
 ## Source Code
 
