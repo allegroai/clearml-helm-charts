@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "3.10.3"
+version: "3.10.5"
 appVersion: "1.4.0"
 home: https://clear.ml
 icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
@@ -19,13 +19,13 @@ keywords:
 dependencies:
   - name: redis
     version: "10.9.0"
-    repository: "https://charts.bitnami.com/bitnami"
+    repository: "file://../../dependency_charts/redis"
     condition: redis.enabled
   - name: mongodb
     version: "10.3.4"
-    repository: "https://charts.bitnami.com/bitnami"
+    repository: "file://../../dependency_charts/mongodb"
     condition: mongodb.enabled
   - name: elasticsearch
     version: "7.16.2"
-    repository: "https://helm.elastic.co"
+    repository: "file://../../dependency_charts/elasticsearch"
     condition: elasticsearch.enabled

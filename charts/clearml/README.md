@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.10.3](https://img.shields.io/badge/Version-3.10.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.4.0](https://img.shields.io/badge/AppVersion-1.4.0-informational?style=flat-square)
+![Version: 3.10.5](https://img.shields.io/badge/Version-3.10.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.4.0](https://img.shields.io/badge/AppVersion-1.4.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -121,9 +121,9 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | mongodb | 10.3.4 |
-| https://charts.bitnami.com/bitnami | redis | 10.9.0 |
-| https://helm.elastic.co | elasticsearch | 7.16.2 |
+| file://../../dependency_charts/elasticsearch | elasticsearch | 7.16.2 |
+| file://../../dependency_charts/mongodb | mongodb | 10.3.4 |
+| file://../../dependency_charts/redis | redis | 10.9.0 |
 
 ## Values
 
@@ -142,6 +142,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentGroups.agent-group-cpu.clearmlGitUser | string | `nil` |  |
 | agentGroups.agent-group-cpu.clearmlSecretKey | string | `nil` |  |
 | agentGroups.agent-group-cpu.enabled | bool | `false` |  |
+| agentGroups.agent-group-cpu.extraEnvs | list | `[]` |  |
 | agentGroups.agent-group-cpu.image.pullPolicy | string | `"IfNotPresent"` |  |
 | agentGroups.agent-group-cpu.image.repository | string | `"ubuntu"` |  |
 | agentGroups.agent-group-cpu.image.tag | string | `"18.04"` |  |
@@ -181,7 +182,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | agentk8sglue.enabled | bool | `true` |  |
 | agentk8sglue.id | string | `"k8s-agent"` |  |
 | agentk8sglue.image.repository | string | `"allegroai/clearml-agent-k8s"` |  |
-| agentk8sglue.image.tag | string | `"latest"` |  |
+| agentk8sglue.image.tag | string | `"base-1.21"` |  |
 | agentk8sglue.maxPods | int | `10` |  |
 | agentk8sglue.podTemplate.env | list | `[]` |  |
 | agentk8sglue.podTemplate.nodeSelector | object | `{}` |  |

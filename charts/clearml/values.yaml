@@ -282,6 +282,8 @@ agentGroups:
       pullPolicy: IfNotPresent
       tag: "18.04"
 
+    extraEnvs: []
+
     podAnnotations: {}
 
     nodeSelector: {}
@@ -331,7 +333,7 @@ agentk8sglue:
   enabled: true
   image:
     repository: "allegroai/clearml-agent-k8s"
-    tag: "latest"
+    tag: "base-1.21"
   serviceAccountName: default
   maxPods: 10
   defaultDockerImage: nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04   # default docker image that is spawned as new pod

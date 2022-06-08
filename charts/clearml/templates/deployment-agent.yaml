@@ -87,6 +87,9 @@ spec:
               secretKeyRef:
                 name: clearml-conf
                 key: tests_user_secret
+          {{- if .extraEnvs }}
+          {{ toYaml .extraEnvs | nindent 10 }}
+          {{- end }}
           command:
             - /bin/sh
             - -c

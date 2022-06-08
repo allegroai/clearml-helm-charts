@@ -18,7 +18,7 @@ spec:
       containers:
       - name: k8s-glue-container
         image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         command: ["/bin/bash", "-c", "export PATH=$PATH:$HOME/bin; source /root/.bashrc && /root/entrypoint.sh"]
         volumeMounts:
           - name: k8sagent-pod-template
