@@ -81,6 +81,9 @@ spec:
               secretKeyRef:
                 name: clearml-conf
                 key: tests_user_secret
+         {{- if .Values.agentservices.extraEnvs }}
+         {{ toYaml .Values.agentservices.extraEnvs | nindent 10 }}
+         {{- end }}
           args:
           - agentservices
           volumeMounts:
