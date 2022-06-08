@@ -9,7 +9,7 @@ image:
   repository: allegroai/clearml-agent-k8s
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "base-1.21"
 
 imagePullSecrets: []
 nameOverride: ""
