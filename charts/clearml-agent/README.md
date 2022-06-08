@@ -25,10 +25,10 @@ Kubernetes: `>= 1.19.0-0 < 1.25.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agentk8sglue | object | `{"apiServerUrlReference":"https://api.clearml.local","defaultContainerImage":"ubuntu:18.04","fileServerUrlReference":"https://file.clearml.local","id":"k8s-agent","image":{"repository":"allegroai/clearml-agent-k8s","tag":"base-1.21"},"maxPods":10,"podTemplate":{"env":[],"nodeSelector":{},"resources":{},"tolerations":[],"volumes":[]},"queue":"default","replicaCount":1,"serviceAccountName":"default","webServerUrlReference":"https://app.clearml.local"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
-| agentk8sglue.apiServerUrlReference | string | `"https://api.clearml.local"` | Reference to Api server url |
+| agentk8sglue | object | `{"apiServerUrlReference":"https://api.clear.ml","defaultContainerImage":"ubuntu:18.04","fileServerUrlReference":"https://files.clear.ml","id":"k8s-agent","image":{"repository":"allegroai/clearml-agent-k8s","tag":"base-1.21"},"maxPods":10,"podTemplate":{"env":[],"nodeSelector":{},"resources":{},"tolerations":[],"volumes":[]},"queue":"default","replicaCount":1,"serviceAccountName":"default","webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
+| agentk8sglue.apiServerUrlReference | string | `"https://api.clear.ml"` | Reference to Api server url |
 | agentk8sglue.defaultContainerImage | string | `"ubuntu:18.04"` | default container image for ClearML Task pod |
-| agentk8sglue.fileServerUrlReference | string | `"https://file.clearml.local"` | Reference to File server url |
+| agentk8sglue.fileServerUrlReference | string | `"https://files.clear.ml"` | Reference to File server url |
 | agentk8sglue.id | string | `"k8s-agent"` | ClearML worker ID (must be unique across the entire ClearMLenvironment) |
 | agentk8sglue.image | object | `{"repository":"allegroai/clearml-agent-k8s","tag":"base-1.21"}` | Glue Agent image configuration |
 | agentk8sglue.maxPods | int | `10` | maximum concurrent consume ClearML Task pod |
@@ -41,10 +41,10 @@ Kubernetes: `>= 1.19.0-0 < 1.25.0-0`
 | agentk8sglue.queue | string | `"default"` | ClearML queue this agent will consume |
 | agentk8sglue.replicaCount | int | `1` | Glue Agent number of pods |
 | agentk8sglue.serviceAccountName | string | `"default"` | serviceAccountName for pods spawned to consume ClearML Task |
-| agentk8sglue.webServerUrlReference | string | `"https://app.clearml.local"` | Reference to Web server url |
-| clearml | object | `{"agentk8sglueKey":"GGS9F4M6XB2DXJ5AFT9F","agentk8sglueSecret":"2oGujVFhPfaozhpuz2GzQfA5OyxmMsR3WVJpsCR5hrgHFs20PO"}` | ClearMl generic configurations |
-| clearml.agentk8sglueKey | string | `"GGS9F4M6XB2DXJ5AFT9F"` | Agent k8s Glue basic auth key |
-| clearml.agentk8sglueSecret | string | `"2oGujVFhPfaozhpuz2GzQfA5OyxmMsR3WVJpsCR5hrgHFs20PO"` | Agent k8s Glue basic auth secret |
+| agentk8sglue.webServerUrlReference | string | `"https://app.clear.ml"` | Reference to Web server url |
+| clearml | object | `{"agentk8sglueKey":"ACCESSKEY","agentk8sglueSecret":"SECRETKEY"}` | ClearMl generic configurations |
+| clearml.agentk8sglueKey | string | `"ACCESSKEY"` | Agent k8s Glue basic auth key |
+| clearml.agentk8sglueSecret | string | `"SECRETKEY"` | Agent k8s Glue basic auth secret |
 | imageCredentials | object | `{"email":"someone@host.com","enabled":false,"existingSecret":"","password":"pwd","registry":"docker.io","username":"someone"}` | Private image registry configuration |
 | imageCredentials.email | string | `"someone@host.com"` | Email |
 | imageCredentials.enabled | bool | `false` | Use private authentication mode |
