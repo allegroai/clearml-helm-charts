@@ -1,6 +1,19 @@
-# global:
-#   imagePullSecrets:
-#   - docker-cfg
+# -- Private image registry configuration
+imageCredentials:
+  # -- Use private authentication mode
+  enabled: false
+  # -- If this is set, chart will not generate a secret but will use what is defined here
+  existingSecret: ""
+  # -- Registry name
+  registry: docker.io
+  # -- Registry username
+  username: someone
+  # -- Registry password
+  password: pwd
+  # -- Email
+  email: someone@host.com
+
+# -- ClearMl generic configurations
 clearml:
   defaultCompany: "d1bd92a3b039400cbafc60a7a5b1e52b"
 ingress:
@@ -67,7 +80,7 @@ apiserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.4.0"
+    tag: "1.5.0"
 
   extraEnvs: []
 
@@ -136,7 +149,7 @@ fileserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.4.0"
+    tag: "1.5.0"
 
   extraEnvs: []
 
@@ -181,7 +194,7 @@ webserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.4.0"
+    tag: "1.5.0"
 
   podAnnotations: {}
 
@@ -204,164 +217,6 @@ webserver:
   affinity: {}
 
   additionalConfigs: {}
-
-agentservices:
-  enabled: false
-  clearmlHostIp: null
-  agentVersion: ""
-  clearmlWebHost: null
-  clearmlFilesHost: null
-  clearmlGitUser: null
-  clearmlGitPassword: null
-  awsAccessKeyId: null
-  awsSecretAccessKey: null
-  awsDefaultRegion: null
-  azureStorageAccount: null
-  azureStorageKey: null
-  googleCredentials: null
-  clearmlWorkerId: "clearml-services"
-
-  replicaCount: 1
-
-  image:
-    repository: "allegroai/clearml-agent-services"
-    pullPolicy: IfNotPresent
-    tag: "latest"
-
-  extraEnvs: []
-
-  podAnnotations: {}
-
-  resources: {}
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
-
-  nodeSelector: {}
-
-  tolerations: []
-
-  affinity: {}
-
-  storage:
-    data:
-      class: ""
-      size: 50Gi
-
-agentGroups:
-  agent-group-cpu:
-    enabled: false
-    name: agent-group-cpu
-    replicaCount: 1
-    updateStrategy: Recreate
-    nvidiaGpusPerAgent: 0
-    agentVersion: ""  # if set, it *MUST* include comparison operator (e.g. ">=0.16.1")
-    queues: "default"  # multiple queues can be specified separated by a space (e.g. "important_jobs default")
-    clearmlGitUser: null
-    clearmlGitPassword: null
-    clearmlAccessKey: null
-    clearmlSecretKey: null
-    awsAccessKeyId: null
-    awsSecretAccessKey: null
-    awsDefaultRegion: null
-    azureStorageAccount: null
-    azureStorageKey: null
-    clearmlConfig: |-
-      sdk {
-      }
-
-    image:
-      repository: "ubuntu"
-      pullPolicy: IfNotPresent
-      tag: "18.04"
-
-    extraEnvs: []
-
-    podAnnotations: {}
-
-    nodeSelector: {}
-
-    tolerations: []
-
-    affinity: {}
-
-  agent-group-gpu:
-    enabled: false
-    name: agent-group-gpu
-    replicaCount: 0
-    updateStrategy: Recreate
-    nvidiaGpusPerAgent: 1
-    agentVersion: ""  # if set, it *MUST* include comparison operator (e.g. ">=0.16.1")
-    queues: "default"  # multiple queues can be specified separated by a space (e.g. "important_jobs default")
-    clearmlGitUser: null
-    clearmlGitPassword: null
-    clearmlAccessKey: null
-    clearmlSecretKey: null
-    awsAccessKeyId: null
-    awsSecretAccessKey: null
-    awsDefaultRegion: null
-    azureStorageAccount: null
-    azureStorageKey: null
-    clearmlConfig: |-
-      sdk {
-      }
-
-    image:
-      repository: "nvidia/cuda"
-      pullPolicy: IfNotPresent
-      tag: "11.0-base-ubuntu18.04"
-
-    podAnnotations: {}
-
-    nodeSelector: {}
-
-    tolerations: []
-
-    affinity: {}
-
-# This agent will spawn queued experiments in new pods, a good use case is to combine this with
-# GPU autoscaling nodes.
-# https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue
-agentk8sglue:
-  enabled: true
-  image:
-    repository: "allegroai/clearml-agent-k8s"
-    tag: "base-1.21"
-  serviceAccountName: default
-  maxPods: 10
-  defaultDockerImage: nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04   # default docker image that is spawned as new pod
-  queue: default
-  id: k8s-agent
-  podTemplate:
-    volumes: []
-      # - name: "yourvolume"
-      #   path: "/yourpath"
-    env: []
-      # # to setup access to private repo, setup secret with git credentials:
-      # - name: CLEARML_AGENT_GIT_USER
-      #   value: mygitusername
-      # - name: CLEARML_AGENT_GIT_PASS
-      #   valueFrom:
-      #     secretKeyRef:
-      #       name: git-password
-      #       key: git-password
-    resources: {}
-      # limits:
-      #   nvidia.com/gpu: 1
-    tolerations: []
-      # - key: "nvidia.com/gpu"
-      #   operator: Exists
-      #   effect: "NoSchedule"
-    nodeSelector: {}
-      # fleet: gpu-nodes
-
 
 externalServices:
   # -- Existing ElasticSearch Hostname to use if elasticsearch.enabled is false
