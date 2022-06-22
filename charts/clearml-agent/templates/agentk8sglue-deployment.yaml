@@ -36,7 +36,7 @@ spec:
                   echo "waiting for apiserver" ;
                   sleep 5 ;
                 done;
-                while [ $(curl -sw '%{http_code}' "{{.Values.agentk8sglue.fileServerUrlReference}}/" -o /dev/null) -ne 403 ] ; do
+                while [ $(curl -sw '%{http_code}' "{{.Values.agentk8sglue.fileServerUrlReference}}/" -o /dev/null) =~ 403|405 ]] ; do
                   echo "waiting for fileserver" ;
                   sleep 5 ;
                 done;
