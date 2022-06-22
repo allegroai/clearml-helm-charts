@@ -34,10 +34,6 @@ jobs:
           node_image: kindest/node:${{ matrix.k8s }}
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.2.1
-      - name: Inject secrets
-        run: |
-          find ./charts/*/ci/*.yaml -type f -exec sed -i "s/AGENTK8SGLUEKEY/${{ secrets.agentk8sglueKey }}/g" {} \;
-          find ./charts/*/ci/*.yaml -type f -exec sed -i "s/AGENTK8SGLUESECRET/${{ secrets.agentk8sglueSecret }}/g" {} \;
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
@@ -45,5 +41,9 @@ jobs:
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
+      - name: Inject secrets
+        run: |
+          find ./charts/*/ci/*.yaml -type f -exec sed -i "s/AGENTK8SGLUEKEY/${{ secrets.agentk8sglueKey }}/g" {} \;
+          find ./charts/*/ci/*.yaml -type f -exec sed -i "s/AGENTK8SGLUESECRET/${{ secrets.agentk8sglueSecret }}/g" {} \;      
       - name: Run chart-testing (lint and install)
         run: ct lint-and-install --chart-dirs=charts --target-branch=main --helm-extra-args="--timeout=15m" --debug=true
