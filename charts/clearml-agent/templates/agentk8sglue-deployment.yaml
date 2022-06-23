@@ -32,15 +32,15 @@ spec:
               - -c
               - >
                 set -x;
-                while [ $(curl -sw '%{http_code}' "{{.Values.agentk8sglue.apiServerUrlReference}}/debug.ping" -o /dev/null) -ne 200 ] ; do
+                while [ $(curl {{ if not .Values.agentk8sglue.clearmlcheckCertificate }}--insecure{{ end }} -sw '%{http_code}' "{{.Values.agentk8sglue.apiServerUrlReference}}/debug.ping" -o /dev/null) -ne 200 ] ; do
                   echo "waiting for apiserver" ;
                   sleep 5 ;
                 done;
-                while [ $(curl -sw '%{http_code}' "{{.Values.agentk8sglue.fileServerUrlReference}}/" -o /dev/null) =~ 403|405 ]] ; do
+                while [[ $(curl {{ if not .Values.agentk8sglue.clearmlcheckCertificate }}--insecure{{ end }} -sw '%{http_code}' "{{.Values.agentk8sglue.fileServerUrlReference}}/" -o /dev/null) =~ 403|405 ]] ; do
                   echo "waiting for fileserver" ;
                   sleep 5 ;
                 done;
-                while [ $(curl -sw '%{http_code}' "{{.Values.agentk8sglue.webServerUrlReference}}/" -o /dev/null) -ne 200 ] ; do
+                while [ $(curl {{ if not .Values.agentk8sglue.clearmlcheckCertificate }}--insecure{{ end }} -sw '%{http_code}' "{{.Values.agentk8sglue.webServerUrlReference}}/" -o /dev/null) -ne 200 ] ; do
                   echo "waiting for webserver" ;
                   sleep 5 ;
                 done
