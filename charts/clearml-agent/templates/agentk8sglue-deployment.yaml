@@ -47,11 +47,17 @@ spec:
       containers:
       - name: k8s-glue
         image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         command: ["/bin/bash", "-c", "export PATH=$PATH:$HOME/bin; source /root/.bashrc && /root/entrypoint.sh"]
         volumeMounts:
           - name: k8sagent-pod-template
             mountPath: /root/template
+          {{ if .Values.clearml.clearmlConfig }}
+          - name: k8sagent-clearml-conf-volume
+            mountPath: /root/clearml.conf
+            subPath: clearml.conf
+            readOnly: true
+          {{- end }}
         env:
           - name: CLEARML_API_HOST
             value: "{{.Values.agentk8sglue.apiServerUrlReference}}"
@@ -89,3 +95,11 @@ spec:
         - name: k8sagent-pod-template
           configMap: 
             name: k8sagent-pod-template
+        {{ if .Values.clearml.clearmlConfig }}
+        - name: k8sagent-clearml-conf-volume
+          secret:
+            secretName: clearml-agent-conf
+            items:
+            - key: clearml.conf
+              path: clearml.conf
+        {{ end }}

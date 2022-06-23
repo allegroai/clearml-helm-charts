@@ -19,6 +19,10 @@ clearml:
   agentk8sglueKey: "ACCESSKEY"
   # -- Agent k8s Glue basic auth secret
   agentk8sglueSecret: "SECRETKEY"
+  # -- ClearML configuration file
+  clearmlConfig: |-
+    sdk {
+    }
 
 # -- This agent will spawn queued experiments in new pods, a good use case is to combine this with
 # GPU autoscaling nodes.
