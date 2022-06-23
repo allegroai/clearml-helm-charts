@@ -35,7 +35,7 @@ spec:
             - name: CLEARML_SERVING_POLL_FREQ
               value: "1.0"
             - name: CLEARML_DEFAULT_BASE_SERVE_URL
-              value: http://127.0.0.1:8080/serve
+              value: "{{ .Values.clearml.defaultBaseServeUrl }}"
             - name: CLEARML_DEFAULT_TRITON_GRPC_ADDR
             {{- if .Values.clearml_serving_triton.enabled }}
               value: "clearml-serving-triton:8001"

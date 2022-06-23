@@ -6,6 +6,7 @@ clearml:
   apiHost: http://clearml-server-apiserver:8008
   filesHost: http://clearml-server-fileserver:8081
   webHost: http://clearml-server-webserver:80
+  defaultBaseServeUrl: http://127.0.0.1:8080/serve
   servingTaskId: "ClearML Serving Task ID"
 
 zookeeper:
