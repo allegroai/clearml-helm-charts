@@ -36,6 +36,9 @@ agentk8sglue:
   # -- Glue Agent number of pods
   replicaCount: 1
 
+  # -- Check certificates validity for evefry UrlReference below.
+  clearmlcheckCertificate: true
+
   # -- Reference to Api server url
   apiServerUrlReference: "https://api.clear.ml"
   # -- Reference to File server url
