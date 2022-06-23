@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 3.10.5](https://img.shields.io/badge/Version-3.10.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.4.0](https://img.shields.io/badge/AppVersion-1.4.0-informational?style=flat-square)
+![Version: 4.0.0](https://img.shields.io/badge/Version-4.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.5.0](https://img.shields.io/badge/AppVersion-1.5.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -129,94 +129,6 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agentGroups.agent-group-cpu.affinity | object | `{}` |  |
-| agentGroups.agent-group-cpu.agentVersion | string | `""` |  |
-| agentGroups.agent-group-cpu.awsAccessKeyId | string | `nil` |  |
-| agentGroups.agent-group-cpu.awsDefaultRegion | string | `nil` |  |
-| agentGroups.agent-group-cpu.awsSecretAccessKey | string | `nil` |  |
-| agentGroups.agent-group-cpu.azureStorageAccount | string | `nil` |  |
-| agentGroups.agent-group-cpu.azureStorageKey | string | `nil` |  |
-| agentGroups.agent-group-cpu.clearmlAccessKey | string | `nil` |  |
-| agentGroups.agent-group-cpu.clearmlConfig | string | `"sdk {\n}"` |  |
-| agentGroups.agent-group-cpu.clearmlGitPassword | string | `nil` |  |
-| agentGroups.agent-group-cpu.clearmlGitUser | string | `nil` |  |
-| agentGroups.agent-group-cpu.clearmlSecretKey | string | `nil` |  |
-| agentGroups.agent-group-cpu.enabled | bool | `false` |  |
-| agentGroups.agent-group-cpu.extraEnvs | list | `[]` |  |
-| agentGroups.agent-group-cpu.image.pullPolicy | string | `"IfNotPresent"` |  |
-| agentGroups.agent-group-cpu.image.repository | string | `"ubuntu"` |  |
-| agentGroups.agent-group-cpu.image.tag | string | `"18.04"` |  |
-| agentGroups.agent-group-cpu.name | string | `"agent-group-cpu"` |  |
-| agentGroups.agent-group-cpu.nodeSelector | object | `{}` |  |
-| agentGroups.agent-group-cpu.nvidiaGpusPerAgent | int | `0` |  |
-| agentGroups.agent-group-cpu.podAnnotations | object | `{}` |  |
-| agentGroups.agent-group-cpu.queues | string | `"default"` |  |
-| agentGroups.agent-group-cpu.replicaCount | int | `1` |  |
-| agentGroups.agent-group-cpu.tolerations | list | `[]` |  |
-| agentGroups.agent-group-cpu.updateStrategy | string | `"Recreate"` |  |
-| agentGroups.agent-group-gpu.affinity | object | `{}` |  |
-| agentGroups.agent-group-gpu.agentVersion | string | `""` |  |
-| agentGroups.agent-group-gpu.awsAccessKeyId | string | `nil` |  |
-| agentGroups.agent-group-gpu.awsDefaultRegion | string | `nil` |  |
-| agentGroups.agent-group-gpu.awsSecretAccessKey | string | `nil` |  |
-| agentGroups.agent-group-gpu.azureStorageAccount | string | `nil` |  |
-| agentGroups.agent-group-gpu.azureStorageKey | string | `nil` |  |
-| agentGroups.agent-group-gpu.clearmlAccessKey | string | `nil` |  |
-| agentGroups.agent-group-gpu.clearmlConfig | string | `"sdk {\n}"` |  |
-| agentGroups.agent-group-gpu.clearmlGitPassword | string | `nil` |  |
-| agentGroups.agent-group-gpu.clearmlGitUser | string | `nil` |  |
-| agentGroups.agent-group-gpu.clearmlSecretKey | string | `nil` |  |
-| agentGroups.agent-group-gpu.enabled | bool | `false` |  |
-| agentGroups.agent-group-gpu.image.pullPolicy | string | `"IfNotPresent"` |  |
-| agentGroups.agent-group-gpu.image.repository | string | `"nvidia/cuda"` |  |
-| agentGroups.agent-group-gpu.image.tag | string | `"11.0-base-ubuntu18.04"` |  |
-| agentGroups.agent-group-gpu.name | string | `"agent-group-gpu"` |  |
-| agentGroups.agent-group-gpu.nodeSelector | object | `{}` |  |
-| agentGroups.agent-group-gpu.nvidiaGpusPerAgent | int | `1` |  |
-| agentGroups.agent-group-gpu.podAnnotations | object | `{}` |  |
-| agentGroups.agent-group-gpu.queues | string | `"default"` |  |
-| agentGroups.agent-group-gpu.replicaCount | int | `0` |  |
-| agentGroups.agent-group-gpu.tolerations | list | `[]` |  |
-| agentGroups.agent-group-gpu.updateStrategy | string | `"Recreate"` |  |
-| agentk8sglue.defaultDockerImage | string | `"nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04"` |  |
-| agentk8sglue.enabled | bool | `true` |  |
-| agentk8sglue.id | string | `"k8s-agent"` |  |
-| agentk8sglue.image.repository | string | `"allegroai/clearml-agent-k8s"` |  |
-| agentk8sglue.image.tag | string | `"base-1.21"` |  |
-| agentk8sglue.maxPods | int | `10` |  |
-| agentk8sglue.podTemplate.env | list | `[]` |  |
-| agentk8sglue.podTemplate.nodeSelector | object | `{}` |  |
-| agentk8sglue.podTemplate.resources | object | `{}` |  |
-| agentk8sglue.podTemplate.tolerations | list | `[]` |  |
-| agentk8sglue.podTemplate.volumes | list | `[]` |  |
-| agentk8sglue.queue | string | `"default"` |  |
-| agentk8sglue.serviceAccountName | string | `"default"` |  |
-| agentservices.affinity | object | `{}` |  |
-| agentservices.agentVersion | string | `""` |  |
-| agentservices.awsAccessKeyId | string | `nil` |  |
-| agentservices.awsDefaultRegion | string | `nil` |  |
-| agentservices.awsSecretAccessKey | string | `nil` |  |
-| agentservices.azureStorageAccount | string | `nil` |  |
-| agentservices.azureStorageKey | string | `nil` |  |
-| agentservices.clearmlFilesHost | string | `nil` |  |
-| agentservices.clearmlGitPassword | string | `nil` |  |
-| agentservices.clearmlGitUser | string | `nil` |  |
-| agentservices.clearmlHostIp | string | `nil` |  |
-| agentservices.clearmlWebHost | string | `nil` |  |
-| agentservices.clearmlWorkerId | string | `"clearml-services"` |  |
-| agentservices.enabled | bool | `false` |  |
-| agentservices.extraEnvs | list | `[]` |  |
-| agentservices.googleCredentials | string | `nil` |  |
-| agentservices.image.pullPolicy | string | `"IfNotPresent"` |  |
-| agentservices.image.repository | string | `"allegroai/clearml-agent-services"` |  |
-| agentservices.image.tag | string | `"latest"` |  |
-| agentservices.nodeSelector | object | `{}` |  |
-| agentservices.podAnnotations | object | `{}` |  |
-| agentservices.replicaCount | int | `1` |  |
-| agentservices.resources | object | `{}` |  |
-| agentservices.storage.data.class | string | `""` |  |
-| agentservices.storage.data.size | string | `"50Gi"` |  |
-| agentservices.tolerations | list | `[]` |  |
 | apiserver.additionalConfigs | object | `{}` | additional configurations that can be used by api server; check examples in values.yaml file |
 | apiserver.affinity | object | `{}` |  |
 | apiserver.authCookiesMaxAge | int | `864000` | Amount of seconds the authorization cookie will last in user browser |
@@ -224,7 +136,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | apiserver.extraEnvs | list | `[]` |  |
 | apiserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | apiserver.image.repository | string | `"allegroai/clearml"` |  |
-| apiserver.image.tag | string | `"1.4.0"` |  |
+| apiserver.image.tag | string | `"1.5.0"` |  |
 | apiserver.livenessDelay | int | `60` |  |
 | apiserver.nodeSelector | object | `{}` |  |
 | apiserver.podAnnotations | object | `{}` |  |
@@ -238,7 +150,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | apiserver.service.port | int | `8008` |  |
 | apiserver.service.type | string | `"NodePort"` | This will set to service's spec.type field |
 | apiserver.tolerations | list | `[]` |  |
-| clearml.defaultCompany | string | `"d1bd92a3b039400cbafc60a7a5b1e52b"` |  |
+| clearml | object | `{"defaultCompany":"d1bd92a3b039400cbafc60a7a5b1e52b"}` | ClearMl generic configurations |
 | elasticsearch.clusterHealthCheckParams | string | `"wait_for_status=yellow&timeout=1s"` |  |
 | elasticsearch.clusterName | string | `"clearml-elastic"` |  |
 | elasticsearch.enabled | bool | `true` |  |
@@ -284,7 +196,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | fileserver.extraEnvs | list | `[]` |  |
 | fileserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | fileserver.image.repository | string | `"allegroai/clearml"` |  |
-| fileserver.image.tag | string | `"1.4.0"` |  |
+| fileserver.image.tag | string | `"1.5.0"` |  |
 | fileserver.nodeSelector | object | `{}` |  |
 | fileserver.podAnnotations | object | `{}` |  |
 | fileserver.replicaCount | int | `1` |  |
@@ -295,6 +207,13 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | fileserver.storage.data.class | string | `""` |  |
 | fileserver.storage.data.size | string | `"50Gi"` |  |
 | fileserver.tolerations | list | `[]` |  |
+| imageCredentials | object | `{"email":"someone@host.com","enabled":false,"existingSecret":"","password":"pwd","registry":"docker.io","username":"someone"}` | Private image registry configuration |
+| imageCredentials.email | string | `"someone@host.com"` | Email |
+| imageCredentials.enabled | bool | `false` | Use private authentication mode |
+| imageCredentials.existingSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
+| imageCredentials.password | string | `"pwd"` | Registry password |
+| imageCredentials.registry | string | `"docker.io"` | Registry name |
+| imageCredentials.username | string | `"someone"` | Registry username |
 | ingress.annotations | object | `{}` |  |
 | ingress.api.annotations | object | `{}` |  |
 | ingress.api.enabled | bool | `false` |  |
@@ -343,7 +262,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | webserver.extraEnvs | list | `[]` |  |
 | webserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | webserver.image.repository | string | `"allegroai/clearml"` |  |
-| webserver.image.tag | string | `"1.4.0"` |  |
+| webserver.image.tag | string | `"1.5.0"` |  |
 | webserver.nodeSelector | object | `{}` |  |
 | webserver.podAnnotations | object | `{}` |  |
 | webserver.replicaCount | int | `1` |  |
