@@ -1579,6 +1579,29 @@ entries:
   clearml-agent:
   - apiVersion: v2
     appVersion: "1.24"
+    created: "2022-06-23T09:19:30.560921588Z"
+    description: MLOps platform
+    digest: 2b21da27693cab3848bae883a623c02241342c4149d92a312d72bd9c7521390d
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    kubeVersion: '>= 1.19.0-0 < 1.25.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-1.1.2/clearml-agent-1.1.2.tgz
+    version: 1.1.2
+  - apiVersion: v2
+    appVersion: "1.24"
     created: "2022-06-23T08:43:59.820915771Z"
     description: MLOps platform
     digest: 8585a0d0b9db871265453158388ee25e4109d7add4ae33a21776780ffd1e9ccb
@@ -1771,4 +1794,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2022-06-23T08:46:37.604295657Z"
+generated: "2022-06-23T09:19:30.561423991Z"
