@@ -40,7 +40,7 @@ jobs:
           changed=$(ct list-changed --chart-dirs=charts --target-branch=main)
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
-            echo "::set-output name=\"changed_charts${changed//$'\n'/,}\""
+            echo "::set-output name=changed_charts::\"${changed//$'\n'/,}\""
           fi
       - name: Inject secrets
         run: |
