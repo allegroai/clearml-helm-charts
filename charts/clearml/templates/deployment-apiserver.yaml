@@ -19,7 +19,14 @@ spec:
       labels:
         {{- include "clearml.selectorLabelsApiServer" . | nindent 8 }}
     spec:
-{{- include "clearml.imagePullSecrets" . | indent 6 }}
+      {{- if .Values.imageCredentials.enabled }}
+      imagePullSecrets:
+      {{- if .Values.imageCredentials.existingSecret }}
+      - name: .Values.imageCredentials.existingSecret
+      {{- else }}
+      - name: clearml-agent-registry-key
+      {{- end }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.apiserver.image.repository }}:{{ .Values.apiserver.image.tag | default .Chart.AppVersion }}"

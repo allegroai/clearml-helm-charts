@@ -1,0 +1,79 @@
+# Default values for clearml-serving.
+
+clearml:
+  apiAccessKey: "ClearML API Access Key"
+  apiSecretKey: "ClearML API Secret Key"
+  apiHost: http://clearml-server-apiserver:8008
+  filesHost: http://clearml-server-fileserver:8081
+  webHost: http://clearml-server-webserver:80
+  defaultBaseServeUrl: http://127.0.0.1:8080/serve
+  servingTaskId: "ClearML Serving Task ID"
+
+zookeeper:
+  image: bitnami/zookeeper:3.7.0
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  resources: {}
+
+kafka:
+  image: bitnami/kafka:3.1.0
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  resources: {}
+
+prometheus:
+  image: prom/prometheus:v2.34.0
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  resources: {}
+
+grafana:
+  image: grafana/grafana:8.4.4-ubuntu
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  resources: {}
+
+alertmanager:
+  image: prom/alertmanager:v0.23.0
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  resources: {}
+
+clearml_serving_statistics:
+  image: allegroai/clearml-serving-statistics
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  resources: {}
+  # -- Extra Python Packages to be installed in running pods
+  extraPythonPackages: []
+  #  - numpy==1.22.4
+  #  - pandas==1.4.2
+
+clearml_serving_inference:
+  image: allegroai/clearml-serving-inference
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  resources: {}
+  # -- Extra Python Packages to be installed in running pods
+  extraPythonPackages: []
+  #  - numpy==1.22.4
+  #  - pandas==1.4.2
+
+clearml_serving_triton:
+  enabled: true
+  image: allegroai/clearml-serving-triton
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  resources: {}
+  # -- Extra Python Packages to be installed in running pods
+  extraPythonPackages: []
+  #  - numpy==1.22.4
+  #  - pandas==1.4.2

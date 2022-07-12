@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations: {}
+  labels:
+    clearml.serving.service: grafana
+  name: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      clearml.serving.service: grafana
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations: {}
+      labels:
+        clearml.serving.network/clearml-serving-backend: "true"
+        clearml.serving.service: grafana
+    spec:
+      containers:
+        - image: {{ .Values.grafana.image }}
+          name: clearml-serving-grafana
+          ports:
+            - containerPort: 3000
+          resources: {}
+          volumeMounts:
+            - mountPath: /etc/grafana/provisioning/datasources/
+              name: grafana-conf
+      restartPolicy: Always
+      volumes:
+        - name: grafana-conf
+          secret:
+            secretName: grafana-config
+status: {}
