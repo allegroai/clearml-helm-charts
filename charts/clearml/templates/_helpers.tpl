@@ -144,13 +144,6 @@ Create the name of the Files service to use
 {{/*
 Return the proper Docker Image Registry Secret Names
 */}}
-{{- define "clearml.imagePullSecrets" -}}
-{{- if .Values.global }}
-{{- if .Values.global.imagePullSecrets }}
-imagePullSecrets:
-{{- range .Values.global.imagePullSecrets }}
-  - name: {{ . }}
+{{- define "imagePullSecret" }}
+{{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" .Values.imageCredentials.registry (printf "%s:%s" .Values.imageCredentials.username .Values.imageCredentials.password | b64enc) | b64enc }}
 {{- end }}
-{{- end -}}
-{{- end -}}
-{{- end -}}
