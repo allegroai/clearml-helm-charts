@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: {{ printf "%s" .Values.clearml | sha256sum }}
+        checksum/config: {{ printf "%s%s" .Values.clearml .Values.agentk8sglue | sha256sum }}
       labels:
         {{- include "agentk8sglue.selectorLabels" . | nindent 8 }}
     spec:
@@ -21,7 +21,7 @@ spec:
       {{- if .Values.imageCredentials.existingSecret }}
       - name: .Values.imageCredentials.existingSecret
       {{- else }}
-      - name: clearml-agent-registry-key
+      - name: {{ include "agentk8sglue.referenceName" . }}-clearml-agent-registry-key
       {{- end }}
       {{- end }}
       initContainers:
@@ -50,7 +50,7 @@ spec:
         imagePullPolicy: IfNotPresent
         command: ["/bin/bash", "-c", "export PATH=$PATH:$HOME/bin; source /root/.bashrc && /root/entrypoint.sh"]
         volumeMounts:
-          - name: k8sagent-pod-template
+          - name: {{ include "agentk8sglue.referenceName" . }}-k8sagent-pod-template
             mountPath: /root/template
           {{ if .Values.clearml.clearmlConfig }}
           - name: k8sagent-clearml-conf-volume
@@ -76,12 +76,12 @@ spec:
           - name: CLEARML_API_ACCESS_KEY
             valueFrom:
               secretKeyRef:
-                name: clearml-agent-conf
+                name: {{ include "agentk8sglue.referenceName" . }}-clearml-agent-conf
                 key: agentk8sglue_key
           - name: CLEARML_API_SECRET_KEY
             valueFrom:
               secretKeyRef:
-                name: clearml-agent-conf
+                name: {{ include "agentk8sglue.referenceName" . }}-clearml-agent-conf
                 key: agentk8sglue_secret
           - name: CLEARML_WORKER_ID
             value: "{{.Values.agentk8sglue.id}}"
@@ -92,13 +92,13 @@ spec:
           - name: CLEARML_DOCKER_IMAGE
             value: "{{.Values.agentk8sglue.defaultContainerImage}}"
       volumes:
-        - name: k8sagent-pod-template
+        - name: {{ include "agentk8sglue.referenceName" . }}-k8sagent-pod-template
           configMap: 
-            name: k8sagent-pod-template
+            name: {{ include "agentk8sglue.referenceName" . }}-k8sagent-pod-template
         {{ if .Values.clearml.clearmlConfig }}
         - name: k8sagent-clearml-conf-volume
           secret:
-            secretName: clearml-agent-conf
+            secretName: {{ include "agentk8sglue.referenceName" . }}-clearml-agent-conf
             items:
             - key: clearml.conf
               path: clearml.conf
