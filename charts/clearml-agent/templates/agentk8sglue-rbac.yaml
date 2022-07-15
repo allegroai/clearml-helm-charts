@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: k8sagent-pods-access
+  name: {{ include "agentk8sglue.referenceName" . }}-k8sagent-pods-access
 rules:
   - apiGroups:
       - ""
@@ -12,7 +12,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: k8sagent-pods-access
+  name: {{ include "agentk8sglue.referenceName" . }}-k8sagent-pods-access
 subjects:
   - kind: ServiceAccount
     name: default
@@ -20,4 +20,4 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: k8sagent-pods-access
+  name: {{ include "agentk8sglue.referenceName" . }}-k8sagent-pods-access
