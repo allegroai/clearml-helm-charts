@@ -38,7 +38,7 @@ will always upgrade with you.
 
 ## License
 
-Server Side Public License, Version 1 (see the [LICENSE](https://en.wikipedia.org/wiki/Server_Side_Public_License) for more information)
+Apache License, Version 2.0, (see the [LICENSE](https://www.apache.org/licenses/LICENSE-2.0) for more information)
 
 ## Requirements
 
