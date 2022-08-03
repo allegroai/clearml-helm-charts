@@ -57,7 +57,7 @@ agentk8sglue:
 
   # -- ClearML worker ID (must be unique across the entire ClearMLenvironment)
   id: k8s-agent
-  
+ 
   # -- Environment variables to be exposed in the agentk8sglue pods
   extraEnvs: []
 
