@@ -91,6 +91,9 @@ spec:
             value: ""
           - name: CLEARML_DOCKER_IMAGE
             value: "{{.Values.agentk8sglue.defaultContainerImage}}"
+          {{- if .Values.agentk8sglue.extraEnvs }}
+          {{ toYaml .Values.agentk8sglue.extraEnvs | nindent 10 }}
+          {{- end }}
       volumes:
         - name: {{ include "agentk8sglue.referenceName" . }}-k8sagent-pod-template
           configMap: 
