@@ -140,10 +140,10 @@ spec:
       {{- if or .Values.apiserver.configuration.additionalConfigs .Values.apiserver.configuration.configRefName  .Values.apiserver.configuration.secretRefName }}
       volumes:
         - name: apiserver-config
-          { { - if or .Values.apiserver.configuration.configRefName } }
+          {{- if or .Values.apiserver.configuration.configRefName }}
           configMap:
             name: {{ .Values.apiserver.configuration.configRefName }}
-          { { - else if or .Values.apiserver.configuration.secretRefName } }
+          {{- else if or .Values.apiserver.configuration.secretRefName }}
           secret:
             secretName: {{ .Values.apiserver.configuration.secretRefName }}
           {{- else if or .Values.apiserver.configuration.additionalConfigs }}
