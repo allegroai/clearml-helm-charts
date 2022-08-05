@@ -130,18 +130,26 @@ spec:
             httpGet:
               path: /debug.ping
               port: 8008
-          {{- if .Values.apiserver.additionalConfigs }}
+          {{- if or .Values.apiserver.configuration.additionalConfigs .Values.apiserver.configuration.configRefName  .Values.apiserver.configuration.secretRefName }}
           volumeMounts:
            - name: apiserver-config
              mountPath: /opt/clearml/config
           {{- end }}
           resources:
             {{- toYaml .Values.apiserver.resources | nindent 12 }}
-      {{- if .Values.apiserver.additionalConfigs }}
+      {{- if or .Values.apiserver.configuration.additionalConfigs .Values.apiserver.configuration.configRefName  .Values.apiserver.configuration.secretRefName }}
       volumes:
         - name: apiserver-config
+          { { - if or .Values.apiserver.configuration.configRefName } }
+          configMap:
+            name: {{ .Values.apiserver.configuration.configRefName }}
+          { { - else if or .Values.apiserver.configuration.secretRefName } }
+          secret:
+            secretName: {{ .Values.apiserver.configuration.secretRefName }}
+          {{- else if or .Values.apiserver.configuration.additionalConfigs }}
           configMap:
             name: "{{ include "clearml.fullname" . }}-apiserver-configmap"
+          {{- end }}
       {{- end }}
       {{- with .Values.apiserver.nodeSelector }}
       nodeSelector:
