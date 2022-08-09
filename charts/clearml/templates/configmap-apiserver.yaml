@@ -1,4 +1,4 @@
-{{- if .Values.apiserver.additionalConfigs -}}
+{{- if .Values.apiserver.configuration.additionalConfigs -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
 data:
-  {{- range $key, $val := .Values.apiserver.additionalConfigs }}
+  {{- range $key, $val := .Values.apiserver.configuration.additionalConfigs }}
   {{ $key }}: |
     {{- $val | nindent 4 }}
   {{- end }}

@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 4.1.2](https://img.shields.io/badge/Version-4.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.6.0](https://img.shields.io/badge/AppVersion-1.6.0-informational?style=flat-square)
+![Version: 4.1.3](https://img.shields.io/badge/Version-4.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.6.0](https://img.shields.io/badge/AppVersion-1.6.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -129,10 +129,10 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| apiserver.additionalConfigs | object | `{}` | additional configurations that can be used by api server; check examples in values.yaml file |
 | apiserver.affinity | object | `{}` |  |
 | apiserver.authCookiesMaxAge | int | `864000` | Amount of seconds the authorization cookie will last in user browser |
 | apiserver.configDir | string | `"/opt/clearml/config"` |  |
+| apiserver.configuration | object | `{"additionalConfigs":{},"configRefName":"","secretRefName":""}` | additional configurations that can be used by api server; check examples in values.yaml file |
 | apiserver.extraEnvs | list | `[]` |  |
 | apiserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | apiserver.image.repository | string | `"allegroai/clearml"` |  |
