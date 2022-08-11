@@ -54,7 +54,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Reference Name (agentk8sglue)
 */}}
 {{- define "agentk8sglue.referenceName" -}}
-{{- include "clearml.name" . }}-agentk8sglue
+{{- include "clearml.fullname" . }}-agentk8sglue
 {{- end }}
 
 {{/*
