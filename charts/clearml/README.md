@@ -256,6 +256,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | secret.credentials.apiserver.secretKey | string | `"BxapIRo9ZINi8x25CRxz8Wdmr2pQjzuWVB4PNASZqCtTyWgWVQ"` | Set for apiserver_secret field |
 | secret.credentials.tests.accessKey | string | `"ENP39EQM4SLACGD5FXB7"` | Set for tests_user_key field |
 | secret.credentials.tests.secretKey | string | `"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"` | Set for tests_user_secret field |
+| secret.existingSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
 | secret.httpSession | string | `"9Tw20RbhJ1bLBiHEOWXvhplKGUbTgLzAtwFN2oLQvWwS0uRpD5"` | Set for http_session field |
 | webserver.additionalConfigs | object | `{}` |  |
 | webserver.affinity | object | `{}` |  |

@@ -52,7 +52,7 @@ spec:
         volumeMounts:
           - name: {{ include "agentk8sglue.referenceName" . }}-k8sagent-pod-template
             mountPath: /root/template
-          {{ if .Values.clearml.clearmlConfig }}
+          {{- if or .Values.clearml.clearmlConfig .Values.clearml.existingClearmlConfigSecret }}
           - name: k8sagent-clearml-conf-volume
             mountPath: /root/clearml.conf
             subPath: clearml.conf
@@ -76,12 +76,20 @@ spec:
           - name: CLEARML_API_ACCESS_KEY
             valueFrom:
               secretKeyRef:
-                name: {{ include "agentk8sglue.referenceName" . }}-clearml-agent-conf
+                {{- if .Values.clearml.existingAgentk8sglueSecret }}
+                name: {{ .Values.clearml.existingAgentk8sglueSecret }}
+                {{- else }}
+                name: {{ include "agentk8sglue.referenceName" . }}-clearml-agent-k8sglue
+                {{- end }}
                 key: agentk8sglue_key
           - name: CLEARML_API_SECRET_KEY
             valueFrom:
               secretKeyRef:
-                name: {{ include "agentk8sglue.referenceName" . }}-clearml-agent-conf
+                {{- if .Values.clearml.existingAgentk8sglueSecret }}
+                name: {{ .Values.clearml.existingAgentk8sglueSecret }}
+                {{- else }}
+                name: {{ include "agentk8sglue.referenceName" . }}-clearml-agent-k8sglue
+                {{- end }}
                 key: agentk8sglue_secret
           - name: CLEARML_WORKER_ID
             value: "{{.Values.agentk8sglue.id}}"
@@ -98,10 +106,14 @@ spec:
         - name: {{ include "agentk8sglue.referenceName" . }}-k8sagent-pod-template
           configMap: 
             name: {{ include "agentk8sglue.referenceName" . }}-k8sagent-pod-template
-        {{ if .Values.clearml.clearmlConfig }}
+        {{- if or .Values.clearml.clearmlConfig .Values.clearml.existingClearmlConfigSecret }}
         - name: k8sagent-clearml-conf-volume
           secret:
+            {{- if .Values.clearml.existingClearmlConfigSecret }}
+            secretName: {{ .Values.clearml.existingClearmlConfigSecret }}
+            {{- else }}
             secretName: {{ include "agentk8sglue.referenceName" . }}-clearml-agent-conf
+            {{- end }}
             items:
             - key: clearml.conf
               path: clearml.conf
