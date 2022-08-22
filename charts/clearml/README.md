@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 4.1.3](https://img.shields.io/badge/Version-4.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.6.0](https://img.shields.io/badge/AppVersion-1.6.0-informational?style=flat-square)
+![Version: 4.2.0](https://img.shields.io/badge/Version-4.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.6.0](https://img.shields.io/badge/AppVersion-1.6.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -256,6 +256,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 | secret.credentials.apiserver.secretKey | string | `"BxapIRo9ZINi8x25CRxz8Wdmr2pQjzuWVB4PNASZqCtTyWgWVQ"` | Set for apiserver_secret field |
 | secret.credentials.tests.accessKey | string | `"ENP39EQM4SLACGD5FXB7"` | Set for tests_user_key field |
 | secret.credentials.tests.secretKey | string | `"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"` | Set for tests_user_secret field |
+| secret.existingSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
 | secret.httpSession | string | `"9Tw20RbhJ1bLBiHEOWXvhplKGUbTgLzAtwFN2oLQvWwS0uRpD5"` | Set for http_session field |
 | webserver.additionalConfigs | object | `{}` |  |
 | webserver.affinity | object | `{}` |  |

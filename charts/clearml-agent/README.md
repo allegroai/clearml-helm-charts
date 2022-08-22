@@ -1,6 +1,6 @@
 # clearml-agent
 
-![Version: 1.2.3](https://img.shields.io/badge/Version-1.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 1.3.0](https://img.shields.io/badge/Version-1.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
 MLOps platform
 
@@ -44,10 +44,12 @@ Kubernetes: `>= 1.19.0-0 < 1.25.0-0`
 | agentk8sglue.replicaCount | int | `1` | Glue Agent number of pods |
 | agentk8sglue.serviceAccountName | string | `"default"` | serviceAccountName for pods spawned to consume ClearML Task |
 | agentk8sglue.webServerUrlReference | string | `"https://app.clear.ml"` | Reference to Web server url |
-| clearml | object | `{"agentk8sglueKey":"ACCESSKEY","agentk8sglueSecret":"SECRETKEY","clearmlConfig":"sdk {\n}"}` | ClearMl generic configurations |
+| clearml | object | `{"agentk8sglueKey":"ACCESSKEY","agentk8sglueSecret":"SECRETKEY","clearmlConfig":"sdk {\n}","existingAgentk8sglueSecret":"","existingClearmlConfigSecret":""}` | ClearMl generic configurations |
 | clearml.agentk8sglueKey | string | `"ACCESSKEY"` | Agent k8s Glue basic auth key |
 | clearml.agentk8sglueSecret | string | `"SECRETKEY"` | Agent k8s Glue basic auth secret |
 | clearml.clearmlConfig | string | `"sdk {\n}"` | ClearML configuration file |
+| clearml.existingAgentk8sglueSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
+| clearml.existingClearmlConfigSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
 | imageCredentials | object | `{"email":"someone@host.com","enabled":false,"existingSecret":"","password":"pwd","registry":"docker.io","username":"someone"}` | Private image registry configuration |
 | imageCredentials.email | string | `"someone@host.com"` | Email |
 | imageCredentials.enabled | bool | `false` | Use private authentication mode |
