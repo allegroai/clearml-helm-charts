@@ -1,0 +1,45 @@
+# ClearML Kubernetes Agent
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.badgesSection" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+## Introduction
+
+The **clearml-agent** is the Kubernetes agent for for [ClearML](https://github.com/allegroai/clearml).
+It allows you to schedule distributed experiments on a Kubernetes cluster.
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Upgrading Chart
+
+### From v1.x to v2.x 
+
+Chart 1.x was under the assumption that all mounted volumes would be PVC's. Version > 2.x allows for more flexibility and will inject the yaml from podTemplate.volumes and podtemplate.volumeMounts directly.
+
+v1.x
+```
+    volumes:
+     - name: "yourvolume"
+       path: "/yourpath"
+```
+
+v2.x
+```
+    volumes:
+     - name: "yourvolume"
+       persistentVolumeClaim:
+         claimName: "yourvolume"
+    volumeMounts:
+     - name: "yourvolume"
+       mountPath: "/yourpath"
+```
