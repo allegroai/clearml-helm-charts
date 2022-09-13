@@ -2,7 +2,7 @@ name: Lint and Test Charts
 
 on:
   pull_request_target:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, edited, reopened]
     paths:
       - 'charts/**'
 
