@@ -1,6 +1,6 @@
 # clearml-agent
 
-![Version: 1.3.0](https://img.shields.io/badge/Version-1.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
 MLOps platform
 
@@ -25,7 +25,7 @@ Kubernetes: `>= 1.19.0-0 < 1.25.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agentk8sglue | object | `{"apiServerUrlReference":"https://api.clear.ml","clearmlcheckCertificate":true,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileServerUrlReference":"https://files.clear.ml","id":"k8s-agent","image":{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-18"},"maxPods":10,"podTemplate":{"env":[],"nodeSelector":{},"resources":{},"tolerations":[],"volumes":[]},"queue":"default","replicaCount":1,"serviceAccountName":"default","webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
+| agentk8sglue | object | `{"apiServerUrlReference":"https://api.clear.ml","clearmlcheckCertificate":true,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileServerUrlReference":"https://files.clear.ml","id":"k8s-agent","image":{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-18"},"maxPods":10,"podTemplate":{"env":[],"nodeSelector":{},"resources":{},"tolerations":[],"volumeMounts":[],"volumes":[]},"queue":"default","replicaCount":1,"serviceAccountName":"default","webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
 | agentk8sglue.apiServerUrlReference | string | `"https://api.clear.ml"` | Reference to Api server url |
 | agentk8sglue.clearmlcheckCertificate | bool | `true` | Check certificates validity for evefry UrlReference below. |
 | agentk8sglue.defaultContainerImage | string | `"ubuntu:18.04"` | default container image for ClearML Task pod |
@@ -34,11 +34,12 @@ Kubernetes: `>= 1.19.0-0 < 1.25.0-0`
 | agentk8sglue.id | string | `"k8s-agent"` | ClearML worker ID (must be unique across the entire ClearMLenvironment) |
 | agentk8sglue.image | object | `{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-18"}` | Glue Agent image configuration |
 | agentk8sglue.maxPods | int | `10` | maximum concurrent consume ClearML Task pod |
-| agentk8sglue.podTemplate | object | `{"env":[],"nodeSelector":{},"resources":{},"tolerations":[],"volumes":[]}` | template for pods spawned to consume ClearML Task |
+| agentk8sglue.podTemplate | object | `{"env":[],"nodeSelector":{},"resources":{},"tolerations":[],"volumeMounts":[],"volumes":[]}` | template for pods spawned to consume ClearML Task |
 | agentk8sglue.podTemplate.env | list | `[]` | environment variables for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.podTemplate.nodeSelector | object | `{}` | nodeSelector setup for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.podTemplate.resources | object | `{}` | resources declaration for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.podTemplate.tolerations | list | `[]` | tolerations setup for pods spawned to consume ClearML Task (example in values.yaml comments) |
+| agentk8sglue.podTemplate.volumeMounts | list | `[]` | volumeMounts definition for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.podTemplate.volumes | list | `[]` | volumes definition for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.queue | string | `"default"` | ClearML queue this agent will consume |
 | agentk8sglue.replicaCount | int | `1` | Glue Agent number of pods |

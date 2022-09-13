@@ -71,7 +71,12 @@ agentk8sglue:
     # -- volumes definition for pods spawned to consume ClearML Task (example in values.yaml comments)
     volumes: []
       # - name: "yourvolume"
-      #   path: "/yourpath"
+      #   persistentVolumeClaim:
+      #     claimName: "yourvolume"
+    # -- volumeMounts definition for pods spawned to consume ClearML Task (example in values.yaml comments)
+    volumeMounts: []
+      # - name: "yourvolume"
+      #   mountPath: "/yourpath"
     # -- environment variables for pods spawned to consume ClearML Task (example in values.yaml comments)
     env: []
       # # to setup access to private repo, setup secret with git credentials:

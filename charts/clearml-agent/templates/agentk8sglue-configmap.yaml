@@ -17,21 +17,18 @@ data:
       {{- end }}
       {{- end }}
       serviceAccountName: {{ .Values.agentk8sglue.serviceAccountName }}
+      {{- with .Values.agentk8sglue.podTemplate.volumes }}
       volumes:
-      {{- range .Values.agentk8sglue.podTemplate.volumes }}
-      - name: {{ .name }}
-        persistentVolumeClaim:
-          claimName: {{ .name }}
+      {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
       - resources:
           {{- toYaml .Values.agentk8sglue.podTemplate.resources | nindent 10 }}
         ports:
         - containerPort: 10022
+        {{- with .Values.agentk8sglue.podTemplate.volumeMounts }}
         volumeMounts:
-        {{- range .Values.agentk8sglue.podTemplate.volumes }}
-        - mountPath: {{ .path }}
-          name: {{ .name }}
+        {{- toYaml . | nindent 10 }}
         {{- end }}
         env:
         - name: CLEARML_API_HOST

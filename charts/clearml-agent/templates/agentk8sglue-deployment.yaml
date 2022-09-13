@@ -24,26 +24,6 @@ spec:
       - name: {{ include "agentk8sglue.referenceName" . }}-clearml-agent-registry-key
       {{- end }}
       {{- end }}
-      initContainers:
-          - name: init-k8s-glue
-            image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
-            command:
-              - /bin/sh
-              - -c
-              - >
-                set -x;
-                while [ $(curl {{ if not .Values.agentk8sglue.clearmlcheckCertificate }}--insecure{{ end }} -sw '%{http_code}' "{{.Values.agentk8sglue.apiServerUrlReference}}/debug.ping" -o /dev/null) -ne 200 ] ; do
-                  echo "waiting for apiserver" ;
-                  sleep 5 ;
-                done;
-                while [[ $(curl {{ if not .Values.agentk8sglue.clearmlcheckCertificate }}--insecure{{ end }} -sw '%{http_code}' "{{.Values.agentk8sglue.fileServerUrlReference}}/" -o /dev/null) =~ 403|405 ]] ; do
-                  echo "waiting for fileserver" ;
-                  sleep 5 ;
-                done;
-                while [ $(curl {{ if not .Values.agentk8sglue.clearmlcheckCertificate }}--insecure{{ end }} -sw '%{http_code}' "{{.Values.agentk8sglue.webServerUrlReference}}/" -o /dev/null) -ne 200 ] ; do
-                  echo "waiting for webserver" ;
-                  sleep 5 ;
-                done
       containers:
       - name: k8s-glue
         image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
