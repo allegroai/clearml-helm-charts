@@ -19,7 +19,7 @@ spec:
       {{- if .Values.imageCredentials.enabled }}
       imagePullSecrets:
       {{- if .Values.imageCredentials.existingSecret }}
-      - name: .Values.imageCredentials.existingSecret
+      - name: "{{.Values.imageCredentials.existingSecret}}"
       {{- else }}
       - name: {{ include "agentk8sglue.referenceName" . }}-clearml-agent-registry-key
       {{- end }}
