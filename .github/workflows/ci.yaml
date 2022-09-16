@@ -1,7 +1,7 @@
 name: Lint and Test Charts
 
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, synchronize, edited, reopened]
     paths:
       - 'charts/**'
@@ -22,9 +22,10 @@ jobs:
     strategy:
       matrix:
         k8s:
-          - v1.22.7
-          - v1.23.6
-          - v1.24.0
+          - v1.22.13
+          - v1.23.10
+          - v1.24.4
+          - v1.25.0
     steps:
       - name: Checkout
         uses: actions/checkout@v1
