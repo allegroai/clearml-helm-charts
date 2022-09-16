@@ -119,7 +119,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 
 ## Requirements
 
-Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
+Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|

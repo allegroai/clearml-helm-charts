@@ -4,7 +4,7 @@ description: MLOps platform
 type: application
 version: "4.2.1"
 appVersion: "1.6.0"
-kubeVersion: ">= 1.19.0-0 < 1.26.0-0"
+kubeVersion: ">= 1.21.0-0 < 1.26.0-0"
 home: https://clear.ml
 icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
 sources:
