@@ -83,7 +83,7 @@ apiserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.6.0"
+    tag: "1.7.0"
 
   extraEnvs: []
 
@@ -155,7 +155,7 @@ fileserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.6.0"
+    tag: "1.7.0"
 
   extraEnvs: []
 
@@ -200,7 +200,7 @@ webserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.6.0"
+    tag: "1.7.0"
 
   podAnnotations: {}
 
@@ -229,13 +229,13 @@ externalServices:
   elasticsearchHost: ""
   # -- Existing ElasticSearch Port to use if elasticsearch.enabled is false
   elasticsearchPort: 9200
-  # -- Existing MongoDB Hostname to use if elasticsearch.enabled is false
+  # -- Existing MongoDB Hostname to use if mongodb.enabled is false
   mongodbHost: ""
-  # -- Existing MongoDB Port to use if elasticsearch.enabled is false
+  # -- Existing MongoDB Port to use if mongodb.enabled is false
   mongodbPort: 27017
-  # -- Existing Redis Hostname to use if elasticsearch.enabled is false
+  # -- Existing Redis Hostname to use if redis.enabled is false
   redisHost: ""
-  # -- Existing Redis Port to use if elasticsearch.enabled is false
+  # -- Existing Redis Port to use if redis.enabled is false
   redisPort: 6379
 
 redis:  # configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml

@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 4.2.1](https://img.shields.io/badge/Version-4.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.6.0](https://img.shields.io/badge/AppVersion-1.6.0-informational?style=flat-square)
+![Version: 4.3.0](https://img.shields.io/badge/Version-4.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.7.0](https://img.shields.io/badge/AppVersion-1.7.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -138,7 +138,7 @@ Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 | apiserver.extraEnvs | list | `[]` |  |
 | apiserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | apiserver.image.repository | string | `"allegroai/clearml"` |  |
-| apiserver.image.tag | string | `"1.6.0"` |  |
+| apiserver.image.tag | string | `"1.7.0"` |  |
 | apiserver.livenessDelay | int | `60` |  |
 | apiserver.nodeSelector | object | `{}` |  |
 | apiserver.podAnnotations | object | `{}` |  |
@@ -190,15 +190,15 @@ Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 | elasticsearch.volumeClaimTemplate.resources.requests.storage | string | `"50Gi"` |  |
 | externalServices.elasticsearchHost | string | `""` | Existing ElasticSearch Hostname to use if elasticsearch.enabled is false |
 | externalServices.elasticsearchPort | int | `9200` | Existing ElasticSearch Port to use if elasticsearch.enabled is false |
-| externalServices.mongodbHost | string | `""` | Existing MongoDB Hostname to use if elasticsearch.enabled is false |
-| externalServices.mongodbPort | int | `27017` | Existing MongoDB Port to use if elasticsearch.enabled is false |
-| externalServices.redisHost | string | `""` | Existing Redis Hostname to use if elasticsearch.enabled is false |
-| externalServices.redisPort | int | `6379` | Existing Redis Port to use if elasticsearch.enabled is false |
+| externalServices.mongodbHost | string | `""` | Existing MongoDB Hostname to use if mongodb.enabled is false |
+| externalServices.mongodbPort | int | `27017` | Existing MongoDB Port to use if mongodb.enabled is false |
+| externalServices.redisHost | string | `""` | Existing Redis Hostname to use if redis.enabled is false |
+| externalServices.redisPort | int | `6379` | Existing Redis Port to use if redis.enabled is false |
 | fileserver.affinity | object | `{}` |  |
 | fileserver.extraEnvs | list | `[]` |  |
 | fileserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | fileserver.image.repository | string | `"allegroai/clearml"` |  |
-| fileserver.image.tag | string | `"1.6.0"` |  |
+| fileserver.image.tag | string | `"1.7.0"` |  |
 | fileserver.nodeSelector | object | `{}` |  |
 | fileserver.podAnnotations | object | `{}` |  |
 | fileserver.replicaCount | int | `1` |  |
@@ -265,7 +265,7 @@ Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 | webserver.extraEnvs | list | `[]` |  |
 | webserver.image.pullPolicy | string | `"IfNotPresent"` |  |
 | webserver.image.repository | string | `"allegroai/clearml"` |  |
-| webserver.image.tag | string | `"1.6.0"` |  |
+| webserver.image.tag | string | `"1.7.0"` |  |
 | webserver.nodeSelector | object | `{}` |  |
 | webserver.podAnnotations | object | `{}` |  |
 | webserver.replicaCount | int | `1` |  |
