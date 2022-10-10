@@ -1,0 +1,42 @@
+{{- if .Values.clearml_serving_inference.autoscaling.enabled }}
+apiVersion: {{ include "common.capabilities.hpa.apiVersion" ( dict "context" $ ) }}
+kind: HorizontalPodAutoscaler
+metadata:
+  name: clearml-serving-inference-hpa
+  namespace: {{ .Release.Namespace | quote }}
+  annotations: {}
+  labels:
+    clearml.serving.service: clearml-serving-inference
+spec:
+  scaleTargetRef:
+    apiVersion: "apps/v1"
+    kind: Deployment
+    name: clearml-serving-inference
+  minReplicas: {{ .Values.clearml_serving_inference.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.clearml_serving_inference.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.clearml_serving_inference.autoscaling.targetCPU }}
+    - type: Resource
+      resource:
+        name: cpu
+        {{- if semverCompare "<1.23-0" (include "common.capabilities.kubeVersion" .) }}
+        targetAverageUtilization: {{ .Values.clearml_serving_inference.autoscaling.targetCPU }}
+        {{- else }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.clearml_serving_inference.autoscaling.targetCPU }}
+        {{- end }}
+    {{- end }}
+    {{- if .Values.clearml_serving_inference.autoscaling.targetMemory }}
+    - type: Resource
+      resource:
+        name: memory
+        {{- if semverCompare "<1.23-0" (include "common.capabilities.kubeVersion" .) }}
+        targetAverageUtilization: {{ .Values.clearml_serving_inference.autoscaling.targetMemory }}
+        {{- else }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.clearml_serving_inference.autoscaling.targetMemory }}
+        {{- end }}
+    {{- end }}
+{{- end }}
