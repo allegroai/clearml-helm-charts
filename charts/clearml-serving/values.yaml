@@ -65,6 +65,12 @@ clearml_serving_inference:
   extraPythonPackages: []
   #  - numpy==1.22.4
   #  - pandas==1.4.2
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 11
+    targetCPU: 50
+    targetMemory: 50
 
 clearml_serving_triton:
   enabled: true
@@ -77,3 +83,9 @@ clearml_serving_triton:
   extraPythonPackages: []
   #  - numpy==1.22.4
   #  - pandas==1.4.2
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 11
+    targetCPU: 50
+    targetMemory: 50

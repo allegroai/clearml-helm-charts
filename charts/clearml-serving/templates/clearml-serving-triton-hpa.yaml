@@ -1,0 +1,42 @@
+{{- if .Values.clearml_serving_triton.autoscaling.enabled }}
+apiVersion: {{ include "common.capabilities.hpa.apiVersion" ( dict "context" $ ) }}
+kind: HorizontalPodAutoscaler
+metadata:
+  name: clearml-serving-triton-hpa
+  namespace: {{ .Release.Namespace | quote }}
+  annotations: {}
+  labels:
+    clearml.serving.service: clearml-serving-triton
+spec:
+  scaleTargetRef:
+    apiVersion: "apps/v1"
+    kind: Deployment
+    name: clearml-serving-triton
+  minReplicas: {{ .Values.clearml_serving_triton.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.clearml_serving_triton.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.clearml_serving_triton.autoscaling.targetCPU }}
+    - type: Resource
+      resource:
+        name: cpu
+        {{- if semverCompare "<1.23-0" (include "common.capabilities.kubeVersion" .) }}
+        targetAverageUtilization: {{ .Values.clearml_serving_triton.autoscaling.targetCPU }}
+        {{- else }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.clearml_serving_triton.autoscaling.targetCPU }}
+        {{- end }}
+    {{- end }}
+    {{- if .Values.clearml_serving_triton.autoscaling.targetMemory }}
+    - type: Resource
+      resource:
+        name: memory
+        {{- if semverCompare "<1.23-0" (include "common.capabilities.kubeVersion" .) }}
+        targetAverageUtilization: {{ .Values.clearml_serving_triton.autoscaling.targetMemory }}
+        {{- else }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.clearml_serving_triton.autoscaling.targetMemory }}
+        {{- end }}
+    {{- end }}
+{{- end }}

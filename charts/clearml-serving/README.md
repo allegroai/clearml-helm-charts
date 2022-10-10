@@ -1,6 +1,6 @@
 # clearml-serving
 
-![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.9.0](https://img.shields.io/badge/AppVersion-0.9.0-informational?style=flat-square)
+![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.9.0](https://img.shields.io/badge/AppVersion-0.9.0-informational?style=flat-square)
 
 ClearML Serving Helm Chart
 
@@ -10,6 +10,10 @@ ClearML Serving Helm Chart
 | ---- | ------ | --- |
 | valeriano-manassero |  | <https://github.com/valeriano-manassero> |
 | stefano-cherchi |  | <https://github.com/stefano-cherchi> |
+
+## Requirements
+
+Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
 
 ## Values
 
@@ -28,6 +32,11 @@ ClearML Serving Helm Chart
 | clearml.servingTaskId | string | `"ClearML Serving Task ID"` |  |
 | clearml.webHost | string | `"http://clearml-server-webserver:80"` |  |
 | clearml_serving_inference.affinity | object | `{}` |  |
+| clearml_serving_inference.autoscaling.enabled | bool | `false` |  |
+| clearml_serving_inference.autoscaling.maxReplicas | int | `11` |  |
+| clearml_serving_inference.autoscaling.minReplicas | int | `1` |  |
+| clearml_serving_inference.autoscaling.targetCPU | int | `50` |  |
+| clearml_serving_inference.autoscaling.targetMemory | int | `50` |  |
 | clearml_serving_inference.extraPythonPackages | list | `[]` | Extra Python Packages to be installed in running pods |
 | clearml_serving_inference.image | string | `"allegroai/clearml-serving-inference"` |  |
 | clearml_serving_inference.nodeSelector | object | `{}` |  |
@@ -40,6 +49,11 @@ ClearML Serving Helm Chart
 | clearml_serving_statistics.resources | object | `{}` |  |
 | clearml_serving_statistics.tolerations | list | `[]` |  |
 | clearml_serving_triton.affinity | object | `{}` |  |
+| clearml_serving_triton.autoscaling.enabled | bool | `false` |  |
+| clearml_serving_triton.autoscaling.maxReplicas | int | `11` |  |
+| clearml_serving_triton.autoscaling.minReplicas | int | `1` |  |
+| clearml_serving_triton.autoscaling.targetCPU | int | `50` |  |
+| clearml_serving_triton.autoscaling.targetMemory | int | `50` |  |
 | clearml_serving_triton.enabled | bool | `true` |  |
 | clearml_serving_triton.extraPythonPackages | list | `[]` | Extra Python Packages to be installed in running pods |
 | clearml_serving_triton.image | string | `"allegroai/clearml-serving-triton"` |  |
