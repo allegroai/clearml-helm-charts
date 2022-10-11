@@ -2089,6 +2089,27 @@ entries:
     version: 1.0.0
   clearml-serving:
   - apiVersion: v2
+    appVersion: 1.2.0
+    created: "2022-10-11T08:35:11.245392791Z"
+    description: ClearML Serving Helm Chart
+    digest: 6eb9baa36e031585bb42b72b0802de4176c38cc4433d03d9382d9ef834241ad4
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - model serving
+    kubeVersion: '>= 1.19.0-0 < 1.26.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    - name: stefano-cherchi
+      url: https://github.com/stefano-cherchi
+    name: clearml-serving
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.6.0/clearml-serving-0.6.0.tgz
+    version: 0.6.0
+  - apiVersion: v2
     appVersion: 0.9.0
     created: "2022-10-10T07:17:26.42267156Z"
     description: ClearML Serving Helm Chart
@@ -2207,4 +2228,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-10T07:17:26.423416661Z"
+generated: "2022-10-11T08:35:11.245971405Z"
