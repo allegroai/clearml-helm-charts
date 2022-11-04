@@ -12,5 +12,3 @@ spec:
       targetPort: 9090
   selector:
     clearml.serving.service: prometheus
-status:
-  loadBalancer: {}

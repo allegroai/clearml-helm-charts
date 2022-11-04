@@ -12,5 +12,3 @@ spec:
       targetPort: 8080
   selector:
     clearml.serving.service: clearml-serving-inference
-status:
-  loadBalancer: {}

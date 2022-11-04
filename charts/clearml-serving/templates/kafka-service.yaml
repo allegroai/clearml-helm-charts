@@ -12,5 +12,3 @@ spec:
       targetPort: 9092
   selector:
     clearml.serving.service: kafka
-status:
-  loadBalancer: {}

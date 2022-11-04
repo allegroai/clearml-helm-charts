@@ -40,10 +40,9 @@ spec:
             - name: EXTRA_PYTHON_PACKAGES
               value: '{{ join " " .Values.clearml_serving_statistics.extraPythonPackages }}'
             {{- end }}
-          image: "{{ .Values.clearml_serving_statistics.image }}:{{ .Chart.AppVersion }}"
+          image: "{{ .Values.clearml_serving_statistics.image.repository }}:{{ .Values.clearml_serving_statistics.image.tag }}"
           name: clearml-serving-statistics
           ports:
             - containerPort: 9999
           resources: {}
       restartPolicy: Always
-status: {}

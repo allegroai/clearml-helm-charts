@@ -27,7 +27,7 @@ spec:
             - --web.console.templates=/etc/prometheus/consoles
             - --storage.tsdb.retention.time=200h
             - --web.enable-lifecycle
-          image: {{ .Values.prometheus.image }}
+          image: "{{ .Values.prometheus.image.repository }}:{{ .Values.prometheus.image.tag }}"
           name: clearml-serving-prometheus
           ports:
             - containerPort: 9090
@@ -40,4 +40,3 @@ spec:
         - name: prometheus-conf
           secret:
             secretName: prometheus-config
-status: {}

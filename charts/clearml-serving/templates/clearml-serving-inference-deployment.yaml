@@ -54,10 +54,9 @@ spec:
             - name: EXTRA_PYTHON_PACKAGES
               value: '{{ join " " .Values.clearml_serving_inference.extraPythonPackages }}'
             {{- end }}
-          image: "{{ .Values.clearml_serving_inference.image }}:{{ .Chart.AppVersion }}"
+          image: "{{ .Values.clearml_serving_inference.image.repository }}:{{ .Values.clearml_serving_inference.image.tag }}"
           name: clearml-serving-inference
           ports:
             - containerPort: 8080
           resources: {}
       restartPolicy: Always
-status: {}

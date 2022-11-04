@@ -19,10 +19,9 @@ spec:
         clearml.serving.service: alertmanager
     spec:
       containers:
-        - image: {{ .Values.alertmanager.image }}
+        - image: "{{ .Values.alertmanager.image.repository }}:{{ .Values.alertmanager.image.tag }}"
           name: clearml-serving-alertmanager
           ports:
             - containerPort: 9093
           resources: {}
       restartPolicy: Always
-status: {}

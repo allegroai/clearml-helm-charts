@@ -41,12 +41,11 @@ spec:
             - name: EXTRA_PYTHON_PACKAGES
               value: '{{ join " " .Values.clearml_serving_triton.extraPythonPackages }}'
             {{- end }}
-          image: "{{ .Values.clearml_serving_triton.image }}:{{ .Chart.AppVersion }}"
+          image: "{{ .Values.clearml_serving_triton.image.repository }}:{{ .Values.clearml_serving_triton.image.tag }}"
           name: clearml-serving-triton
           ports:
             - containerPort: 8001
           resources: {}
       restartPolicy: Always
-status: {}
 {{ end }}
 

@@ -1,5 +1,4 @@
-# Default values for clearml-serving.
-
+# -- ClearMl generic configurations
 clearml:
   apiAccessKey: "ClearML API Access Key"
   apiSecretKey: "ClearML API Secret Key"
@@ -9,83 +8,157 @@ clearml:
   defaultBaseServeUrl: http://127.0.0.1:8080/serve
   servingTaskId: "ClearML Serving Task ID"
 
+# -- Zookeeper generic configigurations
 zookeeper:
-  image: bitnami/zookeeper:3.7.0
+  image:
+    repository: "bitnami/zookeeper"
+    tag: "3.7.0"
   nodeSelector: {}
   tolerations: []
   affinity: {}
   resources: {}
 
+# -- Kafka generic configigurations
 kafka:
-  image: bitnami/kafka:3.1.0
+  image:
+    repository: "bitnami/kafka"
+    tag: "3.1.0"
   nodeSelector: {}
   tolerations: []
   affinity: {}
   resources: {}
 
+# -- Prometheus generic configigurations
 prometheus:
-  image: prom/prometheus:v2.34.0
+  image:
+    repository: "prom/prometheus"
+    tag: "v2.34.0"
   nodeSelector: {}
   tolerations: []
   affinity: {}
   resources: {}
 
+# -- Grafana generic configigurations
 grafana:
-  image: grafana/grafana:8.4.4-ubuntu
+  image:
+    repository: "grafana/grafana"
+    tag: "8.4.4-ubuntu"
   nodeSelector: {}
   tolerations: []
   affinity: {}
   resources: {}
+  ingress:
+    enabled: false
+    hostName: "serving-grafana.clearml.127-0-0-1.nip.io"
+    tlsSecretName: ""
+    annotations: {}
+    path: "/"
 
+# -- Alertmanager generic configigurations
 alertmanager:
-  image: prom/alertmanager:v0.23.0
+  image:
+    repository: "prom/alertmanager"
+    tag: "v0.23.0"
   nodeSelector: {}
   tolerations: []
   affinity: {}
   resources: {}
 
+# -- ClearML serving statistics configurations
 clearml_serving_statistics:
-  image: allegroai/clearml-serving-statistics
+  # -- Container Image
+  image:
+    repository: "allegroai/clearml-serving-statistics"
+    tag: "1.2.0"
+  # -- Node Selector configuration
   nodeSelector: {}
+  # -- Tolerations configuration
   tolerations: []
+  # -- Affinity configuration
   affinity: {}
+  # -- Pod resources definition
   resources: {}
   # -- Extra Python Packages to be installed in running pods
   extraPythonPackages: []
   #  - numpy==1.22.4
   #  - pandas==1.4.2
 
+# -- ClearML serving inference configurations
 clearml_serving_inference:
-  image: allegroai/clearml-serving-inference
+  # -- Container Image
+  image:
+    repository: "allegroai/clearml-serving-inference"
+    tag: "1.2.0"
+  # -- Node Selector configuration
   nodeSelector: {}
+  # -- Tolerations configuration
   tolerations: []
+  # -- Affinity configuration
   affinity: {}
+  # -- Pod resources definition
   resources: {}
   # -- Extra Python Packages to be installed in running pods
   extraPythonPackages: []
   #  - numpy==1.22.4
   #  - pandas==1.4.2
+  # -- Autoscaling configuration
   autoscaling:
     enabled: false
     minReplicas: 1
     maxReplicas: 11
     targetCPU: 50
     targetMemory: 50
+  # -- Ingress exposing configurations
+  ingress:
+    enabled: false
+    hostName: "serving.clearml.127-0-0-1.nip.io"
+    tlsSecretName: ""
+    annotations: {}
+    path: "/"
 
+# -- ClearML serving Triton configurations
 clearml_serving_triton:
+  # -- Triton pod creation enable/disable
   enabled: true
-  image: allegroai/clearml-serving-triton
+  # -- Container Image
+  image:
+    repository: "allegroai/clearml-serving-triton"
+    tag: "1.2.0-22.07"
+  # -- Node Selector configuration
   nodeSelector: {}
+  # -- Tolerations configuration
   tolerations: []
+  # -- Affinity configuration
   affinity: {}
+  # -- Pod resources definition
   resources: {}
   # -- Extra Python Packages to be installed in running pods
   extraPythonPackages: []
   #  - numpy==1.22.4
   #  - pandas==1.4.2
+  # -- Autoscaling configuration
   autoscaling:
     enabled: false
     minReplicas: 1
     maxReplicas: 11
     targetCPU: 50
     targetMemory: 50
+  # -- Ingress exposing configurations
+  ingress:
+    enabled: false
+    hostName: "serving-grpc.clearml.127-0-0-1.nip.io"
+    tlsSecretName: ""
+    annotations: {}
+    #  # Example for AWS ALB
+    #  kubernetes.io/ingress.class: alb
+    #  alb.ingress.kubernetes.io/backend-protocol: HTTP
+    #  alb.ingress.kubernetes.io/backend-protocol-version: GRPC
+    #  alb.ingress.kubernetes.io/certificate-arn: <cerntificate arn>
+    #  alb.ingress.kubernetes.io/ssl-redirect: '443'
+    #  alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    #  alb.ingress.kubernetes.io/target-type: ip
+    #
+    #  # Example for NNGINX ingress controller
+    #  nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    #  nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+    path: "/"

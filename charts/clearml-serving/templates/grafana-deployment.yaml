@@ -20,7 +20,7 @@ spec:
         clearml.serving.service: grafana
     spec:
       containers:
-        - image: {{ .Values.grafana.image }}
+        - image: "{{ .Values.grafana.image.repository }}:{{ .Values.grafana.image.tag }}"
           name: clearml-serving-grafana
           ports:
             - containerPort: 3000
@@ -33,4 +33,3 @@ spec:
         - name: grafana-conf
           secret:
             secretName: grafana-config
-status: {}

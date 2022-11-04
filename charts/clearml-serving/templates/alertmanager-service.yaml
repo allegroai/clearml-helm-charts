@@ -12,5 +12,3 @@ spec:
       targetPort: 9093
   selector:
     clearml.serving.service: alertmanager
-status:
-  loadBalancer: {}
