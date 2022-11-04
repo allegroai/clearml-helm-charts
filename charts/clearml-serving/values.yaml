@@ -10,42 +10,54 @@ clearml:
   servingTaskId: "ClearML Serving Task ID"
 
 zookeeper:
-  image: bitnami/zookeeper:3.7.0
+  image:
+    repository: "bitnami/zookeeper"
+    tag: "3.7.0"
   nodeSelector: {}
   tolerations: []
   affinity: {}
   resources: {}
 
 kafka:
-  image: bitnami/kafka:3.1.0
+  image:
+    repository: "bitnami/kafka"
+    tag: "3.1.0"
   nodeSelector: {}
   tolerations: []
   affinity: {}
   resources: {}
 
 prometheus:
-  image: prom/prometheus:v2.34.0
+  image:
+    repository: "prom/prometheus"
+    tag: "v2.34.0"
   nodeSelector: {}
   tolerations: []
   affinity: {}
   resources: {}
 
 grafana:
-  image: grafana/grafana:8.4.4-ubuntu
+  image:
+    repository: "grafana/grafana"
+    tag: "8.4.4-ubuntu"
   nodeSelector: {}
   tolerations: []
   affinity: {}
   resources: {}
 
 alertmanager:
-  image: prom/alertmanager:v0.23.0
+  image:
+    repository: "prom/alertmanager"
+    tag: "v0.23.0"
   nodeSelector: {}
   tolerations: []
   affinity: {}
   resources: {}
 
 clearml_serving_statistics:
-  image: allegroai/clearml-serving-statistics
+  image:
+    repository: "allegroai/clearml-serving-statistics"
+    tag: "1.2.0"
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -56,7 +68,9 @@ clearml_serving_statistics:
   #  - pandas==1.4.2
 
 clearml_serving_inference:
-  image: allegroai/clearml-serving-inference
+  image:
+    repository: "allegroai/clearml-serving-inference"
+    tag: "1.2.0"
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -74,7 +88,9 @@ clearml_serving_inference:
 
 clearml_serving_triton:
   enabled: true
-  image: allegroai/clearml-serving-triton
+  image:
+    repository: "allegroai/clearml-serving-triton"
+    tag: "1.2.0-22.07"
   nodeSelector: {}
   tolerations: []
   affinity: {}
