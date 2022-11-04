@@ -32,7 +32,7 @@ spec:
               value: clearml-serving-zookeeper:2181
             - name: KAFKA_CREATE_TOPICS
               value: '"topic_test:1:1"'
-          image: {{ .Values.kafka.image }}
+          image: "{{ .Values.kafka.image.repository }}:{{ .Values.kafka.image.tag }}"
           name: clearml-serving-kafka
           ports:
             - containerPort: 9092

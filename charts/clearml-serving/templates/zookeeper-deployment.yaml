@@ -22,7 +22,7 @@ spec:
         - env:
             - name: ALLOW_ANONYMOUS_LOGIN
               value: "yes"
-          image: {{ .Values.zookeeper.image }}
+          image: "{{ .Values.zookeeper.image.repository }}:{{ .Values.zookeeper.image.tag }}"
           name: clearml-serving-zookeeper
           ports:
             - containerPort: 2181
