@@ -56,7 +56,7 @@ grafana:
     annotations: {}
     path: "/"
 
-# -- ZAlertmanager generic configigurations
+# -- Alertmanager generic configigurations
 alertmanager:
   image:
     repository: "prom/alertmanager"

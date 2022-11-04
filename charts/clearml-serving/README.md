@@ -18,7 +18,7 @@ Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| alertmanager | object | `{"affinity":{},"image":{"repository":"prom/alertmanager","tag":"v0.23.0"},"nodeSelector":{},"resources":{},"tolerations":[]}` | ZAlertmanager generic configigurations |
+| alertmanager | object | `{"affinity":{},"image":{"repository":"prom/alertmanager","tag":"v0.23.0"},"nodeSelector":{},"resources":{},"tolerations":[]}` | Alertmanager generic configigurations |
 | clearml | object | `{"apiAccessKey":"ClearML API Access Key","apiHost":"http://clearml-server-apiserver:8008","apiSecretKey":"ClearML API Secret Key","defaultBaseServeUrl":"http://127.0.0.1:8080/serve","filesHost":"http://clearml-server-fileserver:8081","servingTaskId":"ClearML Serving Task ID","webHost":"http://clearml-server-webserver:80"}` | ClearMl generic configurations |
 | clearml_serving_inference | object | `{"affinity":{},"autoscaling":{"enabled":false,"maxReplicas":11,"minReplicas":1,"targetCPU":50,"targetMemory":50},"extraPythonPackages":[],"image":{"repository":"allegroai/clearml-serving-inference","tag":"1.2.0"},"ingress":{"annotations":{},"enabled":false,"hostName":"serving.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""},"nodeSelector":{},"resources":{},"tolerations":[]}` | ClearML serving inference configurations |
 | clearml_serving_inference.affinity | object | `{}` | Affinity configuration |
