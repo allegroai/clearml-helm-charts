@@ -38,6 +38,7 @@ Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
 | clearml_serving_statistics.tolerations | list | `[]` | Tolerations configuration |
 | clearml_serving_triton | object | `{"affinity":{},"autoscaling":{"enabled":false,"maxReplicas":11,"minReplicas":1,"targetCPU":50,"targetMemory":50},"enabled":true,"extraPythonPackages":[],"image":{"repository":"allegroai/clearml-serving-triton","tag":"1.2.0-22.07"},"ingress":{"annotations":{},"enabled":false,"hostName":"serving-grpc.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""},"nodeSelector":{},"resources":{},"tolerations":[]}` | ClearML serving Triton configurations |
 | clearml_serving_triton.affinity | object | `{}` | Affinity configuration |
+| clearml_serving_triton.autoscaling | object | `{"enabled":false,"maxReplicas":11,"minReplicas":1,"targetCPU":50,"targetMemory":50}` | Autoscaling configuration |
 | clearml_serving_triton.enabled | bool | `true` | Triton pod creation enable/disable |
 | clearml_serving_triton.extraPythonPackages | list | `[]` | Extra Python Packages to be installed in running pods |
 | clearml_serving_triton.image | object | `{"repository":"allegroai/clearml-serving-triton","tag":"1.2.0-22.07"}` | Container Image |

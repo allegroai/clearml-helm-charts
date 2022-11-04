@@ -1,5 +1,3 @@
-# Default values for clearml-serving.
-
 # -- ClearMl generic configurations
 clearml:
   apiAccessKey: "ClearML API Access Key"
@@ -138,7 +136,7 @@ clearml_serving_triton:
   extraPythonPackages: []
   #  - numpy==1.22.4
   #  - pandas==1.4.2
-  # -- 
+  # -- Autoscaling configuration
   autoscaling:
     enabled: false
     minReplicas: 1
