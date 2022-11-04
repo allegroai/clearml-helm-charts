@@ -47,6 +47,5 @@ spec:
             - containerPort: 8001
           resources: {}
       restartPolicy: Always
-status: {}
 {{ end }}
 

@@ -28,4 +28,3 @@ spec:
             - containerPort: 2181
           resources: {}
       restartPolicy: Always
-status: {}

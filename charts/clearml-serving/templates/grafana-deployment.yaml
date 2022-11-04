@@ -33,4 +33,3 @@ spec:
         - name: grafana-conf
           secret:
             secretName: grafana-config
-status: {}

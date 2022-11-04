@@ -13,6 +13,4 @@ spec:
       targetPort: 8001
   selector:
     clearml.serving.service: clearml-serving-triton
-status:
-  loadBalancer: {}
 {{ end }}

@@ -38,4 +38,3 @@ spec:
             - containerPort: 9092
           resources: {}
       restartPolicy: Always
-status: {}

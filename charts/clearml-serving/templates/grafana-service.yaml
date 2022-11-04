@@ -12,5 +12,3 @@ spec:
       targetPort: 3000
   selector:
     clearml.serving.service: grafana
-status:
-  loadBalancer: {}

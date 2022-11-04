@@ -40,4 +40,3 @@ spec:
         - name: prometheus-conf
           secret:
             secretName: prometheus-config
-status: {}

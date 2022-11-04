@@ -12,5 +12,3 @@ spec:
       targetPort: 2181
   selector:
     clearml.serving.service: zookeeper
-status:
-  loadBalancer: {}
