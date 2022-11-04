@@ -44,6 +44,12 @@ grafana:
   tolerations: []
   affinity: {}
   resources: {}
+  ingress:
+    enabled: false
+    hostName: "serving-grafana.clearml.127-0-0-1.nip.io"
+    tlsSecretName: ""
+    annotations: {}
+    path: "/"
 
 alertmanager:
   image:
