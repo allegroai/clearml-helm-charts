@@ -85,6 +85,12 @@ clearml_serving_inference:
     maxReplicas: 11
     targetCPU: 50
     targetMemory: 50
+  ingress:
+    enabled: false
+    hostName: "serving.clearml.127-0-0-1.nip.io"
+    tlsSecretName: ""
+    annotations: {}
+    path: "/"
 
 clearml_serving_triton:
   enabled: true
@@ -105,3 +111,9 @@ clearml_serving_triton:
     maxReplicas: 11
     targetCPU: 50
     targetMemory: 50
+  ingress:
+    enabled: false
+    hostName: "serving-grpc.clearml.127-0-0-1.nip.io"
+    tlsSecretName: ""
+    annotations: {}
+    path: "/"

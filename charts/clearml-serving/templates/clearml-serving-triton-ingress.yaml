@@ -1,0 +1,42 @@
+{{- if .Values.clearml_serving_triton.enabled -}}
+{{- if .Values.clearml_serving_triton.ingress.enabled -}}
+{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: clearml-serving-triton
+  labels:
+    clearml.serving.service: clearml-serving-triton
+  annotations:
+    {{- toYaml .Values.clearml_serving_triton.ingress.annotations | nindent 4 }}
+spec:
+  {{- if .Values.clearml_serving_triton.ingress.tlsSecretName }}
+  tls:
+    - hosts:
+        - {{ .Values.clearml_serving_triton.ingress.hostName }}
+      secretName: {{ .Values.clearml_serving_triton.ingress.tlsSecretName }}
+  {{- end }}
+  rules:
+  - host: {{ .Values.clearml_serving_triton.ingress.hostName }}
+    http:
+      paths:
+      - path: {{ .Values.clearml_serving_triton.ingress.path }}
+  {{ if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
+        pathType: Prefix
+        backend:
+          service:
+            name: clearml-serving-triton
+            port:
+              number: 8001
+  {{ else }}
+        backend:
+          serviceName: clearml-serving-triton
+          servicePort: 8001
+  {{ end }}
+{{- end }}
+{{- end }}
