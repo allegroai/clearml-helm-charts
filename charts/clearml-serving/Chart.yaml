@@ -8,8 +8,6 @@ kubeVersion: ">= 1.19.0-0 < 1.26.0-0"
 maintainers:
   - name: valeriano-manassero
     url: https://github.com/valeriano-manassero
-  - name: stefano-cherchi
-    url: https://github.com/stefano-cherchi
 keywords:
   - clearml
   - "machine learning"
