@@ -1,17 +1,23 @@
+{{- if .Values.webserver.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "clearml.fullname" . }}-webserver
+  name: {{ include "webserver.referenceName" . }}
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.webserver.service.type }}
   ports:
     - port: {{ .Values.webserver.service.port }}
-      targetPort: {{ .Values.webserver.service.port }}
-{{- if eq .Values.webserver.service.type "NodePort" }}
+      {{- if .Values.enterpriseFeatures.enabled }}
+      targetPort: 8080
+      {{- else }}
+      targetPort: 80
+      {{- end }}
+      {{- if eq .Values.webserver.service.type "NodePort" }}
       nodePort: {{ .Values.webserver.service.nodePort }}
-{{- end }}
+      {{- end }}
       protocol: TCP
   selector:
-    {{- include "clearml.selectorLabelsWebServer" . | nindent 4 }}
+    {{- include "webserver.selectorLabels" . | nindent 4 }}
+{{- end }}

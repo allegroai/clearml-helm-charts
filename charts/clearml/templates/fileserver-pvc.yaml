@@ -1,16 +1,17 @@
+{{- if .Values.fileserver.enabled }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ include "clearml.fullname" . }}-fileserver-data
+  name: {{ include "fileserver.referenceName" . }}-data
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
 spec:
   accessModes:
-    - ReadWriteOnce
+    - {{ .Values.fileserver.storage.data.accessMode }}
   resources:
     requests:
       storage: {{ .Values.fileserver.storage.data.size | quote }}
-  {{- if .Values.fileserver.storage.data.class }}
+  {{- if .Values.fileserver.storage.data.class -}}
   storageClassName: {{ .Values.fileserver.storage.data.class | quote }}
   {{- end -}}
-  
+{{- end }}

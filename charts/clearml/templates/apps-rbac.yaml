@@ -1,0 +1,58 @@
+{{- if .Values.enterpriseFeatures.enabled }}
+{{- if .Values.enterpriseFeatures.apps.enabled }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: "clearml-apps-sa"
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "apps.referenceName" . }}-kpa
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs: ["get", "list", "watch", "create", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "apps.referenceName" . }}-kpa
+subjects:
+  - kind: ServiceAccount
+    name: "clearml-apps-sa"
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "apps.referenceName" . }}-kpa
+{{- else }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "apps.referenceName" . }}-kpa
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs: ["get", "list", "watch", "create", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "apps.referenceName" . }}-kpa
+subjects:
+  - kind: ServiceAccount
+    name: "clearml-apps-sa"
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "apps.referenceName" . }}-kpa
+{{- end }}
+{{- end }}

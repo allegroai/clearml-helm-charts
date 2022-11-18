@@ -1,13 +1,15 @@
-{{- if .Values.apiserver.configuration.additionalConfigs -}}
+{{- if .Values.apiserver.enabled }}
+{{- if .Values.apiserver.additionalConfigs }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: "{{ include "clearml.fullname" . }}-apiserver-configmap"
+  name: "{{ include "apiserver.referenceName" . }}-configmap"
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
 data:
-  {{- range $key, $val := .Values.apiserver.configuration.additionalConfigs }}
+  {{- range $key, $val := .Values.apiserver.additionalConfigs }}
   {{ $key }}: |
     {{- $val | nindent 4 }}
   {{- end }}
-{{- end -}}
+{{- end }}
+{{- end }}

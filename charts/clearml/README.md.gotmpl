@@ -28,7 +28,7 @@ For development/evaluation it's possible to use [kind](https://kind.sigs.k8s.io)
 After installation, following commands will create a complete ClearML insatllation:
 
 ```
-cat <<EOF | kind create cluster --config=-                                                                  ─╯
+cat <<EOF | kind create cluster --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
@@ -82,6 +82,12 @@ This will create 3 ingress rules:
 
 Just pointing the domain records to the IP where ingress controller is responding will complete the deployment process.
 
+A production ready cluster should also have some different configuration like the one proposed in `values-production.yaml` that can be applied with:
+
+```
+helm install clearml allegroai/clearml -f values-production.yaml
+```
+
 ## Upgrades/ Values upgrades
 
 Updating to latest version of this chart can be done in two steps:
@@ -99,6 +105,11 @@ helm upgrade clearml allegroai/clearml --version <CURRENT CHART VERSION> -f cust
 
 Please note: updating values only should always be done setting explicit chart version to avoid a possible chart update. 
 Keeping separate updates procedures between version and values can be a good practice to seprate potential concerns.
+
+## ENTERPRISE Version
+
+There are some specific Enterprise version features that can be enabled only with specific Enterprise licensed images. 
+Enabling this features on OSS version can cause the entire installation to break.
 
 ## Additional Configuration for ClearML Server
 

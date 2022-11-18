@@ -1,8 +1,8 @@
-{{- if .Values.webserver.additionalConfigs -}}
+{{- if .Values.webserver.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: "{{ include "clearml.fullname" . }}-webserver-configmap"
+  name: "{{ include "webserver.referenceName" . }}-configmap"
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
 data:

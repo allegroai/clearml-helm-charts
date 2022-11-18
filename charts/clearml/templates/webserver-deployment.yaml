@@ -1,14 +1,15 @@
+{{- if .Values.webserver.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "clearml.fullname" . }}-webserver
+  name: {{ include "webserver.referenceName" . }}
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.webserver.replicaCount }}
   selector:
     matchLabels:
-      {{- include "clearml.selectorLabelsWebServer" . | nindent 6 }}
+      {{- include "webserver.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.webserver.podAnnotations }}
@@ -16,59 +17,130 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "clearml.selectorLabelsWebServer" . | nindent 8 }}
+        {{- include "webserver.selectorLabels" . | nindent 8 }}
     spec:
       {{- if .Values.imageCredentials.enabled }}
       imagePullSecrets:
       {{- if .Values.imageCredentials.existingSecret }}
-      - name: {{ .Values.imageCredentials.existingSecret }}
+      - name: .Values.imageCredentials.existingSecret
       {{- else }}
-      - name: clearml-agent-registry-key
+      - name: clearml-registry-key
       {{- end }}
       {{- end }}
+      volumes:
+        - name: webserver-config
+          configMap:
+            name: "{{ include "webserver.referenceName" . }}-configmap"
+        {{- if .Values.enterpriseFeatures.airGappedDocumentation.enabled }}
+        - name: documentation
+          emptyDir: {}
+        {{- end }}
+      initContainers:
+        {{- if .Values.enterpriseFeatures.airGappedDocumentation.enabled }}
+        - name: init-airgap-docs
+          image: "{{ .Values.enterpriseFeatures.airGappedDocumentation.image.repository }}:{{ .Values.enterpriseFeatures.airGappedDocumentation.image.tag | default .Chart.AppVersion }}"
+          command:
+            - /bin/sh
+            - -c
+            - cp -a /docs_site/* /usr/share/nginx/html/clearml
+          volumeMounts:
+            - name: webserver-config
+              mountPath: /mnt/external_files/configs
+            {{- if .Values.enterpriseFeatures.airGappedDocumentation.enabled }}
+            - mountPath: /usr/share/nginx/html/clearml
+              name: documentation
+            {{- end }}
+        {{- end }}
+        - name: init-webserver
+          image: "{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag | default .Chart.AppVersion }}"
+          command:
+            - /bin/sh
+            - -c
+            - >
+              set -x;
+              while [ $(curl -sw '%{http_code}' "http://{{ include "apiserver.referenceName" . }}:{{ .Values.apiserver.service.port }}/debug.ping" -o /dev/null) -ne 200 ] ; do
+                echo "waiting for apiserver" ;
+                sleep 5 ;
+              done
       containers:
-        - name: {{ .Chart.Name }}
+        - name: clearml-webserver
           image: "{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.webserver.image.pullPolicy }}
           ports:
             - name: http
+              {{- if .Values.enterpriseFeatures.enabled }}
+              containerPort: 8080
+              {{- else }}
               containerPort: 80
+              {{- end }}
               protocol: TCP
           livenessProbe:
             exec:
               command:
                 - curl
                 - -X OPTIONS
-                - http://0.0.0.0:80/
+                {{- if .Values.enterpriseFeatures.enabled }}
+                - http://localhost:8080/
+                {{- else }}
+                - http://localhost:80/
+                {{- end }}
           readinessProbe:
             exec:
               command:
                 - curl
                 - -X OPTIONS
-                - http://0.0.0.0:80/
-          {{- if .Values.webserver.additionalConfigs }}
-          volumeMounts:
-          - name: webserver-config
-            mountPath: /opt/clearml/config
-          {{- end }}
+                {{- if .Values.enterpriseFeatures.enabled }}
+                - http://localhost:8080/
+                {{- else }}
+                - http://localhost:80/
+                {{- end }}
           env:
           - name: NGINX_APISERVER_ADDRESS
-            value: "http://{{ include "clearml.fullname" . }}-apiserver:{{ .Values.apiserver.service.port }}"
+            value: "http://{{ include "apiserver.referenceName" . }}:{{ .Values.apiserver.service.port }}"
           - name: NGINX_FILESERVER_ADDRESS
-            value: "http://{{ include "clearml.fullname" . }}-fileserver:{{ .Values.fileserver.service.port }}"
+            value: "http://{{ include "fileserver.referenceName" . }}:{{ .Values.fileserver.service.port }}"
+          {{- if .Values.enterpriseFeatures.enabled }}
+          {{- if .Values.enterpriseFeatures.airGappedDocumentation.enabled }}
+          - name: WEBSERVER__docsLink
+            value: "\"clearml/docs/\""
+          {{- end }}
+          - name: COMPANY_ID
+            value: "{{ .Values.clearml.defaultCompany }}"
+          - name: WEBSERVER__appsYouTubeIntroLink
+            value: "\"https://www.youtube.com/embed/HACL60h1Z54\""
+          - name: WEBSERVER__appsYouTubeIntroVideoId
+            value: "\"HACL60h1Z54\""
+          - name: USER_KEY
+            valueFrom:
+              secretKeyRef:
+                name: clearml-conf
+                key: apiserver_key
+          - name: USER_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: clearml-conf
+                key: apiserver_secret
+          {{- end }}
+          {{- if include "clearml.clientConfiguration" . }}
+          - name: WEBSERVER__displayedServerUrls
+            value: {{ include "clearml.clientConfiguration" . | quote }} 
+          {{- end }}
           {{- if .Values.webserver.extraEnvs }}
           {{ toYaml .Values.webserver.extraEnvs | nindent 10 }}
           {{- end }}
+          {{- if not .Values.enterpriseFeatures.enabled }}
           args:
             - webserver
+          {{- end }}
+          volumeMounts:
+            - name: webserver-config
+              mountPath: /mnt/external_files/configs
+            {{- if .Values.enterpriseFeatures.airGappedDocumentation.enabled }}
+            - mountPath: /usr/share/nginx/html/clearml
+              name: documentation
+            {{- end }}
           resources:
             {{- toYaml .Values.webserver.resources | nindent 12 }}
-      {{- if .Values.webserver.additionalConfigs }}
-      volumes:
-        - name: webserver-config
-          configMap:
-            name: "{{ include "clearml.fullname" . }}-webserver-configmap"
-      {{- end }}
       {{- with .Values.webserver.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -81,3 +153,4 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+{{- end }}

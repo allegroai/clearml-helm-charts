@@ -1,4 +1,4 @@
-# -- Private image registry configuration
+# -- Container registry configuration 
 imageCredentials:
   # -- Use private authentication mode
   enabled: false
@@ -15,230 +15,262 @@ imageCredentials:
 
 # -- ClearMl generic configurations
 clearml:
+  # -- Name fo the UI cookie
+  cookieName: "clearml-token-k8s"
+  # -- Cookie domain to be left empty if not exposed with an ingress
+  cookieDomain: ""
+  # -- Company name
   defaultCompany: "d1bd92a3b039400cbafc60a7a5b1e52b"
-ingress:
-  name: clearml-server-ingress
-  annotations: {}
-  app:
-    enabled: false
-    hostName: "app.clearml.127-0-0-1.nip.io"
-    tlsSecretName: ""
-    annotations: {}
-    path: "/"
-  api:
-    enabled: false
-    hostName: "api.clearml.127-0-0-1.nip.io"
-    tlsSecretName: ""
-    annotations: {}
-    path: "/"
-  files:
-    enabled: false
-    hostName: "files.clearml.127-0-0-1.nip.io"
-    tlsSecretName: ""
-    annotations: {}
-    path: "/"
+  # -- Api Server basic auth key
+  apiserverKey: GGS9F4M6XB2DXJ5AFT9F
+  # -- Api Server basic auth secret
+  apiserverSecret: 2oGujVFhPfaozhpuz2GzQfA5OyxmMsR3WVJpsCR5hrgHFs20PO
+  # -- File Server basic auth key
+  fileserverKey: XXCRJ123CEE2KSQ068WO
+  # -- File Server basic auth secret
+  fileserverSecret: YIy8EVAC7QCT4FtgitxAQGyW7xRHDZ4jpYlTE7HKiscpORl1hG
+  # -- Readiness probe basic auth key
+  readinessprobeKey: GK4PRTVT3706T25K6BA1
+  # -- Readiness probe basic auth secret
+  readinessprobeSecret: ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2
+  # -- Secure Auth secret
+  secureAuthTokenSecret: ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2
+  # -- Test Server basic auth key
+  testUserKey: "ENP39EQM4SLACGD5FXB7"
+  # -- Test File Server basic auth secret
+  testUserSecret: "lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"
+  # -- Override the API Urls displayed when showing an example of the SDK's clearml.conf configuration
+  clientConfigurationApiUrl: ""
+  # -- Override the Files Urls displayed when showing an example of the SDK's clearml.conf configuration
+  clientConfigurationFilesUrl: ""
 
-secret:
-  # -- If this is set, chart will not generate a secret but will use what is defined here
-  existingSecret: ""
-
-  # -- Set for http_session field
-  httpSession: "9Tw20RbhJ1bLBiHEOWXvhplKGUbTgLzAtwFN2oLQvWwS0uRpD5"
-  # -- Set for auth_token field
-  authToken: "1SCf0ov3Nm544Td2oZ0gXSrsNx5XhMWdVlKz1tOgcx158bD5RV"
-  credentials:
-    apiserver:
-      # -- Set for apiserver_key field
-      accessKey: "5442F3443MJMORWZA3ZH"
-      # -- Set for apiserver_secret field
-      secretKey: "BxapIRo9ZINi8x25CRxz8Wdmr2pQjzuWVB4PNASZqCtTyWgWVQ"
-    tests:
-      # -- Set for tests_user_key field
-      accessKey: "ENP39EQM4SLACGD5FXB7"
-      # -- Set for tests_user_secret field
-      secretKey: "lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"
-
+# -- Api Server configurations
 apiserver:
-  prepopulateEnabled: "true"
-  prepopulateZipFiles: "/opt/clearml/db-pre-populate"
-  prepopulateArtifactsPath: "/mnt/fileserver"
-  configDir: /opt/clearml/config
-
-  # -- Amount of seconds the authorization cookie will last in user browser
-  authCookiesMaxAge: 864000
-
+  # -- Enable/Disable component deployment
+  enabled: true
+  # -- Enable/Disable example data load
+  prepopulateEnabled: true
+  # -- Api Server image configuration 
+  image:
+    repository: "allegroai/clearml"
+    pullPolicy: IfNotPresent
+    tag: "1.7.0"
+  # -- Api Server internal service configuration
   service:
-    # -- This will set to service's spec.type field
     type: NodePort
     port: 8008
     # -- If service.type set to NodePort, this will be set to service's nodePort field.
     # If service.type is set to others, this field will be ignored
     nodePort: 30008
-
-  livenessDelay: 60
-  readinessDelay: 60
-
+  # -- Api Server number of pods
   replicaCount: 1
+  # -- Ingress configuration for Api Server component
+  ingress:
+    # -- Enable/Disable ingress
+    enabled: false
+    # -- Ingress hostname domain
+    hostName: "api.clearml.127-0-0-1.nip.io"
+    # -- Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule.
+    tlsSecretName: ""
+    # -- Ingress annotations
+    annotations: {}
+    # -- Ingress root path url
+    path: "/"
+  # -- Api Server internal processes configuration
+  processes:
+    # -- Api Server internal listing processes
+    count: 8
+    # -- Api timeout (ms)
+    timeout: 24000
+    # -- Api Server maximum number of concurrent requests
+    maxRequests: 1000
+    # -- Api Server max jitter on api request
+    maxRequestsJitter: 300
+  # -- Api Server extra envrinoment variables 
+  extraEnvs: []
+  # -- Number of additional replicas in Elasticsearch indexes
+  indexReplicas: 0
+    # -- Number of shards in Elasticsearch indexes
+  indexShards: 1
+  # -- specific annotation for Api Server pods
+  podAnnotations: {}
+  # -- Api Server resources per pod; these are minimal requirements, it's suggested to increase
+  # these values in production environments
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 2000m
+      memory: 1Gi
+  # -- Api Server nodeselector
+  nodeSelector: {}
+  # -- Api Server tolerations setup
+  tolerations: []
+  # -- Api Server affinity setup
+  affinity: {}
+  # -- files declared in this parameter will be mounted and read by apiserver (examples in values.yaml)
+  additionalConfigs: {}
+  #   services.conf: |
+  #     tasks {
+  #       non_responsive_tasks_watchdog {
+  #         # In-progress tasks that haven't been updated for at least 'value' seconds will be stopped by the watchdog
+  #         threshold_sec: 21000
+  #         # Watchdog will sleep for this number of seconds after each cycle
+  #         watch_interval_sec: 900
+  #       }
+  #     }
+  #   apiserver.conf: |
+  #     auth {
+  #       fixed_users {
+  #         enabled: true
+  #         pass_hashed: false
+  #         users: [
+  #           {
+  #             username: "jane"
+  #             password: "12345678"
+  #             name: "Jane Doe"
+  #           },
+  #           {
+  #             username: "john"
+  #             password: "12345678"
+  #             name: "John Doe"
+  #           },
+  #         ]
+  #       }
+  #     }
 
+# -- File Server configurations
+fileserver:
+  # -- Enable/Disable component deployment
+  enabled: true
+  # -- File Server image configuration
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
     tag: "1.7.0"
-
-  extraEnvs: []
-
-  podAnnotations: {}
-
-  resources: {}
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
-
-  nodeSelector: {}
-
-  tolerations: []
-
-  affinity: {}
-
-  # -- additional configurations that can be used by api server; check examples in values.yaml file
-  configuration:
-    configRefName: ""
-    secretRefName: ""
-    additionalConfigs: {}
-      # services.conf: |
-      #   tasks {
-      #     non_responsive_tasks_watchdog {
-      #       # In-progress tasks that haven't been updated for at least 'value' seconds will be stopped by the watchdog
-      #       threshold_sec: 21000
-      #       # Watchdog will sleep for this number of seconds after each cycle
-      #       watch_interval_sec: 900
-      #     }
-      #   }
-      # apiserver.conf: |
-      #   auth {
-      #     fixed_users {
-      #       enabled: true
-      #       pass_hashed: false
-      #       users: [
-      #         {
-      #           username: "jane"
-      #           password: "12345678"
-      #           name: "Jane Doe"
-      #         },
-      #         {
-      #           username: "john"
-      #           password: "12345678"
-      #           name: "John Doe"
-      #         },
-      #       ]
-      #     }
-      #   }
-
-fileserver:
+  # -- File Server internal service configuration
   service:
-    # -- This will set to service's spec.type field
     type: NodePort
     port: 8081
     # -- If service.type set to NodePort, this will be set to service's nodePort field.
     # If service.type is set to others, this field will be ignored
     nodePort: 30081
-
+  # -- File Server number of pods
   replicaCount: 1
+  # -- Ingress configuration for File Server component
+  ingress:
+    # -- Enable/Disable ingress
+    enabled: false
+    # -- Ingress hostname domain
+    hostName: "files.clearml.127-0-0-1.nip.io"
+    # -- Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule.
+    tlsSecretName: ""
+    # -- Ingress annotations
+    annotations: {}
+    # -- Ingress root path url
+    path: "/"
+  # -- File Server extra envrinoment variables
+  extraEnvs: []
+  # -- specific annotation for File Server pods
+  podAnnotations: {}
+  # -- File Server resources per pod; these are minimal requirements, it's suggested to increase
+  # these values in production environments
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 2000m
+      memory: 1Gi
+  # -- File Server nodeselector
+  nodeSelector: {}
+  # -- File Server tolerations setup
+  tolerations: []
+  # -- File Server affinity setup
+  affinity: {}
+  # -- File server persistence settings
+  storage:
+    data:
+      # -- Storage class (use default if empty)
+      class: ""
+      # -- Access mode (must be ReadWriteMany if fileserver replica > 1)
+      accessMode: ReadWriteOnce
+      size: 50Gi
 
+# -- Web Server configurations
+webserver:
+  # -- Enable/Disable component deployment
+  enabled: true
+  # -- Web Server image configuration
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
     tag: "1.7.0"
-
-  extraEnvs: []
-
-  podAnnotations: {}
-
-  resources: {}
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
-
-  nodeSelector: {}
-
-  tolerations: []
-
-  affinity: {}
-
-  storage:
-    data:
-      class: ""
-      size: 50Gi
-
-webserver:
-  extraEnvs: []
-
+  # -- Web Server internal service configuration
   service:
-    # -- This will set to service's spec.type field
     type: NodePort
-    port: 80
+    port: 8080
     # -- If service.type set to NodePort, this will be set to service's nodePort field.
     # If service.type is set to others, this field will be ignored
     nodePort: 30080
-
+  # -- Web Server number of pods
   replicaCount: 1
-
-  image:
-    repository: "allegroai/clearml"
-    pullPolicy: IfNotPresent
-    tag: "1.7.0"
-
+  # -- Ingress configuration for Web Server component
+  ingress:
+    # -- Enable/Disable ingress
+    enabled: false
+    # -- Ingress hostname domain
+    hostName: "app.clearml.127-0-0-1.nip.io"
+    # -- Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule.
+    tlsSecretName: ""
+    # -- Ingress annotations
+    annotations: {}
+    # -- Ingress root path url
+    path: "/"
+  # -- Web Server extra envrinoment variables
+  extraEnvs: []
+  # -- specific annotation for Web Server pods
   podAnnotations: {}
-
-  resources: {}
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
-
+  # -- Web Server resources per pod; these are minimal requirements, it's suggested to increase
+  # these values in production environments
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 2000m
+      memory: 1Gi
+  # -- Web Server nodeselector
   nodeSelector: {}
-
+  # -- Web Server tolerations setup
   tolerations: []
-
+  # -- Web Server affinity setup
   affinity: {}
-
+  # -- set this value AND overrideReferenceFileUrl if external endpoint exposure is in place (like a LoadBalancer)
+  # example: "https://"api.clearml.local"
+  overrideReferenceApiUrl: ""
+  # -- set this value AND overrideReferenceAPIUrl if external endpoint exposure is in place (like a LoadBalancer)
+  # example: "https://"files.clearml.local"
+  overrideReferenceFileUrl: ""
+  # -- Additional specific webserver configurations
   additionalConfigs: {}
 
+# -- Definition of external services to use if not enabled as dependency charts here
 externalServices:
   # -- Existing ElasticSearch Hostname to use if elasticsearch.enabled is false
   elasticsearchHost: ""
   # -- Existing ElasticSearch Port to use if elasticsearch.enabled is false
   elasticsearchPort: 9200
-  # -- Existing MongoDB Hostname to use if mongodb.enabled is false
-  mongodbHost: ""
-  # -- Existing MongoDB Port to use if mongodb.enabled is false
-  mongodbPort: 27017
+  # -- Existing MongoDB connection string to use if mongodb.enabled is false
+  mongodbConnectionString: ""
   # -- Existing Redis Hostname to use if redis.enabled is false
   redisHost: ""
   # -- Existing Redis Port to use if redis.enabled is false
   redisPort: 6379
 
-redis:  # configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml
+# -- Configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml
+redis:
   enabled: true
   usePassword: false
   databaseNumber: 0
@@ -250,10 +282,13 @@ redis:  # configuration from https://github.com/bitnami/charts/blob/master/bitna
       accessModes:
         - ReadWriteOnce
       size: 5Gi
+      ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
+      storageClass: null
   cluster:
     enabled: false
 
-mongodb:  # configuration from https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
+# -- Configuration from https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
+mongodb:
   enabled: true
   architecture: standalone
   auth:
@@ -264,13 +299,11 @@ mongodb:  # configuration from https://github.com/bitnami/charts/blob/master/bit
     accessModes:
       - ReadWriteOnce
     size: 50Gi
-  service:
-    name: "{{ .Release.Name }}-mongodb"
-    type: ClusterIP
-    port: 27017
-    portName: mongo-service
+    ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
+    storageClass: null
 
-elasticsearch:  # configuration from https://github.com/elastic/helm-charts/blob/7.16/elasticsearch/values.yaml
+# -- Configuration from https://github.com/elastic/helm-charts/blob/7.16/elasticsearch/values.yaml
+elasticsearch:
   enabled: true
   httpPort: 9200
   roles:
@@ -306,16 +339,75 @@ elasticsearch:  # configuration from https://github.com/elastic/helm-charts/blob
       value: "false"
   resources:
     requests:
-      memory: "4Gi"
+      cpu: 100m
+      memory: 2Gi
     limits:
-      memory: "4Gi"
+      cpu: 2000m
+      memory: 4Gi
   persistence:
     enabled: true
   volumeClaimTemplate:
     accessModes: ["ReadWriteOnce"]
+    ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
+    storageClassName: null
     resources:
       requests:
         storage: 50Gi
   esConfig:
     elasticsearch.yml: |
       xpack.security.enabled: false
+
+# -- Enterprise features (work only with an Enterprise license)
+enterpriseFeatures:
+  # -- Enable/Disable Enterprise features
+  enabled: false
+  # -- Air gapped documentation  configurations
+  airGappedDocumentation:
+    # -- Enable/Disable air gapped documentation deployment
+    enabled: false
+    # -- Air gapped documentation image configuration 
+    image:
+      repository: "" 
+      tag: ""
+  # -- APPS configurations
+  apps:
+    # -- Apps Server basic auth key
+    AgentKey: GK4PRTVT3706T25K6BA1
+    # -- Apps Server basic auth secret
+    AgentSecret: ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2
+    # -- Apps Server Git user
+    GitAgentUser: ""
+    # -- Apps Server Git password
+    GitAgentPass: ""
+    # -- Enable/Disable component deployment
+    enabled: true
+    # -- APPS image configuration 
+    image:
+      repository: ""
+      pullPolicy: IfNotPresent
+      tag: ""
+    # -- APPS base spawning pods image
+    basePodImage:
+      repository: ""
+      tag: ""
+    # -- APPS number of pods
+    replicaCount: 1
+    # -- APPS extra envrinoment variables 
+    extraEnvs: []
+    # -- specific annotation for APPS pods
+    podAnnotations: {}
+    # -- APPS resources per pod; these are minimal requirements, it's suggested to increase
+    # these values in production environments
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 2000m
+        memory: 1Gi
+    # -- APPS nodeselector
+    nodeSelector: {}
+    # -- APPS tolerations setup
+    tolerations: []
+    # -- APPS affinity setup
+    affinity: {}

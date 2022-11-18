@@ -50,39 +50,64 @@ app.kubernetes.io/name: {{ include "clearml.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
+{{/*
+Reference Name (apiserver)
+*/}}
+{{- define "apiserver.referenceName" -}}
+{{- include "clearml.name" . }}-apiserver
+{{- end }}
+
+{{/*
 Selector labels (apiserver)
 */}}
-{{- define "clearml.selectorLabelsApiServer" -}}
+{{- define "apiserver.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "clearml.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}-apiserver
+app.kubernetes.io/instance: {{ include "apiserver.referenceName" . }}
 {{- end }}
 
+{{/*
+Reference Name (fileserver)
+*/}}
+{{- define "fileserver.referenceName" -}}
+{{- include "clearml.name" . }}-fileserver
+{{- end }}
+
+{{/*
 Selector labels (fileserver)
 */}}
-{{- define "clearml.selectorLabelsFileServer" -}}
+{{- define "fileserver.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "clearml.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}-fileserver
+app.kubernetes.io/instance: {{ include "fileserver.referenceName" . }}
 {{- end }}
 
+{{/*
+Reference Name (webserver)
+*/}}
+{{- define "webserver.referenceName" -}}
+{{- include "clearml.name" . }}-webserver
+{{- end }}
+
+{{/*
 Selector labels (webserver)
 */}}
-{{- define "clearml.selectorLabelsWebServer" -}}
+{{- define "webserver.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "clearml.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}-webserver
+app.kubernetes.io/instance: {{ include "webserver.referenceName" . }}
 {{- end }}
 
-Selector labels (agentservices)
+{{/*
+Reference Name (apps)
 */}}
-{{- define "clearml.selectorLabelsAgentServices" -}}
-app.kubernetes.io/name: {{ include "clearml.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}-agentservices
+{{- define "apps.referenceName" -}}
+{{- include "clearml.name" . }}-apps
 {{- end }}
 
-Selector labels (agent)
+{{/*
+Selector labels (apps)
 */}}
-{{- define "clearml.selectorLabelsAgent" -}}
+{{- define "apps.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "clearml.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}-agent
+app.kubernetes.io/instance: {{ include "apps.referenceName" . }}
 {{- end }}
 
 {{/*
@@ -97,53 +122,95 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-Create the name of the App service to use
-*/}}
-{{- define "clearml.serviceApp" -}}
-{{- if .Values.ingress.enabled }}
-{{- if .Values.ingress.app.tlsSecretName }}
-{{- printf "%s%s" "https://" .Values.ingress.app.hostName }}
-{{- else }}
-{{- printf "%s%s" "http://" .Values.ingress.app.hostName }}
-{{- end }}
-{{- else }}
-{{- printf "%s%s%s%s" "http://" (include "clearml.fullname" .) "-webserver:" (.Values.webserver.service.port | toString) }}
-{{- end }}
-{{- end }}
-
-{{/*
-Create the name of the Api service to use
-*/}}
-{{- define "clearml.serviceApi" -}}
-{{- if .Values.ingress.enabled }}
-{{- if .Values.ingress.api.tlsSecretName }}
-{{- printf "%s%s" "https://" .Values.ingress.api.hostName }}
-{{- else }}
-{{- printf "%s%s" "http://" .Values.ingress.api.hostName }}
-{{- end }}
-{{- else }}
-{{- printf "%s%s%s%s" "http://" (include "clearml.fullname" .) "-apiserver:" (.Values.apiserver.service.port | toString) }}
-{{- end }}
-{{- end }}
-
-{{/*
-Create the name of the Files service to use
-*/}}
-{{- define "clearml.serviceFiles" -}}
-{{- if .Values.ingress.enabled }}
-{{- if .Values.ingress.files.tlsSecretName }}
-{{- printf "%s%s" "https://" .Values.ingress.files.hostName }}
-{{- else }}
-{{- printf "%s%s" "http://" .Values.ingress.files.hostName }}
-{{- end }}
-{{- else }}
-{{- printf "%s%s%s%s" "http://" (include "clearml.fullname" .) "-fileserver:" (.Values.fileserver.service.port | toString) }}
-{{- end }}
-{{- end }}
-
-{{/*
-Return the proper Docker Image Registry Secret Names
+Create secret to access docker registry
 */}}
 {{- define "imagePullSecret" }}
-{{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" .Values.imageCredentials.registry (printf "%s:%s" .Values.imageCredentials.username .Values.imageCredentials.password | b64enc) | b64enc }}
+{{- with .Values.imageCredentials }}
+{{- printf "{\"auths\":{\"%s\":{\"username\":\"%s\",\"password\":\"%s\",\"email\":\"%s\",\"auth\":\"%s\"}}}" .registry .username .password .email (printf "%s:%s" .username .password | b64enc) | b64enc }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create readiness probe auth token
+*/}}
+{{- define "readinessProbeAuth" }}
+{{- printf "%s:%s" .Values.clearml.readinessprobeKey .Values.clearml.readinessprobeSecret | b64enc }}
+{{- end }}
+
+{{/*
+Elasticsearch Service name
+*/}}
+{{- define "elasticsearch.servicename" -}}
+{{- if .Values.elasticsearch.enabled }}
+{{- .Values.elasticsearch.clusterName }}-master
+{{- else }}
+{{- .Values.externalServices.elasticsearchHost }}
+{{- end }}
+{{- end }}
+
+{{/*
+Elasticsearch Service port
+*/}}
+{{- define "elasticsearch.serviceport" -}}
+{{- if .Values.elasticsearch.enabled }}
+{{- .Values.elasticsearch.httpPort }}
+{{- else }}
+{{- .Values.externalServices.elasticsearchPort }}
+{{- end }}
+{{- end }}
+
+{{/*
+MongoDB Comnnection string
+*/}}
+{{- define "mongodb.connectionstring" -}}
+{{- if .Values.mongodb.enabled }}
+{{- if eq .Values.mongodb.architecture "standalone" }}
+{{- printf "%s%s%s" "mongodb://" .Release.Name "-mongodb:27017" }}
+{{- else }}
+{{- $connectionString := "mongodb://" }}
+{{- range $i,$e := until (.Values.mongodb.replicaCount | int) }}
+{{- $connectionString = printf "%s%s%s%s%s%s%s%s%s" $connectionString $.Release.Name "-mongodb-" ( $i | toString ) "." $.Release.Name "-mongodb-headless." $.Release.Namespace ".svc.cluster.local," }}
+{{- end }}
+{{- printf "%s" ( trimSuffix "," $connectionString ) }}
+{{- end }}
+{{- else }}
+{{- .Values.externalServices.mongodbConnectionString }}
+{{- end }}
+{{- end }}
+
+{{/*
+Redis Service name
+*/}}
+{{- define "redis.servicename" -}}
+{{- if .Values.redis.enabled }}
+{{- tpl .Values.redis.master.name . }}
+{{- else }}
+{{- .Values.externalServices.redisHost }}
+{{- end }}
+{{- end }}
+
+{{/*
+Redis Service port
+*/}}
+{{- define "redis.serviceport" -}}
+{{- if .Values.redis.enabled }}
+{{- .Values.redis.master.port }}
+{{- else }}
+{{- .Values.externalServices.redisPort }}
+{{- end }}
+{{- end }}
+
+{{/*
+clientConfiguration string compose
+*/}}
+{{- define "clearml.clientConfiguration" -}}
+{{- $clientConfiguration := "" }}
+{{- if and (.Values.clearml.clientConfigurationApiUrl) .Values.clearml.clientConfigurationFilesUrl }}
+{{- $clientConfiguration = "{\"apiServer\":\"{{ .Values.clearml.clientConfigurationApiUrl }}\",\"filesServer\":\"{{ .Values.clearml.clientConfigurationFilesUrl }}\"}" }}
+{{- else if .Values.clearml.clientConfigurationApiUrl }}
+{{- $clientConfiguration = "{\"apiServer\":\"{{ .Values.clearml.clientConfigurationApiUrl }}\"}" }}
+{{- else if .Values.clearml.clientConfigurationFilesUrl }}
+{{- $clientConfiguration = "{\"filesServer\":\"{{ .Values.clearml.clientConfigurationFilesUrl }}\"}" }}
+{{- end }}
+{{- $clientConfiguration }}
 {{- end }}
