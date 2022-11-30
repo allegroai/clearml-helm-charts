@@ -83,7 +83,7 @@ apiserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.7.0"
+    tag: "1.8.0"
 
   extraEnvs: []
 
@@ -155,7 +155,7 @@ fileserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.7.0"
+    tag: "1.8.0"
 
   extraEnvs: []
 
@@ -200,7 +200,7 @@ webserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.7.0"
+    tag: "1.8.0"
 
   podAnnotations: {}
 
