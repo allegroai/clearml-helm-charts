@@ -361,6 +361,8 @@ elasticsearch:
 enterpriseFeatures:
   # -- Enable/Disable Enterprise features
   enabled: false
+  # -- Company name
+  defaultCompanyGuid: "d1bd92a3b039400cbafc60a7a5b1e52b"
   # -- Air gapped documentation  configurations
   airGappedDocumentation:
     # -- Enable/Disable air gapped documentation deployment

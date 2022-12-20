@@ -116,6 +116,8 @@ spec:
             value: "/opt/clearml/db-pre-populate"
           {{- end }}
           {{- if .Values.enterpriseFeatures.enabled }}
+          - name: CLEARML__apiserver__default_company
+            value: "{{ .Values.enterpriseFeatures.defaultCompanyGuid }}"
           - name: APPLY_ES_MAPPINGS
             value: "false"
           - name: CLEARML__HOSTS__ELASTIC__LOGS__HOSTS
