@@ -86,7 +86,7 @@ apiserver:
     maxRequests: 1000
     # -- Api Server max jitter on api request
     maxRequestsJitter: 300
-  # -- Api Server extra envrinoment variables 
+  # -- Api Server extra envrinoment variables
   extraEnvs: []
   # -- Number of additional replicas in Elasticsearch indexes
   indexReplicas: 0

@@ -36,7 +36,7 @@ agentk8sglue:
   # -- Glue Agent image configuration
   image:
     repository: "allegroai/clearml-agent-k8s-base"
-    tag: "1.24-18"
+    tag: "1.24-21"
 
   # -- Glue Agent number of pods
   replicaCount: 1
