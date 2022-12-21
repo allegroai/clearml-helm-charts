@@ -378,9 +378,9 @@ enterpriseFeatures:
     # -- Apps Server basic auth secret
     AgentSecret: ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2
     # -- Apps Server Git user
-    GitAgentUser: ""
+    GitAgentUser: "git_user"
     # -- Apps Server Git password
-    GitAgentPass: ""
+    GitAgentPass: "git_password"
     # -- Enable/Disable component deployment
     enabled: true
     # -- APPS image configuration
