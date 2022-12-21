@@ -1,4 +1,4 @@
-# -- Container registry configuration 
+# -- Container registry configuration
 imageCredentials:
   # -- Use private authentication mode
   enabled: false
@@ -50,7 +50,7 @@ apiserver:
   enabled: true
   # -- Enable/Disable example data load
   prepopulateEnabled: true
-  # -- Api Server image configuration 
+  # -- Api Server image configuration
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
@@ -367,9 +367,9 @@ enterpriseFeatures:
   airGappedDocumentation:
     # -- Enable/Disable air gapped documentation deployment
     enabled: false
-    # -- Air gapped documentation image configuration 
+    # -- Air gapped documentation image configuration
     image:
-      repository: "" 
+      repository: ""
       tag: ""
   # -- APPS configurations
   apps:
@@ -383,7 +383,7 @@ enterpriseFeatures:
     GitAgentPass: ""
     # -- Enable/Disable component deployment
     enabled: true
-    # -- APPS image configuration 
+    # -- APPS image configuration
     image:
       repository: ""
       pullPolicy: IfNotPresent
@@ -394,7 +394,7 @@ enterpriseFeatures:
       tag: ""
     # -- APPS number of pods
     replicaCount: 1
-    # -- APPS extra envrinoment variables 
+    # -- APPS extra envrinoment variables
     extraEnvs: []
     # -- specific annotation for APPS pods
     podAnnotations: {}

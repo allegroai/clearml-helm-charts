@@ -146,8 +146,8 @@ Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 | apiserver.additionalConfigs | object | `{}` | files declared in this parameter will be mounted and read by apiserver (examples in values.yaml) |
 | apiserver.affinity | object | `{}` | Api Server affinity setup |
 | apiserver.enabled | bool | `true` | Enable/Disable component deployment |
-| apiserver.extraEnvs | list | `[]` | Api Server extra envrinoment variables  |
-| apiserver.image | object | `{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.0-293"}` | Api Server image configuration  |
+| apiserver.extraEnvs | list | `[]` | Api Server extra envrinoment variables |
+| apiserver.image | object | `{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.0-293"}` | Api Server image configuration |
 | apiserver.indexReplicas | int | `0` | Number of additional replicas in Elasticsearch indexes |
 | apiserver.indexShards | int | `1` | Number of shards in Elasticsearch indexes |
 | apiserver.ingress | object | `{"annotations":{},"enabled":false,"hostName":"api.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""}` | Ingress configuration for Api Server component |
@@ -188,7 +188,7 @@ Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 | enterpriseFeatures | object | `{"airGappedDocumentation":{"enabled":false,"image":{"repository":"","tag":""}},"apps":{"AgentKey":"GK4PRTVT3706T25K6BA1","AgentSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","GitAgentPass":"","GitAgentUser":"","affinity":{},"basePodImage":{"repository":"","tag":""},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"","tag":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"tolerations":[]},"defaultCompanyGuid":"d1bd92a3b039400cbafc60a7a5b1e52b","enabled":false}` | Enterprise features (work only with an Enterprise license) |
 | enterpriseFeatures.airGappedDocumentation | object | `{"enabled":false,"image":{"repository":"","tag":""}}` | Air gapped documentation  configurations |
 | enterpriseFeatures.airGappedDocumentation.enabled | bool | `false` | Enable/Disable air gapped documentation deployment |
-| enterpriseFeatures.airGappedDocumentation.image | object | `{"repository":"","tag":""}` | Air gapped documentation image configuration  |
+| enterpriseFeatures.airGappedDocumentation.image | object | `{"repository":"","tag":""}` | Air gapped documentation image configuration |
 | enterpriseFeatures.apps | object | `{"AgentKey":"GK4PRTVT3706T25K6BA1","AgentSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","GitAgentPass":"","GitAgentUser":"","affinity":{},"basePodImage":{"repository":"","tag":""},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"","tag":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"tolerations":[]}` | APPS configurations |
 | enterpriseFeatures.apps.AgentKey | string | `"GK4PRTVT3706T25K6BA1"` | Apps Server basic auth key |
 | enterpriseFeatures.apps.AgentSecret | string | `"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2"` | Apps Server basic auth secret |
@@ -197,8 +197,8 @@ Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 | enterpriseFeatures.apps.affinity | object | `{}` | APPS affinity setup |
 | enterpriseFeatures.apps.basePodImage | object | `{"repository":"","tag":""}` | APPS base spawning pods image |
 | enterpriseFeatures.apps.enabled | bool | `true` | Enable/Disable component deployment |
-| enterpriseFeatures.apps.extraEnvs | list | `[]` | APPS extra envrinoment variables  |
-| enterpriseFeatures.apps.image | object | `{"pullPolicy":"IfNotPresent","repository":"","tag":""}` | APPS image configuration  |
+| enterpriseFeatures.apps.extraEnvs | list | `[]` | APPS extra envrinoment variables |
+| enterpriseFeatures.apps.image | object | `{"pullPolicy":"IfNotPresent","repository":"","tag":""}` | APPS image configuration |
 | enterpriseFeatures.apps.nodeSelector | object | `{}` | APPS nodeselector |
 | enterpriseFeatures.apps.podAnnotations | object | `{}` | specific annotation for APPS pods |
 | enterpriseFeatures.apps.replicaCount | int | `1` | APPS number of pods |
@@ -233,7 +233,7 @@ Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 | fileserver.storage.data.accessMode | string | `"ReadWriteOnce"` | Access mode (must be ReadWriteMany if fileserver replica > 1) |
 | fileserver.storage.data.class | string | `""` | Storage class (use default if empty) |
 | fileserver.tolerations | list | `[]` | File Server tolerations setup |
-| imageCredentials | object | `{"email":"someone@host.com","enabled":false,"existingSecret":"","password":"pwd","registry":"docker.io","username":"someone"}` | Container registry configuration  |
+| imageCredentials | object | `{"email":"someone@host.com","enabled":false,"existingSecret":"","password":"pwd","registry":"docker.io","username":"someone"}` | Container registry configuration |
 | imageCredentials.email | string | `"someone@host.com"` | Email |
 | imageCredentials.enabled | bool | `false` | Use private authentication mode |
 | imageCredentials.existingSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
