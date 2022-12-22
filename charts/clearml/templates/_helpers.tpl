@@ -98,16 +98,16 @@ app.kubernetes.io/instance: {{ include "webserver.referenceName" . }}
 {{/*
 Reference Name (apps)
 */}}
-{{- define "apps.referenceName" -}}
+{{- define "clearmlApplications.referenceName" -}}
 {{- include "clearml.name" . }}-apps
 {{- end }}
 
 {{/*
 Selector labels (apps)
 */}}
-{{- define "apps.selectorLabels" -}}
+{{- define "clearmlApplications.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "clearml.name" . }}
-app.kubernetes.io/instance: {{ include "apps.referenceName" . }}
+app.kubernetes.io/instance: {{ include "clearmlApplications.referenceName" . }}
 {{- end }}
 
 {{/*

@@ -361,7 +361,7 @@ elasticsearch:
 enterpriseFeatures:
   # -- Enable/Disable Enterprise features
   enabled: false
-  # -- Company name
+  # -- Company ID
   defaultCompanyGuid: "d1bd92a3b039400cbafc60a7a5b1e52b"
   # -- Air gapped documentation  configurations
   airGappedDocumentation:
@@ -372,15 +372,15 @@ enterpriseFeatures:
       repository: ""
       tag: ""
   # -- APPS configurations
-  apps:
+  clearmlApplications:
     # -- Apps Server basic auth key
-    AgentKey: GK4PRTVT3706T25K6BA1
+    agentKey: GK4PRTVT3706T25K6BA1
     # -- Apps Server basic auth secret
-    AgentSecret: ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2
+    agentSecret: ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2
     # -- Apps Server Git user
-    GitAgentUser: "git_user"
+    gitAgentUser: "git_user"
     # -- Apps Server Git password
-    GitAgentPass: "git_password"
+    gitAgentPass: "git_password"
     # -- Enable/Disable component deployment
     enabled: true
     # -- APPS image configuration

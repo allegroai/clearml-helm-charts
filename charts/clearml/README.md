@@ -185,26 +185,26 @@ Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 | clearml.testUserKey | string | `"ENP39EQM4SLACGD5FXB7"` | Test Server basic auth key |
 | clearml.testUserSecret | string | `"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"` | Test File Server basic auth secret |
 | elasticsearch | object | `{"clusterHealthCheckParams":"wait_for_status=yellow&timeout=1s","clusterName":"clearml-elastic","enabled":true,"esConfig":{"elasticsearch.yml":"xpack.security.enabled: false\n"},"esJavaOpts":"-Xmx2g -Xms2g","extraEnvs":[{"name":"bootstrap.memory_lock","value":"false"},{"name":"cluster.routing.allocation.node_initial_primaries_recoveries","value":"500"},{"name":"cluster.routing.allocation.disk.watermark.low","value":"500mb"},{"name":"cluster.routing.allocation.disk.watermark.high","value":"500mb"},{"name":"cluster.routing.allocation.disk.watermark.flood_stage","value":"500mb"},{"name":"http.compression_level","value":"7"},{"name":"reindex.remote.whitelist","value":"*.*"},{"name":"xpack.monitoring.enabled","value":"false"},{"name":"xpack.security.enabled","value":"false"}],"httpPort":9200,"minimumMasterNodes":1,"persistence":{"enabled":true},"replicas":1,"resources":{"limits":{"cpu":"2000m","memory":"4Gi"},"requests":{"cpu":"100m","memory":"2Gi"}},"roles":{"data":"true","ingest":"true","master":"true","remote_cluster_client":"true"},"volumeClaimTemplate":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"50Gi"}},"storageClassName":null}}` | Configuration from https://github.com/elastic/helm-charts/blob/7.16/elasticsearch/values.yaml |
-| enterpriseFeatures | object | `{"airGappedDocumentation":{"enabled":false,"image":{"repository":"","tag":""}},"apps":{"AgentKey":"GK4PRTVT3706T25K6BA1","AgentSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","GitAgentPass":"git_password","GitAgentUser":"git_user","affinity":{},"basePodImage":{"repository":"","tag":""},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"","tag":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"tolerations":[]},"defaultCompanyGuid":"d1bd92a3b039400cbafc60a7a5b1e52b","enabled":false}` | Enterprise features (work only with an Enterprise license) |
+| enterpriseFeatures | object | `{"airGappedDocumentation":{"enabled":false,"image":{"repository":"","tag":""}},"clearmlApplications":{"affinity":{},"agentKey":"GK4PRTVT3706T25K6BA1","agentSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","basePodImage":{"repository":"","tag":""},"enabled":true,"extraEnvs":[],"gitAgentPass":"git_password","gitAgentUser":"git_user","image":{"pullPolicy":"IfNotPresent","repository":"","tag":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"tolerations":[]},"defaultCompanyGuid":"d1bd92a3b039400cbafc60a7a5b1e52b","enabled":false}` | Enterprise features (work only with an Enterprise license) |
 | enterpriseFeatures.airGappedDocumentation | object | `{"enabled":false,"image":{"repository":"","tag":""}}` | Air gapped documentation  configurations |
 | enterpriseFeatures.airGappedDocumentation.enabled | bool | `false` | Enable/Disable air gapped documentation deployment |
 | enterpriseFeatures.airGappedDocumentation.image | object | `{"repository":"","tag":""}` | Air gapped documentation image configuration |
-| enterpriseFeatures.apps | object | `{"AgentKey":"GK4PRTVT3706T25K6BA1","AgentSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","GitAgentPass":"git_password","GitAgentUser":"git_user","affinity":{},"basePodImage":{"repository":"","tag":""},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"","tag":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"tolerations":[]}` | APPS configurations |
-| enterpriseFeatures.apps.AgentKey | string | `"GK4PRTVT3706T25K6BA1"` | Apps Server basic auth key |
-| enterpriseFeatures.apps.AgentSecret | string | `"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2"` | Apps Server basic auth secret |
-| enterpriseFeatures.apps.GitAgentPass | string | `"git_password"` | Apps Server Git password |
-| enterpriseFeatures.apps.GitAgentUser | string | `"git_user"` | Apps Server Git user |
-| enterpriseFeatures.apps.affinity | object | `{}` | APPS affinity setup |
-| enterpriseFeatures.apps.basePodImage | object | `{"repository":"","tag":""}` | APPS base spawning pods image |
-| enterpriseFeatures.apps.enabled | bool | `true` | Enable/Disable component deployment |
-| enterpriseFeatures.apps.extraEnvs | list | `[]` | APPS extra envrinoment variables |
-| enterpriseFeatures.apps.image | object | `{"pullPolicy":"IfNotPresent","repository":"","tag":""}` | APPS image configuration |
-| enterpriseFeatures.apps.nodeSelector | object | `{}` | APPS nodeselector |
-| enterpriseFeatures.apps.podAnnotations | object | `{}` | specific annotation for APPS pods |
-| enterpriseFeatures.apps.replicaCount | int | `1` | APPS number of pods |
-| enterpriseFeatures.apps.resources | object | `{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}}` | APPS resources per pod; these are minimal requirements, it's suggested to increase these values in production environments |
-| enterpriseFeatures.apps.tolerations | list | `[]` | APPS tolerations setup |
-| enterpriseFeatures.defaultCompanyGuid | string | `"d1bd92a3b039400cbafc60a7a5b1e52b"` | Company name |
+| enterpriseFeatures.clearmlApplications | object | `{"affinity":{},"agentKey":"GK4PRTVT3706T25K6BA1","agentSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","basePodImage":{"repository":"","tag":""},"enabled":true,"extraEnvs":[],"gitAgentPass":"git_password","gitAgentUser":"git_user","image":{"pullPolicy":"IfNotPresent","repository":"","tag":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"tolerations":[]}` | APPS configurations |
+| enterpriseFeatures.clearmlApplications.affinity | object | `{}` | APPS affinity setup |
+| enterpriseFeatures.clearmlApplications.agentKey | string | `"GK4PRTVT3706T25K6BA1"` | Apps Server basic auth key |
+| enterpriseFeatures.clearmlApplications.agentSecret | string | `"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2"` | Apps Server basic auth secret |
+| enterpriseFeatures.clearmlApplications.basePodImage | object | `{"repository":"","tag":""}` | APPS base spawning pods image |
+| enterpriseFeatures.clearmlApplications.enabled | bool | `true` | Enable/Disable component deployment |
+| enterpriseFeatures.clearmlApplications.extraEnvs | list | `[]` | APPS extra envrinoment variables |
+| enterpriseFeatures.clearmlApplications.gitAgentPass | string | `"git_password"` | Apps Server Git password |
+| enterpriseFeatures.clearmlApplications.gitAgentUser | string | `"git_user"` | Apps Server Git user |
+| enterpriseFeatures.clearmlApplications.image | object | `{"pullPolicy":"IfNotPresent","repository":"","tag":""}` | APPS image configuration |
+| enterpriseFeatures.clearmlApplications.nodeSelector | object | `{}` | APPS nodeselector |
+| enterpriseFeatures.clearmlApplications.podAnnotations | object | `{}` | specific annotation for APPS pods |
+| enterpriseFeatures.clearmlApplications.replicaCount | int | `1` | APPS number of pods |
+| enterpriseFeatures.clearmlApplications.resources | object | `{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}}` | APPS resources per pod; these are minimal requirements, it's suggested to increase these values in production environments |
+| enterpriseFeatures.clearmlApplications.tolerations | list | `[]` | APPS tolerations setup |
+| enterpriseFeatures.defaultCompanyGuid | string | `"d1bd92a3b039400cbafc60a7a5b1e52b"` | Company ID |
 | enterpriseFeatures.enabled | bool | `false` | Enable/Disable Enterprise features |
 | externalServices | object | `{"elasticsearchHost":"","elasticsearchPort":9200,"mongodbConnectionString":"","redisHost":"","redisPort":6379}` | Definition of external services to use if not enabled as dependency charts here |
 | externalServices.elasticsearchHost | string | `""` | Existing ElasticSearch Hostname to use if elasticsearch.enabled is false |

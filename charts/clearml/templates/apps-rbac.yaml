@@ -1,5 +1,5 @@
 {{- if .Values.enterpriseFeatures.enabled }}
-{{- if .Values.enterpriseFeatures.apps.enabled }}
+{{- if .Values.enterpriseFeatures.clearmlApplications.enabled }}
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -9,7 +9,7 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "apps.referenceName" . }}-kpa
+  name: {{ include "clearmlApplications.referenceName" . }}-kpa
 rules:
   - apiGroups:
       - ""
@@ -20,7 +20,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ include "apps.referenceName" . }}-kpa
+  name: {{ include "clearmlApplications.referenceName" . }}-kpa
 subjects:
   - kind: ServiceAccount
     name: "clearml-apps-sa"
@@ -28,13 +28,13 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ include "apps.referenceName" . }}-kpa
+  name: {{ include "clearmlApplications.referenceName" . }}-kpa
 {{- else }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: {{ include "apps.referenceName" . }}-kpa
+  name: {{ include "clearmlApplications.referenceName" . }}-kpa
 rules:
   - apiGroups:
       - ""
@@ -45,7 +45,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ include "apps.referenceName" . }}-kpa
+  name: {{ include "clearmlApplications.referenceName" . }}-kpa
 subjects:
   - kind: ServiceAccount
     name: "clearml-apps-sa"
@@ -53,6 +53,6 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ include "apps.referenceName" . }}-kpa
+  name: {{ include "clearmlApplications.referenceName" . }}-kpa
 {{- end }}
 {{- end }}

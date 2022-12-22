@@ -1,24 +1,24 @@
 {{- if .Values.enterpriseFeatures.enabled }}
-{{- if .Values.enterpriseFeatures.apps.enabled }}
+{{- if .Values.enterpriseFeatures.clearmlApplications.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "apps.referenceName" . }}
+  name: {{ include "clearmlApplications.referenceName" . }}
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.enterpriseFeatures.apps.replicaCount }}
+  replicas: {{ .Values.enterpriseFeatures.clearmlApplications.replicaCount }}
   selector:
     matchLabels:
-      {{- include "apps.selectorLabels" . | nindent 6 }}
+      {{- include "clearmlApplications.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.enterpriseFeatures.apps.podAnnotations }}
+      {{- with .Values.enterpriseFeatures.clearmlApplications.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "apps.selectorLabels" . | nindent 8 }}
+        {{- include "clearmlApplications.selectorLabels" . | nindent 8 }}
     spec:
       {{- if .Values.imageCredentials.enabled }}
       imagePullSecrets:
@@ -28,16 +28,16 @@ spec:
       - name: clearml-registry-key
       {{- end }}
       {{- end }}
-      {{- if .Values.enterpriseFeatures.apps.additionalConfigs }}
+      {{- if .Values.enterpriseFeatures.clearmlApplications.additionalConfigs }}
       volumes:  
         - name: apps-config
           configMap:
-            name: "{{ include "apps.referenceName" . }}-configmap"
+            name: "{{ include "clearmlApplications.referenceName" . }}-configmap"
       {{- end }}
       serviceAccountName: "clearml-apps-sa"
       initContainers:
         - name: init-apps
-          image: "{{ .Values.enterpriseFeatures.apps.image.repository }}:{{ .Values.enterpriseFeatures.apps.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.enterpriseFeatures.clearmlApplications.image.repository }}:{{ .Values.enterpriseFeatures.clearmlApplications.image.tag | default .Chart.AppVersion }}"
           command:
             - /bin/sh
             - -c
@@ -49,8 +49,8 @@ spec:
               done
       containers:
         - name: clearml-apps
-          image: "{{ .Values.enterpriseFeatures.apps.image.repository }}:{{ .Values.enterpriseFeatures.apps.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.enterpriseFeatures.apps.image.pullPolicy }}
+          image: "{{ .Values.enterpriseFeatures.clearmlApplications.image.repository }}:{{ .Values.enterpriseFeatures.clearmlApplications.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.enterpriseFeatures.clearmlApplications.image.pullPolicy }}
           ports:
             - name: http
               containerPort: 8008
@@ -63,7 +63,7 @@ spec:
           - name: CLEARML_WEB_HOST
             value: "http://{{ include "webserver.referenceName" . }}:{{ .Values.webserver.service.port }}"
           - name: CLEARML_AGENT_DEFAULT_BASE_DOCKER
-            value: "{{ .Values.enterpriseFeatures.apps.basePodImage.repository }}:{{ .Values.enterpriseFeatures.apps.basePodImage.tag }}"
+            value: "{{ .Values.enterpriseFeatures.clearmlApplications.basePodImage.repository }}:{{ .Values.enterpriseFeatures.clearmlApplications.basePodImage.tag }}"
           - name: CLEARML_WORKER_ID
             value: "apps-agent-1"
           - name: CLEARML_NO_DEFAULT_SERVER
@@ -94,25 +94,25 @@ spec:
               secretKeyRef:
                 name: clearml-conf
                 key: apps_git_agent_pass
-          {{- if .Values.enterpriseFeatures.apps.extraEnvs }}
-          {{ toYaml .Values.enterpriseFeatures.apps.extraEnvs | nindent 10 }}
+          {{- if .Values.enterpriseFeatures.clearmlApplications.extraEnvs }}
+          {{ toYaml .Values.enterpriseFeatures.clearmlApplications.extraEnvs | nindent 10 }}
           {{- end }}
-          {{- if .Values.enterpriseFeatures.apps.additionalConfigs }}
+          {{- if .Values.enterpriseFeatures.clearmlApplications.additionalConfigs }}
           volumeMounts:  
             - name: apps-config
               mountPath: /opt/clearml/config/default
           {{- end }}
           resources:
-            {{- toYaml .Values.enterpriseFeatures.apps.resources | nindent 12 }}
-      {{- with .Values.enterpriseFeatures.apps.nodeSelector }}
+            {{- toYaml .Values.enterpriseFeatures.clearmlApplications.resources | nindent 12 }}
+      {{- with .Values.enterpriseFeatures.clearmlApplications.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.enterpriseFeatures.apps.affinity }}
+      {{- with .Values.enterpriseFeatures.clearmlApplications.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.enterpriseFeatures.apps.tolerations }}
+      {{- with .Values.enterpriseFeatures.clearmlApplications.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
