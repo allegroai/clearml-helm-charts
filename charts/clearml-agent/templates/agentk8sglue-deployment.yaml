@@ -163,7 +163,7 @@ spec:
           {{- end }}
       volumes:
         - name: {{ include "clearml.name" . }}-pt
-          configMap: 
+          configMap:
             name: {{ include "clearml.name" . }}-pt
         {{ if .Values.clearml.clearmlConfig }}
         - name: k8sagent-clearml-conf-volume

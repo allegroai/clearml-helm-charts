@@ -92,7 +92,7 @@ Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
 | sessions.maxServices | int | `20` | maximum number of NodePorts exposed |
 | sessions.portModeEnabled | bool | `false` | Enable/Disable sessions portmode WARNING: only one Agent deployment can have this set to true |
 | sessions.setInteractiveQueuesTag | bool | `true` | set interactive queue tags |
-| sessions.startingPort | int | `30000` | starting range of exposed NodePorts  |
+| sessions.startingPort | int | `30000` | starting range of exposed NodePorts |
 | sessions.svcAnnotations | object | `{}` | specific annotations for session services |
 | sessions.svcType | string | `"NodePort"` | service type ("NodePort" or "ClusterIP" or "LoadBalancer") |
 

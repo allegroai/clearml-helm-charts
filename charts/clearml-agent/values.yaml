@@ -179,7 +179,7 @@ sessions:
   svcType: "NodePort"
   # -- External IP sessions clients can connect to
   externalIP: 0.0.0.0
-  # -- starting range of exposed NodePorts 
+  # -- starting range of exposed NodePorts
   startingPort: 30000
   # -- maximum number of NodePorts exposed
   maxServices: 20
