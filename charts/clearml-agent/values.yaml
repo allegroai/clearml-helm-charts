@@ -212,7 +212,7 @@ enterpriseFeatures:
       # -- overrides of the base template for this queue (must be declared even if empty!)
       templateOverrides: {}
     ## -- name of the queue will be used for this template
-    #default-gpu:
+    # default-gpu:
     #  # -- overrides of the base template for this queue
     #  templateOverrides:
     #     # -- resources declaration for pods spawned to consume ClearML Task
