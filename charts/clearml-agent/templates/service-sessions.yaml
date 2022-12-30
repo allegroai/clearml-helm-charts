@@ -1,0 +1,32 @@
+{{- if .Values.sessions.portModeEnabled }}
+{{- if not .Values.sessions.dynamicSvcs }}
+{{- range untilStep 1 ( ( add .Values.sessions.maxServices 1 ) | int ) 1 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clearml-session-{{ . }}
+  labels:
+    {{- include "clearml.labels" $ | nindent 4 }}
+  {{- with $.Values.sessions.svcAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ $.Values.sessions.svcType }}
+  ports:
+    - targetPort: 10022
+      {{- if eq $.Values.sessions.svcType "NodePort" }}
+      port: 10022
+      {{- else }}
+      port: {{ add $.Values.sessions.startingPort . }}
+      {{- end }}
+      protocol: TCP
+      {{- if eq $.Values.sessions.svcType "NodePort" }}
+      nodePort: {{ add $.Values.sessions.startingPort . }}
+      {{- end }}
+  selector:
+    ai.allegro.agent.serial: pod-{{ . }}
+{{- end }}
+{{- end }}
+{{- end }}

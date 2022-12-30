@@ -1,8 +1,178 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "agentk8sglue.referenceName" . }}-k8sagent-pod-template
+  name: {{ include "clearml.name" . }}-pt
 data:
+{{- if .Values.enterpriseFeatures.enabled }}
+  template.yaml: |
+    {{- range $key, $value := $.Values.agentk8sglue.queues }}
+    {{ $key }}:
+      apiVersion: v1
+      metadata:
+        namespace: {{ $.Release.Namespace }}
+        {{- if $value.templateOverrides.labels }}
+        labels:
+        {{- toYaml $value.templateOverrides.labels | nindent 10 }}
+        {{- else if $.Values.agentk8sglue.basePodTemplate.labels }}
+        labels:
+        {{- toYaml $.Values.agentk8sglue.basePodTemplate.labels | nindent 10 }}
+        {{- end}}
+      spec:
+        {{- if $.Values.imageCredentials.enabled }}
+        imagePullSecrets:
+        {{- if $.Values.imageCredentials.existingSecret }}
+          - name: $.Values.imageCredentials.existingSecret
+        {{- else }}
+          - name: {{ include "clearml.name" $ }}-ark
+        {{- end }}
+        {{- end }}
+        {{- if $value.templateOverrides.schedulerName }}
+        schedulerName: {{ $value.templateOverrides.schedulerName }}
+        {{- else if $.Values.agentk8sglue.basePodTemplate.schedulerName }}
+        schedulerName: {{ $.Values.agentk8sglue.basePodTemplate.schedulerName }}
+        {{- end}}
+        restartPolicy: Never
+        {{- if $value.templateOverrides.securityContext }}
+        securityContext:
+        {{- toYaml $value.templateOverrides.securityContext | nindent 10 }}
+        {{- else if $.Values.agentk8sglue.basePodTemplate.securityContext }}
+        securityContext:
+        {{- toYaml $.Values.agentk8sglue.basePodTemplate.securityContext | nindent 10 }}
+        {{- end}}
+        {{- if $value.templateOverrides.hostAliases }}
+          {{- with $value.templateOverrides.hostAliases }}
+        hostAliases:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        {{- else if $.Values.agentk8sglue.basePodTemplate.hostAliases }}
+          {{- with $.Values.agentk8sglue.basePodTemplate.hostAliases }}
+        hostAliases:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        {{- end }}
+        volumes:
+        {{- if $value.templateOverrides.volumes }}
+        {{- toYaml $value.templateOverrides.volumes | nindent 10 }}
+        {{- else if $.Values.agentk8sglue.basePodTemplate.volumes }}
+        {{- toYaml $.Values.agentk8sglue.basePodTemplate.volumes | nindent 10 }}
+        {{- end }}
+        {{- if $value.templateOverrides.fileMounts }}
+          - name: filemounts
+            secret:
+              secretName: {{ include "clearml.name" $ }}-{{ $key }}-fm
+        {{- else if $.Values.agentk8sglue.basePodTemplate.fileMounts }}
+          - name: filemounts
+            secret:
+              secretName: {{ include "clearml.name" $ }}-fm
+        {{- end }}
+        {{- if $value.templateOverrides.initContainers }}
+        initContainers:
+        {{- toYaml $value.templateOverrides.initContainers | nindent 10 }}
+        {{- else if $.Values.agentk8sglue.basePodTemplate.initContainers }}
+        initContainers:
+        {{- toYaml $.Values.agentk8sglue.basePodTemplate.initContainers | nindent 10 }}
+        {{- end }}
+        containers:
+        - resources:
+          {{- if $value.templateOverrides.resources }}
+          {{- toYaml $value.templateOverrides.resources | nindent 12 }}
+          {{- else if $.Values.agentk8sglue.basePodTemplate.resources }}
+          {{- toYaml $.Values.agentk8sglue.basePodTemplate.resources | nindent 12 }}
+          {{- end}}
+          ports:
+            - containerPort: 10022
+          volumeMounts:
+          {{- if $value.templateOverrides.volumeMounts }}
+          {{- toYaml $value.templateOverrides.volumeMounts | nindent 12 }}
+          {{- else if $.Values.agentk8sglue.basePodTemplate.volumeMounts }}
+          {{- toYaml $.Values.agentk8sglue.basePodTemplate.volumeMounts | nindent 12 }}
+          {{- end }}
+          {{- if $value.templateOverrides.fileMounts }}
+          {{- range $value.templateOverrides.fileMounts }}
+            - name: filemounts
+              mountPath: "{{ .folderPath }}/{{ .name }}"
+              subPath: "{{ .name }}"
+              readOnly: true
+          {{- end }}
+          {{- else if $.Values.agentk8sglue.basePodTemplate.fileMounts }}
+          {{- range $.Values.agentk8sglue.basePodTemplate.fileMounts }}
+            - name: filemounts
+              mountPath: "{{ .folderPath }}/{{ .name }}"
+              subPath: "{{ .name }}"
+              readOnly: true
+          {{- end }}
+          {{- end }}
+          env:
+            - name: CLEARML_API_HOST
+              value: {{ $.Values.agentk8sglue.apiServerUrlReference }}
+            - name: CLEARML_WEB_HOST
+              value: {{ $.Values.agentk8sglue.webServerUrlReference }}
+            - name: CLEARML_FILES_HOST
+              value: {{ $.Values.agentk8sglue.fileServerUrlReference }}
+            {{- if not $.Values.agentk8sglue.useOwnerToken }}
+            - name: CLEARML_API_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.clearml.existingAgentk8sglueSecret }}
+                  name: {{ .Values.clearml.existingAgentk8sglueSecret }}
+                  {{- else }}
+                  name: {{ include "clearml.name" . }}-pt
+                  {{- end }}
+                  key: agentk8sglue_key
+            - name: CLEARML_API_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.clearml.existingAgentk8sglueSecret }}
+                  name: {{ .Values.clearml.existingAgentk8sglueSecret }}
+                  {{- else }}
+                  name: {{ include "clearml.name" . }}-pt
+                  {{- end }}
+                  key: agentk8sglue_secret
+            {{- end }}
+            - name: PYTHONUNBUFFERED
+              value: "x"
+            {{- if not $.Values.agentk8sglue.clearmlcheckCertificate }}
+            - name: CLEARML_API_HOST_VERIFY_CERT
+              value: "false"
+          {{- end }}
+          {{- if $value.templateOverrides.env }}
+          {{- toYaml $value.templateOverrides.env | nindent 12 }}
+          {{- else if $.Values.agentk8sglue.basePodTemplate.env }}
+          {{- toYaml $.Values.agentk8sglue.basePodTemplate.env | nindent 12 }}
+          {{- end }}
+        {{- if $value.templateOverrides.nodeSelector }}
+          {{- with $value.templateOverrides.nodeSelector }}
+        nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        {{- else if $.Values.agentk8sglue.basePodTemplate.nodeSelector }}
+          {{- with $.Values.agentk8sglue.basePodTemplate.nodeSelector }}
+        nodeSelector:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        {{- end }}
+        {{- if $value.templateOverrides.tolerations }}
+          {{- with $value.templateOverrides.tolerations }}
+        tolerations:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        {{- else if $.Values.agentk8sglue.basePodTemplate.tolerations }}
+          {{- with $.Values.agentk8sglue.basePodTemplate.tolerations }}
+        tolerations:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        {{- end }}
+    {{- end }}
+  secrets.yaml: |
+    {{- range $key, $value := $.Values.agentk8sglue.queues }}
+    {{ $key }}:
+      {{- if $value.templateOverrides.fileMounts }}
+        - {{ include "clearml.name" $ }}-{{ $key }}-fm
+      {{- else if $.Values.agentk8sglue.basePodTemplate.fileMounts }}
+        - {{ include "clearml.name" $ }}-fm
+      {{- end }}
+    {{- end }}
+{{- else }}
   template.yaml: |
     apiVersion: v1
     metadata:
@@ -13,20 +183,19 @@ data:
       {{- if .Values.imageCredentials.existingSecret }}
       - name: {{.Values.imageCredentials.existingSecret}}
       {{- else }}
-      - name: {{ include "agentk8sglue.referenceName" . }}-clearml-agent-registry-key
+      - name: name: {{ include "clearml.name" $ }}-ark
       {{- end }}
       {{- end }}
-      serviceAccountName: {{ .Values.agentk8sglue.serviceAccountName }}
-      {{- with .Values.agentk8sglue.podTemplate.volumes }}
+      {{- with .Values.agentk8sglue.basePodTemplate.volumes }}
       volumes:
       {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
       - resources:
-          {{- toYaml .Values.agentk8sglue.podTemplate.resources | nindent 10 }}
+          {{- toYaml .Values.agentk8sglue.basePodTemplate.resources | nindent 10 }}
         ports:
         - containerPort: 10022
-        {{- with .Values.agentk8sglue.podTemplate.volumeMounts }}
+        {{- with .Values.agentk8sglue.basePodTemplate.volumeMounts }}
         volumeMounts:
         {{- toYaml . | nindent 10 }}
         {{- end }}
@@ -43,7 +212,7 @@ data:
               {{- if .Values.clearml.existingAgentk8sglueSecret }}
               name: {{ .Values.clearml.existingAgentk8sglueSecret }}
               {{- else }}
-              name: {{ include "agentk8sglue.referenceName" . }}-clearml-agent-k8sglue
+              name: {{ include "clearml.name" . }}-pt
               {{- end }}
               key: agentk8sglue_key
         - name: CLEARML_API_SECRET_KEY
@@ -52,17 +221,48 @@ data:
               {{- if .Values.clearml.existingAgentk8sglueSecret }}
               name: {{ .Values.clearml.existingAgentk8sglueSecret }}
               {{- else }}
-              name: {{ include "agentk8sglue.referenceName" . }}-clearml-agent-k8sglue
+              name: {{ include "clearml.name" . }}-pt
               {{- end }}
               key: agentk8sglue_secret
-        {{- if .Values.agentk8sglue.podTemplate.env }}
-        {{ toYaml .Values.agentk8sglue.podTemplate.env | nindent 8 }}
+        {{- if .Values.agentk8sglue.basePodTemplate.env }}
+        {{ toYaml .Values.agentk8sglue.basePodTemplate.env | nindent 8 }}
         {{- end }}
-        {{- with .Values.agentk8sglue.podTemplate.nodeSelector}}
+        {{- with .Values.agentk8sglue.basePodTemplate.nodeSelector}}
       nodeSelector:
           {{- toYaml . | nindent 8 }}
         {{- end }}
-        {{- with .Values.agentk8sglue.podTemplate.tolerations }}
+        {{- with .Values.agentk8sglue.basePodTemplate.tolerations }}
       tolerations:
           {{- toYaml . | nindent 8 }}
         {{- end }}
+{{- end }}
+{{- if .Values.sessions.portModeEnabled }}
+{{- range untilStep 1 ( ( add .Values.sessions.maxServices 1 ) | int ) 1 }}
+  services-{{ . }}.yaml: |
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: clearml-session-{{ . }}
+      labels:
+        {{- include "clearml.labels" $ | nindent 8 }}
+      {{- with $.Values.sessions.svcAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      type: {{ $.Values.sessions.svcType }}
+      ports:
+        - targetPort: 10022
+          {{- if eq $.Values.sessions.svcType "NodePort" }}
+          port: 10022
+          {{- else }}
+          port: {{ add $.Values.sessions.startingPort . }}
+          {{- end }}
+          protocol: TCP
+          {{- if eq $.Values.sessions.svcType "NodePort" }}
+          nodePort: {{ add $.Values.sessions.startingPort . }}
+          {{- end }}
+      selector:
+        ai-allegro-agent-serial: pod-{{ . }}
+{{- end }}
+{{- end }}

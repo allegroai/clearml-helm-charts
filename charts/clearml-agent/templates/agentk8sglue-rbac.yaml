@@ -1,23 +1,72 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+{{- if not .Values.agentk8sglue.serviceExistingAccountName }}
+apiVersion: v1
+kind: ServiceAccount
 metadata:
-  name: {{ include "agentk8sglue.referenceName" . }}-k8sagent-pods-access
+  name: {{ include "clearml.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
+{{- end }}
+{{- if .Values.enterpriseFeatures.serviceAccountClusterAccess }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "clearml.name" . }}-kpa
 rules:
   - apiGroups:
       - ""
     resources:
       - pods
+      - secrets
+      - services
     verbs: ["get", "list", "watch", "create", "patch", "delete"]
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+    verbs: ["list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "clearml.name" . }}-kpa
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "clearml.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "clearml.name" . }}-kpa
+{{- else }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "clearml.name" . }}-kpa
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - secrets
+      - services
+    verbs: ["get", "list", "watch", "create", "patch", "delete"]
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+    verbs: ["list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ include "agentk8sglue.referenceName" . }}-k8sagent-pods-access
+  name: {{ include "clearml.name" . }}-kpa
 subjects:
   - kind: ServiceAccount
-    name: default
+    name: {{ include "clearml.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ include "agentk8sglue.referenceName" . }}-k8sagent-pods-access
+  name: {{ include "clearml.name" . }}-kpa
+{{- end }}
