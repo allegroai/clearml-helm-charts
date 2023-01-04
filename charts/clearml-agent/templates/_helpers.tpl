@@ -22,6 +22,14 @@ helm.sh/chart: {{ include "clearml.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- toYaml $.Values.agentk8sglue.labels }}
+{{- end }}
+
+{{/*
+Common annotations
+*/}}
+{{- define "clearml.annotations" -}}
+{{- toYaml $.Values.agentk8sglue.annotations }}
 {{- end }}
 
 {{/*
