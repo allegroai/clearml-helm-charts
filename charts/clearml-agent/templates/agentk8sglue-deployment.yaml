@@ -163,6 +163,10 @@ spec:
           - name: K8S_GLUE_QUEUE
             value: {{ .Values.agentk8sglue.queue }}
           {{- end }}
+      {{- with .Values.agentk8sglue.basePodTemplate.nodeSelector}}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       volumes:
         - name: {{ include "clearml.name" . }}-pt
           configMap:

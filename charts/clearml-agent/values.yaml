@@ -76,6 +76,9 @@ agentk8sglue:
   # - name: PYTHONPATH
   #   value: "somepath"
 
+  # -- nodeSelector setup for Agent pod (example in values.yaml comments)
+  nodeSelector: {}
+    # fleet: agent-nodes
   # -- volumes definition for Glue Agent (example in values.yaml comments)
   volumes: []
     # - name: "yourvolume"
