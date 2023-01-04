@@ -1,0 +1,29 @@
+apiserver:
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    hostName: "api.clearml.127-0-0-1.nip.io"
+fileserver:
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    hostName: "files.clearml.127-0-0-1.nip.io"
+webserver:
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    hostName: "app.clearml.127-0-0-1.nip.io"
+mongodb:
+  enabled: true
+  architecture: replicaset
+  replicaCount: 3
+  arbiter:
+    enabled: false
+  pdb:
+    create: true
+  podAntiAffinityPreset: soft
+elasticsearch:
+  replicas: 3

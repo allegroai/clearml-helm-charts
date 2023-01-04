@@ -1,7 +1,8 @@
+{{- if .Values.apiserver.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "clearml.fullname" . }}-apiserver
+  name: {{ include "apiserver.referenceName" . }}
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
 spec:
@@ -9,9 +10,10 @@ spec:
   ports:
     - port: {{ .Values.apiserver.service.port }}
       targetPort: {{ .Values.apiserver.service.port }}
-{{- if eq .Values.apiserver.service.type "NodePort" }}
+      {{- if eq .Values.apiserver.service.type "NodePort" }}
       nodePort: {{ .Values.apiserver.service.nodePort }}
-{{- end }}
+      {{- end }}
       protocol: TCP
   selector:
-    {{- include "clearml.selectorLabelsApiServer" . | nindent 4 }}
+    {{- include "apiserver.selectorLabels" . | nindent 4 }}
+{{- end }}

@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 4.4.0](https://img.shields.io/badge/Version-4.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.8.0](https://img.shields.io/badge/AppVersion-1.8.0-informational?style=flat-square)
+![Version: 5.0.0](https://img.shields.io/badge/Version-5.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.9.0](https://img.shields.io/badge/AppVersion-1.9.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -31,7 +31,7 @@ For development/evaluation it's possible to use [kind](https://kind.sigs.k8s.io)
 After installation, following commands will create a complete ClearML insatllation:
 
 ```
-cat <<EOF | kind create cluster --config=-                                                                  ─╯
+cat <<EOF | kind create cluster --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
@@ -85,6 +85,12 @@ This will create 3 ingress rules:
 
 Just pointing the domain records to the IP where ingress controller is responding will complete the deployment process.
 
+A production ready cluster should also have some different configuration like the one proposed in `values-production.yaml` that can be applied with:
+
+```
+helm install clearml allegroai/clearml -f values-production.yaml
+```
+
 ## Upgrades/ Values upgrades
 
 Updating to latest version of this chart can be done in two steps:
@@ -102,6 +108,11 @@ helm upgrade clearml allegroai/clearml --version <CURRENT CHART VERSION> -f cust
 
 Please note: updating values only should always be done setting explicit chart version to avoid a possible chart update.
 Keeping separate updates procedures between version and values can be a good practice to seprate potential concerns.
+
+## ENTERPRISE Version
+
+There are some specific Enterprise version features that can be enabled only with specific Enterprise licensed images.
+Enabling this features on OSS version can cause the entire installation to break.
 
 ## Additional Configuration for ClearML Server
 
@@ -131,146 +142,125 @@ Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| apiserver.affinity | object | `{}` |  |
-| apiserver.authCookiesMaxAge | int | `864000` | Amount of seconds the authorization cookie will last in user browser |
-| apiserver.configDir | string | `"/opt/clearml/config"` |  |
-| apiserver.configuration | object | `{"additionalConfigs":{},"configRefName":"","secretRefName":""}` | additional configurations that can be used by api server; check examples in values.yaml file |
-| apiserver.extraEnvs | list | `[]` |  |
-| apiserver.image.pullPolicy | string | `"IfNotPresent"` |  |
-| apiserver.image.repository | string | `"allegroai/clearml"` |  |
-| apiserver.image.tag | string | `"1.8.0"` |  |
-| apiserver.livenessDelay | int | `60` |  |
-| apiserver.nodeSelector | object | `{}` |  |
-| apiserver.podAnnotations | object | `{}` |  |
-| apiserver.prepopulateArtifactsPath | string | `"/mnt/fileserver"` |  |
-| apiserver.prepopulateEnabled | string | `"true"` |  |
-| apiserver.prepopulateZipFiles | string | `"/opt/clearml/db-pre-populate"` |  |
-| apiserver.readinessDelay | int | `60` |  |
-| apiserver.replicaCount | int | `1` |  |
-| apiserver.resources | object | `{}` |  |
+| apiserver | object | `{"additionalConfigs":{},"affinity":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"},"indexReplicas":0,"indexShards":1,"ingress":{"annotations":{},"enabled":false,"hostName":"api.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"prepopulateEnabled":true,"processes":{"count":8,"maxRequests":1000,"maxRequestsJitter":300,"timeout":24000},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"nodePort":30008,"port":8008,"type":"NodePort"},"tolerations":[]}` | Api Server configurations |
+| apiserver.additionalConfigs | object | `{}` | files declared in this parameter will be mounted and read by apiserver (examples in values.yaml) |
+| apiserver.affinity | object | `{}` | Api Server affinity setup |
+| apiserver.enabled | bool | `true` | Enable/Disable component deployment |
+| apiserver.extraEnvs | list | `[]` | Api Server extra envrinoment variables |
+| apiserver.image | object | `{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"}` | Api Server image configuration |
+| apiserver.indexReplicas | int | `0` | Number of additional replicas in Elasticsearch indexes |
+| apiserver.indexShards | int | `1` | Number of shards in Elasticsearch indexes |
+| apiserver.ingress | object | `{"annotations":{},"enabled":false,"hostName":"api.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""}` | Ingress configuration for Api Server component |
+| apiserver.ingress.annotations | object | `{}` | Ingress annotations |
+| apiserver.ingress.enabled | bool | `false` | Enable/Disable ingress |
+| apiserver.ingress.hostName | string | `"api.clearml.127-0-0-1.nip.io"` | Ingress hostname domain |
+| apiserver.ingress.path | string | `"/"` | Ingress root path url |
+| apiserver.ingress.tlsSecretName | string | `""` | Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule. |
+| apiserver.nodeSelector | object | `{}` | Api Server nodeselector |
+| apiserver.podAnnotations | object | `{}` | specific annotation for Api Server pods |
+| apiserver.prepopulateEnabled | bool | `true` | Enable/Disable example data load |
+| apiserver.processes | object | `{"count":8,"maxRequests":1000,"maxRequestsJitter":300,"timeout":24000}` | Api Server internal processes configuration |
+| apiserver.processes.count | int | `8` | Api Server internal listing processes |
+| apiserver.processes.maxRequests | int | `1000` | Api Server maximum number of concurrent requests |
+| apiserver.processes.maxRequestsJitter | int | `300` | Api Server max jitter on api request |
+| apiserver.processes.timeout | int | `24000` | Api timeout (ms) |
+| apiserver.replicaCount | int | `1` | Api Server number of pods |
+| apiserver.resources | object | `{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}}` | Api Server resources per pod; these are minimal requirements, it's suggested to increase these values in production environments |
+| apiserver.service | object | `{"nodePort":30008,"port":8008,"type":"NodePort"}` | Api Server internal service configuration |
 | apiserver.service.nodePort | int | `30008` | If service.type set to NodePort, this will be set to service's nodePort field. If service.type is set to others, this field will be ignored |
-| apiserver.service.port | int | `8008` |  |
-| apiserver.service.type | string | `"NodePort"` | This will set to service's spec.type field |
-| apiserver.tolerations | list | `[]` |  |
-| clearml | object | `{"defaultCompany":"d1bd92a3b039400cbafc60a7a5b1e52b"}` | ClearMl generic configurations |
-| elasticsearch.clusterHealthCheckParams | string | `"wait_for_status=yellow&timeout=1s"` |  |
-| elasticsearch.clusterName | string | `"clearml-elastic"` |  |
-| elasticsearch.enabled | bool | `true` |  |
-| elasticsearch.esConfig."elasticsearch.yml" | string | `"xpack.security.enabled: false\n"` |  |
-| elasticsearch.esJavaOpts | string | `"-Xmx2g -Xms2g"` |  |
-| elasticsearch.extraEnvs[0].name | string | `"bootstrap.memory_lock"` |  |
-| elasticsearch.extraEnvs[0].value | string | `"false"` |  |
-| elasticsearch.extraEnvs[1].name | string | `"cluster.routing.allocation.node_initial_primaries_recoveries"` |  |
-| elasticsearch.extraEnvs[1].value | string | `"500"` |  |
-| elasticsearch.extraEnvs[2].name | string | `"cluster.routing.allocation.disk.watermark.low"` |  |
-| elasticsearch.extraEnvs[2].value | string | `"500mb"` |  |
-| elasticsearch.extraEnvs[3].name | string | `"cluster.routing.allocation.disk.watermark.high"` |  |
-| elasticsearch.extraEnvs[3].value | string | `"500mb"` |  |
-| elasticsearch.extraEnvs[4].name | string | `"cluster.routing.allocation.disk.watermark.flood_stage"` |  |
-| elasticsearch.extraEnvs[4].value | string | `"500mb"` |  |
-| elasticsearch.extraEnvs[5].name | string | `"http.compression_level"` |  |
-| elasticsearch.extraEnvs[5].value | string | `"7"` |  |
-| elasticsearch.extraEnvs[6].name | string | `"reindex.remote.whitelist"` |  |
-| elasticsearch.extraEnvs[6].value | string | `"*.*"` |  |
-| elasticsearch.extraEnvs[7].name | string | `"xpack.monitoring.enabled"` |  |
-| elasticsearch.extraEnvs[7].value | string | `"false"` |  |
-| elasticsearch.extraEnvs[8].name | string | `"xpack.security.enabled"` |  |
-| elasticsearch.extraEnvs[8].value | string | `"false"` |  |
-| elasticsearch.httpPort | int | `9200` |  |
-| elasticsearch.minimumMasterNodes | int | `1` |  |
-| elasticsearch.persistence.enabled | bool | `true` |  |
-| elasticsearch.replicas | int | `1` |  |
-| elasticsearch.resources.limits.memory | string | `"4Gi"` |  |
-| elasticsearch.resources.requests.memory | string | `"4Gi"` |  |
-| elasticsearch.roles.data | string | `"true"` |  |
-| elasticsearch.roles.ingest | string | `"true"` |  |
-| elasticsearch.roles.master | string | `"true"` |  |
-| elasticsearch.roles.remote_cluster_client | string | `"true"` |  |
-| elasticsearch.volumeClaimTemplate.accessModes[0] | string | `"ReadWriteOnce"` |  |
-| elasticsearch.volumeClaimTemplate.resources.requests.storage | string | `"50Gi"` |  |
+| apiserver.tolerations | list | `[]` | Api Server tolerations setup |
+| clearml | object | `{"apiserverKey":"GGS9F4M6XB2DXJ5AFT9F","apiserverSecret":"2oGujVFhPfaozhpuz2GzQfA5OyxmMsR3WVJpsCR5hrgHFs20PO","clientConfigurationApiUrl":"","clientConfigurationFilesUrl":"","cookieDomain":"","cookieName":"clearml-token-k8s","defaultCompany":"d1bd92a3b039400cbafc60a7a5b1e52b","fileserverKey":"XXCRJ123CEE2KSQ068WO","fileserverSecret":"YIy8EVAC7QCT4FtgitxAQGyW7xRHDZ4jpYlTE7HKiscpORl1hG","readinessprobeKey":"GK4PRTVT3706T25K6BA1","readinessprobeSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","secureAuthTokenSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","testUserKey":"ENP39EQM4SLACGD5FXB7","testUserSecret":"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"}` | ClearMl generic configurations |
+| clearml.apiserverKey | string | `"GGS9F4M6XB2DXJ5AFT9F"` | Api Server basic auth key |
+| clearml.apiserverSecret | string | `"2oGujVFhPfaozhpuz2GzQfA5OyxmMsR3WVJpsCR5hrgHFs20PO"` | Api Server basic auth secret |
+| clearml.clientConfigurationApiUrl | string | `""` | Override the API Urls displayed when showing an example of the SDK's clearml.conf configuration |
+| clearml.clientConfigurationFilesUrl | string | `""` | Override the Files Urls displayed when showing an example of the SDK's clearml.conf configuration |
+| clearml.cookieDomain | string | `""` | Cookie domain to be left empty if not exposed with an ingress |
+| clearml.cookieName | string | `"clearml-token-k8s"` | Name fo the UI cookie |
+| clearml.defaultCompany | string | `"d1bd92a3b039400cbafc60a7a5b1e52b"` | Company name |
+| clearml.fileserverKey | string | `"XXCRJ123CEE2KSQ068WO"` | File Server basic auth key |
+| clearml.fileserverSecret | string | `"YIy8EVAC7QCT4FtgitxAQGyW7xRHDZ4jpYlTE7HKiscpORl1hG"` | File Server basic auth secret |
+| clearml.readinessprobeKey | string | `"GK4PRTVT3706T25K6BA1"` | Readiness probe basic auth key |
+| clearml.readinessprobeSecret | string | `"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2"` | Readiness probe basic auth secret |
+| clearml.secureAuthTokenSecret | string | `"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2"` | Secure Auth secret |
+| clearml.testUserKey | string | `"ENP39EQM4SLACGD5FXB7"` | Test Server basic auth key |
+| clearml.testUserSecret | string | `"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"` | Test File Server basic auth secret |
+| elasticsearch | object | `{"clusterHealthCheckParams":"wait_for_status=yellow&timeout=1s","clusterName":"clearml-elastic","enabled":true,"esConfig":{"elasticsearch.yml":"xpack.security.enabled: false\n"},"esJavaOpts":"-Xmx2g -Xms2g","extraEnvs":[{"name":"bootstrap.memory_lock","value":"false"},{"name":"cluster.routing.allocation.node_initial_primaries_recoveries","value":"500"},{"name":"cluster.routing.allocation.disk.watermark.low","value":"500mb"},{"name":"cluster.routing.allocation.disk.watermark.high","value":"500mb"},{"name":"cluster.routing.allocation.disk.watermark.flood_stage","value":"500mb"},{"name":"http.compression_level","value":"7"},{"name":"reindex.remote.whitelist","value":"*.*"},{"name":"xpack.monitoring.enabled","value":"false"},{"name":"xpack.security.enabled","value":"false"}],"httpPort":9200,"minimumMasterNodes":1,"persistence":{"enabled":true},"replicas":1,"resources":{"limits":{"cpu":"2000m","memory":"4Gi"},"requests":{"cpu":"100m","memory":"2Gi"}},"roles":{"data":"true","ingest":"true","master":"true","remote_cluster_client":"true"},"volumeClaimTemplate":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"50Gi"}},"storageClassName":null}}` | Configuration from https://github.com/elastic/helm-charts/blob/7.16/elasticsearch/values.yaml |
+| enterpriseFeatures | object | `{"airGappedDocumentation":{"enabled":false,"image":{"repository":"","tag":""}},"clearmlApplications":{"affinity":{},"agentKey":"GK4PRTVT3706T25K6BA1","agentSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","basePodImage":{"repository":"","tag":""},"enabled":true,"extraEnvs":[],"gitAgentPass":"git_password","gitAgentUser":"git_user","image":{"pullPolicy":"IfNotPresent","repository":"","tag":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"tolerations":[]},"defaultCompanyGuid":"d1bd92a3b039400cbafc60a7a5b1e52b","enabled":false,"extraIndexUrl":"","overrideReferenceApiUrl":"","overrideReferenceFileUrl":""}` | Enterprise features (work only with an Enterprise license) |
+| enterpriseFeatures.airGappedDocumentation | object | `{"enabled":false,"image":{"repository":"","tag":""}}` | Air gapped documentation  configurations |
+| enterpriseFeatures.airGappedDocumentation.enabled | bool | `false` | Enable/Disable air gapped documentation deployment |
+| enterpriseFeatures.airGappedDocumentation.image | object | `{"repository":"","tag":""}` | Air gapped documentation image configuration |
+| enterpriseFeatures.clearmlApplications | object | `{"affinity":{},"agentKey":"GK4PRTVT3706T25K6BA1","agentSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","basePodImage":{"repository":"","tag":""},"enabled":true,"extraEnvs":[],"gitAgentPass":"git_password","gitAgentUser":"git_user","image":{"pullPolicy":"IfNotPresent","repository":"","tag":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"tolerations":[]}` | APPS configurations |
+| enterpriseFeatures.clearmlApplications.affinity | object | `{}` | APPS affinity setup |
+| enterpriseFeatures.clearmlApplications.agentKey | string | `"GK4PRTVT3706T25K6BA1"` | Apps Server basic auth key |
+| enterpriseFeatures.clearmlApplications.agentSecret | string | `"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2"` | Apps Server basic auth secret |
+| enterpriseFeatures.clearmlApplications.basePodImage | object | `{"repository":"","tag":""}` | APPS base spawning pods image |
+| enterpriseFeatures.clearmlApplications.enabled | bool | `true` | Enable/Disable component deployment |
+| enterpriseFeatures.clearmlApplications.extraEnvs | list | `[]` | APPS extra envrinoment variables |
+| enterpriseFeatures.clearmlApplications.gitAgentPass | string | `"git_password"` | Apps Server Git password |
+| enterpriseFeatures.clearmlApplications.gitAgentUser | string | `"git_user"` | Apps Server Git user |
+| enterpriseFeatures.clearmlApplications.image | object | `{"pullPolicy":"IfNotPresent","repository":"","tag":""}` | APPS image configuration |
+| enterpriseFeatures.clearmlApplications.nodeSelector | object | `{}` | APPS nodeselector |
+| enterpriseFeatures.clearmlApplications.podAnnotations | object | `{}` | specific annotation for APPS pods |
+| enterpriseFeatures.clearmlApplications.replicaCount | int | `1` | APPS number of pods |
+| enterpriseFeatures.clearmlApplications.resources | object | `{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}}` | APPS resources per pod; these are minimal requirements, it's suggested to increase these values in production environments |
+| enterpriseFeatures.clearmlApplications.tolerations | list | `[]` | APPS tolerations setup |
+| enterpriseFeatures.defaultCompanyGuid | string | `"d1bd92a3b039400cbafc60a7a5b1e52b"` | Company ID |
+| enterpriseFeatures.enabled | bool | `false` | Enable/Disable Enterprise features |
+| enterpriseFeatures.extraIndexUrl | string | `""` | extra index URL for Enterprise packages |
+| enterpriseFeatures.overrideReferenceApiUrl | string | `""` | set this value AND overrideReferenceFileUrl if external endpoint exposure is in place (like a LoadBalancer) example: "https://api.clearml.local" |
+| enterpriseFeatures.overrideReferenceFileUrl | string | `""` | set this value AND overrideReferenceAPIUrl if external endpoint exposure is in place (like a LoadBalancer) example: "https://files.clearml.local" |
+| externalServices | object | `{"elasticsearchHost":"","elasticsearchPort":9200,"mongodbConnectionString":"","redisHost":"","redisPort":6379}` | Definition of external services to use if not enabled as dependency charts here |
 | externalServices.elasticsearchHost | string | `""` | Existing ElasticSearch Hostname to use if elasticsearch.enabled is false |
 | externalServices.elasticsearchPort | int | `9200` | Existing ElasticSearch Port to use if elasticsearch.enabled is false |
-| externalServices.mongodbHost | string | `""` | Existing MongoDB Hostname to use if mongodb.enabled is false |
-| externalServices.mongodbPort | int | `27017` | Existing MongoDB Port to use if mongodb.enabled is false |
+| externalServices.mongodbConnectionString | string | `""` | Existing MongoDB connection string to use if mongodb.enabled is false |
 | externalServices.redisHost | string | `""` | Existing Redis Hostname to use if redis.enabled is false |
 | externalServices.redisPort | int | `6379` | Existing Redis Port to use if redis.enabled is false |
-| fileserver.affinity | object | `{}` |  |
-| fileserver.extraEnvs | list | `[]` |  |
-| fileserver.image.pullPolicy | string | `"IfNotPresent"` |  |
-| fileserver.image.repository | string | `"allegroai/clearml"` |  |
-| fileserver.image.tag | string | `"1.8.0"` |  |
-| fileserver.nodeSelector | object | `{}` |  |
-| fileserver.podAnnotations | object | `{}` |  |
-| fileserver.replicaCount | int | `1` |  |
-| fileserver.resources | object | `{}` |  |
+| fileserver | object | `{"affinity":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"},"ingress":{"annotations":{},"enabled":false,"hostName":"files.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"nodePort":30081,"port":8081,"type":"NodePort"},"storage":{"data":{"accessMode":"ReadWriteOnce","class":"","size":"50Gi"}},"tolerations":[]}` | File Server configurations |
+| fileserver.affinity | object | `{}` | File Server affinity setup |
+| fileserver.enabled | bool | `true` | Enable/Disable component deployment |
+| fileserver.extraEnvs | list | `[]` | File Server extra envrinoment variables |
+| fileserver.image | object | `{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"}` | File Server image configuration |
+| fileserver.ingress | object | `{"annotations":{},"enabled":false,"hostName":"files.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""}` | Ingress configuration for File Server component |
+| fileserver.ingress.annotations | object | `{}` | Ingress annotations |
+| fileserver.ingress.enabled | bool | `false` | Enable/Disable ingress |
+| fileserver.ingress.hostName | string | `"files.clearml.127-0-0-1.nip.io"` | Ingress hostname domain |
+| fileserver.ingress.path | string | `"/"` | Ingress root path url |
+| fileserver.ingress.tlsSecretName | string | `""` | Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule. |
+| fileserver.nodeSelector | object | `{}` | File Server nodeselector |
+| fileserver.podAnnotations | object | `{}` | specific annotation for File Server pods |
+| fileserver.replicaCount | int | `1` | File Server number of pods |
+| fileserver.resources | object | `{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}}` | File Server resources per pod; these are minimal requirements, it's suggested to increase these values in production environments |
+| fileserver.service | object | `{"nodePort":30081,"port":8081,"type":"NodePort"}` | File Server internal service configuration |
 | fileserver.service.nodePort | int | `30081` | If service.type set to NodePort, this will be set to service's nodePort field. If service.type is set to others, this field will be ignored |
-| fileserver.service.port | int | `8081` |  |
-| fileserver.service.type | string | `"NodePort"` | This will set to service's spec.type field |
-| fileserver.storage.data.class | string | `""` |  |
-| fileserver.storage.data.size | string | `"50Gi"` |  |
-| fileserver.tolerations | list | `[]` |  |
-| imageCredentials | object | `{"email":"someone@host.com","enabled":false,"existingSecret":"","password":"pwd","registry":"docker.io","username":"someone"}` | Private image registry configuration |
+| fileserver.storage | object | `{"data":{"accessMode":"ReadWriteOnce","class":"","size":"50Gi"}}` | File server persistence settings |
+| fileserver.storage.data.accessMode | string | `"ReadWriteOnce"` | Access mode (must be ReadWriteMany if fileserver replica > 1) |
+| fileserver.storage.data.class | string | `""` | Storage class (use default if empty) |
+| fileserver.tolerations | list | `[]` | File Server tolerations setup |
+| imageCredentials | object | `{"email":"someone@host.com","enabled":false,"existingSecret":"","password":"pwd","registry":"docker.io","username":"someone"}` | Container registry configuration |
 | imageCredentials.email | string | `"someone@host.com"` | Email |
 | imageCredentials.enabled | bool | `false` | Use private authentication mode |
 | imageCredentials.existingSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
 | imageCredentials.password | string | `"pwd"` | Registry password |
 | imageCredentials.registry | string | `"docker.io"` | Registry name |
 | imageCredentials.username | string | `"someone"` | Registry username |
-| ingress.annotations | object | `{}` |  |
-| ingress.api.annotations | object | `{}` |  |
-| ingress.api.enabled | bool | `false` |  |
-| ingress.api.hostName | string | `"api.clearml.127-0-0-1.nip.io"` |  |
-| ingress.api.path | string | `"/"` |  |
-| ingress.api.tlsSecretName | string | `""` |  |
-| ingress.app.annotations | object | `{}` |  |
-| ingress.app.enabled | bool | `false` |  |
-| ingress.app.hostName | string | `"app.clearml.127-0-0-1.nip.io"` |  |
-| ingress.app.path | string | `"/"` |  |
-| ingress.app.tlsSecretName | string | `""` |  |
-| ingress.files.annotations | object | `{}` |  |
-| ingress.files.enabled | bool | `false` |  |
-| ingress.files.hostName | string | `"files.clearml.127-0-0-1.nip.io"` |  |
-| ingress.files.path | string | `"/"` |  |
-| ingress.files.tlsSecretName | string | `""` |  |
-| ingress.name | string | `"clearml-server-ingress"` |  |
-| mongodb.architecture | string | `"standalone"` |  |
-| mongodb.auth.enabled | bool | `false` |  |
-| mongodb.enabled | bool | `true` |  |
-| mongodb.persistence.accessModes[0] | string | `"ReadWriteOnce"` |  |
-| mongodb.persistence.enabled | bool | `true` |  |
-| mongodb.persistence.size | string | `"50Gi"` |  |
-| mongodb.replicaCount | int | `1` |  |
-| mongodb.service.name | string | `"{{ .Release.Name }}-mongodb"` |  |
-| mongodb.service.port | int | `27017` |  |
-| mongodb.service.portName | string | `"mongo-service"` |  |
-| mongodb.service.type | string | `"ClusterIP"` |  |
-| redis.cluster.enabled | bool | `false` |  |
-| redis.databaseNumber | int | `0` |  |
-| redis.enabled | bool | `true` |  |
-| redis.master.name | string | `"{{ .Release.Name }}-redis-master"` |  |
-| redis.master.persistence.accessModes[0] | string | `"ReadWriteOnce"` |  |
-| redis.master.persistence.enabled | bool | `true` |  |
-| redis.master.persistence.size | string | `"5Gi"` |  |
-| redis.master.port | int | `6379` |  |
-| redis.usePassword | bool | `false` |  |
-| secret.authToken | string | `"1SCf0ov3Nm544Td2oZ0gXSrsNx5XhMWdVlKz1tOgcx158bD5RV"` | Set for auth_token field |
-| secret.credentials.apiserver.accessKey | string | `"5442F3443MJMORWZA3ZH"` | Set for apiserver_key field |
-| secret.credentials.apiserver.secretKey | string | `"BxapIRo9ZINi8x25CRxz8Wdmr2pQjzuWVB4PNASZqCtTyWgWVQ"` | Set for apiserver_secret field |
-| secret.credentials.tests.accessKey | string | `"ENP39EQM4SLACGD5FXB7"` | Set for tests_user_key field |
-| secret.credentials.tests.secretKey | string | `"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"` | Set for tests_user_secret field |
-| secret.existingSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
-| secret.httpSession | string | `"9Tw20RbhJ1bLBiHEOWXvhplKGUbTgLzAtwFN2oLQvWwS0uRpD5"` | Set for http_session field |
-| webserver.additionalConfigs | object | `{}` |  |
-| webserver.affinity | object | `{}` |  |
-| webserver.extraEnvs | list | `[]` |  |
-| webserver.image.pullPolicy | string | `"IfNotPresent"` |  |
-| webserver.image.repository | string | `"allegroai/clearml"` |  |
-| webserver.image.tag | string | `"1.8.0"` |  |
-| webserver.nodeSelector | object | `{}` |  |
-| webserver.podAnnotations | object | `{}` |  |
-| webserver.replicaCount | int | `1` |  |
-| webserver.resources | object | `{}` |  |
+| mongodb | object | `{"architecture":"standalone","auth":{"enabled":false},"enabled":true,"persistence":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"50Gi","storageClass":null},"replicaCount":1}` | Configuration from https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml |
+| redis | object | `{"cluster":{"enabled":false},"databaseNumber":0,"enabled":true,"master":{"name":"{{ .Release.Name }}-redis-master","persistence":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"5Gi","storageClass":null},"port":6379},"usePassword":false}` | Configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml |
+| webserver | object | `{"additionalConfigs":{},"affinity":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"},"ingress":{"annotations":{},"enabled":false,"hostName":"app.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"nodePort":30080,"port":8080,"type":"NodePort"},"tolerations":[]}` | Web Server configurations |
+| webserver.additionalConfigs | object | `{}` | Additional specific webserver configurations |
+| webserver.affinity | object | `{}` | Web Server affinity setup |
+| webserver.enabled | bool | `true` | Enable/Disable component deployment |
+| webserver.extraEnvs | list | `[]` | Web Server extra envrinoment variables |
+| webserver.image | object | `{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"}` | Web Server image configuration |
+| webserver.ingress | object | `{"annotations":{},"enabled":false,"hostName":"app.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""}` | Ingress configuration for Web Server component |
+| webserver.ingress.annotations | object | `{}` | Ingress annotations |
+| webserver.ingress.enabled | bool | `false` | Enable/Disable ingress |
+| webserver.ingress.hostName | string | `"app.clearml.127-0-0-1.nip.io"` | Ingress hostname domain |
+| webserver.ingress.path | string | `"/"` | Ingress root path url |
+| webserver.ingress.tlsSecretName | string | `""` | Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule. |
+| webserver.nodeSelector | object | `{}` | Web Server nodeselector |
+| webserver.podAnnotations | object | `{}` | specific annotation for Web Server pods |
+| webserver.replicaCount | int | `1` | Web Server number of pods |
+| webserver.resources | object | `{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}}` | Web Server resources per pod; these are minimal requirements, it's suggested to increase these values in production environments |
+| webserver.service | object | `{"nodePort":30080,"port":8080,"type":"NodePort"}` | Web Server internal service configuration |
 | webserver.service.nodePort | int | `30080` | If service.type set to NodePort, this will be set to service's nodePort field. If service.type is set to others, this field will be ignored |
-| webserver.service.port | int | `80` |  |
-| webserver.service.type | string | `"NodePort"` | This will set to service's spec.type field |
-| webserver.tolerations | list | `[]` |  |
+| webserver.tolerations | list | `[]` | Web Server tolerations setup |

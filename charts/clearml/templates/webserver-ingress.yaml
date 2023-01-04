@@ -1,4 +1,5 @@
-{{- if .Values.ingress.app.enabled -}}
+{{- if .Values.webserver.enabled }}
+{{- if .Values.webserver.ingress.enabled }}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1
 {{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -8,37 +9,38 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ include "clearml.fullname" . }}-app
+  name: {{ include "webserver.referenceName" . }}
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
-  {{- $annotations := .Values.ingress.annotations }}
-  {{- if .Values.ingress.app.annotations }}
-  {{- $annotations = mergeOverwrite $annotations .Values.ingress.app.annotations }}
+  {{- $annotations := .Values.webserver.ingress.annotations }}
+  {{- if .Values.webserver.ingress.annotations }}
+  {{- $annotations = mergeOverwrite $annotations .Values.webserver.ingress.annotations }}
   {{- end }}
   annotations:
     {{- toYaml $annotations | nindent 4 }}
 spec:
-  {{- if .Values.ingress.app.tlsSecretName }}
+  {{- if .Values.webserver.ingress.tlsSecretName }}
   tls:
     - hosts:
-        - {{ .Values.ingress.app.hostName }}
-      secretName: {{ .Values.ingress.app.tlsSecretName }}
+        - {{ .Values.webserver.ingress.hostName }}
+      secretName: {{ .Values.webserver.ingress.tlsSecretName }}
   {{- end }}
   rules:
-  - host: {{ .Values.ingress.app.hostName }}
+  - host: {{ .Values.webserver.ingress.hostName }}
     http:
       paths:
-      - path: {{ .Values.ingress.app.path }}
+      - path: {{ .Values.webserver.ingress.path }}
   {{ if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
         pathType: Prefix
         backend:
           service:
-            name: {{ include "clearml.fullname" . }}-webserver
+            name: {{ include "webserver.referenceName" . }}
             port:
               number: {{ .Values.webserver.service.port }}
   {{ else }}
         backend:
-          serviceName: {{ include "clearml.fullname" . }}-webserver
+          serviceName: {{ include "webserver.referenceName" . }}
           servicePort: {{ .Values.webserver.service.port }}
   {{ end }}
+{{- end }}
 {{- end }}
