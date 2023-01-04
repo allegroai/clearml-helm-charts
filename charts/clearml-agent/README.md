@@ -30,9 +30,11 @@ Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agentk8sglue | object | `{"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"env":[],"fileMounts":[],"hostAliases":{},"initContainers":[],"labels":{},"nodeSelector":{},"resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerCustomBashScript":"","customBashScript":"","debugMode":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"queue":"default","replicaCount":1,"serviceExistingAccountName":"","volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
+| agentk8sglue | object | `{"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"annotations":{},"env":[],"fileMounts":[],"hostAliases":{},"initContainers":[],"labels":{},"nodeSelector":{},"resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerCustomBashScript":"","customBashScript":"","debugMode":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"labels":{},"queue":"default","replicaCount":1,"serviceExistingAccountName":"","volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
+| agentk8sglue.annotations | object | `{}` | annotations setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.apiServerUrlReference | string | `"https://api.clear.ml"` | Reference to Api server url |
-| agentk8sglue.basePodTemplate | object | `{"env":[],"fileMounts":[],"hostAliases":{},"initContainers":[],"labels":{},"nodeSelector":{},"resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]}` | base template for pods spawned to consume ClearML Task |
+| agentk8sglue.basePodTemplate | object | `{"annotations":{},"env":[],"fileMounts":[],"hostAliases":{},"initContainers":[],"labels":{},"nodeSelector":{},"resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]}` | base template for pods spawned to consume ClearML Task |
+| agentk8sglue.basePodTemplate.annotations | object | `{}` | annotations setup for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.env | list | `[]` | environment variables for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.fileMounts | list | `[]` | file definition for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.hostAliases | object | `{}` | hostAliases setup for pods spawned to consume ClearML Task (example in values.yaml comments) |
@@ -47,13 +49,13 @@ Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
 | agentk8sglue.basePodTemplate.volumes | list | `[]` | volumes definition for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.clearmlcheckCertificate | bool | `true` | Check certificates validity for evefry UrlReference below. |
 | agentk8sglue.containerCustomBashScript | string | `""` | Custom Bash script for the Task Pods ran by Glue Agent |
-| agentk8sglue.customBashScript | string | `""` | Custom Bash script for the Glue Agent |
 | agentk8sglue.debugMode | bool | `false` | Enable Debugging logs for Agent pod |
 | agentk8sglue.defaultContainerImage | string | `"ubuntu:18.04"` | default container image for ClearML Task pod |
 | agentk8sglue.extraEnvs | list | `[]` | Extra Environment variables for Glue Agent |
 | agentk8sglue.fileMounts | list | `[]` | file definition for Glue Agent (example in values.yaml comments) |
 | agentk8sglue.fileServerUrlReference | string | `"https://files.clear.ml"` | Reference to File server url |
 | agentk8sglue.image | object | `{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"}` | Glue Agent image configuration |
+| agentk8sglue.labels | object | `{}` | labels setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.queue | string | `"default"` | ClearML queue this agent will consume |
 | agentk8sglue.replicaCount | int | `1` | Glue Agent number of pods |
 | agentk8sglue.serviceExistingAccountName | string | `""` | if set, don't create a serviceAccountName but use defined existing one |
