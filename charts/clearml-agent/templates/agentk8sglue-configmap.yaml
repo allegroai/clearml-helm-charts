@@ -17,6 +17,13 @@ data:
         labels:
         {{- toYaml $.Values.agentk8sglue.basePodTemplate.labels | nindent 10 }}
         {{- end}}
+        {{- if $value.templateOverrides.annotations }}
+        annotations:
+        {{- toYaml $value.templateOverrides.annotations | nindent 10 }}
+        {{- else if $.Values.agentk8sglue.basePodTemplate.annotations }}
+        annotations:
+        {{- toYaml $.Values.agentk8sglue.basePodTemplate.annotations | nindent 10 }}
+        {{- end}}
       spec:
         {{- if $.Values.imageCredentials.enabled }}
         imagePullSecrets:
@@ -64,6 +71,9 @@ data:
           - name: filemounts
             secret:
               secretName: {{ include "clearml.name" $ }}-fm
+        {{- end }}
+        {{- if not $.Values.enterpriseFeatures.serviceAccountClusterAccess }}
+        serviceAccountName: {{ include "clearml.serviceAccountName" $ }}
         {{- end }}
         {{- if $value.templateOverrides.initContainers }}
         initContainers:
@@ -177,6 +187,10 @@ data:
     apiVersion: v1
     metadata:
       namespace: {{ .Release.Namespace }}
+      labels:
+      {{- toYaml $.Values.agentk8sglue.basePodTemplate.labels | nindent 8 }}
+      annotations:
+      {{- toYaml $.Values.agentk8sglue.basePodTemplate.annotations | nindent 8 }}
     spec:
       {{- if .Values.imageCredentials.enabled }}
       imagePullSecrets:
@@ -190,6 +204,7 @@ data:
       volumes:
       {{- toYaml . | nindent 8 }}
       {{- end }}
+      serviceAccountName: {{ include "clearml.serviceAccountName" $ }}
       containers:
       - resources:
           {{- toYaml .Values.agentk8sglue.basePodTemplate.resources | nindent 10 }}

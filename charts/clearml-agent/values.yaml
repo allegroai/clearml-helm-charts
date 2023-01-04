@@ -62,6 +62,12 @@ agentk8sglue:
   # -- ClearML queue this agent will consume
   queue: default
   # -- Custom Bash script for the Glue Agent
+  # -- labels setup for Agent pod (example in values.yaml comments)
+  labels: {}
+    # schedulerName: scheduler
+  # -- annotations setup for Agent pod (example in values.yaml comments)
+  annotations: {}
+    # key1: value1
   customBashScript: ""
   # -- Custom Bash script for the Task Pods ran by Glue Agent
   containerCustomBashScript: ""
@@ -70,6 +76,9 @@ agentk8sglue:
   # - name: PYTHONPATH
   #   value: "somepath"
 
+  # -- nodeSelector setup for Agent pod (example in values.yaml comments)
+  nodeSelector: {}
+    # fleet: agent-nodes
   # -- volumes definition for Glue Agent (example in values.yaml comments)
   volumes: []
     # - name: "yourvolume"
@@ -97,6 +106,12 @@ agentk8sglue:
 
   # -- base template for pods spawned to consume ClearML Task
   basePodTemplate:
+    # -- labels setup for pods spawned to consume ClearML Task (example in values.yaml comments)
+    labels: {}
+      # schedulerName: scheduler
+    # -- annotations setup for pods spawned to consume ClearML Task (example in values.yaml comments)
+    annotations: {}
+      # key1: value1
     # -- initContainers definition for pods spawned to consume ClearML Task (example in values.yaml comments)
     initContainers: []
       # - name: volume-dirs-init-cntr
@@ -106,9 +121,6 @@ agentk8sglue:
       #    - -c
       #    - >
       #      /bin/echo "this is an init";
-    # -- labels setup for pods spawned to consume ClearML Task (example in values.yaml comments)
-    labels: {}
-      # schedulerName: scheduler
     # -- schedulerName setup for pods spawned to consume ClearML Task
     schedulerName: ""
     # -- volumes definition for pods spawned to consume ClearML Task (example in values.yaml comments)
