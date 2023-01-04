@@ -65,6 +65,9 @@ data:
             secret:
               secretName: {{ include "clearml.name" $ }}-fm
         {{- end }}
+        {{- if not $.Values.enterpriseFeatures.serviceAccountClusterAccess }}
+        serviceAccountName: {{ include "clearml.serviceAccountName" $ }}
+        {{- end }}
         {{- if $value.templateOverrides.initContainers }}
         initContainers:
         {{- toYaml $value.templateOverrides.initContainers | nindent 10 }}
@@ -190,6 +193,7 @@ data:
       volumes:
       {{- toYaml . | nindent 8 }}
       {{- end }}
+      serviceAccountName: {{ include "clearml.serviceAccountName" $ }}
       containers:
       - resources:
           {{- toYaml .Values.agentk8sglue.basePodTemplate.resources | nindent 10 }}
