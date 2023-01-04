@@ -4,6 +4,8 @@ metadata:
   name: {{ include "clearml.name" . }}
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
+  annotations:
+    {{- include "clearml.annotations" . | nindent 4 }}
 spec:
   replicas: {{ .Values.agentk8sglue.replicaCount }}
   selector:
