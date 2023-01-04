@@ -89,7 +89,7 @@ spec:
             value: "--namespace {{ .Release.Namespace }} --template-yaml /root/template/template.yaml \
                     --ports-mode --num-of-services {{ .Values.sessions.maxServices }} \
                     --base-port {{ .Values.sessions.startingPort }} \
-                    --gateway-address {{ .Values.sessions.externalIP }}{{ if .Values.agentk8sglue.useOwnerToken }} --use-owner-token{{ end }}"
+                    --gateway-address {{ .Values.sessions.externalIP }}{{ if .Values.enterpriseFeatures.enabled }}{{ if .Values.enterpriseFeatures.useOwnerToken }} --use-owner-token{{ end }}{{ end }}"
           {{- if .Values.sessions.dynamicSvcs }}
           - name: CLEARML_K8S_GLUE_POD_POST_APPLY_CMD
             value: "kubectl -n {namespace} apply -f ~/template/services-{pod_number}.yaml ; kubectl -n {namespace} label svc clearml-session-{pod_number} service-for={pod_name}"
@@ -99,7 +99,7 @@ spec:
           {{- else}}
           - name: K8S_GLUE_EXTRA_ARGS
             value: "--namespace {{ .Release.Namespace }} --template-yaml /root/template/template.yaml \
-                    --max-pods {{.Values.enterpriseFeatures.maxPods}}{{ if .Values.agentk8sglue.useOwnerToken }} --use-owner-token{{ end }}"
+                    --max-pods {{.Values.enterpriseFeatures.maxPods}}{{ if .Values.enterpriseFeatures.enabled }}{{ if .Values.enterpriseFeatures.useOwnerToken }} --use-owner-token{{ end }}{{ end }}"
           {{- end }}
           - name: CLEARML_K8S_GLUE_LIMIT_POD_LABEL
             value: "ai-allegro-agent-serial=pod-{pod_number}"
