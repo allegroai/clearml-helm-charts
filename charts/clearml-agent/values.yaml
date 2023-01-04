@@ -61,8 +61,6 @@ agentk8sglue:
   defaultContainerImage: ubuntu:18.04
   # -- ClearML queue this agent will consume
   queue: default
-  # -- Agent must use owner Token
-  useOwnerToken: true
   # -- Custom Bash script for the Glue Agent
   customBashScript: ""
   # -- Custom Bash script for the Task Pods ran by Glue Agent
@@ -204,7 +202,8 @@ enterpriseFeatures:
     maxResourcesFieldName: "resources|limits|nvidia.com/gpu"
   # -- maximum concurrent consume ClearML Task pod
   maxPods: 10
-
+  # -- Agent must use owner Token
+  useOwnerToken: true
   # -- ClearML queues and related template OVERRIDES used this agent will consume
   queues:
     # -- name of the queue will be used for this template

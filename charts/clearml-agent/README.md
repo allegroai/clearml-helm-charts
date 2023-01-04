@@ -30,7 +30,7 @@ Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agentk8sglue | object | `{"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"env":[],"fileMounts":[],"hostAliases":{},"initContainers":[],"labels":{},"nodeSelector":{},"resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerCustomBashScript":"","customBashScript":"","debugMode":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"queue":"default","replicaCount":1,"serviceExistingAccountName":"","useOwnerToken":true,"volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
+| agentk8sglue | object | `{"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"env":[],"fileMounts":[],"hostAliases":{},"initContainers":[],"labels":{},"nodeSelector":{},"resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerCustomBashScript":"","customBashScript":"","debugMode":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"queue":"default","replicaCount":1,"serviceExistingAccountName":"","volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
 | agentk8sglue.apiServerUrlReference | string | `"https://api.clear.ml"` | Reference to Api server url |
 | agentk8sglue.basePodTemplate | object | `{"env":[],"fileMounts":[],"hostAliases":{},"initContainers":[],"labels":{},"nodeSelector":{},"resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]}` | base template for pods spawned to consume ClearML Task |
 | agentk8sglue.basePodTemplate.env | list | `[]` | environment variables for pods spawned to consume ClearML Task (example in values.yaml comments) |
@@ -57,7 +57,6 @@ Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
 | agentk8sglue.queue | string | `"default"` | ClearML queue this agent will consume |
 | agentk8sglue.replicaCount | int | `1` | Glue Agent number of pods |
 | agentk8sglue.serviceExistingAccountName | string | `""` | if set, don't create a serviceAccountName but use defined existing one |
-| agentk8sglue.useOwnerToken | bool | `true` | Agent must use owner Token |
 | agentk8sglue.volumeMounts | list | `[]` | volume mounts definition for Glue Agent (example in values.yaml comments) |
 | agentk8sglue.volumes | list | `[]` | volumes definition for Glue Agent (example in values.yaml comments) |
 | agentk8sglue.webServerUrlReference | string | `"https://app.clear.ml"` | Reference to Web server url |
@@ -67,7 +66,7 @@ Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
 | clearml.clearmlConfig | string | `"sdk {\n}"` | ClearML configuration file |
 | clearml.existingAgentk8sglueSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
 | clearml.existingClearmlConfigSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
-| enterpriseFeatures | object | `{"applyVaultEnvVars":true,"enabled":false,"maxPods":10,"monitoredResources":{"maxResources":0,"maxResourcesFieldName":"resources|limits|nvidia.com/gpu","minResourcesFieldName":"resources|limits|nvidia.com/gpu"},"queues":{"default":{"templateOverrides":{}}},"serviceAccountClusterAccess":false}` | Enterprise features (work only with an Enterprise license) |
+| enterpriseFeatures | object | `{"applyVaultEnvVars":true,"enabled":false,"maxPods":10,"monitoredResources":{"maxResources":0,"maxResourcesFieldName":"resources|limits|nvidia.com/gpu","minResourcesFieldName":"resources|limits|nvidia.com/gpu"},"queues":{"default":{"templateOverrides":{}}},"serviceAccountClusterAccess":false,"useOwnerToken":true}` | Enterprise features (work only with an Enterprise license) |
 | enterpriseFeatures.applyVaultEnvVars | bool | `true` | push env vars from Clear.ML Vault to task pods |
 | enterpriseFeatures.enabled | bool | `false` | Enable/Disable Enterprise features |
 | enterpriseFeatures.maxPods | int | `10` | maximum concurrent consume ClearML Task pod |
@@ -79,6 +78,7 @@ Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
 | enterpriseFeatures.queues.default | object | `{"templateOverrides":{}}` | name of the queue will be used for this template |
 | enterpriseFeatures.queues.default.templateOverrides | object | `{}` | overrides of the base template for this queue (must be declared even if empty!) |
 | enterpriseFeatures.serviceAccountClusterAccess | bool | `false` | service account access every namespace flag |
+| enterpriseFeatures.useOwnerToken | bool | `true` | Agent must use owner Token |
 | imageCredentials | object | `{"email":"someone@host.com","enabled":false,"existingSecret":"","password":"pwd","registry":"docker.io","username":"someone"}` | Private image registry configuration |
 | imageCredentials.email | string | `"someone@host.com"` | Email |
 | imageCredentials.enabled | bool | `false` | Use private authentication mode |
