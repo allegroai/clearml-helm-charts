@@ -116,7 +116,7 @@ data:
                   {{- if .Values.clearml.existingAgentk8sglueSecret }}
                   name: {{ .Values.clearml.existingAgentk8sglueSecret }}
                   {{- else }}
-                  name: {{ include "clearml.name" . }}-pt
+                  name: {{ include "clearml.name" . }}-ac
                   {{- end }}
                   key: agentk8sglue_key
             - name: CLEARML_API_SECRET_KEY
@@ -125,7 +125,7 @@ data:
                   {{- if .Values.clearml.existingAgentk8sglueSecret }}
                   name: {{ .Values.clearml.existingAgentk8sglueSecret }}
                   {{- else }}
-                  name: {{ include "clearml.name" . }}-pt
+                  name: {{ include "clearml.name" . }}-ac
                   {{- end }}
                   key: agentk8sglue_secret
             {{- end }}
@@ -212,7 +212,7 @@ data:
               {{- if .Values.clearml.existingAgentk8sglueSecret }}
               name: {{ .Values.clearml.existingAgentk8sglueSecret }}
               {{- else }}
-              name: {{ include "clearml.name" . }}-pt
+              name: {{ include "clearml.name" . }}-ac
               {{- end }}
               key: agentk8sglue_key
         - name: CLEARML_API_SECRET_KEY
@@ -221,7 +221,7 @@ data:
               {{- if .Values.clearml.existingAgentk8sglueSecret }}
               name: {{ .Values.clearml.existingAgentk8sglueSecret }}
               {{- else }}
-              name: {{ include "clearml.name" . }}-pt
+              name: {{ include "clearml.name" . }}-ac
               {{- end }}
               key: agentk8sglue_secret
         {{- if .Values.agentk8sglue.basePodTemplate.env }}
