@@ -247,12 +247,6 @@ webserver:
   tolerations: []
   # -- Web Server affinity setup
   affinity: {}
-  # -- set this value AND overrideReferenceFileUrl if external endpoint exposure is in place (like a LoadBalancer)
-  # example: "https://"api.clearml.local"
-  overrideReferenceApiUrl: ""
-  # -- set this value AND overrideReferenceAPIUrl if external endpoint exposure is in place (like a LoadBalancer)
-  # example: "https://"files.clearml.local"
-  overrideReferenceFileUrl: ""
   # -- Additional specific webserver configurations
   additionalConfigs: {}
 
@@ -371,6 +365,14 @@ enterpriseFeatures:
     image:
       repository: ""
       tag: ""
+  # -- set this value AND overrideReferenceFileUrl if external endpoint exposure is in place (like a LoadBalancer)
+  # example: "https://api.clearml.local"
+  overrideReferenceApiUrl: ""
+  # -- set this value AND overrideReferenceAPIUrl if external endpoint exposure is in place (like a LoadBalancer)
+  # example: "https://files.clearml.local"
+  overrideReferenceFileUrl: ""
+  # -- extra index URL for Enterprise packages
+  extraIndexUrl: ""
   # -- APPS configurations
   clearmlApplications:
     # -- Apps Server basic auth key
