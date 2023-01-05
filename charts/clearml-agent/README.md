@@ -69,7 +69,7 @@ Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
 | clearml.clearmlConfig | string | `"sdk {\n}"` | ClearML configuration file |
 | clearml.existingAgentk8sglueSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
 | clearml.existingClearmlConfigSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
-| enterpriseFeatures | object | `{"applyVaultEnvVars":true,"enabled":false,"maxPods":10,"monitoredResources":{"maxResources":0,"maxResourcesFieldName":"resources|limits|nvidia.com/gpu","minResourcesFieldName":"resources|limits|nvidia.com/gpu"},"queues":{"default":{"templateOverrides":{}}},"serviceAccountClusterAccess":false,"useOwnerToken":true}` | Enterprise features (work only with an Enterprise license) |
+| enterpriseFeatures | object | `{"applyVaultEnvVars":true,"enabled":false,"maxPods":10,"monitoredResources":{"maxResources":0,"maxResourcesFieldName":"resources|limits|nvidia.com/gpu","minResourcesFieldName":"resources|limits|nvidia.com/gpu"},"queues":null,"serviceAccountClusterAccess":false,"useOwnerToken":true}` | Enterprise features (work only with an Enterprise license) |
 | enterpriseFeatures.applyVaultEnvVars | bool | `true` | push env vars from Clear.ML Vault to task pods |
 | enterpriseFeatures.enabled | bool | `false` | Enable/Disable Enterprise features |
 | enterpriseFeatures.maxPods | int | `10` | maximum concurrent consume ClearML Task pod |
@@ -77,9 +77,7 @@ Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
 | enterpriseFeatures.monitoredResources.maxResources | int | `0` | Maximum resources counter |
 | enterpriseFeatures.monitoredResources.maxResourcesFieldName | string | `"resources|limits|nvidia.com/gpu"` | Field name used by Agent to count maximum resources |
 | enterpriseFeatures.monitoredResources.minResourcesFieldName | string | `"resources|limits|nvidia.com/gpu"` | Field name used by Agent to count minimum resources |
-| enterpriseFeatures.queues | object | `{"default":{"templateOverrides":{}}}` | ClearML queues and related template OVERRIDES used this agent will consume |
-| enterpriseFeatures.queues.default | object | `{"templateOverrides":{}}` | name of the queue will be used for this template |
-| enterpriseFeatures.queues.default.templateOverrides | object | `{}` | overrides of the base template for this queue (must be declared even if empty!) |
+| enterpriseFeatures.queues | string | `nil` | ClearML queues and related template OVERRIDES used this agent will consume |
 | enterpriseFeatures.serviceAccountClusterAccess | bool | `false` | service account access every namespace flag |
 | enterpriseFeatures.useOwnerToken | bool | `true` | Agent must use owner Token |
 | imageCredentials | object | `{"email":"someone@host.com","enabled":false,"existingSecret":"","password":"pwd","registry":"docker.io","username":"someone"}` | Private image registry configuration |

@@ -219,9 +219,9 @@ enterpriseFeatures:
   # -- ClearML queues and related template OVERRIDES used this agent will consume
   queues:
     # -- name of the queue will be used for this template
-    default:
+    # default:
       # -- overrides of the base template for this queue (must be declared even if empty!)
-      templateOverrides: {}
+      # templateOverrides: {}
     ## -- name of the queue will be used for this template
     # default-gpu:
     #  # -- overrides of the base template for this queue
