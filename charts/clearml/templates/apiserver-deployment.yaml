@@ -84,26 +84,6 @@ spec:
               secretKeyRef:
                 name: clearml-conf
                 key: apiserver_secret
-          - name: CLEARML__secure__credentials__fileserver__user_key
-            valueFrom:
-              secretKeyRef:
-                name: clearml-conf
-                key: fileserver_key
-          - name: CLEARML__secure__credentials__fileserver__user_secret
-            valueFrom:
-              secretKeyRef:
-                name: clearml-conf
-                key: fileserver_secret
-          - name: CLEARML__secure__applications__agents_credentials__apps_agent__user_key
-            valueFrom:
-              secretKeyRef:
-                name: clearml-conf
-                key: apps_agent_key
-          - name: CLEARML__secure__applications__agents_credentials__apps_agent__user_secret
-            valueFrom:
-              secretKeyRef:
-                name: clearml-conf
-                key: apps_agent_secret
           - name: CLEARML__secure__auth__token_secret
             valueFrom:
               secretKeyRef:
@@ -160,6 +140,26 @@ spec:
             value: "false"
           - name: ALLEGRO_ENV
             value: "onprem_k8s"
+          - name: CLEARML__secure__credentials__fileserver__user_key
+            valueFrom:
+              secretKeyRef:
+                name: clearml-conf
+                key: fileserver_key
+          - name: CLEARML__secure__credentials__fileserver__user_secret
+            valueFrom:
+              secretKeyRef:
+                name: clearml-conf
+                key: fileserver_secret
+          - name: CLEARML__secure__applications__agents_credentials__apps_agent__user_key
+            valueFrom:
+              secretKeyRef:
+                name: clearml-conf
+                key: apps_agent_key
+          - name: CLEARML__secure__applications__agents_credentials__apps_agent__user_secret
+            valueFrom:
+              secretKeyRef:
+                name: clearml-conf
+                key: apps_agent_secret
           {{- else }}
           - name: CLEARML__SECURE__CREDENTIALS__TESTS__USER_KEY
             valueFrom:
