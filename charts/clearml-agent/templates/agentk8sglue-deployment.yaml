@@ -105,7 +105,7 @@ spec:
                     --max-pods {{.Values.enterpriseFeatures.maxPods}}{{ if .Values.enterpriseFeatures.enabled }}{{ if .Values.enterpriseFeatures.useOwnerToken }} --use-owner-token{{ end }}{{ end }}"
           {{- end }}
           - name: CLEARML_K8S_GLUE_LIMIT_POD_LABEL
-            value: "ai-allegro-agent-serial=pod-{pod_number}"
+            value: "ai.allegro.agent.serial=pod-{pod_number}"
           - name: CLEARML_K8S_SECRETS_LIST_FILE
             value: /root/template/secrets.yaml
           - name: K8S_DEFAULT_NAMESPACE

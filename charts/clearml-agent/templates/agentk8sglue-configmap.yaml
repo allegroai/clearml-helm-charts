@@ -278,6 +278,6 @@ data:
           nodePort: {{ add $.Values.sessions.startingPort . }}
           {{- end }}
       selector:
-        ai-allegro-agent-serial: pod-{{ . }}
+        ai.allegro.agent.serial: pod-{{ . }}
 {{- end }}
 {{- end }}
