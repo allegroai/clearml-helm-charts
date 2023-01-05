@@ -65,8 +65,8 @@ spec:
           - name: CLEARML_REDIS_SERVICE_PORT
             value: "{{ include "redis.serviceport" . }}"
           - name: CLEARML_CONFIG_PATH
-            value: /opt/clearml/config/default
-          - name: CLEARML__apiserver__default_company
+            value: /opt/clearml/config
+          - name: CLEARML__apiserver__default_company_name
             value: "{{ .Values.clearml.defaultCompany }}"
           {{- if not (eq .Values.clearml.cookieDomain "") }}
           - name: CLEARML__APISERVER__AUTH__SESSION_AUTH_COOKIE_NAME
@@ -84,26 +84,6 @@ spec:
               secretKeyRef:
                 name: clearml-conf
                 key: apiserver_secret
-          - name: CLEARML__secure__credentials__fileserver__user_key
-            valueFrom:
-              secretKeyRef:
-                name: clearml-conf
-                key: fileserver_key
-          - name: CLEARML__secure__credentials__fileserver__user_secret
-            valueFrom:
-              secretKeyRef:
-                name: clearml-conf
-                key: fileserver_secret
-          - name: CLEARML__secure__applications__agents_credentials__apps_agent__user_key
-            valueFrom:
-              secretKeyRef:
-                name: clearml-conf
-                key: apps_agent_key
-          - name: CLEARML__secure__applications__agents_credentials__apps_agent__user_secret
-            valueFrom:
-              secretKeyRef:
-                name: clearml-conf
-                key: apps_agent_secret
           - name: CLEARML__secure__auth__token_secret
             valueFrom:
               secretKeyRef:
@@ -158,8 +138,28 @@ spec:
             value: {{ .Values.apiserver.indexShards | quote }}
           - name: CLEARML__APISERVER__LOG_CALLS
             value: "false"
-          - name: CLEARML_ENV
+          - name: ALLEGRO_ENV
             value: "onprem_k8s"
+          - name: CLEARML__secure__credentials__fileserver__user_key
+            valueFrom:
+              secretKeyRef:
+                name: clearml-conf
+                key: fileserver_key
+          - name: CLEARML__secure__credentials__fileserver__user_secret
+            valueFrom:
+              secretKeyRef:
+                name: clearml-conf
+                key: fileserver_secret
+          - name: CLEARML__secure__applications__agents_credentials__apps_agent__user_key
+            valueFrom:
+              secretKeyRef:
+                name: clearml-conf
+                key: apps_agent_key
+          - name: CLEARML__secure__applications__agents_credentials__apps_agent__user_secret
+            valueFrom:
+              secretKeyRef:
+                name: clearml-conf
+                key: apps_agent_secret
           {{- else }}
           - name: CLEARML__SECURE__CREDENTIALS__TESTS__USER_KEY
             valueFrom:
@@ -202,7 +202,11 @@ spec:
           {{- if .Values.apiserver.additionalConfigs }}
           volumeMounts:  
             - name: apiserver-config
+              {{- if .Values.enterpriseFeatures.enabled }}
               mountPath: /opt/clearml/config/default
+              {{- else }}
+              mountPath: /opt/clearml/config
+              {{- end }}
           {{- end }}
           resources:
             {{- toYaml .Values.apiserver.resources | nindent 12 }}

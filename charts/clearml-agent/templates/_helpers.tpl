@@ -78,7 +78,7 @@ Create a string composed by queue names
 */}}
 {{- define "agentk8sglue.queues" -}}
 {{- $list := list }}
-{{- range $key, $value := .Values.agentk8sglue.queues }}
+{{- range $key, $value := .Values.enterpriseFeatures.queues }}
 {{- $list = append $list (printf "%s" $key) }}
 {{- end }}
 {{- join " " $list }}

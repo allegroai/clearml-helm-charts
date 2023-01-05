@@ -5,7 +5,7 @@ metadata:
 data:
 {{- if .Values.enterpriseFeatures.enabled }}
   template.yaml: |
-    {{- range $key, $value := $.Values.agentk8sglue.queues }}
+    {{- range $key, $value := $.Values.enterpriseFeatures.queues }}
     {{ $key }}:
       apiVersion: v1
       metadata:
@@ -123,19 +123,19 @@ data:
             - name: CLEARML_API_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  {{- if .Values.clearml.existingAgentk8sglueSecret }}
-                  name: {{ .Values.clearml.existingAgentk8sglueSecret }}
+                  {{- if $.Values.clearml.existingAgentk8sglueSecret }}
+                  name: {{ $.Values.clearml.existingAgentk8sglueSecret }}
                   {{- else }}
-                  name: {{ include "clearml.name" . }}-ac
+                  name: {{ include "clearml.name" $ }}-ac
                   {{- end }}
                   key: agentk8sglue_key
             - name: CLEARML_API_SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  {{- if .Values.clearml.existingAgentk8sglueSecret }}
-                  name: {{ .Values.clearml.existingAgentk8sglueSecret }}
+                  {{- if $.Values.clearml.existingAgentk8sglueSecret }}
+                  name: {{ $.Values.clearml.existingAgentk8sglueSecret }}
                   {{- else }}
-                  name: {{ include "clearml.name" . }}-ac
+                  name: {{ include "clearml.name" $ }}-ac
                   {{- end }}
                   key: agentk8sglue_secret
             {{- end }}
@@ -278,6 +278,6 @@ data:
           nodePort: {{ add $.Values.sessions.startingPort . }}
           {{- end }}
       selector:
-        ai-allegro-agent-serial: pod-{{ . }}
+        ai.allegro.agent.serial: pod-{{ . }}
 {{- end }}
 {{- end }}
