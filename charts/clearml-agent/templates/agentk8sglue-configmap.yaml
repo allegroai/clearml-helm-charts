@@ -119,7 +119,7 @@ data:
               value: {{ $.Values.agentk8sglue.webServerUrlReference }}
             - name: CLEARML_FILES_HOST
               value: {{ $.Values.agentk8sglue.fileServerUrlReference }}
-            {{- if not $.Values.agentk8sglue.useOwnerToken }}
+            {{- if not $.Values.enterpriseFeatures.useOwnerToken }}
             - name: CLEARML_API_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
@@ -174,7 +174,7 @@ data:
         {{- end }}
     {{- end }}
   secrets.yaml: |
-    {{- range $key, $value := $.Values.agentk8sglue.queues }}
+    {{- range $key, $value := $.Values.enterpriseFeatures.queues }}
     {{ $key }}:
       {{- if $value.templateOverrides.fileMounts }}
         - {{ include "clearml.name" $ }}-{{ $key }}-fm
