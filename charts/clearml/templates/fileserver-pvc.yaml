@@ -11,7 +11,7 @@ spec:
   resources:
     requests:
       storage: {{ .Values.fileserver.storage.data.size | quote }}
-  {{- if .Values.fileserver.storage.data.class -}}
+  {{- if .Values.fileserver.storage.data.class }}
   storageClassName: {{ .Values.fileserver.storage.data.class | quote }}
   {{- end -}}
 {{- end }}
