@@ -164,7 +164,7 @@ spec:
           - name: K8S_GLUE_QUEUE
             value: {{ .Values.agentk8sglue.queue }}
           {{- end }}
-      {{- with .Values.agentk8sglue.basePodTemplate.nodeSelector}}
+      {{- with .Values.agentk8sglue.nodeSelector}}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
