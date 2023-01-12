@@ -52,7 +52,11 @@ spec:
             {{- end }}
         {{- end }}
         - name: init-webserver
-          image: "{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag | default .Chart.AppVersion }}"
+          {{- if .Values.enterpriseFeatures.enabled }}
+          image: "{{ .Values.webserver.image.repository }}:{{ .Values.enterpriseFeatures.webserverImageTagOverride }}"
+          {{- else }}
+          image: "{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag }}"
+          {{- end }}
           command:
             - /bin/sh
             - -c
@@ -64,7 +68,11 @@ spec:
               done
       containers:
         - name: clearml-webserver
-          image: "{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag | default .Chart.AppVersion }}"
+          {{- if .Values.enterpriseFeatures.enabled }}
+          image: "{{ .Values.webserver.image.repository }}:{{ .Values.enterpriseFeatures.webserverImageTagOverride }}"
+          {{- else }}
+          image: "{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag }}"
+          {{- end }}
           imagePullPolicy: {{ .Values.webserver.image.pullPolicy }}
           ports:
             - name: http

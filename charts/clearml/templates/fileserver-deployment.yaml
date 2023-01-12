@@ -33,7 +33,11 @@ spec:
             claimName: {{ include "fileserver.referenceName" . }}-data
       initContainers:
           - name: init-fileserver
-            image: "{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag | default .Chart.AppVersion }}"
+            {{- if .Values.enterpriseFeatures.enabled }}
+            image: "{{ .Values.fileserver.image.repository }}:{{ .Values.enterpriseFeatures.fileserverImageTagOverride }}"
+            {{- else }}
+            image: "{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag }}"
+            {{- end }}
             command:
               - /bin/sh
               - -c
@@ -45,7 +49,11 @@ spec:
                 done
       containers:
         - name: clearml-fileserver
-          image: "{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag | default .Chart.AppVersion }}"
+          {{- if .Values.enterpriseFeatures.enabled }}
+          image: "{{ .Values.fileserver.image.repository }}:{{ .Values.enterpriseFeatures.fileserverImageTagOverride }}"
+          {{- else }}
+          image: "{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag }}"
+          {{- end }}
           imagePullPolicy: {{ .Values.fileserver.image.pullPolicy }}
           ports:
             - name: http

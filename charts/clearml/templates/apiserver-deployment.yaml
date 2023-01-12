@@ -35,7 +35,11 @@ spec:
       {{- end }}
       initContainers:
         - name: init-apiserver
-          image: "{{ .Values.apiserver.image.repository }}:{{ .Values.apiserver.image.tag | default .Chart.AppVersion }}"
+          {{- if .Values.enterpriseFeatures.enabled }}
+          image: "{{ .Values.apiserver.image.repository }}:{{ .Values.enterpriseFeatures.apiserverImageTagOverride }}"
+          {{- else }}
+          image: "{{ .Values.apiserver.image.repository }}:{{ .Values.apiserver.image.tag }}"
+          {{- end }}
           command:
             - /bin/sh
             - -c
@@ -47,7 +51,11 @@ spec:
               done
       containers:
         - name: clearml-apiserver
-          image: "{{ .Values.apiserver.image.repository }}:{{ .Values.apiserver.image.tag | default .Chart.AppVersion }}"
+          {{- if .Values.enterpriseFeatures.enabled }}
+          image: "{{ .Values.apiserver.image.repository }}:{{ .Values.enterpriseFeatures.apiserverImageTagOverride }}"
+          {{- else }}
+          image: "{{ .Values.apiserver.image.repository }}:{{ .Values.apiserver.image.tag }}"
+          {{- end }}
           imagePullPolicy: {{ .Values.apiserver.image.pullPolicy }}
           ports:
             - name: http
