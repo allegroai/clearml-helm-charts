@@ -30,7 +30,11 @@ spec:
       serviceAccountName: {{ include "clearml.serviceAccountName" . }}
       initContainers:
       - name: init-k8s-glue
+        {{- if .Values.enterpriseFeatures.enabled }}
+        image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.enterpriseFeatures.agentImageTagOverride }}"
+        {{- else }}
         image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
+        {{- end }}
         command:
           - /bin/sh
           - -c
@@ -50,7 +54,11 @@ spec:
             done
       containers:
       - name: k8s-glue
+        {{- if .Values.enterpriseFeatures.enabled }}
+        image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.enterpriseFeatures.agentImageTagOverride }}"
+        {{- else }}
         image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
+        {{- end }}
         imagePullPolicy: IfNotPresent
         command:
           - /bin/bash
