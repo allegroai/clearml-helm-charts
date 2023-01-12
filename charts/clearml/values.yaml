@@ -357,6 +357,12 @@ enterpriseFeatures:
   enabled: false
   # -- Company ID
   defaultCompanyGuid: "d1bd92a3b039400cbafc60a7a5b1e52b"
+  # -- Image tag override for apiserver enterprise version
+  apiserverImageTagOverride: "3.15.2-902"
+  # -- Image tag override for fileserver enterprise version
+  fileserverImageTagOverride: "3.15.2-902"
+  # -- Image tag override for webserver enterprise version
+  webserverImageTagOverride: "3.15.2-787"
   # -- Air gapped documentation  configurations
   airGappedDocumentation:
     # -- Enable/Disable air gapped documentation deployment
@@ -364,7 +370,7 @@ enterpriseFeatures:
     # -- Air gapped documentation image configuration
     image:
       repository: ""
-      tag: ""
+      tag: "4"
   # -- set this value AND overrideReferenceFileUrl if external endpoint exposure is in place (like a LoadBalancer)
   # example: "https://api.clearml.local"
   overrideReferenceApiUrl: ""
@@ -389,11 +395,11 @@ enterpriseFeatures:
     image:
       repository: ""
       pullPolicy: IfNotPresent
-      tag: ""
+      tag: "1.24-57"
     # -- APPS base spawning pods image
     basePodImage:
       repository: ""
-      tag: ""
+      tag: "app-1.1.1-47"
     # -- APPS number of pods
     replicaCount: 1
     # -- APPS extra envrinoment variables
