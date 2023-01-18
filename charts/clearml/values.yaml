@@ -109,7 +109,11 @@ apiserver:
   tolerations: []
   # -- Api Server affinity setup
   affinity: {}
-  # -- files declared in this parameter will be mounted and read by apiserver (examples in values.yaml)
+  # -- reference for files declared in existing ConfigMap will be mounted and read by apiserver (examples in values.yaml)
+  existingAdditionalConfigsConfigMap: ""
+  # -- reference for files declared in existing Secret will be mounted and read by apiserver (examples in values.yaml) if not overridden by existingAdditionalConfigsConfigMap
+  existingAdditionalConfigsSecret: ""
+  # -- files declared in this parameter will be mounted and read by apiserver (examples in values.yaml) if not overridden by existingAdditionalConfigsSecret
   additionalConfigs: {}
   #   services.conf: |
   #     tasks {
