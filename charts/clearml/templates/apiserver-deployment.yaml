@@ -27,11 +27,19 @@ spec:
       - name: clearml-registry-key
       {{- end }}
       {{- end }}
-      {{- if .Values.apiserver.additionalConfigs }}
-      volumes:  
+      {{- if or .Values.apiserver.additionalConfigs .Values.apiserver.existingAdditionalConfigsConfigMap  .Values.apiserver.existingAdditionalConfigsSecret }}
+      volumes:
         - name: apiserver-config
+          {{- if or .Values.apiserver.existingAdditionalConfigsConfigMap }}
+          configMap:
+            name: {{ .Values.apiserver.existingAdditionalConfigsConfigMap }}
+          {{- else if or .Values.apiserver.existingAdditionalConfigsSecret }}
+          secret:
+            secretName: {{ .Values.apiserver.existingAdditionalConfigsSecret }}
+          {{- else if or .Values.apiserver.additionalConfigs }}
           configMap:
             name: "{{ include "apiserver.referenceName" . }}-configmap"
+          {{- end }}
       {{- end }}
       initContainers:
         - name: init-apiserver
@@ -207,7 +215,7 @@ spec:
               httpHeaders:
                 - name: Authorization
                   value: Basic {{ include "readinessProbeAuth" . }}
-          {{- if .Values.apiserver.additionalConfigs }}
+          {{- if or .Values.apiserver.additionalConfigs .Values.apiserver.existingAdditionalConfigsConfigMap  .Values.apiserver.existingAdditionalConfigsSecret }}
           volumeMounts:  
             - name: apiserver-config
               {{- if .Values.enterpriseFeatures.enabled }}
