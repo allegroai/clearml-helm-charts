@@ -54,7 +54,7 @@ apiserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.9.1-312"
+    tag: "1.9.2-317"
   # -- Api Server internal service configuration
   service:
     type: NodePort
@@ -111,6 +111,10 @@ apiserver:
   tolerations: []
   # -- Api Server affinity setup
   affinity: {}
+  # -- Api Server pod security context
+  securityContext: {}
+  #   runAsUser: 1001
+  #   fsGroup: 1001
   # -- reference for files declared in existing ConfigMap will be mounted and read by apiserver (examples in values.yaml)
   existingAdditionalConfigsConfigMap: ""
   # -- reference for files declared in existing Secret will be mounted and read by apiserver (examples in values.yaml) if not overridden by existingAdditionalConfigsConfigMap
@@ -154,7 +158,7 @@ fileserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.9.1-312"
+    tag: "1.9.2-317"
   # -- File Server internal service configuration
   service:
     type: NodePort
@@ -197,6 +201,10 @@ fileserver:
   tolerations: []
   # -- File Server affinity setup
   affinity: {}
+  # -- File Server pod security context
+  securityContext: {}
+  #   runAsUser: 1001
+  #   fsGroup: 1001
   # -- File server persistence settings
   storage:
     data:
@@ -214,7 +222,7 @@ webserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.9.1-312"
+    tag: "1.9.2-317"
   # -- Web Server internal service configuration
   service:
     type: NodePort
@@ -257,6 +265,10 @@ webserver:
   tolerations: []
   # -- Web Server affinity setup
   affinity: {}
+  # -- Web Server pod security context
+  podSecurityContext: {}
+  #   runAsUser: 1001
+  #   fsGroup: 1001
   # -- Additional specific webserver configurations
   additionalConfigs: {}
 

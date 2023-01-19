@@ -35,6 +35,7 @@ spec:
         - name: documentation
           emptyDir: {}
         {{- end }}
+      securityContext: {{ toYaml .Values.webserver.podSecurityContext | nindent 8 }}
       initContainers:
         {{- if .Values.enterpriseFeatures.airGappedDocumentation.enabled }}
         - name: init-airgap-docs
