@@ -54,7 +54,7 @@ apiserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.9.1-312"
+    tag: "1.9.2-317"
   # -- Api Server internal service configuration
   service:
     type: NodePort
@@ -158,7 +158,7 @@ fileserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.9.1-312"
+    tag: "1.9.2-317"
   # -- File Server internal service configuration
   service:
     type: NodePort
@@ -222,7 +222,7 @@ webserver:
   image:
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.9.1-312"
+    tag: "1.9.2-317"
   # -- Web Server internal service configuration
   service:
     type: NodePort
