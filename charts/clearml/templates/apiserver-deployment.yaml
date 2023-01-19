@@ -41,6 +41,7 @@ spec:
             name: "{{ include "apiserver.referenceName" . }}-configmap"
           {{- end }}
       {{- end }}
+      securityContext: {{ toYaml .Values.apiserver.podSecurityContext | nindent 8 }}
       initContainers:
         - name: init-apiserver
           {{- if .Values.enterpriseFeatures.enabled }}

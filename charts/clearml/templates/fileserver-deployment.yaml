@@ -31,6 +31,7 @@ spec:
         - name: fileserver-data
           persistentVolumeClaim:
             claimName: {{ include "fileserver.referenceName" . }}-data
+      securityContext: {{ toYaml .Values.fileserver.podSecurityContext | nindent 8 }}
       initContainers:
           - name: init-fileserver
             {{- if .Values.enterpriseFeatures.enabled }}
