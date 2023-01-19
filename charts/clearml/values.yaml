@@ -68,6 +68,8 @@ apiserver:
   ingress:
     # -- Enable/Disable ingress
     enabled: false
+    # -- ClassName (must be defined if no default ingressClassName is available)
+    ingressClassName: ""
     # -- Ingress hostname domain
     hostName: "api.clearml.127-0-0-1.nip.io"
     # -- Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule.
@@ -166,6 +168,8 @@ fileserver:
   ingress:
     # -- Enable/Disable ingress
     enabled: false
+    # -- ClassName (must be defined if no default ingressClassName is available)
+    ingressClassName: ""
     # -- Ingress hostname domain
     hostName: "files.clearml.127-0-0-1.nip.io"
     # -- Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule.
@@ -224,6 +228,8 @@ webserver:
   ingress:
     # -- Enable/Disable ingress
     enabled: false
+    # -- ClassName (must be defined if no default ingressClassName is available)
+    ingressClassName: ""
     # -- Ingress hostname domain
     hostName: "app.clearml.127-0-0-1.nip.io"
     # -- Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule.

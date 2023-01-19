@@ -19,6 +19,9 @@ metadata:
   annotations:
     {{- toYaml $annotations | nindent 4 }}
 spec:
+  {{- if .Values.fileserver.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.fileserver.ingress.ingressClassName }}
+  {{- end }}
   {{- if .Values.fileserver.ingress.tlsSecretName }}
   tls:
     - hosts:

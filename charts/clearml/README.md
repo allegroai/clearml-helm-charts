@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 5.1.0](https://img.shields.io/badge/Version-5.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.9.0](https://img.shields.io/badge/AppVersion-1.9.0-informational?style=flat-square)
+![Version: 5.2.0](https://img.shields.io/badge/Version-5.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.9.0](https://img.shields.io/badge/AppVersion-1.9.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -142,7 +142,7 @@ Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| apiserver | object | `{"additionalConfigs":{},"affinity":{},"enabled":true,"existingAdditionalConfigsConfigMap":"","existingAdditionalConfigsSecret":"","extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"},"indexReplicas":0,"indexShards":1,"ingress":{"annotations":{},"enabled":false,"hostName":"api.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"prepopulateEnabled":true,"processes":{"count":8,"maxRequests":1000,"maxRequestsJitter":300,"timeout":24000},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"nodePort":30008,"port":8008,"type":"NodePort"},"tolerations":[]}` | Api Server configurations |
+| apiserver | object | `{"additionalConfigs":{},"affinity":{},"enabled":true,"existingAdditionalConfigsConfigMap":"","existingAdditionalConfigsSecret":"","extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"},"indexReplicas":0,"indexShards":1,"ingress":{"annotations":{},"enabled":false,"hostName":"api.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"prepopulateEnabled":true,"processes":{"count":8,"maxRequests":1000,"maxRequestsJitter":300,"timeout":24000},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"nodePort":30008,"port":8008,"type":"NodePort"},"tolerations":[]}` | Api Server configurations |
 | apiserver.additionalConfigs | object | `{}` | files declared in this parameter will be mounted and read by apiserver (examples in values.yaml) if not overridden by existingAdditionalConfigsSecret |
 | apiserver.affinity | object | `{}` | Api Server affinity setup |
 | apiserver.enabled | bool | `true` | Enable/Disable component deployment |
@@ -152,10 +152,11 @@ Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 | apiserver.image | object | `{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"}` | Api Server image configuration |
 | apiserver.indexReplicas | int | `0` | Number of additional replicas in Elasticsearch indexes |
 | apiserver.indexShards | int | `1` | Number of shards in Elasticsearch indexes |
-| apiserver.ingress | object | `{"annotations":{},"enabled":false,"hostName":"api.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""}` | Ingress configuration for Api Server component |
+| apiserver.ingress | object | `{"annotations":{},"enabled":false,"hostName":"api.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""}` | Ingress configuration for Api Server component |
 | apiserver.ingress.annotations | object | `{}` | Ingress annotations |
 | apiserver.ingress.enabled | bool | `false` | Enable/Disable ingress |
 | apiserver.ingress.hostName | string | `"api.clearml.127-0-0-1.nip.io"` | Ingress hostname domain |
+| apiserver.ingress.ingressClassName | string | `""` | ClassName (must be defined if no default ingressClassName is available) |
 | apiserver.ingress.path | string | `"/"` | Ingress root path url |
 | apiserver.ingress.tlsSecretName | string | `""` | Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule. |
 | apiserver.nodeSelector | object | `{}` | Api Server nodeselector |
@@ -220,15 +221,16 @@ Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 | externalServices.mongodbConnectionString | string | `""` | Existing MongoDB connection string to use if mongodb.enabled is false |
 | externalServices.redisHost | string | `""` | Existing Redis Hostname to use if redis.enabled is false |
 | externalServices.redisPort | int | `6379` | Existing Redis Port to use if redis.enabled is false |
-| fileserver | object | `{"affinity":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"},"ingress":{"annotations":{},"enabled":false,"hostName":"files.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"nodePort":30081,"port":8081,"type":"NodePort"},"storage":{"data":{"accessMode":"ReadWriteOnce","class":"","size":"50Gi"}},"tolerations":[]}` | File Server configurations |
+| fileserver | object | `{"affinity":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"},"ingress":{"annotations":{},"enabled":false,"hostName":"files.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"nodePort":30081,"port":8081,"type":"NodePort"},"storage":{"data":{"accessMode":"ReadWriteOnce","class":"","size":"50Gi"}},"tolerations":[]}` | File Server configurations |
 | fileserver.affinity | object | `{}` | File Server affinity setup |
 | fileserver.enabled | bool | `true` | Enable/Disable component deployment |
 | fileserver.extraEnvs | list | `[]` | File Server extra envrinoment variables |
 | fileserver.image | object | `{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"}` | File Server image configuration |
-| fileserver.ingress | object | `{"annotations":{},"enabled":false,"hostName":"files.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""}` | Ingress configuration for File Server component |
+| fileserver.ingress | object | `{"annotations":{},"enabled":false,"hostName":"files.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""}` | Ingress configuration for File Server component |
 | fileserver.ingress.annotations | object | `{}` | Ingress annotations |
 | fileserver.ingress.enabled | bool | `false` | Enable/Disable ingress |
 | fileserver.ingress.hostName | string | `"files.clearml.127-0-0-1.nip.io"` | Ingress hostname domain |
+| fileserver.ingress.ingressClassName | string | `""` | ClassName (must be defined if no default ingressClassName is available) |
 | fileserver.ingress.path | string | `"/"` | Ingress root path url |
 | fileserver.ingress.tlsSecretName | string | `""` | Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule. |
 | fileserver.nodeSelector | object | `{}` | File Server nodeselector |
@@ -250,16 +252,17 @@ Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 | imageCredentials.username | string | `"someone"` | Registry username |
 | mongodb | object | `{"architecture":"standalone","auth":{"enabled":false},"enabled":true,"persistence":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"50Gi","storageClass":null},"replicaCount":1}` | Configuration from https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml |
 | redis | object | `{"cluster":{"enabled":false},"databaseNumber":0,"enabled":true,"master":{"name":"{{ .Release.Name }}-redis-master","persistence":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"5Gi","storageClass":null},"port":6379},"usePassword":false}` | Configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml |
-| webserver | object | `{"additionalConfigs":{},"affinity":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"},"ingress":{"annotations":{},"enabled":false,"hostName":"app.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"nodePort":30080,"port":8080,"type":"NodePort"},"tolerations":[]}` | Web Server configurations |
+| webserver | object | `{"additionalConfigs":{},"affinity":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"},"ingress":{"annotations":{},"enabled":false,"hostName":"app.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"nodePort":30080,"port":8080,"type":"NodePort"},"tolerations":[]}` | Web Server configurations |
 | webserver.additionalConfigs | object | `{}` | Additional specific webserver configurations |
 | webserver.affinity | object | `{}` | Web Server affinity setup |
 | webserver.enabled | bool | `true` | Enable/Disable component deployment |
 | webserver.extraEnvs | list | `[]` | Web Server extra envrinoment variables |
 | webserver.image | object | `{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.1-312"}` | Web Server image configuration |
-| webserver.ingress | object | `{"annotations":{},"enabled":false,"hostName":"app.clearml.127-0-0-1.nip.io","path":"/","tlsSecretName":""}` | Ingress configuration for Web Server component |
+| webserver.ingress | object | `{"annotations":{},"enabled":false,"hostName":"app.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""}` | Ingress configuration for Web Server component |
 | webserver.ingress.annotations | object | `{}` | Ingress annotations |
 | webserver.ingress.enabled | bool | `false` | Enable/Disable ingress |
 | webserver.ingress.hostName | string | `"app.clearml.127-0-0-1.nip.io"` | Ingress hostname domain |
+| webserver.ingress.ingressClassName | string | `""` | ClassName (must be defined if no default ingressClassName is available) |
 | webserver.ingress.path | string | `"/"` | Ingress root path url |
 | webserver.ingress.tlsSecretName | string | `""` | Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule. |
 | webserver.nodeSelector | object | `{}` | Web Server nodeselector |
