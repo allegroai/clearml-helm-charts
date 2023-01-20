@@ -3,6 +3,42 @@ entries:
   clearml:
   - apiVersion: v2
     appVersion: 1.9.2
+    created: "2023-01-20T09:24:57.264925973Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: file://../../dependency_charts/redis
+      version: 10.9.0
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: file://../../dependency_charts/mongodb
+      version: 10.3.4
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: file://../../dependency_charts/elasticsearch
+      version: 7.16.2
+    description: MLOps platform
+    digest: ae47f5d17b7d6329837544e2264ae4d9fae885334ed5d5c831d0da6587082714
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    kubeVersion: '>= 1.21.0-0 < 1.26.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-5.3.1/clearml-5.3.1.tgz
+    version: 5.3.1
+  - apiVersion: v2
+    appVersion: 1.9.2
     created: "2023-01-19T14:00:47.173259168Z"
     dependencies:
     - condition: redis.enabled
@@ -2732,4 +2768,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-19T14:00:47.173907465Z"
+generated: "2023-01-20T09:24:57.265492779Z"
