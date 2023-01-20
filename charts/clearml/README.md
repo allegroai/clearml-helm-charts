@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 5.3.1](https://img.shields.io/badge/Version-5.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.9.2](https://img.shields.io/badge/AppVersion-1.9.2-informational?style=flat-square)
+![Version: 5.4.0](https://img.shields.io/badge/Version-5.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.9.2](https://img.shields.io/badge/AppVersion-1.9.2-informational?style=flat-square)
 
 MLOps platform
 
@@ -216,10 +216,11 @@ Kubernetes: `>= 1.21.0-0 < 1.26.0-0`
 | enterpriseFeatures.overrideReferenceApiUrl | string | `""` | set this value AND overrideReferenceFileUrl if external endpoint exposure is in place (like a LoadBalancer) example: "https://api.clearml.local" |
 | enterpriseFeatures.overrideReferenceFileUrl | string | `""` | set this value AND overrideReferenceAPIUrl if external endpoint exposure is in place (like a LoadBalancer) example: "https://files.clearml.local" |
 | enterpriseFeatures.webserverImageTagOverride | string | `"3.15.3-801"` | Image tag override for webserver enterprise version |
-| externalServices | object | `{"elasticsearchHost":"","elasticsearchPort":9200,"mongodbConnectionString":"","redisHost":"","redisPort":6379}` | Definition of external services to use if not enabled as dependency charts here |
+| externalServices | object | `{"elasticsearchHost":"","elasticsearchPort":9200,"mongodbConnectionStringAuth":"","mongodbConnectionStringBackend":"","redisHost":"","redisPort":6379}` | Definition of external services to use if not enabled as dependency charts here |
 | externalServices.elasticsearchHost | string | `""` | Existing ElasticSearch Hostname to use if elasticsearch.enabled is false |
 | externalServices.elasticsearchPort | int | `9200` | Existing ElasticSearch Port to use if elasticsearch.enabled is false |
-| externalServices.mongodbConnectionString | string | `""` | Existing MongoDB connection string to use if mongodb.enabled is false |
+| externalServices.mongodbConnectionStringAuth | string | `""` | Existing MongoDB connection string for BACKEND to use if mongodb.enabled is false |
+| externalServices.mongodbConnectionStringBackend | string | `""` | Existing MongoDB connection string for AUTH to use if mongodb.enabled is false |
 | externalServices.redisHost | string | `""` | Existing Redis Hostname to use if redis.enabled is false |
 | externalServices.redisPort | int | `6379` | Existing Redis Port to use if redis.enabled is false |
 | fileserver | object | `{"affinity":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.2-317"},"ingress":{"annotations":{},"enabled":false,"hostName":"files.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"securityContext":{},"service":{"nodePort":30081,"port":8081,"type":"NodePort"},"storage":{"data":{"accessMode":"ReadWriteOnce","class":"","size":"50Gi"}},"tolerations":[]}` | File Server configurations |
