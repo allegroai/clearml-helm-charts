@@ -30,3 +30,7 @@ dependencies:
     version: "7.16.2"
     repository: "file://../../dependency_charts/elasticsearch"
     condition: elasticsearch.enabled
+annotations:
+  artifacthub.io/changes: |
+    - kind: changed
+      description: external mongodb improved connection string
