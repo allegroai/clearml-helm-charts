@@ -28,8 +28,11 @@ spec:
       - name: clearml-registry-key
       {{- end }}
       {{- end }}
+      volumes:
+        - name: {{ include "clearml.name" . }}-apps-pt
+          configMap:
+            name: {{ include "clearml.name" . }}-apps-pt
       {{- if .Values.enterpriseFeatures.clearmlApplications.additionalConfigs }}
-      volumes:  
         - name: apps-config
           configMap:
             name: "{{ include "clearmlApplications.referenceName" . }}-configmap"
@@ -68,8 +71,9 @@ spec:
             value: "apps-agent-1"
           - name: CLEARML_NO_DEFAULT_SERVER
             value: "true"
-          - name: CLEARML_AGENT_DAEMON_OPTIONS
-            value: "--foreground --create-queue --use-owner-token --child-report-tags application --services-mode=5"
+          - name: K8S_GLUE_EXTRA_ARGS
+            value: "--namespace {{ .Release.Namespace }} --template-yaml /root/template/template.yaml \
+                    --child-report-tags application --max-pods 5 --use-owner-token"
           - name: K8S_GLUE_QUEUE
             value: "apps_queue"
           - name: CLEARML_AGENT_DISABLE_SSH_MOUNT
@@ -97,8 +101,10 @@ spec:
           {{- if .Values.enterpriseFeatures.clearmlApplications.extraEnvs }}
           {{ toYaml .Values.enterpriseFeatures.clearmlApplications.extraEnvs | nindent 10 }}
           {{- end }}
+          volumeMounts:
+          - name: {{ include "clearml.name" . }}-apps-pt
+            mountPath: /root/template
           {{- if .Values.enterpriseFeatures.clearmlApplications.additionalConfigs }}
-          volumeMounts:  
             - name: apps-config
               mountPath: /opt/clearml/config/default
           {{- end }}
