@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "clearml.name" . }}-apps-pt
+data:
+  template.yaml: |
+    apps_queue:
+      apiVersion: v1
+      metadata:
+        namespace: {{ $.Release.Namespace }}
+      spec:
+        {{- if $.Values.imageCredentials.enabled }}
+        imagePullSecrets:
+        {{- if $.Values.imageCredentials.existingSecret }}
+          - name: $.Values.imageCredentials.existingSecret
+        {{- else }}
+          - name: clearml-registry-key
+        {{- end }}
+        {{- end }}
+        serviceAccountName: "clearml-apps-sa"
+        containers:
+        - resources:
+          ports:
+            - containerPort: 10022
+          volumeMounts:
+          env:
+          - name: CLEARML_API_HOST
+            value: "http://{{ include "apiserver.referenceName" . }}:{{ .Values.apiserver.service.port }}"
+          - name: CLEARML_FILES_HOST
+            value: "http://{{ include "fileserver.referenceName" . }}:{{ .Values.fileserver.service.port }}"
+          - name: CLEARML_WEB_HOST
+            value: "http://{{ include "webserver.referenceName" . }}:{{ .Values.webserver.service.port }}"
