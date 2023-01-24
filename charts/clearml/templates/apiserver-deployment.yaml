@@ -75,8 +75,15 @@ spec:
             value: {{ include "elasticsearch.servicename" . }}
           - name: CLEARML_ELASTIC_SERVICE_PORT
             value: "{{ include "elasticsearch.serviceport" . }}"
+          {{- if .Values.mongodb.enabled }}
           - name: CLEARML_MONGODB_SERVICE_CONNECTION_STRING
             value: {{ include "mongodb.connectionstring" . | quote }}
+          {{- else }}
+          - name: CLEARML__HOSTS__MONGO__BACKEND__HOST
+            value: {{ .Values.externalServices.mongodbConnectionStringBackend | quote }}
+          - name: CLEARML__HOSTS__MONGO__AUTH__HOST
+            value: {{ .Values.externalServices.mongodbConnectionStringAuth | quote }}
+          {{- end }}
           - name: CLEARML_REDIS_SERVICE_HOST
             value: {{ include "redis.servicename" . }}
           - name: CLEARML_REDIS_SERVICE_PORT

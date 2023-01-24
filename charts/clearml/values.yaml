@@ -278,8 +278,10 @@ externalServices:
   elasticsearchHost: ""
   # -- Existing ElasticSearch Port to use if elasticsearch.enabled is false
   elasticsearchPort: 9200
-  # -- Existing MongoDB connection string to use if mongodb.enabled is false
-  mongodbConnectionString: ""
+  # -- Existing MongoDB connection string for BACKEND to use if mongodb.enabled is false
+  mongodbConnectionStringAuth: ""
+  # -- Existing MongoDB connection string for AUTH to use if mongodb.enabled is false
+  mongodbConnectionStringBackend: ""
   # -- Existing Redis Hostname to use if redis.enabled is false
   redisHost: ""
   # -- Existing Redis Port to use if redis.enabled is false

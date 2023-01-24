@@ -163,7 +163,6 @@ Elasticsearch Service port
 MongoDB Comnnection string
 */}}
 {{- define "mongodb.connectionstring" -}}
-{{- if .Values.mongodb.enabled }}
 {{- if eq .Values.mongodb.architecture "standalone" }}
 {{- printf "%s%s%s" "mongodb://" .Release.Name "-mongodb:27017" }}
 {{- else }}
@@ -172,9 +171,6 @@ MongoDB Comnnection string
 {{- $connectionString = printf "%s%s%s%s%s%s%s%s%s" $connectionString $.Release.Name "-mongodb-" ( $i | toString ) "." $.Release.Name "-mongodb-headless." $.Release.Namespace ".svc.cluster.local," }}
 {{- end }}
 {{- printf "%s" ( trimSuffix "," $connectionString ) }}
-{{- end }}
-{{- else }}
-{{- .Values.externalServices.mongodbConnectionString }}
 {{- end }}
 {{- end }}
 
