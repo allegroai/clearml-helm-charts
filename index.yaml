@@ -4,6 +4,46 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: support for fileserver static PVC
+    apiVersion: v2
+    appVersion: 1.9.2
+    created: "2023-01-25T16:13:16.861110051Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: file://../../dependency_charts/redis
+      version: 10.9.0
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: file://../../dependency_charts/mongodb
+      version: 10.3.4
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: file://../../dependency_charts/elasticsearch
+      version: 7.16.2
+    description: MLOps platform
+    digest: dc3d3d76b80797da4bc228905f579f8598f024d97cf67e3c26b28f2d4face3b0
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    kubeVersion: '>= 1.21.0-0 < 1.27.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-5.5.0/clearml-5.5.0.tgz
+    version: 5.5.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: support for kubernetes 1.26
         - kind: fixed
           description: wrong override display url for Enterprise
@@ -2890,4 +2930,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-25T15:34:54.648485242Z"
+generated: "2023-01-25T16:13:16.867760266Z"
