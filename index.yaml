@@ -3,6 +3,48 @@ entries:
   clearml:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: support for kubernetes 1.26
+        - kind: fixed
+          description: wrong override display url for Enterprise
+    apiVersion: v2
+    appVersion: 1.9.2
+    created: "2023-01-25T15:34:54.648074926Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: file://../../dependency_charts/redis
+      version: 10.9.0
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: file://../../dependency_charts/mongodb
+      version: 10.3.4
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: file://../../dependency_charts/elasticsearch
+      version: 7.16.2
+    description: MLOps platform
+    digest: 8a6aadfc88a8d9eba2fa34ce3279f10721f55e4c51a584e3a7dbdc2024b27caa
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    kubeVersion: '>= 1.21.0-0 < 1.27.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-5.4.2/clearml-5.4.2.tgz
+    version: 5.4.2
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: enterprise apps deployment not working
     apiVersion: v2
@@ -2848,4 +2890,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-24T12:24:39.406956124Z"
+generated: "2023-01-25T15:34:54.648485242Z"
