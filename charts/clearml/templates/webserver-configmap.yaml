@@ -17,7 +17,7 @@ data:
       },
       "docsLink": "https://clear.ml/docs/",
       "applicationsBackground": "ui-assets/apps-message.svg"
-      {{- if and .Values.webserver.overrideReferenceApiUrl .Values.enterpriseFeatures.overrideReferenceFileUrl }}
+      {{- if and .Values.enterpriseFeatures.overrideReferenceApiUrl .Values.enterpriseFeatures.overrideReferenceFileUrl }}
       ,
       "fileBaseUrl": "{{ .Values.enterpriseFeatures.overrideReferenceFileUrl }}",
       "apiBaseUrl": "{{ .Values.enterpriseFeatures.overrideReferenceApiUrl }}"

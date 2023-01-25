@@ -202,11 +202,11 @@ clientConfiguration string compose
 {{- define "clearml.clientConfiguration" -}}
 {{- $clientConfiguration := "" }}
 {{- if and (.Values.clearml.clientConfigurationApiUrl) .Values.clearml.clientConfigurationFilesUrl }}
-{{- $clientConfiguration = "{\"apiServer\":\"{{ .Values.clearml.clientConfigurationApiUrl }}\",\"filesServer\":\"{{ .Values.clearml.clientConfigurationFilesUrl }}\"}" }}
+{{- $clientConfiguration = printf "%s%s%s%s%s" "{\"apiServer\":\"" .Values.clearml.clientConfigurationApiUrl "\",\"filesServer\":\"" .Values.clearml.clientConfigurationFilesUrl "\"}" }}
 {{- else if .Values.clearml.clientConfigurationApiUrl }}
-{{- $clientConfiguration = "{\"apiServer\":\"{{ .Values.clearml.clientConfigurationApiUrl }}\"}" }}
+{{- $clientConfiguration = printf "%s%s%s" "{\"apiServer\":\"" .Values.clearml.clientConfigurationApiUrl "\"}" }}
 {{- else if .Values.clearml.clientConfigurationFilesUrl }}
-{{- $clientConfiguration = "{\"filesServer\":\"{{ .Values.clearml.clientConfigurationFilesUrl }}\"}" }}
+{{- $clientConfiguration = printf "%s%s%s" "{\"filesServer\":\"" .Values.clearml.clientConfigurationFilesUrl "\"}" }}
 {{- end }}
 {{- $clientConfiguration }}
 {{- end }}
