@@ -208,6 +208,8 @@ fileserver:
   # -- File server persistence settings
   storage:
     data:
+      # -- If set, it uses an already existing PVC instead of dynamic provisioning
+      existingPVC: ""
       # -- Storage class (use default if empty)
       class: ""
       # -- Access mode (must be ReadWriteMany if fileserver replica > 1)
