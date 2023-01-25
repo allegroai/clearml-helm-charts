@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 5.4.2](https://img.shields.io/badge/Version-5.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.9.2](https://img.shields.io/badge/AppVersion-1.9.2-informational?style=flat-square)
+![Version: 5.5.0](https://img.shields.io/badge/Version-5.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.9.2](https://img.shields.io/badge/AppVersion-1.9.2-informational?style=flat-square)
 
 MLOps platform
 
@@ -223,7 +223,7 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | externalServices.mongodbConnectionStringBackend | string | `""` | Existing MongoDB connection string for AUTH to use if mongodb.enabled is false |
 | externalServices.redisHost | string | `""` | Existing Redis Hostname to use if redis.enabled is false |
 | externalServices.redisPort | int | `6379` | Existing Redis Port to use if redis.enabled is false |
-| fileserver | object | `{"affinity":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.2-317"},"ingress":{"annotations":{},"enabled":false,"hostName":"files.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"securityContext":{},"service":{"nodePort":30081,"port":8081,"type":"NodePort"},"storage":{"data":{"accessMode":"ReadWriteOnce","class":"","size":"50Gi"}},"tolerations":[]}` | File Server configurations |
+| fileserver | object | `{"affinity":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.2-317"},"ingress":{"annotations":{},"enabled":false,"hostName":"files.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"securityContext":{},"service":{"nodePort":30081,"port":8081,"type":"NodePort"},"storage":{"data":{"accessMode":"ReadWriteOnce","class":"","existingPVC":"","size":"50Gi"}},"tolerations":[]}` | File Server configurations |
 | fileserver.affinity | object | `{}` | File Server affinity setup |
 | fileserver.enabled | bool | `true` | Enable/Disable component deployment |
 | fileserver.extraEnvs | list | `[]` | File Server extra envrinoment variables |
@@ -242,9 +242,10 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | fileserver.securityContext | object | `{}` | File Server pod security context |
 | fileserver.service | object | `{"nodePort":30081,"port":8081,"type":"NodePort"}` | File Server internal service configuration |
 | fileserver.service.nodePort | int | `30081` | If service.type set to NodePort, this will be set to service's nodePort field. If service.type is set to others, this field will be ignored |
-| fileserver.storage | object | `{"data":{"accessMode":"ReadWriteOnce","class":"","size":"50Gi"}}` | File server persistence settings |
+| fileserver.storage | object | `{"data":{"accessMode":"ReadWriteOnce","class":"","existingPVC":"","size":"50Gi"}}` | File server persistence settings |
 | fileserver.storage.data.accessMode | string | `"ReadWriteOnce"` | Access mode (must be ReadWriteMany if fileserver replica > 1) |
 | fileserver.storage.data.class | string | `""` | Storage class (use default if empty) |
+| fileserver.storage.data.existingPVC | string | `""` | If set, it uses an already existing PVC instead of dynamic provisioning |
 | fileserver.tolerations | list | `[]` | File Server tolerations setup |
 | imageCredentials | object | `{"email":"someone@host.com","enabled":false,"existingSecret":"","password":"pwd","registry":"docker.io","username":"someone"}` | Container registry configuration |
 | imageCredentials.email | string | `"someone@host.com"` | Email |
