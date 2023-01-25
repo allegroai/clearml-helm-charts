@@ -2,9 +2,9 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "5.4.1"
+version: "5.4.2"
 appVersion: "1.9.2"
-kubeVersion: ">= 1.21.0-0 < 1.26.0-0"
+kubeVersion: ">= 1.21.0-0 < 1.27.0-0"
 home: https://clear.ml
 icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
 sources:
@@ -32,5 +32,7 @@ dependencies:
     condition: elasticsearch.enabled
 annotations:
   artifacthub.io/changes: |
+    - kind: added
+      description: support for kubernetes 1.26
     - kind: fixed
-      description: enterprise apps deployment not working
+      description: wrong override display url for Enterprise
