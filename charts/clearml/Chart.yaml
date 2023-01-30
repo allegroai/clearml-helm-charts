@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "5.5.0"
+version: "5.5.1"
 appVersion: "1.9.2"
 kubeVersion: ">= 1.21.0-0 < 1.27.0-0"
 home: https://clear.ml
@@ -32,5 +32,5 @@ dependencies:
     condition: elasticsearch.enabled
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: support for fileserver static PVC
+    - kind: changed
+      description: check redis and mongodb too before starting apiserver

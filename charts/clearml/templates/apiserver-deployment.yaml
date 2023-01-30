@@ -54,10 +54,24 @@ spec:
             - -c
             - >
               set -x;
+              {{- if .Values.elasticsearch.enabled }}
               while [ $(curl -sw '%{http_code}' "http://{{ include "elasticsearch.servicename" . }}:{{ include "elasticsearch.serviceport" . }}/_cluster/health" -o /dev/null) -ne 200 ] ; do
                 echo "waiting for elasticsearch" ;
                 sleep 5 ;
-              done
+              done ;
+              {{- end }}
+              {{- if .Values.mongodb.enabled }}
+              while [ $(curl --telnet-option BOGUS --connect-timeout 2 -s "telnet://{{ .Release.Name }}-mongodb:27017" -o /dev/null; echo $?) -ne 49 ] ; do
+                echo "waiting for mongodb" ;
+                sleep 5 ;
+              done ;
+              {{- end }}
+              {{- if .Values.redis.enabled }}
+              while [ $(curl --telnet-option BOGUS --connect-timeout 2 -s "telnet://{{ include "redis.servicename" . }}:{{ include "redis.serviceport" . }}" -o /dev/null; echo $?) -ne 49 ] ; do
+                echo "waiting for redis" ;
+                sleep 5 ;
+              done ;
+              {{- end }}
       containers:
         - name: clearml-apiserver
           {{- if .Values.enterpriseFeatures.enabled }}
