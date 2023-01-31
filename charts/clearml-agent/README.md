@@ -1,8 +1,8 @@
 # ClearML Kubernetes Agent
 
-![Version: 3.1.4](https://img.shields.io/badge/Version-3.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 3.2.0](https://img.shields.io/badge/Version-3.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
-MLOps platform
+MLOps platform Task running agent
 
 **Homepage:** <https://clear.ml>
 
@@ -30,7 +30,7 @@ Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agentk8sglue | object | `{"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"annotations":{},"env":[],"fileMounts":[],"hostAliases":{},"initContainers":[],"labels":{},"nodeSelector":{},"resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerCustomBashScript":"","customBashScript":"","debugMode":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"labels":{},"nodeSelector":{},"queue":"default","replicaCount":1,"serviceExistingAccountName":"","volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
+| agentk8sglue | object | `{"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"annotations":{},"env":[],"fileMounts":[],"hostAliases":{},"initContainers":[],"labels":{},"nodeSelector":{},"resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerCustomBashScript":"","customBashScript":"","debugMode":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"labels":{},"nodeSelector":{},"queue":"default","replicaCount":1,"securityContext":{},"serviceExistingAccountName":"","volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
 | agentk8sglue.annotations | object | `{}` | annotations setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.apiServerUrlReference | string | `"https://api.clear.ml"` | Reference to Api server url |
 | agentk8sglue.basePodTemplate | object | `{"annotations":{},"env":[],"fileMounts":[],"hostAliases":{},"initContainers":[],"labels":{},"nodeSelector":{},"resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]}` | base template for pods spawned to consume ClearML Task |
@@ -59,6 +59,7 @@ Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
 | agentk8sglue.nodeSelector | object | `{}` | nodeSelector setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.queue | string | `"default"` | ClearML queue this agent will consume |
 | agentk8sglue.replicaCount | int | `1` | Glue Agent number of pods |
+| agentk8sglue.securityContext | object | `{}` | Web Server pod security context |
 | agentk8sglue.serviceExistingAccountName | string | `""` | if set, don't create a serviceAccountName but use defined existing one |
 | agentk8sglue.volumeMounts | list | `[]` | volume mounts definition for Glue Agent (example in values.yaml comments) |
 | agentk8sglue.volumes | list | `[]` | volumes definition for Glue Agent (example in values.yaml comments) |
