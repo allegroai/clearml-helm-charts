@@ -24,7 +24,7 @@ It allows you to schedule distributed experiments on a Kubernetes cluster.
 
 ## Requirements
 
-Kubernetes: `>= 1.19.0-0 < 1.26.0-0`
+Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 
 ## Values
 
