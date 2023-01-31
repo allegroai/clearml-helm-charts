@@ -1,0 +1,6 @@
+agentk8sglue:
+  podSecurityContext:
+    runAsUser: 0
+  basePodTemplate:
+    podSecurityContext:
+      runAsUser: 0
