@@ -28,6 +28,7 @@ spec:
       {{- end }}
       {{- end }}
       serviceAccountName: {{ include "clearml.serviceAccountName" . }}
+      securityContext: {{ toYaml .Values.agentk8sglue.securityContext | nindent 8 }}
       initContainers:
       - name: init-k8s-glue
         {{- if .Values.enterpriseFeatures.enabled }}

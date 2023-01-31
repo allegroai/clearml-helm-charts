@@ -73,9 +73,12 @@ agentk8sglue:
   containerCustomBashScript: ""
   # -- Extra Environment variables for Glue Agent
   extraEnvs: []
-  # - name: PYTHONPATH
-  #   value: "somepath"
-
+    # - name: PYTHONPATH
+    #   value: "somepath"
+    # -- Web Server pod security context
+  securityContext: {}
+    #  runAsUser: 1001
+    #  fsGroup: 1001
   # -- nodeSelector setup for Agent pod (example in values.yaml comments)
   nodeSelector: {}
     # fleet: agent-nodes
@@ -169,7 +172,8 @@ agentk8sglue:
       # fleet: gpu-nodes
     # -- securityContext setup for pods spawned to consume ClearML Task (example in values.yaml comments)
     securityContext: {}
-      # runAsUser: 1000
+      #  runAsUser: 1001
+      #  fsGroup: 1001
     # -- hostAliases setup for pods spawned to consume ClearML Task (example in values.yaml comments)
     hostAliases: {}
     # - ip: "127.0.0.1"
