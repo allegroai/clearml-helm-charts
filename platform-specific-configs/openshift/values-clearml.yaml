@@ -1,0 +1,36 @@
+apiserver:
+  podSecurityContext:
+    fsGroup: <FSUSER>
+    runAsUser: <USER>
+    runAsNonRoot: true
+fileserver:
+  podSecurityContext:
+    fsGroup: <FSUSER>
+    runAsUser: <USER>
+    runAsNonRoot: true
+webserver:
+  podSecurityContext:
+    fsGroup: <FSUSER>
+    runAsUser: <USER>
+    runAsNonRoot: true
+elasticsearch:
+  securityContext:
+    runAsUser: <USER>
+  podSecurityContext:
+    fsGroup: <FSUSER>
+    runAsUser: <USER>    
+  sysctlInitContainer:
+    enabled: false
+  volumeClaimTemplate:
+redis:
+  securityContext:
+    fsGroup: <FSUSER>
+    runAsUser: <USER>
+mongodb:
+  podSecurityContext:
+    enabled: true
+    fsGroup: <FSUSER>
+  containerSecurityContext:
+    enabled: true
+    runAsUser: <USER>
+    runAsNonRoot: true
