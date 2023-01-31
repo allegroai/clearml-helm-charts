@@ -2350,6 +2350,36 @@ entries:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-2.0.0-alpha1/clearml-2.0.0-alpha1.tgz
     version: 2.0.0-alpha1
   clearml-agent:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: securityContext parameter for agent pod
+        - kind: added
+          description: support for kubernetes 1.26
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2023-01-31T08:16:48.751237998Z"
+    description: MLOps platform Task running agent
+    digest: a110230d82c015aeb16d2ea2ff25cc60f0d487bc748065f01fe06674ca428a87
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.27.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-3.2.0/clearml-agent-3.2.0.tgz
+    version: 3.2.0
   - apiVersion: v2
     appVersion: "1.24"
     created: "2023-01-12T08:12:42.77934085Z"
@@ -2970,4 +3000,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-30T11:45:01.68597604Z"
+generated: "2023-01-31T08:16:48.751505503Z"
