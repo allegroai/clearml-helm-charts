@@ -82,6 +82,10 @@ agentk8sglue:
   # -- nodeSelector setup for Agent pod (example in values.yaml comments)
   nodeSelector: {}
     # fleet: agent-nodes
+  # -- tolerations setup for Agent pod (example in values.yaml comments)
+  tolerations: []
+  # -- affinity setup for Agent pod (example in values.yaml comments)
+  affinity: {}
   # -- volumes definition for Glue Agent (example in values.yaml comments)
   volumes: []
     # - name: "yourvolume"
@@ -162,14 +166,16 @@ agentk8sglue:
     resources: {}
       # limits:
       #   nvidia.com/gpu: 1
+    # -- nodeSelector setup for pods spawned to consume ClearML Task (example in values.yaml comments)
+    nodeSelector: {}
+      # fleet: gpu-nodes
     # -- tolerations setup for pods spawned to consume ClearML Task (example in values.yaml comments)
     tolerations: []
       # - key: "nvidia.com/gpu"
       #   operator: Exists
       #   effect: "NoSchedule"
-    # -- nodeSelector setup for pods spawned to consume ClearML Task (example in values.yaml comments)
-    nodeSelector: {}
-      # fleet: gpu-nodes
+    # -- affinity setup for pods spawned to consume ClearML Task
+    affinity: {}
     # -- securityContext setup for pods spawned to consume ClearML Task (example in values.yaml comments)
     securityContext: {}
       #  runAsUser: 1001
