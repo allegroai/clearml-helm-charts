@@ -85,10 +85,12 @@ spec:
               containerPort: 8008
               protocol: TCP
           env:
-          - name: CLEARML_ELASTIC_SERVICE_HOST
-            value: {{ include "elasticsearch.servicename" . }}
-          - name: CLEARML_ELASTIC_SERVICE_PORT
-            value: "{{ include "elasticsearch.serviceport" . }}"
+          - name: CLEARML__HOSTS__ELASTIC__WORKERS__HOSTS
+          {{- if .Values.elasticsearch.enabled }}
+            value: "[\"http://{{ include "elasticsearch.servicename" . }}:{{ include "elasticsearch.serviceport" . }}\"]"
+          {{- else }}
+            value: {{ .Values.externalServices.elasticsearchConnectionString | quote }}
+          {{- end }}
           {{- if .Values.mongodb.enabled }}
           - name: CLEARML_MONGODB_SERVICE_CONNECTION_STRING
             value: {{ include "mongodb.connectionstring" . | quote }}
@@ -139,7 +141,11 @@ spec:
           - name: APPLY_ES_MAPPINGS
             value: "false"
           - name: CLEARML__HOSTS__ELASTIC__LOGS__HOSTS
+          {{- if .Values.elasticsearch.enabled }}
             value: "[\"http://{{ include "elasticsearch.servicename" . }}:{{ include "elasticsearch.serviceport" . }}\"]"
+          {{- else }}
+            value: {{ .Values.externalServices.elasticsearchConnectionString | quote }}
+          {{- end }}
           - name: NUMBER_OF_GUNICORN_WORKERS
             value: "{{ .Values.apiserver.processes.count }}"
           - name: GUNICORN_TIMEOUT
