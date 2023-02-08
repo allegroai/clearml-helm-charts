@@ -3,6 +3,46 @@ entries:
   clearml:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: typo in apiserver deployment on existingSecret
+    apiVersion: v2
+    appVersion: 1.9.2
+    created: "2023-02-08T13:20:48.861761194Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: file://../../dependency_charts/redis
+      version: 10.9.0
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: file://../../dependency_charts/mongodb
+      version: 10.3.4
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: file://../../dependency_charts/elasticsearch
+      version: 7.16.2
+    description: MLOps platform
+    digest: a0c095ac50496606dac5620619ddddb6c62bc79819cd7c04fcacad54fece06da
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    kubeVersion: '>= 1.21.0-0 < 1.27.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-5.5.2/clearml-5.5.2.tgz
+    version: 5.5.2
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: check redis and mongodb too before starting apiserver
     apiVersion: v2
@@ -3028,4 +3068,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-02T11:23:28.552527795Z"
+generated: "2023-02-08T13:20:48.862282526Z"
