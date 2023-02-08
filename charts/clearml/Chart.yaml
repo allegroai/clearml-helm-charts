@@ -33,4 +33,4 @@ dependencies:
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: typo in apiserver deployment on existingSecret 
+      description: typo in apiserver deployment on existingSecret
