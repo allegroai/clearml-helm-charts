@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 5.5.2](https://img.shields.io/badge/Version-5.5.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.9.2](https://img.shields.io/badge/AppVersion-1.9.2-informational?style=flat-square)
+![Version: 5.6.0](https://img.shields.io/badge/Version-5.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.9.2](https://img.shields.io/badge/AppVersion-1.9.2-informational?style=flat-square)
 
 MLOps platform
 
@@ -216,9 +216,8 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | enterpriseFeatures.overrideReferenceApiUrl | string | `""` | set this value AND overrideReferenceFileUrl if external endpoint exposure is in place (like a LoadBalancer) example: "https://api.clearml.local" |
 | enterpriseFeatures.overrideReferenceFileUrl | string | `""` | set this value AND overrideReferenceAPIUrl if external endpoint exposure is in place (like a LoadBalancer) example: "https://files.clearml.local" |
 | enterpriseFeatures.webserverImageTagOverride | string | `"3.15.3-801"` | Image tag override for webserver enterprise version |
-| externalServices | object | `{"elasticsearchHost":"","elasticsearchPort":9200,"mongodbConnectionStringAuth":"","mongodbConnectionStringBackend":"","redisHost":"","redisPort":6379}` | Definition of external services to use if not enabled as dependency charts here |
-| externalServices.elasticsearchHost | string | `""` | Existing ElasticSearch Hostname to use if elasticsearch.enabled is false |
-| externalServices.elasticsearchPort | int | `9200` | Existing ElasticSearch Port to use if elasticsearch.enabled is false |
+| externalServices | object | `{"elasticsearchConnectionString":"","mongodbConnectionStringAuth":"","mongodbConnectionStringBackend":"","redisHost":"","redisPort":6379}` | Definition of external services to use if not enabled as dependency charts here |
+| externalServices.elasticsearchConnectionString | string | `""` | Existing ElasticSearch connectionstring if elasticsearch.enabled is false (example in values.yaml) |
 | externalServices.mongodbConnectionStringAuth | string | `""` | Existing MongoDB connection string for BACKEND to use if mongodb.enabled is false |
 | externalServices.mongodbConnectionStringBackend | string | `""` | Existing MongoDB connection string for AUTH to use if mongodb.enabled is false |
 | externalServices.redisHost | string | `""` | Existing Redis Hostname to use if redis.enabled is false |
