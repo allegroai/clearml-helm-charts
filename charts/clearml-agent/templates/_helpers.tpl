@@ -74,6 +74,17 @@ Create secret to access docker registry
 
 
 {{/*
+Create a queues parameter
+*/}}
+{{- define "agentk8sglue.createQueues" -}}
+{{- if .Values.enterpriseFeatures.createQueues }}
+{{- printf "%d" 1}}
+{{- else }}
+{{- printf "%d" 0 }}
+{{- end }}
+{{- end }}
+
+{{/*
 Create a string composed by queue names
 */}}
 {{- define "agentk8sglue.queues" -}}
