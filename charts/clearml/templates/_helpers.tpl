@@ -152,6 +152,17 @@ Elasticsearch Service port
 {{- end }}
 
 {{/*
+Elasticsearch Comnnection string
+*/}}
+{{- define "elasticsearch.connectionstring" -}}
+{{- if .Values.elasticsearch.enabled }}
+{{- printf "[{\"host\":\"%s\",\"port\":%s}]" (include "elasticsearch.servicename" .) (include "elasticsearch.serviceport" .) | quote }}
+{{- else }}
+{{- .Values.externalServices.elasticsearchConnectionString | quote }}
+{{- end }}
+{{- end }}
+
+{{/*
 MongoDB Comnnection string
 */}}
 {{- define "mongodb.connectionstring" -}}

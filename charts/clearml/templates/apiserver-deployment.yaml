@@ -86,11 +86,13 @@ spec:
               protocol: TCP
           env:
           - name: CLEARML__HOSTS__ELASTIC__WORKERS__HOSTS
-          {{- if .Values.elasticsearch.enabled }}
-            value: "[\"http://{{ include "elasticsearch.servicename" . }}:{{ include "elasticsearch.serviceport" . }}\"]"
-          {{- else }}
-            value: {{ .Values.externalServices.elasticsearchConnectionString | quote }}
-          {{- end }}
+            value: {{ include "elasticsearch.connectionstring" . }}
+          - name: CLEARML__HOSTS__ELASTIC__EVENTS__HOSTS
+            value: {{ include "elasticsearch.connectionstring" . }}
+          - name: CLEARML__HOSTS__ELASTIC__DATASETS__HOSTS
+            value: {{ include "elasticsearch.connectionstring" . }}
+          - name: CLEARML__HOSTS__ELASTIC__LOGS__HOSTS
+            value: {{ include "elasticsearch.connectionstring" . }}
           {{- if .Values.mongodb.enabled }}
           - name: CLEARML_MONGODB_SERVICE_CONNECTION_STRING
             value: {{ include "mongodb.connectionstring" . | quote }}
@@ -140,12 +142,6 @@ spec:
             value: "{{ .Values.enterpriseFeatures.defaultCompanyGuid }}"
           - name: APPLY_ES_MAPPINGS
             value: "false"
-          - name: CLEARML__HOSTS__ELASTIC__LOGS__HOSTS
-          {{- if .Values.elasticsearch.enabled }}
-            value: "[\"http://{{ include "elasticsearch.servicename" . }}:{{ include "elasticsearch.serviceport" . }}\"]"
-          {{- else }}
-            value: {{ .Values.externalServices.elasticsearchConnectionString | quote }}
-          {{- end }}
           - name: NUMBER_OF_GUNICORN_WORKERS
             value: "{{ .Values.apiserver.processes.count }}"
           - name: GUNICORN_TIMEOUT
