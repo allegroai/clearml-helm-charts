@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "5.5.2"
+version: "5.5.3"
 appVersion: "1.9.2"
 kubeVersion: ">= 1.21.0-0 < 1.27.0-0"
 home: https://clear.ml
@@ -33,4 +33,4 @@ dependencies:
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: typo in apiserver deployment on existingSecret
+      description: typo on existingSecret references
