@@ -161,7 +161,7 @@ agentk8sglue:
       # - name: CURL_CA_BUNDLE
       #   value: ""
       # - name: PYTHONWARNINGS
-      #   value: "=\"ignore:Unverified HTTPS request\""
+      #   value: "ignore:Unverified HTTPS request"
     # -- resources declaration for pods spawned to consume ClearML Task (example in values.yaml comments)
     resources: {}
       # limits:
