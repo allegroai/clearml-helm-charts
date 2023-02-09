@@ -276,10 +276,9 @@ webserver:
 
 # -- Definition of external services to use if not enabled as dependency charts here
 externalServices:
-  # -- Existing ElasticSearch Hostname to use if elasticsearch.enabled is false
-  elasticsearchHost: ""
-  # -- Existing ElasticSearch Port to use if elasticsearch.enabled is false
-  elasticsearchPort: 9200
+  # -- Existing ElasticSearch connectionstring if elasticsearch.enabled is false (example in values.yaml)
+  elasticsearchConnectionString: ""
+  #    [{"host":"hostname1","port":9200},{"host":"hostname2","port":9200},{"host":"hostname3","port":9200}]
   # -- Existing MongoDB connection string for BACKEND to use if mongodb.enabled is false
   mongodbConnectionStringAuth: ""
   # -- Existing MongoDB connection string for AUTH to use if mongodb.enabled is false

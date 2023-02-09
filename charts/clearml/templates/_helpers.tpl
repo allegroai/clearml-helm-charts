@@ -141,21 +141,24 @@ Create readiness probe auth token
 Elasticsearch Service name
 */}}
 {{- define "elasticsearch.servicename" -}}
-{{- if .Values.elasticsearch.enabled }}
 {{- .Values.elasticsearch.clusterName }}-master
-{{- else }}
-{{- .Values.externalServices.elasticsearchHost }}
-{{- end }}
 {{- end }}
 
 {{/*
 Elasticsearch Service port
 */}}
 {{- define "elasticsearch.serviceport" -}}
-{{- if .Values.elasticsearch.enabled }}
 {{- .Values.elasticsearch.httpPort }}
+{{- end }}
+
+{{/*
+Elasticsearch Comnnection string
+*/}}
+{{- define "elasticsearch.connectionstring" -}}
+{{- if .Values.elasticsearch.enabled }}
+{{- printf "[{\"host\":\"%s\",\"port\":%s}]" (include "elasticsearch.servicename" .) (include "elasticsearch.serviceport" .) | quote }}
 {{- else }}
-{{- .Values.externalServices.elasticsearchPort }}
+{{- .Values.externalServices.elasticsearchConnectionString | quote }}
 {{- end }}
 {{- end }}
 
