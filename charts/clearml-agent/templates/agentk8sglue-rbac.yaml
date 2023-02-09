@@ -24,6 +24,14 @@ rules:
     resources:
       - namespaces
     verbs: ["list"]
+  {{- if .Values.agentk8sglue.taskAsJob }}
+  - apiGroups:
+      - batch
+      - extensions
+    resources:
+      - jobs
+    verbs: ["get", "list", "watch", "create", "patch", "delete"]
+  {{- end }} 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -56,6 +64,14 @@ rules:
     resources:
       - namespaces
     verbs: ["list"]
+  {{- if .Values.agentk8sglue.taskAsJob }}
+  - apiGroups:
+      - batch
+      - extensions
+    resources:
+      - jobs
+    verbs: ["get", "list", "watch", "create", "patch", "delete"]
+  {{- end }}    
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
