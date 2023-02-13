@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "clearml.name" . }}
+  name: {{ include "clearmlAgent.name" . }}
   labels:
-    {{- include "clearml.labels" . | nindent 4 }}
+    {{- include "clearmlAgent.labels" . | nindent 4 }}
   annotations:
-    {{- include "clearml.annotations" . | nindent 4 }}
+    {{- include "clearmlAgent.annotations" . | nindent 4 }}
 spec:
   replicas: {{ .Values.agentk8sglue.replicaCount }}
   selector:
@@ -15,19 +15,19 @@ spec:
     metadata:
       annotations:
         checksum/config: {{ printf "%s%s" .Values.clearml .Values.agentk8sglue | sha256sum }}
-        {{- include "clearml.annotations" . | nindent 8 }}
+        {{- include "clearmlAgent.annotations" . | nindent 8 }}
       labels:
-        {{- include "clearml.labels" . | nindent 8 }}
+        {{- include "clearmlAgent.labels" . | nindent 8 }}
     spec:
       {{- if .Values.imageCredentials.enabled }}
       imagePullSecrets:
       {{- if .Values.imageCredentials.existingSecret }}
       - name: {{ .Values.imageCredentials.existingSecret }}
       {{- else }}
-      - name: {{ include "clearml.name" . }}-ark
+      - name: {{ include "clearmlAgent.name" . }}-ark
       {{- end }}
       {{- end }}
-      serviceAccountName: {{ include "clearml.serviceAccountName" . }}
+      serviceAccountName: {{ include "clearmlAgent.serviceAccountName" . }}
       securityContext: {{ toYaml .Values.agentk8sglue.securityContext | nindent 8 }}
       initContainers:
       - name: init-k8s-glue
@@ -68,7 +68,7 @@ spec:
             export PATH=$PATH:$HOME/bin;
             source /root/.bashrc && /root/entrypoint.sh
         volumeMounts:
-          - name: {{ include "clearml.name" . }}-pt
+          - name: {{ include "clearmlAgent.name" . }}-pt
             mountPath: /root/template
           {{ if .Values.clearml.clearmlConfig }}
           - name: k8sagent-clearml-conf-volume
@@ -122,15 +122,15 @@ spec:
           - name: CLEARML_API_ACCESS_KEY
             valueFrom:
               secretKeyRef:
-                name: {{ include "clearml.name" . }}-ac
+                name: {{ include "clearmlAgent.name" . }}-ac
                 key: agentk8sglue_key
           - name: CLEARML_API_SECRET_KEY
             valueFrom:
               secretKeyRef:
-                name: {{ include "clearml.name" . }}-ac
+                name: {{ include "clearmlAgent.name" . }}-ac
                 key: agentk8sglue_secret
           - name: CLEARML_WORKER_ID
-            value: {{ include "clearml.name" . }}
+            value: {{ include "clearmlAgent.name" . }}
           - name: CLEARML_AGENT_UPDATE_REPO
             value: ""
           - name: FORCE_CLEARML_AGENT_REPO
@@ -186,13 +186,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: {{ include "clearml.name" . }}-pt
+        - name: {{ include "clearmlAgent.name" . }}-pt
           configMap:
-            name: {{ include "clearml.name" . }}-pt
+            name: {{ include "clearmlAgent.name" . }}-pt
         {{ if .Values.clearml.clearmlConfig }}
         - name: k8sagent-clearml-conf-volume
           secret:
-            secretName: {{ include "clearml.name" . }}-ac
+            secretName: {{ include "clearmlAgent.name" . }}-ac
             items:
             - key: clearml.conf
               path: clearml.conf
@@ -203,5 +203,5 @@ spec:
         {{ if .Values.agentk8sglue.fileMounts }}
         - name: filemounts
           secret:
-            secretName: {{ include "clearml.name" . }}-afm
+            secretName: {{ include "clearmlAgent.name" . }}-afm
         {{- end }}
