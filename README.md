@@ -46,7 +46,7 @@ Apache License, Version 2.0, (see the [LICENSE](https://www.apache.org/licenses/
 
 ## Installation guide
 
-For installation instruction, follow related [Installation Guide](https://github.com/allegroai/clearml-helm-charts/blob/main/INSTALL.md).
+For installation instruction, follow related [Installation Guide](INSTALL.md).
 
 ## Documentation, Community & Support
 
