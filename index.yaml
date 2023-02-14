@@ -3,6 +3,46 @@ entries:
   clearml:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: custom cookieName always available
+    apiVersion: v2
+    appVersion: 1.9.2
+    created: "2023-02-14T07:42:47.83155244Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: file://../../dependency_charts/redis
+      version: 10.9.0
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: file://../../dependency_charts/mongodb
+      version: 10.3.4
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: file://../../dependency_charts/elasticsearch
+      version: 7.16.2
+    description: MLOps platform
+    digest: 6541200bcef41ee51ddc3c8cbc491ab5fa6da1a34330531655cd5ff2c625eaa7
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    kubeVersion: '>= 1.21.0-0 < 1.27.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-5.6.1/clearml-5.6.1.tgz
+    version: 5.6.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: multi host external elasticsearch support
     apiVersion: v2
@@ -3204,4 +3244,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-13T07:18:16.263155626Z"
+generated: "2023-02-14T07:42:47.831862939Z"
