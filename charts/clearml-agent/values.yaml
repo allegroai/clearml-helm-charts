@@ -183,7 +183,7 @@ agentk8sglue:
       #  runAsUser: 1001
       #  fsGroup: 1001
     # -- hostAliases setup for pods spawned to consume ClearML Task (example in values.yaml comments)
-    hostAliases: {}
+    hostAliases: []
     # - ip: "127.0.0.1"
     #   hostnames:
     #   - "foo.local"
