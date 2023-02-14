@@ -110,9 +110,9 @@ spec:
             value: /opt/clearml/config
           - name: CLEARML__apiserver__default_company_name
             value: "{{ .Values.clearml.defaultCompany }}"
-          {{- if not (eq .Values.clearml.cookieDomain "") }}
           - name: CLEARML__APISERVER__AUTH__SESSION_AUTH_COOKIE_NAME
             value: {{ .Values.clearml.cookieName }}
+          {{- if .Values.clearml.cookieDomain }}
           - name: CLEARML__APISERVER__AUTH__COOKIES__DOMAIN
             value: ".{{ .Values.clearml.cookieDomain }}"
           {{- end }}
