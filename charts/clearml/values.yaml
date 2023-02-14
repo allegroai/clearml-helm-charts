@@ -207,6 +207,8 @@ fileserver:
   #   fsGroup: 1001
   # -- File server persistence settings
   storage:
+    # -- If set to false no PVC is created and emptyDir is used
+    enabled: true
     data:
       # -- If set, it uses an already existing PVC instead of dynamic provisioning
       existingPVC: ""
