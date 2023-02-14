@@ -1,23 +1,23 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "clearml.name" -}}
+{{- define "clearmlAgent.name" -}}
 {{- .Release.Name | trunc 59 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "clearml.chart" -}}
+{{- define "clearmlAgent.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 59 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "clearml.labels" -}}
-helm.sh/chart: {{ include "clearml.chart" . }}
-{{ include "clearml.selectorLabels" . }}
+{{- define "clearmlAgent.labels" -}}
+helm.sh/chart: {{ include "clearmlAgent.chart" . }}
+{{ include "clearmlAgent.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -30,7 +30,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Common annotations
 */}}
-{{- define "clearml.annotations" -}}
+{{- define "clearmlAgent.annotations" -}}
 {{- if $.Values.agentk8sglue.annotations }}
 {{ toYaml $.Values.agentk8sglue.annotations }}
 {{- end }}
@@ -39,8 +39,8 @@ Common annotations
 {{/*
 Selector labels
 */}}
-{{- define "clearml.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "clearml.name" . }}
+{{- define "clearmlAgent.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "clearmlAgent.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
@@ -48,18 +48,18 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Selector labels (agentk8sglue)
 */}}
 {{- define "agentk8sglue.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "clearml.name" . }}
-app.kubernetes.io/instance: {{ include "clearml.name" . }}
+app.kubernetes.io/name: {{ include "clearmlAgent.name" . }}
+app.kubernetes.io/instance: {{ include "clearmlAgent.name" . }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "clearml.serviceAccountName" -}}
+{{- define "clearmlAgent.serviceAccountName" -}}
 {{- if .Values.agentk8sglue.serviceExistingAccountName }}
 {{- .Values.agentk8sglue.serviceExistingAccountName }}
 {{- else }}
-{{- include "clearml.name" . }}-sa
+{{- include "clearmlAgent.name" . }}-sa
 {{- end }}
 {{- end }}
 

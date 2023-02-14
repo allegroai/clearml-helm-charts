@@ -7,7 +7,7 @@ kind: Service
 metadata:
   name: clearml-session-{{ . }}
   labels:
-    {{- include "clearml.labels" $ | nindent 4 }}
+    {{- include "clearmlAgent.labels" $ | nindent 4 }}
   {{- with $.Values.sessions.svcAnnotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
