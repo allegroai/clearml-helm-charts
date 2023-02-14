@@ -24,3 +24,5 @@ annotations:
       description: support for parameter Job/Pod task
     - kind: fixed
       description: empty hostAliases map/array mismatch
+    - kind: fixed
+      description: agent deployment checksum
