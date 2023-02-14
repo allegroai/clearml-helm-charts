@@ -22,3 +22,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: support for parameter Job/Pod task
+    - kind: fixed
+      description: empty hostAliases map/array mismatch
