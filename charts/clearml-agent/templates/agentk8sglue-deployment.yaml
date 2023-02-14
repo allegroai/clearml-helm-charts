@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: {{ printf "%s%s" .Values.clearml .Values.agentk8sglue | sha256sum }}
+        checksum/config: {{ printf "%s" .Values | sha256sum }}
         {{- include "clearmlAgent.annotations" . | nindent 8 }}
       labels:
         {{- include "clearmlAgent.labels" . | nindent 8 }}
