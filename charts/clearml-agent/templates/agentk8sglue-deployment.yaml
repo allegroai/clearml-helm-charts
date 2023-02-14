@@ -158,7 +158,7 @@ spec:
             value: "interactive"
           {{- end }}
           {{- end }}
-          {{- if not .Values.agentk8sglue.taskAsJob }}
+          {{- if .Values.agentk8sglue.taskAsJob }}
           - name: "CLEARML_K8S_GLUE_KIND"
             value: "job"
           {{- else }}
