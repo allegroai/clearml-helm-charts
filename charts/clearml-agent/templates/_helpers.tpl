@@ -89,7 +89,7 @@ Create a task container template
 {{- define "taskContainer.containerTemplate" -}}
 {{- if .main.Values.imageCredentials.enabled }}
 imagePullSecrets:
-  - name: {{ .main.Values.imageCredentials.existingSecret | default (printf "%s-ark" (include "clearml.name" .main )) }}
+  - name: {{ .main.Values.imageCredentials.existingSecret | default (printf "%s-ark" (include "clearmlAgent.name" .main )) }}
 {{- end }}
 schedulerName: {{ .value.templateOverrides.schedulerName | default (.main.Values.agentk8sglue.basePodTemplate.schedulerName) }}
 restartPolicy: Never
@@ -103,14 +103,14 @@ volumes:
   {{- if not .value.templateOverrides.fileMounts }}
   - name: filemounts
     secret:
-      secretName: {{ include "clearml.name" .main }}-{{ .key }}-fm
+      secretName: {{ include "clearmlAgent.name" .main }}-{{ .key }}-fm
   {{- else if .main.Values.agentk8sglue.basePodTemplate.fileMounts }}
   - name: filemounts
     secret:
-      secretName: {{ include "clearml.name" .main }}-fm
+      secretName: {{ include "clearmlAgent.name" .main }}-fm
   {{- end }}
 {{- if not .main.Values.enterpriseFeatures.serviceAccountClusterAccess }}
-serviceAccountName: {{ include "clearml.serviceAccountName" .main }}
+serviceAccountName: {{ include "clearmlAgent.serviceAccountName" .main }}
 {{- end }}
 initContainers:
   {{ .value.templateOverrides.initContainers | default .main.Values.agentk8sglue.basePodTemplate.initContainers | toYaml }}
@@ -148,12 +148,12 @@ containers:
     - name: CLEARML_API_ACCESS_KEY
       valueFrom:
         secretKeyRef:
-          name: {{ .main.Values.clearml.existingAgentk8sglueSecret | default (printf "%s-ac" (include "clearml.name" .main )) }}
+          name: {{ .main.Values.clearml.existingAgentk8sglueSecret | default (printf "%s-ac" (include "clearmlAgent.name" .main )) }}
           key: agentk8sglue_key
     - name: CLEARML_API_SECRET_KEY
       valueFrom:
         secretKeyRef:
-          name: {{ .main.Values.clearml.existingAgentk8sglueSecret | default (printf "%s-ac" (include "clearml.name" .main )) }}
+          name: {{ .main.Values.clearml.existingAgentk8sglueSecret | default (printf "%s-ac" (include "clearmlAgent.name" .main )) }}
           key: agentk8sglue_secret
     {{- end }}
     - name: PYTHONUNBUFFERED
