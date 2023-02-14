@@ -1,4 +1,5 @@
 {{- if .Values.fileserver.enabled }}
+{{- if .Values.fileserver.storage.enabled }}
 {{- if not .Values.fileserver.storage.data.existingPVC }}
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -15,5 +16,6 @@ spec:
   {{- if .Values.fileserver.storage.data.class }}
   storageClassName: {{ .Values.fileserver.storage.data.class | quote }}
   {{- end -}}
+{{- end }}
 {{- end }}
 {{- end }}
