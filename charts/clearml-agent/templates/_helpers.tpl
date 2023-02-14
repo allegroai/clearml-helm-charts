@@ -94,13 +94,13 @@ imagePullSecrets:
 schedulerName: {{ .value.templateOverrides.schedulerName | default (.main.Values.agentk8sglue.basePodTemplate.schedulerName) }}
 restartPolicy: Never
 securityContext:
-  {{ .value.templateOverrides.securityContext | default .main.Values.agentk8sglue.basePodTemplate.securityContext | toYaml }}
+  {{- .value.templateOverrides.securityContext | default .main.Values.agentk8sglue.basePodTemplate.securityContext | toYaml | nindent 2 }}
 hostAliases:
-  {{ .value.templateOverrides.hostAliases | default .main.Values.agentk8sglue.basePodTemplate.hostAliases | toYaml }}
+  {{- .value.templateOverrides.hostAliases | default .main.Values.agentk8sglue.basePodTemplate.hostAliases | toYaml | nindent 2 }}
 volumes:
   {{ $computedvolumes := (.value.templateOverrides.volumes | default .main.Values.agentk8sglue.basePodTemplate.volumes) }}
-  {{- if $computedvolumes }}{{ $computedvolumes | toYaml }}{{- end }}
-  {{- if not .value.templateOverrides.fileMounts }}
+  {{- if $computedvolumes }}{{- $computedvolumes | toYaml | nindent 2 }}{{- end }}
+  {{- if .value.templateOverrides.fileMounts }}
   - name: filemounts
     secret:
       secretName: {{ include "clearmlAgent.name" .main }}-{{ .key }}-fm
@@ -113,15 +113,15 @@ volumes:
 serviceAccountName: {{ include "clearmlAgent.serviceAccountName" .main }}
 {{- end }}
 initContainers:
-  {{ .value.templateOverrides.initContainers | default .main.Values.agentk8sglue.basePodTemplate.initContainers | toYaml }}
+  {{- .value.templateOverrides.initContainers | default .main.Values.agentk8sglue.basePodTemplate.initContainers | toYaml | nindent 2 }}
 containers:
 - resources:
-    {{ .value.templateOverrides.resources | default .main.Values.agentk8sglue.basePodTemplate.resources | toYaml }}
+    {{- .value.templateOverrides.resources | default .main.Values.agentk8sglue.basePodTemplate.resources | toYaml | nindent 4 }}
   ports:
     - containerPort: 10022
   volumeMounts:
     {{ $computedvolumemounts := (.value.templateOverrides.volumeMounts | default .main.Values.agentk8sglue.basePodTemplate.volumeMounts) }}
-    {{- if $computedvolumemounts }}{{ $computedvolumemounts | toYaml }}{{- end }}
+    {{- if $computedvolumemounts }}{{- $computedvolumemounts | toYaml | nindent 4 }}{{- end }}
     {{- if .value.templateOverrides.fileMounts }}
     {{- range .value.templateOverrides.fileMounts }}
     - name: filemounts
@@ -163,13 +163,13 @@ containers:
       value: "false"
     {{- end }}
     {{ $computedenvs := (.value.templateOverrides.env| default .main.Values.agentk8sglue.basePodTemplate.env) }}
-    {{- if $computedenvs }}{{ $computedenvs | toYaml }}{{- end }}
+    {{- if $computedenvs }}{{- $computedenvs | toYaml | nindent 4 }}{{- end }}
 nodeSelector:
-  {{ .value.templateOverrides.nodeSelector | default .main.Values.agentk8sglue.basePodTemplate.nodeSelector | toYaml }}
+  {{ .value.templateOverrides.nodeSelector | default .main.Values.agentk8sglue.basePodTemplate.nodeSelector | toYaml | nindent 2 }}
 tolerations:
-  {{ .value.templateOverrides.tolerations | default .main.Values.agentk8sglue.basePodTemplate.tolerations | toYaml }}
+  {{ .value.templateOverrides.tolerations | default .main.Values.agentk8sglue.basePodTemplate.tolerations | toYaml | nindent 2 }}
 affinity:
-  {{ .value.templateOverrides.affinity | default .main.Values.agentk8sglue.basePodTemplate.affinity | toYaml }}
+  {{ .value.templateOverrides.affinity | default .main.Values.agentk8sglue.basePodTemplate.affinity | toYaml | nindent 2 }}
 {{- end }}
 
 {{/*
@@ -187,8 +187,8 @@ Create a task container template
     annotations:
       {{ $value.templateOverrides.annotations | default $.Values.agentk8sglue.basePodTemplate.annotations | toYaml }}
   spec:
-    {{$data := dict "main" $ "key" $key "value" $value }}
-    {{ include "taskContainer.containerTemplate" $data | nindent 4}}
+    {{- $data := dict "main" $ "key" $key "value" $value -}}
+    {{- include "taskContainer.containerTemplate" $data | nindent 4}}
 {{- end }}
 {{- end }}
 
@@ -209,8 +209,8 @@ Create a task container template
   spec:
     template:
       spec:
-        {{$data := dict "main" $ "key" $key "value" $value }}
-        {{ include "taskContainer.containerTemplate" $data | nindent 8}}
+        {{- $data := dict "main" $ "key" $key "value" $value -}}
+        {{- include "taskContainer.containerTemplate" $data | nindent 8 }}
         restartPolicy: Never
     backoffLimit: 0
 {{- end }}
