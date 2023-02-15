@@ -198,7 +198,7 @@ Create a task container template
 {{- define "taskContainer.jobTemplate" -}}
 {{- range $key, $value := $.Values.enterpriseFeatures.queues }}
 {{ $key }}:
-  apiVersion: v1
+  apiVersion: batch/v1
   kind: Job
   metadata:
     namespace: {{ $.Release.Namespace }}
