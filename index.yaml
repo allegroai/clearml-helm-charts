@@ -2552,6 +2552,38 @@ entries:
   clearml-agent:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: support for parameter Job/Pod task
+        - kind: fixed
+          description: empty hostAliases map/array mismatch
+        - kind: fixed
+          description: agent deployment checksum
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2023-02-15T14:28:24.627134149Z"
+    description: MLOps platform Task running agent
+    digest: 2be252842611fcfb8c91c7c684f517ae5e4cf8c8223f45dcc2f0ba1c5b5f49fd
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.27.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-3.4.0/clearml-agent-3.4.0.tgz
+    version: 3.4.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: clearml agent internal helper variable name
     apiVersion: v2
@@ -3284,4 +3316,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-14T15:31:54.124830109Z"
+generated: "2023-02-15T14:28:24.627481251Z"
