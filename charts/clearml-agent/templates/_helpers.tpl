@@ -211,7 +211,6 @@ Create a task container template
       spec:
         {{- $data := dict "main" $ "key" $key "value" $value -}}
         {{- include "taskContainer.containerTemplate" $data | nindent 8 }}
-        restartPolicy: Never
     backoffLimit: 0
 {{- end }}
 {{- end }}
