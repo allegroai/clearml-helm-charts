@@ -1,6 +1,6 @@
 # ClearML Kubernetes Agent
 
-![Version: 3.4.0](https://img.shields.io/badge/Version-3.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 3.5.0](https://img.shields.io/badge/Version-3.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
 MLOps platform Task running agent
 
@@ -30,11 +30,11 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agentk8sglue | object | `{"affinity":{},"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"affinity":{},"annotations":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerCustomBashScript":"","customBashScript":"","debugMode":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"labels":{},"nodeSelector":{},"queue":"default","replicaCount":1,"securityContext":{},"serviceExistingAccountName":"","taskAsJob":false,"tolerations":[],"volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
+| agentk8sglue | object | `{"affinity":{},"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"affinity":{},"annotations":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"priorityClassName":"","resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerCustomBashScript":"","customBashScript":"","debugMode":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"labels":{},"nodeSelector":{},"queue":"default","replicaCount":1,"securityContext":{},"serviceExistingAccountName":"","taskAsJob":false,"tolerations":[],"volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
 | agentk8sglue.affinity | object | `{}` | affinity setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.annotations | object | `{}` | annotations setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.apiServerUrlReference | string | `"https://api.clear.ml"` | Reference to Api server url |
-| agentk8sglue.basePodTemplate | object | `{"affinity":{},"annotations":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]}` | base template for pods spawned to consume ClearML Task |
+| agentk8sglue.basePodTemplate | object | `{"affinity":{},"annotations":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"priorityClassName":"","resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]}` | base template for pods spawned to consume ClearML Task |
 | agentk8sglue.basePodTemplate.affinity | object | `{}` | affinity setup for pods spawned to consume ClearML Task |
 | agentk8sglue.basePodTemplate.annotations | object | `{}` | annotations setup for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.env | list | `[]` | environment variables for pods spawned to consume ClearML Task (example in values.yaml comments) |
@@ -43,6 +43,7 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | agentk8sglue.basePodTemplate.initContainers | list | `[]` | initContainers definition for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.labels | object | `{}` | labels setup for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.nodeSelector | object | `{}` | nodeSelector setup for pods spawned to consume ClearML Task (example in values.yaml comments) |
+| agentk8sglue.basePodTemplate.priorityClassName | string | `""` | priorityClassName setup for pods spawned to consume ClearML Task |
 | agentk8sglue.basePodTemplate.resources | object | `{}` | resources declaration for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.schedulerName | string | `""` | schedulerName setup for pods spawned to consume ClearML Task |
 | agentk8sglue.basePodTemplate.securityContext | object | `{}` | securityContext setup for pods spawned to consume ClearML Task (example in values.yaml comments) |

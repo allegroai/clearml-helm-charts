@@ -114,6 +114,7 @@ serviceAccountName: {{ include "clearmlAgent.serviceAccountName" .main }}
 {{- end }}
 initContainers:
   {{- .value.templateOverrides.initContainers | default .main.Values.agentk8sglue.basePodTemplate.initContainers | toYaml | nindent 2 }}
+priorityClassName: {{ .value.templateOverrides.priorityClassName | default .main.Values.agentk8sglue.basePodTemplate.priorityClassName }}
 containers:
 - resources:
     {{- .value.templateOverrides.resources | default .main.Values.agentk8sglue.basePodTemplate.resources | toYaml | nindent 4 }}

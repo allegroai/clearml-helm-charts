@@ -42,6 +42,7 @@ data:
       {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "clearmlAgent.serviceAccountName" $ }}
+      priorityClassName: {{ .Values.agentk8sglue.basePodTemplate.priorityClassName }}
       containers:
       - resources:
           {{- toYaml .Values.agentk8sglue.basePodTemplate.resources | nindent 10 }}

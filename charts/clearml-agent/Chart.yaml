@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml-agent
 description: MLOps platform Task running agent
 type: application
-version: "3.4.0"
+version: "3.5.0"
 appVersion: "1.24"
 kubeVersion: ">= 1.21.0-0 < 1.27.0-0"
 home: https://clear.ml
@@ -21,8 +21,4 @@ keywords:
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: support for parameter Job/Pod task
-    - kind: fixed
-      description: empty hostAliases map/array mismatch
-    - kind: fixed
-      description: agent deployment checksum
+      description: support for priorityClass in task pod template
