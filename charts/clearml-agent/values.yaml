@@ -168,6 +168,8 @@ agentk8sglue:
     resources: {}
       # limits:
       #   nvidia.com/gpu: 1
+    # -- priorityClassName setup for pods spawned to consume ClearML Task
+    priorityClassName: ""
     # -- nodeSelector setup for pods spawned to consume ClearML Task (example in values.yaml comments)
     nodeSelector: {}
       # fleet: gpu-nodes
