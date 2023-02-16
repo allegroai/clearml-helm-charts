@@ -31,32 +31,32 @@ Use this repository to deploy **clearml-server** on Kubernetes clusters.
 
 ## Who We Are
 
-ClearML is supported by the team behind *allegro.ai*,
-where we build deep learning pipelines and infrastructure for enterprise companies.
+ClearML is supported by you :heart: and the [clear.ml](https://clear.ml) team, which helps enterprise companies build 
+scalable MLOps.
 
 We built ClearML to track and control the glorious but messy process of training production-grade deep learning models.
 We are committed to vigorously supporting and expanding the capabilities of ClearML.
 
-We promise to always be backwardly compatible, making sure all your logs, data and pipelines 
+We promise to always be backwards compatible, making sure all your logs, data, and pipelines 
 will always upgrade with you.
 
 ## License
 
 Apache License, Version 2.0, (see the [LICENSE](https://www.apache.org/licenses/LICENSE-2.0) for more information)
 
-## Installation guide
+## Installation Guide
 
 For installation instruction, follow related [Installation Guide](INSTALL.md).
 
 ## Documentation, Community & Support
 
-More information in the [official documentation](https://allegro.ai/clearml/docs) and [on YouTube](https://www.youtube.com/c/ClearML).
+See more information in the [official documentation](https://clear.ml/docs/latest/docs) and [on YouTube](https://www.youtube.com/c/ClearML).
 
-If you have any questions: post on our [Slack Channel](https://join.slack.com/t/clearml/shared_invite/zt-c0t13pty-aVUZZW1TSSSg2vyIGVPBhg), or tag your questions on [stackoverflow](https://stackoverflow.com/questions/tagged/clearml) with '**[clearml](https://stackoverflow.com/questions/tagged/clearml)**' tag (*previously [trains](https://stackoverflow.com/questions/tagged/trains) tag*).
+If you have any questions, post on our [Slack Channel](https://join.slack.com/t/clearml/shared_invite/zt-c0t13pty-aVUZZW1TSSSg2vyIGVPBhg), or tag your questions on [stackoverflow](https://stackoverflow.com/questions/tagged/clearml) with '**[clearml](https://stackoverflow.com/questions/tagged/clearml)**' tag (*previously [trains](https://stackoverflow.com/questions/tagged/trains) tag*).
 
 For feature requests or bug reports, please use [GitHub issues](https://github.com/allegroai/clearml-helm-charts/issues).
 
-Additionally, you can always find us at *clearml@allegro.ai*
+Additionally, you can always find us at *support@clear.ml*
 
 ## Contributing
 
