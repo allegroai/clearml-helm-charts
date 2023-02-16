@@ -2553,6 +2553,34 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: support for priorityClass in task pod template
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2023-02-16T08:39:44.93157231Z"
+    description: MLOps platform Task running agent
+    digest: 95e8a628667cc893ae87ddd8e72339976183689572034e31c82b63ed50ed8cb1
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.27.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-3.5.0/clearml-agent-3.5.0.tgz
+    version: 3.5.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: support for parameter Job/Pod task
         - kind: fixed
           description: empty hostAliases map/array mismatch
@@ -3316,4 +3344,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-15T14:28:24.627481251Z"
+generated: "2023-02-16T08:39:44.931950709Z"
