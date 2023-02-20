@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: {{ include "clearml.serviceAccountName" . }}
+  name: {{ include "clearmlAgent.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}
 {{- end }}
 {{- if .Values.enterpriseFeatures.serviceAccountClusterAccess }}
@@ -10,7 +10,7 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "clearml.name" . }}-kpa
+  name: {{ include "clearmlAgent.name" . }}-kpa
 rules:
   - apiGroups:
       - ""
@@ -24,25 +24,33 @@ rules:
     resources:
       - namespaces
     verbs: ["list"]
+  {{- if .Values.agentk8sglue.taskAsJob }}
+  - apiGroups:
+      - batch
+      - extensions
+    resources:
+      - jobs
+    verbs: ["get", "list", "watch", "create", "patch", "delete"]
+  {{- end }} 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ include "clearml.name" . }}-kpa
+  name: {{ include "clearmlAgent.name" . }}-kpa
 subjects:
   - kind: ServiceAccount
-    name: {{ include "clearml.serviceAccountName" . }}
+    name: {{ include "clearmlAgent.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ include "clearml.name" . }}-kpa
+  name: {{ include "clearmlAgent.name" . }}-kpa
 {{- else }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: {{ include "clearml.name" . }}-kpa
+  name: {{ include "clearmlAgent.name" . }}-kpa
 rules:
   - apiGroups:
       - ""
@@ -56,17 +64,25 @@ rules:
     resources:
       - namespaces
     verbs: ["list"]
+  {{- if .Values.agentk8sglue.taskAsJob }}
+  - apiGroups:
+      - batch
+      - extensions
+    resources:
+      - jobs
+    verbs: ["get", "list", "watch", "create", "patch", "delete"]
+  {{- end }}    
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ include "clearml.name" . }}-kpa
+  name: {{ include "clearmlAgent.name" . }}-kpa
 subjects:
   - kind: ServiceAccount
-    name: {{ include "clearml.serviceAccountName" . }}
+    name: {{ include "clearmlAgent.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ include "clearml.name" . }}-kpa
+  name: {{ include "clearmlAgent.name" . }}-kpa
 {{- end }}

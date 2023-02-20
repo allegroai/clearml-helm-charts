@@ -28,6 +28,7 @@ spec:
       {{- end }}
       {{- end }}
       volumes:
+        {{- if .Values.fileserver.storage.enabled }}
         {{- if .Values.fileserver.storage.data.existingPVC }}
         - name: fileserver-data
           persistentVolumeClaim:
@@ -36,6 +37,10 @@ spec:
         - name: fileserver-data
           persistentVolumeClaim:
             claimName: {{ include "fileserver.referenceName" . }}-data
+        {{- end }}
+        {{- else }}
+        - name: fileserver-data
+          emptyDir: {}
         {{- end }}
       securityContext: {{ toYaml .Values.fileserver.podSecurityContext | nindent 8 }}
       initContainers:

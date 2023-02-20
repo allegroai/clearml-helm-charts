@@ -61,6 +61,8 @@ agentk8sglue:
   defaultContainerImage: ubuntu:18.04
   # -- ClearML queue this agent will consume
   queue: default
+  # -- ClearML spawn tasks as jobs instead of pods
+  taskAsJob: false
   # -- Custom Bash script for the Glue Agent
   # -- labels setup for Agent pod (example in values.yaml comments)
   labels: {}
@@ -166,6 +168,8 @@ agentk8sglue:
     resources: {}
       # limits:
       #   nvidia.com/gpu: 1
+    # -- priorityClassName setup for pods spawned to consume ClearML Task
+    priorityClassName: ""
     # -- nodeSelector setup for pods spawned to consume ClearML Task (example in values.yaml comments)
     nodeSelector: {}
       # fleet: gpu-nodes
@@ -181,7 +185,7 @@ agentk8sglue:
       #  runAsUser: 1001
       #  fsGroup: 1001
     # -- hostAliases setup for pods spawned to consume ClearML Task (example in values.yaml comments)
-    hostAliases: {}
+    hostAliases: []
     # - ip: "127.0.0.1"
     #   hostnames:
     #   - "foo.local"
