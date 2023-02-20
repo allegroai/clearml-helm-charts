@@ -211,7 +211,7 @@ enterpriseFeatures:
   # -- Enable/Disable Enterprise features
   enabled: false
   # -- Image tag override for enterprise version
-  agentImageTagOverride: "1.24-57"
+  agentImageTagOverride: "1.24-58"
   # -- service account access every namespace flag
   serviceAccountClusterAccess: false
   # -- push env vars from Clear.ML Vault to task pods

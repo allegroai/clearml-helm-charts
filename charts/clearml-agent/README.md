@@ -1,6 +1,6 @@
 # ClearML Kubernetes Agent
 
-![Version: 3.3.1](https://img.shields.io/badge/Version-3.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 3.4.0](https://img.shields.io/badge/Version-3.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
 MLOps platform Task running agent
 
@@ -73,9 +73,10 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | clearml.clearmlConfig | string | `"sdk {\n}"` | ClearML configuration file |
 | clearml.existingAgentk8sglueSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
 | clearml.existingClearmlConfigSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
-| enterpriseFeatures | object | `{"agentImageTagOverride":"1.24-57","applyVaultEnvVars":true,"enabled":false,"maxPods":10,"monitoredResources":{"maxResources":0,"maxResourcesFieldName":"resources|limits|nvidia.com/gpu","minResourcesFieldName":"resources|limits|nvidia.com/gpu"},"queues":null,"serviceAccountClusterAccess":false,"useOwnerToken":true}` | Enterprise features (work only with an Enterprise license) |
-| enterpriseFeatures.agentImageTagOverride | string | `"1.24-57"` | Image tag override for enterprise version |
+| enterpriseFeatures | object | `{"agentImageTagOverride":"1.24-58","applyVaultEnvVars":true,"createQueues":false,"enabled":false,"maxPods":10,"monitoredResources":{"maxResources":0,"maxResourcesFieldName":"resources|limits|nvidia.com/gpu","minResourcesFieldName":"resources|limits|nvidia.com/gpu"},"queues":null,"serviceAccountClusterAccess":false,"useOwnerToken":true}` | Enterprise features (work only with an Enterprise license) |
+| enterpriseFeatures.agentImageTagOverride | string | `"1.24-58"` | Image tag override for enterprise version |
 | enterpriseFeatures.applyVaultEnvVars | bool | `true` | push env vars from Clear.ML Vault to task pods |
+| enterpriseFeatures.createQueues | bool | `false` | Create queues if they don't exist |
 | enterpriseFeatures.enabled | bool | `false` | Enable/Disable Enterprise features |
 | enterpriseFeatures.maxPods | int | `10` | maximum concurrent consume ClearML Task pod |
 | enterpriseFeatures.monitoredResources | object | `{"maxResources":0,"maxResourcesFieldName":"resources|limits|nvidia.com/gpu","minResourcesFieldName":"resources|limits|nvidia.com/gpu"}` | GPU resource general counters |
