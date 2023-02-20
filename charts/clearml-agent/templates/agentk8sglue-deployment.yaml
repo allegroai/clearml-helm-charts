@@ -113,6 +113,10 @@ spec:
             value: "--namespace {{ .Release.Namespace }} --template-yaml /root/template/template.yaml \
                     --max-pods {{.Values.enterpriseFeatures.maxPods}}{{ if .Values.enterpriseFeatures.enabled }}{{ if .Values.enterpriseFeatures.useOwnerToken }} --use-owner-token{{ end }}{{ end }}"
           {{- end }}
+          {{- if .Values.clearml.clearmlConfig }}
+          - name: CLEARML_CONFIG_FILE
+            value: /root/clearml.conf
+          {{- end }}
           - name: CLEARML_K8S_GLUE_LIMIT_POD_LABEL
             value: "ai.allegro.agent.serial=pod-{pod_number}"
           - name: CLEARML_K8S_SECRETS_LIST_FILE
@@ -168,14 +172,16 @@ spec:
           {{- if .Values.enterpriseFeatures.enabled }}
           - name: K8S_GLUE_QUEUE
             value: {{ include "agentk8sglue.queues" . | quote }}
+          - name: CLEARML_K8S_GLUE_CREATE_QUEUE
+            value: {{ include "agentk8sglue.createQueues" . | quote }}
           - name: CLEARML_K8S_GLUE_APPLY_VAULT_ENV_VARS
             value: {{ .Values.enterpriseFeatures.applyVaultEnvVars | quote }}
           - name: "CLEARML_K8S_GLUE_POD_MIN_RES_FIELD"
-            value: {{.Values.enterpriseFeatures.monitoredResources.minResourcesFieldName}}
+            value: {{ .Values.enterpriseFeatures.monitoredResources.minResourcesFieldName }}
           - name: "CLEARML_K8S_GLUE_MAX_RESOURCES"
             value: "{{.Values.enterpriseFeatures.monitoredResources.maxResources}}"
           - name: "CLEARML_K8S_GLUE_POD_MAX_RES_FIELD"
-            value: {{.Values.enterpriseFeatures.monitoredResources.maxResourcesFieldName}}
+            value: {{ .Values.enterpriseFeatures.monitoredResources.maxResourcesFieldName }}
           {{- else }}
           - name: K8S_GLUE_QUEUE
             value: {{ .Values.agentk8sglue.queue }}

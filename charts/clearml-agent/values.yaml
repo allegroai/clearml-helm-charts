@@ -163,7 +163,7 @@ agentk8sglue:
       # - name: CURL_CA_BUNDLE
       #   value: ""
       # - name: PYTHONWARNINGS
-      #   value: "=\"ignore:Unverified HTTPS request\""
+      #   value: "ignore:Unverified HTTPS request"
     # -- resources declaration for pods spawned to consume ClearML Task (example in values.yaml comments)
     resources: {}
       # limits:
@@ -215,7 +215,7 @@ enterpriseFeatures:
   # -- Enable/Disable Enterprise features
   enabled: false
   # -- Image tag override for enterprise version
-  agentImageTagOverride: "1.24-57"
+  agentImageTagOverride: "1.24-58"
   # -- service account access every namespace flag
   serviceAccountClusterAccess: false
   # -- push env vars from Clear.ML Vault to task pods
@@ -232,6 +232,8 @@ enterpriseFeatures:
   maxPods: 10
   # -- Agent must use owner Token
   useOwnerToken: true
+  # -- Create queues if they don't exist
+  createQueues: false
   # -- ClearML queues and related template OVERRIDES used this agent will consume
   queues:
     # -- name of the queue will be used for this template
