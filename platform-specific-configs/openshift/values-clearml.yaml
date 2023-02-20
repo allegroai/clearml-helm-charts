@@ -1,15 +1,15 @@
 apiserver:
-  podSecurityContext:
+  securityContext:
     fsGroup: <FSUSER>
     runAsUser: <USER>
     runAsNonRoot: true
 fileserver:
-  podSecurityContext:
+  securityContext:
     fsGroup: <FSUSER>
     runAsUser: <USER>
     runAsNonRoot: true
 webserver:
-  podSecurityContext:
+  securityContext:
     fsGroup: <FSUSER>
     runAsUser: <USER>
     runAsNonRoot: true
