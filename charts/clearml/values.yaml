@@ -422,7 +422,7 @@ enterpriseFeatures:
     image:
       repository: ""
       pullPolicy: IfNotPresent
-      tag: "1.24-57"
+      tag: "1.24-58"
     # -- APPS base spawning pods image
     basePodImage:
       repository: ""
