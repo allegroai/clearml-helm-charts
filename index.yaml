@@ -4,6 +4,46 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: filemount support for apps agent
+    apiVersion: v2
+    appVersion: 1.9.2
+    created: "2023-03-06T13:24:13.046407783Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: file://../../dependency_charts/redis
+      version: 10.9.0
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: file://../../dependency_charts/mongodb
+      version: 10.3.4
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: file://../../dependency_charts/elasticsearch
+      version: 7.16.2
+    description: MLOps platform
+    digest: 0cc7d610146487843ece2eed242c6f2d6cbd85b82f32234f231e560a509dc908
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    kubeVersion: '>= 1.21.0-0 < 1.27.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-5.8.0/clearml-5.8.0.tgz
+    version: 5.8.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: fileserver support for emptyDir
     apiVersion: v2
     appVersion: 1.9.2
@@ -3412,4 +3452,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-03T13:09:23.482396228Z"
+generated: "2023-03-06T13:24:13.046855383Z"
