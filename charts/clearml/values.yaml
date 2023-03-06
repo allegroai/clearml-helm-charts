@@ -431,6 +431,8 @@ enterpriseFeatures:
     replicaCount: 1
     # -- APPS extra envrinoment variables
     extraEnvs: []
+    # -- file definition
+    fileMounts: []
     # -- specific annotation for APPS pods
     podAnnotations: {}
     # -- APPS resources per pod; these are minimal requirements, it's suggested to increase

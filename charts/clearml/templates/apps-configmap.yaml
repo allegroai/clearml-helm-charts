@@ -18,11 +18,23 @@ data:
         {{- end }}
         {{- end }}
         serviceAccountName: "clearml-apps-sa"
+        volumes:
+          {{- if .Values.enterpriseFeatures.clearmlApplications.fileMounts }}
+          - name: filemounts
+            secret:
+              secretName: {{ include "clearml.name" . }}-apps-fm
+          {{- end }}
         containers:
         - resources:
           ports:
             - containerPort: 10022
           volumeMounts:
+            {{- range .Values.enterpriseFeatures.clearmlApplications.fileMounts }}
+            - name: filemounts
+              mountPath: "{{ .folderPath }}/{{ .name }}"
+              subPath: "{{ .name }}"
+              readOnly: true
+            {{- end }}
           env:
           - name: CLEARML_API_HOST
             value: "http://{{ include "apiserver.referenceName" . }}:{{ .Values.apiserver.service.port }}"
@@ -30,3 +42,6 @@ data:
             value: "http://{{ include "fileserver.referenceName" . }}:{{ .Values.fileserver.service.port }}"
           - name: CLEARML_WEB_HOST
             value: "http://{{ include "webserver.referenceName" . }}:{{ .Values.webserver.service.port }}"
+          {{- if .Values.enterpriseFeatures.clearmlApplications.extraEnvs }}
+          {{ toYaml .Values.enterpriseFeatures.clearmlApplications.extraEnvs | nindent 10 }}
+          {{- end }}
