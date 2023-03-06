@@ -37,6 +37,11 @@ spec:
           configMap:
             name: "{{ include "clearmlApplications.referenceName" . }}-configmap"
       {{- end }}
+      {{- if .Values.enterpriseFeatures.clearmlApplications.fileMounts }}
+        - name: filemounts
+          secret:
+            secretName: {{ include "clearml.name" . }}-apps-fm
+      {{- end }}
       serviceAccountName: "clearml-apps-sa"
       initContainers:
         - name: init-apps
@@ -107,6 +112,12 @@ spec:
           {{- if .Values.enterpriseFeatures.clearmlApplications.additionalConfigs }}
             - name: apps-config
               mountPath: /opt/clearml/config/default
+          {{- end }}
+          {{- range .Values.enterpriseFeatures.clearmlApplications.fileMounts }}
+          - name: filemounts
+            mountPath: "{{ .folderPath }}/{{ .name }}"
+            subPath: "{{ .name }}"
+            readOnly: true
           {{- end }}
           resources:
             {{- toYaml .Values.enterpriseFeatures.clearmlApplications.resources | nindent 12 }}
