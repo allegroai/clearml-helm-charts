@@ -2673,6 +2673,34 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: support for existing rolebindings and clusterrolebindings
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2023-03-07T12:09:53.308893604Z"
+    description: MLOps platform Task running agent
+    digest: fb4a92e2d4561c3b825aabd5b06d58e442dcba8f572d6ad021ade52b09250015
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.27.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-3.7.0/clearml-agent-3.7.0.tgz
+    version: 3.7.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: support for priorityClass in task pod template
     apiVersion: v2
     appVersion: "1.24"
@@ -3492,4 +3520,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-07T07:19:46.866096392Z"
+generated: "2023-03-07T12:09:53.309281907Z"
