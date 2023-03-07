@@ -86,3 +86,33 @@ roleRef:
   kind: Role
   name: {{ include "clearmlAgent.name" . }}-kpa
 {{- end }}
+{{- range .Values.agentk8sglue.additionalClusterRoleBindings }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "clearmlAgent.name" $ }}-kpa-{{ . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "clearmlAgent.serviceAccountName" $ }}
+    namespace: {{ $.Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ . }}
+{{- end }}
+{{- range .Values.agentk8sglue.additionalRoleBindings }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "clearmlAgent.name" $ }}-kpa-{{ . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "clearmlAgent.serviceAccountName" $ }}
+    namespace: {{ $.Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ . }}
+{{- end }}

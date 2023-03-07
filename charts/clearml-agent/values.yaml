@@ -81,6 +81,12 @@ agentk8sglue:
   securityContext: {}
     #  runAsUser: 1001
     #  fsGroup: 1001
+  # -- additional existing ClusterRoleBindings
+  additionalClusterRoleBindings: []
+    # - privileged
+  # -- additional existing RoleBindings
+  additionalRoleBindings: []
+    # - privileged
   # -- nodeSelector setup for Agent pod (example in values.yaml comments)
   nodeSelector: {}
     # fleet: agent-nodes
