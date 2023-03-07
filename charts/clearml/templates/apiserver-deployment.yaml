@@ -61,7 +61,7 @@ spec:
               done ;
               {{- end }}
               {{- if .Values.mongodb.enabled }}
-              while [ $(curl --telnet-option BOGUS --connect-timeout 2 -s "telnet://{{ .Release.Name }}-mongodb:27017" -o /dev/null; echo $?) -ne 49 ] ; do
+              while [ $(curl --telnet-option BOGUS --connect-timeout 2 -s "telnet://{{ .Release.Name }}-{{ include "mongodb.hostname" . }}:27017" -o /dev/null; echo $?) -ne 49 ] ; do
                 echo "waiting for mongodb" ;
                 sleep 5 ;
               done ;

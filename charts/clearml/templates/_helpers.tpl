@@ -178,6 +178,17 @@ MongoDB Comnnection string
 {{- end }}
 
 {{/*
+MongoDB hotname
+*/}}
+{{- define "mongodb.hostname" -}}
+{{- if eq .Values.mongodb.architecture "standalone" }}
+{{- printf "%s" "mongodb" }}
+{{- else }}
+{{- printf "%s" "mongodb-headless" }}
+{{- end }}
+{{- end }}
+
+{{/*
 Redis Service name
 */}}
 {{- define "redis.servicename" -}}
