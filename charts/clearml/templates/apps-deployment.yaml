@@ -70,7 +70,7 @@ spec:
             value: "http://{{ include "fileserver.referenceName" . }}:{{ .Values.fileserver.service.port }}"
           - name: CLEARML_WEB_HOST
             value: "http://{{ include "webserver.referenceName" . }}:{{ .Values.webserver.service.port }}"
-          - name: CLEARML_AGENT_DEFAULT_BASE_DOCKER
+          - name: CLEARML_DOCKER_IMAGE
             value: "{{ .Values.enterpriseFeatures.clearmlApplications.basePodImage.repository }}:{{ .Values.enterpriseFeatures.clearmlApplications.basePodImage.tag }}"
           - name: CLEARML_WORKER_ID
             value: "apps-agent-1"
