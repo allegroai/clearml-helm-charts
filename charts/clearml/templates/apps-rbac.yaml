@@ -31,3 +31,33 @@ roleRef:
   name: {{ include "clearmlApplications.referenceName" . }}-kpa
 {{- end }}
 {{- end }}
+{{- range .Values.enterpriseFeatures.clearmlApplications.additionalClusterRoleBindings }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "clearmlApplications.referenceName" $ }}-kpa-{{ . }}
+subjects:
+  - kind: ServiceAccount
+    name: "clearml-apps-sa"
+    namespace: {{ $.Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ . }}
+{{- end }}
+{{- range .Values.enterpriseFeatures.clearmlApplications.additionalRoleBindings }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "clearmlApplications.referenceName" $ }}-kpa-{{ . }}
+subjects:
+  - kind: ServiceAccount
+    name: "clearml-apps-sa"
+    namespace: {{ $.Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ . }}
+{{- end }}
