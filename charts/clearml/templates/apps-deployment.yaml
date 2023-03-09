@@ -83,6 +83,8 @@ spec:
             value: "apps_queue"
           - name: CLEARML_AGENT_DISABLE_SSH_MOUNT
             value: "1"
+          - name: K8S_GLUE_POD_AGENT_INSTALL_ARGS
+            value: " -U"
           - name: CLEARML_API_ACCESS_KEY
             valueFrom:
               secretKeyRef:
