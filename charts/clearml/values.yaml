@@ -293,7 +293,8 @@ externalServices:
 # -- Configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml
 redis:
   enabled: true
-  usePassword: false
+  auth:
+    enabled: false
   databaseNumber: 0
   master:
     name: "{{ .Release.Name }}-redis-master"
@@ -305,8 +306,7 @@ redis:
       size: 5Gi
       ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
       storageClass: null
-  cluster:
-    enabled: false
+  architecture: standalone
 
 # -- Configuration from https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
 mongodb:
