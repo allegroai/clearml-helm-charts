@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "5.9.0"
+version: "6.0.0"
 appVersion: "1.9.2"
 kubeVersion: ">= 1.21.0-0 < 1.27.0-0"
 home: https://clear.ml
@@ -19,18 +19,18 @@ keywords:
   - mlops
 dependencies:
   - name: redis
-    version: "10.9.0"
-    repository: "file://../../dependency_charts/redis"
+    version: "17.8.3"
+    repository: "https://charts.bitnami.com/bitnami"
     condition: redis.enabled
   - name: mongodb
-    version: "10.3.4"
-    repository: "file://../../dependency_charts/mongodb"
+    version: "12.1.31"
+    repository: "https://charts.bitnami.com/bitnami"
     condition: mongodb.enabled
   - name: elasticsearch
-    version: "7.16.2"
-    repository: "file://../../dependency_charts/elasticsearch"
+    version: "7.17.3"
+    repository: "https://helm.elastic.co"
     condition: elasticsearch.enabled
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: additional rolebindings for apps
+    - kind: changed
+      description: dependency chart updates
