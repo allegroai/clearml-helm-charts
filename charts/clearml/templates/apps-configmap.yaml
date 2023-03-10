@@ -18,6 +18,8 @@ data:
         {{- end }}
         {{- end }}
         serviceAccountName: "clearml-apps-sa"
+        securityContext:
+          {{ toYaml .Values.enterpriseFeatures.clearmlApplications.podSecurityContext | nindent 10 }}
         volumes:
           {{- if .Values.enterpriseFeatures.clearmlApplications.fileMounts }}
           - name: filemounts
@@ -45,3 +47,5 @@ data:
           {{- if .Values.enterpriseFeatures.clearmlApplications.extraEnvs }}
           {{ toYaml .Values.enterpriseFeatures.clearmlApplications.extraEnvs | nindent 10 }}
           {{- end }}
+          securityContext:
+            {{ toYaml .Values.enterpriseFeatures.clearmlApplications.containerSecurityContext | nindent 12 }}

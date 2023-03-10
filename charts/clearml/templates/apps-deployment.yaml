@@ -43,6 +43,8 @@ spec:
             secretName: {{ include "clearml.name" . }}-apps-fm
       {{- end }}
       serviceAccountName: "clearml-apps-sa"
+      securityContext:
+        {{ toYaml .Values.enterpriseFeatures.clearmlApplications.podSecurityContext | nindent 8 }}
       initContainers:
         - name: init-apps
           image: "{{ .Values.enterpriseFeatures.clearmlApplications.image.repository }}:{{ .Values.enterpriseFeatures.clearmlApplications.image.tag | default .Chart.AppVersion }}"
@@ -55,6 +57,8 @@ spec:
                 echo "waiting for apiserver" ;
                 sleep 5 ;
               done
+          securityContext:
+            {{ toYaml .Values.enterpriseFeatures.clearmlApplications.containerSecurityContext | nindent 12 }}
       containers:
         - name: clearml-apps
           image: "{{ .Values.enterpriseFeatures.clearmlApplications.image.repository }}:{{ .Values.enterpriseFeatures.clearmlApplications.image.tag | default .Chart.AppVersion }}"
@@ -121,6 +125,8 @@ spec:
             subPath: "{{ .name }}"
             readOnly: true
           {{- end }}
+          securityContext:
+            {{ toYaml .Values.enterpriseFeatures.clearmlApplications.containerSecurityContext | nindent 12 }}
           resources:
             {{- toYaml .Values.enterpriseFeatures.clearmlApplications.resources | nindent 12 }}
       {{- with .Values.enterpriseFeatures.clearmlApplications.nodeSelector }}
