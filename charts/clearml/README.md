@@ -109,6 +109,13 @@ helm upgrade clearml allegroai/clearml --version <CURRENT CHART VERSION> -f cust
 Please note: updating values only should always be done setting explicit chart version to avoid a possible chart update.
 Keeping separate updates procedures between version and values can be a good practice to seprate potential concerns.
 
+### Major upgrade from 5.* to 6.*
+
+Before issuing helm upgrade:
+
+* delete Redis statefulset(s)
+* scale MongoDB deployment(s) replicas to 0
+
 ## ENTERPRISE Version
 
 There are some specific Enterprise version features that can be enabled only with specific Enterprise licensed images.
@@ -134,9 +141,9 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../dependency_charts/elasticsearch | elasticsearch | 7.16.2 |
-| file://../../dependency_charts/mongodb | mongodb | 10.3.4 |
-| file://../../dependency_charts/redis | redis | 10.9.0 |
+| https://charts.bitnami.com/bitnami | mongodb | 12.1.31 |
+| https://charts.bitnami.com/bitnami | redis | 17.8.3 |
+| https://helm.elastic.co | elasticsearch | 7.17.3 |
 
 ## Values
 
@@ -257,7 +264,7 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | imageCredentials.registry | string | `"docker.io"` | Registry name |
 | imageCredentials.username | string | `"someone"` | Registry username |
 | mongodb | object | `{"architecture":"standalone","auth":{"enabled":false},"enabled":true,"persistence":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"50Gi","storageClass":null},"replicaCount":1}` | Configuration from https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml |
-| redis | object | `{"cluster":{"enabled":false},"databaseNumber":0,"enabled":true,"master":{"name":"{{ .Release.Name }}-redis-master","persistence":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"5Gi","storageClass":null},"port":6379},"usePassword":false}` | Configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml |
+| redis | object | `{"architecture":"standalone","auth":{"enabled":false},"databaseNumber":0,"enabled":true,"master":{"name":"{{ .Release.Name }}-redis-master","persistence":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"5Gi","storageClass":null},"port":6379}}` | Configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml |
 | webserver | object | `{"additionalConfigs":{},"affinity":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.2-317"},"ingress":{"annotations":{},"enabled":false,"hostName":"app.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"podSecurityContext":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"nodePort":30080,"port":8080,"type":"NodePort"},"tolerations":[]}` | Web Server configurations |
 | webserver.additionalConfigs | object | `{}` | Additional specific webserver configurations |
 | webserver.affinity | object | `{}` | Web Server affinity setup |
