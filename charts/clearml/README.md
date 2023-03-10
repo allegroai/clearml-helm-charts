@@ -115,6 +115,7 @@ Before issuing helm upgrade:
 
 * delete Redis statefulset(s)
 * scale MongoDB deployment(s) replicas to 0
+* if using securityContexts check for new value form in values.yaml (podSecurityContext and containerSecurityContext)
 
 ## ENTERPRISE Version
 
@@ -149,9 +150,10 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| apiserver | object | `{"additionalConfigs":{},"affinity":{},"enabled":true,"existingAdditionalConfigsConfigMap":"","existingAdditionalConfigsSecret":"","extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.2-317"},"indexReplicas":0,"indexShards":1,"ingress":{"annotations":{},"enabled":false,"hostName":"api.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"prepopulateEnabled":true,"processes":{"count":8,"maxRequests":1000,"maxRequestsJitter":300,"timeout":24000},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"securityContext":{},"service":{"nodePort":30008,"port":8008,"type":"NodePort"},"tolerations":[]}` | Api Server configurations |
+| apiserver | object | `{"additionalConfigs":{},"affinity":{},"containerSecurityContext":{},"enabled":true,"existingAdditionalConfigsConfigMap":"","existingAdditionalConfigsSecret":"","extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.2-317"},"indexReplicas":0,"indexShards":1,"ingress":{"annotations":{},"enabled":false,"hostName":"api.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"podSecurityContext":{},"prepopulateEnabled":true,"processes":{"count":8,"maxRequests":1000,"maxRequestsJitter":300,"timeout":24000},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"nodePort":30008,"port":8008,"type":"NodePort"},"tolerations":[]}` | Api Server configurations |
 | apiserver.additionalConfigs | object | `{}` | files declared in this parameter will be mounted and read by apiserver (examples in values.yaml) if not overridden by existingAdditionalConfigsSecret |
 | apiserver.affinity | object | `{}` | Api Server affinity setup |
+| apiserver.containerSecurityContext | object | `{}` | Api Server containers security context |
 | apiserver.enabled | bool | `true` | Enable/Disable component deployment |
 | apiserver.existingAdditionalConfigsConfigMap | string | `""` | reference for files declared in existing ConfigMap will be mounted and read by apiserver (examples in values.yaml) |
 | apiserver.existingAdditionalConfigsSecret | string | `""` | reference for files declared in existing Secret will be mounted and read by apiserver (examples in values.yaml) if not overridden by existingAdditionalConfigsConfigMap |
@@ -168,6 +170,7 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | apiserver.ingress.tlsSecretName | string | `""` | Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule. |
 | apiserver.nodeSelector | object | `{}` | Api Server nodeselector |
 | apiserver.podAnnotations | object | `{}` | specific annotation for Api Server pods |
+| apiserver.podSecurityContext | object | `{}` | Api Server pod security context |
 | apiserver.prepopulateEnabled | bool | `true` | Enable/Disable example data load |
 | apiserver.processes | object | `{"count":8,"maxRequests":1000,"maxRequestsJitter":300,"timeout":24000}` | Api Server internal processes configuration |
 | apiserver.processes.count | int | `8` | Api Server internal listing processes |
@@ -176,7 +179,6 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | apiserver.processes.timeout | int | `24000` | Api timeout (ms) |
 | apiserver.replicaCount | int | `1` | Api Server number of pods |
 | apiserver.resources | object | `{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}}` | Api Server resources per pod; these are minimal requirements, it's suggested to increase these values in production environments |
-| apiserver.securityContext | object | `{}` | Api Server pod security context |
 | apiserver.service | object | `{"nodePort":30008,"port":8008,"type":"NodePort"}` | Api Server internal service configuration |
 | apiserver.service.nodePort | int | `30008` | If service.type set to NodePort, this will be set to service's nodePort field. If service.type is set to others, this field will be ignored |
 | apiserver.tolerations | list | `[]` | Api Server tolerations setup |
@@ -231,8 +233,9 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | externalServices.mongodbConnectionStringBackend | string | `""` | Existing MongoDB connection string for AUTH to use if mongodb.enabled is false |
 | externalServices.redisHost | string | `""` | Existing Redis Hostname to use if redis.enabled is false |
 | externalServices.redisPort | int | `6379` | Existing Redis Port to use if redis.enabled is false |
-| fileserver | object | `{"affinity":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.2-317"},"ingress":{"annotations":{},"enabled":false,"hostName":"files.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"securityContext":{},"service":{"nodePort":30081,"port":8081,"type":"NodePort"},"storage":{"data":{"accessMode":"ReadWriteOnce","class":"","existingPVC":"","size":"50Gi"},"enabled":true},"tolerations":[]}` | File Server configurations |
+| fileserver | object | `{"affinity":{},"containerSecurityContext":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.2-317"},"ingress":{"annotations":{},"enabled":false,"hostName":"files.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"podSecurityContext":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"nodePort":30081,"port":8081,"type":"NodePort"},"storage":{"data":{"accessMode":"ReadWriteOnce","class":"","existingPVC":"","size":"50Gi"},"enabled":true},"tolerations":[]}` | File Server configurations |
 | fileserver.affinity | object | `{}` | File Server affinity setup |
+| fileserver.containerSecurityContext | object | `{}` | File Server containers security context |
 | fileserver.enabled | bool | `true` | Enable/Disable component deployment |
 | fileserver.extraEnvs | list | `[]` | File Server extra envrinoment variables |
 | fileserver.image | object | `{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.2-317"}` | File Server image configuration |
@@ -245,9 +248,9 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | fileserver.ingress.tlsSecretName | string | `""` | Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule. |
 | fileserver.nodeSelector | object | `{}` | File Server nodeselector |
 | fileserver.podAnnotations | object | `{}` | specific annotation for File Server pods |
+| fileserver.podSecurityContext | object | `{}` | File Server pod security context |
 | fileserver.replicaCount | int | `1` | File Server number of pods |
 | fileserver.resources | object | `{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}}` | File Server resources per pod; these are minimal requirements, it's suggested to increase these values in production environments |
-| fileserver.securityContext | object | `{}` | File Server pod security context |
 | fileserver.service | object | `{"nodePort":30081,"port":8081,"type":"NodePort"}` | File Server internal service configuration |
 | fileserver.service.nodePort | int | `30081` | If service.type set to NodePort, this will be set to service's nodePort field. If service.type is set to others, this field will be ignored |
 | fileserver.storage | object | `{"data":{"accessMode":"ReadWriteOnce","class":"","existingPVC":"","size":"50Gi"},"enabled":true}` | File server persistence settings |
@@ -265,9 +268,10 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | imageCredentials.username | string | `"someone"` | Registry username |
 | mongodb | object | `{"architecture":"standalone","auth":{"enabled":false},"enabled":true,"persistence":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"50Gi","storageClass":null},"replicaCount":1}` | Configuration from https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml |
 | redis | object | `{"architecture":"standalone","auth":{"enabled":false},"databaseNumber":0,"enabled":true,"master":{"name":"{{ .Release.Name }}-redis-master","persistence":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"5Gi","storageClass":null},"port":6379}}` | Configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml |
-| webserver | object | `{"additionalConfigs":{},"affinity":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.2-317"},"ingress":{"annotations":{},"enabled":false,"hostName":"app.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"podSecurityContext":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"nodePort":30080,"port":8080,"type":"NodePort"},"tolerations":[]}` | Web Server configurations |
+| webserver | object | `{"additionalConfigs":{},"affinity":{},"containerSecurityContext":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.2-317"},"ingress":{"annotations":{},"enabled":false,"hostName":"app.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"podAnnotations":{},"podSecurityContext":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"nodePort":30080,"port":8080,"type":"NodePort"},"tolerations":[]}` | Web Server configurations |
 | webserver.additionalConfigs | object | `{}` | Additional specific webserver configurations |
 | webserver.affinity | object | `{}` | Web Server affinity setup |
+| webserver.containerSecurityContext | object | `{}` | Web Server containers security context |
 | webserver.enabled | bool | `true` | Enable/Disable component deployment |
 | webserver.extraEnvs | list | `[]` | Web Server extra envrinoment variables |
 | webserver.image | object | `{"pullPolicy":"IfNotPresent","repository":"allegroai/clearml","tag":"1.9.2-317"}` | Web Server image configuration |

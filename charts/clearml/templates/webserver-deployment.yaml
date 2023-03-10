@@ -35,7 +35,8 @@ spec:
         - name: documentation
           emptyDir: {}
         {{- end }}
-      securityContext: {{ toYaml .Values.webserver.podSecurityContext | nindent 8 }}
+      securityContext:
+        {{ toYaml .Values.webserver.podSecurityContext | nindent 8 }}
       initContainers:
         {{- if .Values.enterpriseFeatures.airGappedDocumentation.enabled }}
         - name: init-airgap-docs
@@ -51,6 +52,8 @@ spec:
             - mountPath: /usr/share/nginx/html/clearml
               name: documentation
             {{- end }}
+          securityContext:
+            {{ toYaml .Values.webserver.containerSecurityContext | nindent 12 }}
         {{- end }}
         - name: init-webserver
           {{- if .Values.enterpriseFeatures.enabled }}
@@ -67,6 +70,8 @@ spec:
                 echo "waiting for apiserver" ;
                 sleep 5 ;
               done
+          securityContext:
+            {{ toYaml .Values.webserver.containerSecurityContext | nindent 12 }}
       containers:
         - name: clearml-webserver
           {{- if .Values.enterpriseFeatures.enabled }}
@@ -150,6 +155,8 @@ spec:
             {{- end }}
           resources:
             {{- toYaml .Values.webserver.resources | nindent 12 }}
+          securityContext:
+            {{ toYaml .Values.webserver.containerSecurityContext | nindent 12 }}
       {{- with .Values.webserver.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

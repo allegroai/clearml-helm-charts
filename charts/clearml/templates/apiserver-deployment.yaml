@@ -41,7 +41,8 @@ spec:
             name: "{{ include "apiserver.referenceName" . }}-configmap"
           {{- end }}
       {{- end }}
-      securityContext: {{ toYaml .Values.apiserver.podSecurityContext | nindent 8 }}
+      securityContext:
+        {{ toYaml .Values.apiserver.podSecurityContext | nindent 8 }}
       initContainers:
         - name: init-apiserver
           {{- if .Values.enterpriseFeatures.enabled }}
@@ -72,6 +73,8 @@ spec:
                 sleep 5 ;
               done ;
               {{- end }}
+          securityContext:
+            {{ toYaml .Values.apiserver.containerSecurityContext | nindent 12 }}
       containers:
         - name: clearml-apiserver
           {{- if .Values.enterpriseFeatures.enabled }}
@@ -250,6 +253,8 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.apiserver.resources | nindent 12 }}
+          securityContext:
+            {{ toYaml .Values.apiserver.containerSecurityContext | nindent 12 }}
       {{- with .Values.apiserver.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

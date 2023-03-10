@@ -112,7 +112,9 @@ apiserver:
   # -- Api Server affinity setup
   affinity: {}
   # -- Api Server pod security context
-  securityContext: {}
+  podSecurityContext: {}
+  # -- Api Server containers security context
+  containerSecurityContext: {}
   #   runAsUser: 1001
   #   fsGroup: 1001
   # -- reference for files declared in existing ConfigMap will be mounted and read by apiserver (examples in values.yaml)
@@ -202,7 +204,9 @@ fileserver:
   # -- File Server affinity setup
   affinity: {}
   # -- File Server pod security context
-  securityContext: {}
+  podSecurityContext: {}
+  # -- File Server containers security context
+  containerSecurityContext: {}
   #   runAsUser: 1001
   #   fsGroup: 1001
   # -- File server persistence settings
@@ -271,6 +275,8 @@ webserver:
   affinity: {}
   # -- Web Server pod security context
   podSecurityContext: {}
+  # -- Web Server containers security context
+  containerSecurityContext: {}
   #   runAsUser: 1001
   #   fsGroup: 1001
   # -- Additional specific webserver configurations

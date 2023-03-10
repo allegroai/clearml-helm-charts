@@ -34,3 +34,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: changed
       description: dependency chart updates
+    - kind: changed
+      description: improved securityContexts
