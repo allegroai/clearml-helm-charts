@@ -14,32 +14,31 @@
 The **clearml-agent** is the Kubernetes agent for for [ClearML](https://github.com/allegroai/clearml).
 It allows you to schedule distributed experiments on a Kubernetes cluster.
 
+# Upgrading Chart
+
+## Upgrades/ Values upgrades
+
+Updating to latest version of this chart can be done in two steps:
+
+```
+helm repo update
+helm upgrade clearml-agent allegroai/clearml-agent
+```
+
+Changing values on existing installation can be done with:
+
+```
+helm upgrade clearml-agent allegroai/clearml-agent --version <CURRENT CHART VERSION> -f custom_values.yaml
+```
+
+### Major upgrade from 5.* to 6.*
+
+Before issuing helm upgrade:
+
+* if using securityContexts check for new value form in values.yaml (podSecurityContext and containerSecurityContext)
+
 {{ template "chart.sourcesSection" . }}
 
 {{ template "chart.requirementsSection" . }}
 
 {{ template "chart.valuesSection" . }}
-
-# Upgrading Chart
-
-### From v1.x to v2.x 
-
-Chart 1.x was under the assumption that all mounted volumes would be PVC's. Version > 2.x allows for more flexibility and will inject the yaml from podTemplate.volumes and podtemplate.volumeMounts directly.
-
-v1.x
-```
-    volumes:
-     - name: "yourvolume"
-       path: "/yourpath"
-```
-
-v2.x
-```
-    volumes:
-     - name: "yourvolume"
-       persistentVolumeClaim:
-         claimName: "yourvolume"
-    volumeMounts:
-     - name: "yourvolume"
-       mountPath: "/yourpath"
-```

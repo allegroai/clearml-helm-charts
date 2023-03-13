@@ -1,6 +1,6 @@
 # ClearML Kubernetes Agent
 
-![Version: 3.7.0](https://img.shields.io/badge/Version-3.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 4.0.0](https://img.shields.io/badge/Version-4.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
 MLOps platform Task running agent
 
@@ -17,6 +17,29 @@ MLOps platform Task running agent
 The **clearml-agent** is the Kubernetes agent for for [ClearML](https://github.com/allegroai/clearml).
 It allows you to schedule distributed experiments on a Kubernetes cluster.
 
+# Upgrading Chart
+
+## Upgrades/ Values upgrades
+
+Updating to latest version of this chart can be done in two steps:
+
+```
+helm repo update
+helm upgrade clearml-agent allegroai/clearml-agent
+```
+
+Changing values on existing installation can be done with:
+
+```
+helm upgrade clearml-agent allegroai/clearml-agent --version <CURRENT CHART VERSION> -f custom_values.yaml
+```
+
+### Major upgrade from 5.* to 6.*
+
+Before issuing helm upgrade:
+
+* if using securityContexts check for new value form in values.yaml (podSecurityContext and containerSecurityContext)
+
 ## Source Code
 
 * <https://github.com/allegroai/clearml-helm-charts>
@@ -30,30 +53,32 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agentk8sglue | object | `{"additionalClusterRoleBindings":[],"additionalRoleBindings":[],"affinity":{},"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"affinity":{},"annotations":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"priorityClassName":"","resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerCustomBashScript":"","customBashScript":"","debugMode":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"labels":{},"nodeSelector":{},"queue":"default","replicaCount":1,"securityContext":{},"serviceExistingAccountName":"","taskAsJob":false,"tolerations":[],"volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
+| agentk8sglue | object | `{"additionalClusterRoleBindings":[],"additionalRoleBindings":[],"affinity":{},"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"affinity":{},"annotations":{},"containerSecurityContext":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"podSecurityContext":{},"priorityClassName":"","resources":{},"schedulerName":"","tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerCustomBashScript":"","containerSecurityContext":{},"customBashScript":"","debugMode":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"labels":{},"nodeSelector":{},"podSecurityContext":{},"queue":"default","replicaCount":1,"serviceExistingAccountName":"","taskAsJob":false,"tolerations":[],"volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
 | agentk8sglue.additionalClusterRoleBindings | list | `[]` | additional existing ClusterRoleBindings |
 | agentk8sglue.additionalRoleBindings | list | `[]` | additional existing RoleBindings |
 | agentk8sglue.affinity | object | `{}` | affinity setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.annotations | object | `{}` | annotations setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.apiServerUrlReference | string | `"https://api.clear.ml"` | Reference to Api server url |
-| agentk8sglue.basePodTemplate | object | `{"affinity":{},"annotations":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"priorityClassName":"","resources":{},"schedulerName":"","securityContext":{},"tolerations":[],"volumeMounts":[],"volumes":[]}` | base template for pods spawned to consume ClearML Task |
+| agentk8sglue.basePodTemplate | object | `{"affinity":{},"annotations":{},"containerSecurityContext":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"podSecurityContext":{},"priorityClassName":"","resources":{},"schedulerName":"","tolerations":[],"volumeMounts":[],"volumes":[]}` | base template for pods spawned to consume ClearML Task |
 | agentk8sglue.basePodTemplate.affinity | object | `{}` | affinity setup for pods spawned to consume ClearML Task |
 | agentk8sglue.basePodTemplate.annotations | object | `{}` | annotations setup for pods spawned to consume ClearML Task (example in values.yaml comments) |
+| agentk8sglue.basePodTemplate.containerSecurityContext | object | `{}` | securityContext setup for containers spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.env | list | `[]` | environment variables for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.fileMounts | list | `[]` | file definition for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.hostAliases | list | `[]` | hostAliases setup for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.initContainers | list | `[]` | initContainers definition for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.labels | object | `{}` | labels setup for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.nodeSelector | object | `{}` | nodeSelector setup for pods spawned to consume ClearML Task (example in values.yaml comments) |
+| agentk8sglue.basePodTemplate.podSecurityContext | object | `{}` | securityContext setup for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.priorityClassName | string | `""` | priorityClassName setup for pods spawned to consume ClearML Task |
 | agentk8sglue.basePodTemplate.resources | object | `{}` | resources declaration for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.schedulerName | string | `""` | schedulerName setup for pods spawned to consume ClearML Task |
-| agentk8sglue.basePodTemplate.securityContext | object | `{}` | securityContext setup for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.tolerations | list | `[]` | tolerations setup for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.volumeMounts | list | `[]` | volume mounts definition for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.basePodTemplate.volumes | list | `[]` | volumes definition for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.clearmlcheckCertificate | bool | `true` | Check certificates validity for evefry UrlReference below. |
 | agentk8sglue.containerCustomBashScript | string | `""` | Custom Bash script for the Task Pods ran by Glue Agent |
+| agentk8sglue.containerSecurityContext | object | `{}` | container securityContext setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.debugMode | bool | `false` | Enable Debugging logs for Agent pod |
 | agentk8sglue.defaultContainerImage | string | `"ubuntu:18.04"` | default container image for ClearML Task pod |
 | agentk8sglue.extraEnvs | list | `[]` | Extra Environment variables for Glue Agent |
@@ -62,9 +87,9 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | agentk8sglue.image | object | `{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"}` | Glue Agent image configuration |
 | agentk8sglue.labels | object | `{}` | labels setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.nodeSelector | object | `{}` | nodeSelector setup for Agent pod (example in values.yaml comments) |
+| agentk8sglue.podSecurityContext | object | `{}` | container securityContext setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.queue | string | `"default"` | ClearML queue this agent will consume |
 | agentk8sglue.replicaCount | int | `1` | Glue Agent number of pods |
-| agentk8sglue.securityContext | object | `{}` | Web Server pod security context |
 | agentk8sglue.serviceExistingAccountName | string | `""` | if set, don't create a serviceAccountName but use defined existing one |
 | agentk8sglue.taskAsJob | bool | `false` | ClearML spawn tasks as jobs instead of pods |
 | agentk8sglue.tolerations | list | `[]` | tolerations setup for Agent pod (example in values.yaml comments) |
@@ -106,27 +131,3 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | sessions.startingPort | int | `30000` | starting range of exposed NodePorts |
 | sessions.svcAnnotations | object | `{}` | specific annotations for session services |
 | sessions.svcType | string | `"NodePort"` | service type ("NodePort" or "ClusterIP" or "LoadBalancer") |
-
-# Upgrading Chart
-
-### From v1.x to v2.x
-
-Chart 1.x was under the assumption that all mounted volumes would be PVC's. Version > 2.x allows for more flexibility and will inject the yaml from podTemplate.volumes and podtemplate.volumeMounts directly.
-
-v1.x
-```
-    volumes:
-     - name: "yourvolume"
-       path: "/yourpath"
-```
-
-v2.x
-```
-    volumes:
-     - name: "yourvolume"
-       persistentVolumeClaim:
-         claimName: "yourvolume"
-    volumeMounts:
-     - name: "yourvolume"
-       mountPath: "/yourpath"
-```

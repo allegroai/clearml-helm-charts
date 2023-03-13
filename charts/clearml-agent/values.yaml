@@ -77,8 +77,12 @@ agentk8sglue:
   extraEnvs: []
     # - name: PYTHONPATH
     #   value: "somepath"
-    # -- Web Server pod security context
-  securityContext: {}
+  # -- container securityContext setup for Agent pod (example in values.yaml comments)
+  podSecurityContext: {}
+    #  runAsUser: 1001
+    #  fsGroup: 1001
+  # -- container securityContext setup for Agent pod (example in values.yaml comments)
+  containerSecurityContext: {}
     #  runAsUser: 1001
     #  fsGroup: 1001
   # -- additional existing ClusterRoleBindings
@@ -187,7 +191,11 @@ agentk8sglue:
     # -- affinity setup for pods spawned to consume ClearML Task
     affinity: {}
     # -- securityContext setup for pods spawned to consume ClearML Task (example in values.yaml comments)
-    securityContext: {}
+    podSecurityContext: {}
+      #  runAsUser: 1001
+      #  fsGroup: 1001
+    # -- securityContext setup for containers spawned to consume ClearML Task (example in values.yaml comments)
+    containerSecurityContext: {}
       #  runAsUser: 1001
       #  fsGroup: 1001
     # -- hostAliases setup for pods spawned to consume ClearML Task (example in values.yaml comments)

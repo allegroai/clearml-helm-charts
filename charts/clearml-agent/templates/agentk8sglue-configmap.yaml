@@ -42,10 +42,14 @@ data:
       {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "clearmlAgent.serviceAccountName" $ }}
+      securityContext:
+        {{ toYaml .Values.agentk8sglue.basePodTemplate.podSecurityContext | nindent 8 }}
       priorityClassName: {{ .Values.agentk8sglue.basePodTemplate.priorityClassName }}
       containers:
       - resources:
           {{- toYaml .Values.agentk8sglue.basePodTemplate.resources | nindent 10 }}
+        securityContext:
+          {{ toYaml .Values.agentk8sglue.basePodTemplate.containerSecurityContext | nindent 10 }}
         ports:
         - containerPort: 10022
         {{- with .Values.agentk8sglue.basePodTemplate.volumeMounts }}
