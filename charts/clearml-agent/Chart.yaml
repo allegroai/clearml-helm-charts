@@ -22,3 +22,7 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: podSecurityContext/containerSecurityContext split
+    - kind: added
+      description: images version update
+    - kind: added
+      description: non-root non-privileged mode
