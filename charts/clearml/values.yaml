@@ -443,6 +443,10 @@ enterpriseFeatures:
     # -- additional existing RoleBindings
     additionalRoleBindings: []
     # - privileged
+    # -- Custom Bash script for the APPS Agent pod ran by Glue Agent
+    customBashScript: ""
+    # -- Custom Bash script for the APPS Task Pods ran by Glue Agent
+    containerCustomBashScript: ""
     # -- APPS pod security context
     podSecurityContext: {}
     # -- APPS containers security context

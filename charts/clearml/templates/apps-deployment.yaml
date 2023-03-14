@@ -89,6 +89,10 @@ spec:
             value: "1"
           - name: K8S_GLUE_POD_AGENT_INSTALL_ARGS
             value: " -U"
+          {{ if .Values.enterpriseFeatures.clearmlApplications.containerCustomBashScript }}
+          - name: CLEARML_K8S_GLUE_POD_BASH_SCRIPT
+            value: "{{ .Values.enterpriseFeatures.clearmlApplications.containerCustomBashScript }}"
+          {{- end }}
           - name: CLEARML_API_ACCESS_KEY
             valueFrom:
               secretKeyRef:
