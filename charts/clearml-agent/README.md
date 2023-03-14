@@ -79,6 +79,7 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | agentk8sglue.clearmlcheckCertificate | bool | `true` | Check certificates validity for evefry UrlReference below. |
 | agentk8sglue.containerCustomBashScript | string | `""` | Custom Bash script for the Task Pods ran by Glue Agent |
 | agentk8sglue.containerSecurityContext | object | `{}` | container securityContext setup for Agent pod (example in values.yaml comments) |
+| agentk8sglue.customBashScript | string | `""` | Custom Bash script for the Agent pod ran by Glue Agent |
 | agentk8sglue.debugMode | bool | `false` | Enable Debugging logs for Agent pod |
 | agentk8sglue.defaultContainerImage | string | `"ubuntu:18.04"` | default container image for ClearML Task pod |
 | agentk8sglue.extraEnvs | list | `[]` | Extra Environment variables for Glue Agent |

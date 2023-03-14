@@ -70,6 +70,7 @@ agentk8sglue:
   # -- annotations setup for Agent pod (example in values.yaml comments)
   annotations: {}
     # key1: value1
+  # -- Custom Bash script for the Agent pod ran by Glue Agent
   customBashScript: ""
   # -- Custom Bash script for the Task Pods ran by Glue Agent
   containerCustomBashScript: ""
