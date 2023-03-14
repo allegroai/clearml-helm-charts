@@ -1,0 +1,28 @@
+agentk8sglue:
+  defaultContainerImage: "python:3.9"
+  containerSecurityContext:
+    runAsUser: 1000
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: RuntimeDefault
+  containerCustomBashScript: |
+    export HOME=/tmp ;
+    export LOCAL_PYTHON=python3 ; 
+    $LOCAL_PYTHON -m pip install clearml-agent{agent_install_args} ; 
+    $LOCAL_PYTHON -m clearml_agent execute {default_execution_agent_args} --id {task_id}
+  extraEnvs:
+    - name: CLEARML_K8S_GLUE_START_AGENT_SCRIPT_PATH
+      value: /tmp/__start_agent__.sh
+
+  basePodTemplate:
+    containerSecurityContext:
+      runAsUser: 1000
+      runAsNonRoot: true
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: ["ALL"]
+      seccompProfile:
+        type: RuntimeDefault

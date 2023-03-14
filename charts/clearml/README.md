@@ -117,6 +117,11 @@ Before issuing helm upgrade:
 * scale MongoDB deployment(s) replicas to 0
 * if using securityContexts check for new value form in values.yaml (podSecurityContext and containerSecurityContext)
 
+### Non root/privileged environments
+
+In environments like Openshift or Tanzu it can be required to run non-root/non-privileged pods/containers.
+In this case it's recommended to use values-non-root-privileged.yaml as base for override file.
+
 ## ENTERPRISE Version
 
 There are some specific Enterprise version features that can be enabled only with specific Enterprise licensed images.
