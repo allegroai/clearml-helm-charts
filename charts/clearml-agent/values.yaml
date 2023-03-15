@@ -1,3 +1,8 @@
+# -- Global parameters section
+global:
+  # -- Images registry
+  imageRegistry: "docker.io"
+
 # -- Private image registry configuration
 imageCredentials:
   # -- Use private authentication mode
@@ -35,6 +40,7 @@ clearml:
 agentk8sglue:
   # -- Glue Agent image configuration
   image:
+    registry: ""
     repository: "allegroai/clearml-agent-k8s-base"
     tag: "1.24-21"
 

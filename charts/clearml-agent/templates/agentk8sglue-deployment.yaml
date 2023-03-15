@@ -33,9 +33,9 @@ spec:
       initContainers:
         - name: init-k8s-glue
           {{- if .Values.enterpriseFeatures.enabled }}
-          image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.enterpriseFeatures.agentImageTagOverride }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.agentk8sglue.image.registry) }}{{ .Values.agentk8sglue.image.repository }}:{{ .Values.enterpriseFeatures.agentImageTagOverride }}"
           {{- else }}
-          image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.agentk8sglue.image.registry) }}{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
           {{- end }}
           command:
             - /bin/sh
@@ -59,9 +59,9 @@ spec:
       containers:
         - name: k8s-glue
           {{- if .Values.enterpriseFeatures.enabled }}
-          image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.enterpriseFeatures.agentImageTagOverride }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.agentk8sglue.image.registry) }}{{ .Values.agentk8sglue.image.repository }}:{{ .Values.enterpriseFeatures.agentImageTagOverride }}"
           {{- else }}
-          image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.agentk8sglue.image.registry) }}{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
           {{- end }}
           imagePullPolicy: IfNotPresent
           command:

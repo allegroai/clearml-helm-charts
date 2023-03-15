@@ -60,7 +60,7 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agentk8sglue | object | `{"additionalClusterRoleBindings":[],"additionalRoleBindings":[],"affinity":{},"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"affinity":{},"annotations":{},"containerSecurityContext":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"podSecurityContext":{},"priorityClassName":"","resources":{},"schedulerName":"","tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerCustomBashScript":"","containerSecurityContext":{},"customBashScript":"","debugMode":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"labels":{},"nodeSelector":{},"podSecurityContext":{},"queue":"default","replicaCount":1,"serviceExistingAccountName":"","taskAsJob":false,"tolerations":[],"volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
+| agentk8sglue | object | `{"additionalClusterRoleBindings":[],"additionalRoleBindings":[],"affinity":{},"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"affinity":{},"annotations":{},"containerSecurityContext":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"podSecurityContext":{},"priorityClassName":"","resources":{},"schedulerName":"","tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerCustomBashScript":"","containerSecurityContext":{},"customBashScript":"","debugMode":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"registry":"","repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"labels":{},"nodeSelector":{},"podSecurityContext":{},"queue":"default","replicaCount":1,"serviceExistingAccountName":"","taskAsJob":false,"tolerations":[],"volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
 | agentk8sglue.additionalClusterRoleBindings | list | `[]` | additional existing ClusterRoleBindings |
 | agentk8sglue.additionalRoleBindings | list | `[]` | additional existing RoleBindings |
 | agentk8sglue.affinity | object | `{}` | affinity setup for Agent pod (example in values.yaml comments) |
@@ -92,7 +92,7 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | agentk8sglue.extraEnvs | list | `[]` | Extra Environment variables for Glue Agent |
 | agentk8sglue.fileMounts | list | `[]` | file definition for Glue Agent (example in values.yaml comments) |
 | agentk8sglue.fileServerUrlReference | string | `"https://files.clear.ml"` | Reference to File server url |
-| agentk8sglue.image | object | `{"repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"}` | Glue Agent image configuration |
+| agentk8sglue.image | object | `{"registry":"","repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"}` | Glue Agent image configuration |
 | agentk8sglue.labels | object | `{}` | labels setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.nodeSelector | object | `{}` | nodeSelector setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.podSecurityContext | object | `{}` | container securityContext setup for Agent pod (example in values.yaml comments) |
@@ -123,6 +123,8 @@ Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
 | enterpriseFeatures.queues | string | `nil` | ClearML queues and related template OVERRIDES used this agent will consume |
 | enterpriseFeatures.serviceAccountClusterAccess | bool | `false` | service account access every namespace flag |
 | enterpriseFeatures.useOwnerToken | bool | `true` | Agent must use owner Token |
+| global | object | `{"imageRegistry":"docker.io"}` | Global parameters section |
+| global.imageRegistry | string | `"docker.io"` | Images registry |
 | imageCredentials | object | `{"email":"someone@host.com","enabled":false,"existingSecret":"","password":"pwd","registry":"docker.io","username":"someone"}` | Private image registry configuration |
 | imageCredentials.email | string | `"someone@host.com"` | Email |
 | imageCredentials.enabled | bool | `false` | Use private authentication mode |

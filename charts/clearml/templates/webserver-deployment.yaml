@@ -40,7 +40,7 @@ spec:
       initContainers:
         {{- if .Values.enterpriseFeatures.airGappedDocumentation.enabled }}
         - name: init-airgap-docs
-          image: "{{ .Values.enterpriseFeatures.airGappedDocumentation.image.repository }}:{{ .Values.enterpriseFeatures.airGappedDocumentation.image.tag | default .Chart.AppVersion }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.enterpriseFeatures.airGappedDocumentation.image.registry) }}{{ .Values.enterpriseFeatures.airGappedDocumentation.image.repository }}:{{ .Values.enterpriseFeatures.airGappedDocumentation.image.tag | default .Chart.AppVersion }}"
           command:
             - /bin/sh
             - -c
@@ -57,9 +57,9 @@ spec:
         {{- end }}
         - name: init-webserver
           {{- if .Values.enterpriseFeatures.enabled }}
-          image: "{{ .Values.webserver.image.repository }}:{{ .Values.enterpriseFeatures.webserverImageTagOverride }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.webserver.image.registry) }}{{ .Values.webserver.image.repository }}:{{ .Values.enterpriseFeatures.webserverImageTagOverride }}"
           {{- else }}
-          image: "{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.webserver.image.registry) }}{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag }}"
           {{- end }}
           command:
             - /bin/sh
@@ -75,9 +75,9 @@ spec:
       containers:
         - name: clearml-webserver
           {{- if .Values.enterpriseFeatures.enabled }}
-          image: "{{ .Values.webserver.image.repository }}:{{ .Values.enterpriseFeatures.webserverImageTagOverride }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.webserver.image.registry) }}{{ .Values.webserver.image.repository }}:{{ .Values.enterpriseFeatures.webserverImageTagOverride }}"
           {{- else }}
-          image: "{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.webserver.image.registry) }}{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag }}"
           {{- end }}
           imagePullPolicy: {{ .Values.webserver.image.pullPolicy }}
           ports:

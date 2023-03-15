@@ -47,9 +47,9 @@ spec:
       initContainers:
         - name: init-fileserver
           {{- if .Values.enterpriseFeatures.enabled }}
-          image: "{{ .Values.fileserver.image.repository }}:{{ .Values.enterpriseFeatures.fileserverImageTagOverride }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.fileserver.image.registry) }}{{ .Values.fileserver.image.repository }}:{{ .Values.enterpriseFeatures.fileserverImageTagOverride }}"
           {{- else }}
-          image: "{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.fileserver.image.registry) }}{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag }}"
           {{- end }}
           command:
             - /bin/sh
@@ -65,9 +65,9 @@ spec:
       containers:
         - name: clearml-fileserver
           {{- if .Values.enterpriseFeatures.enabled }}
-          image: "{{ .Values.fileserver.image.repository }}:{{ .Values.enterpriseFeatures.fileserverImageTagOverride }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.fileserver.image.registry) }}{{ .Values.fileserver.image.repository }}:{{ .Values.enterpriseFeatures.fileserverImageTagOverride }}"
           {{- else }}
-          image: "{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.fileserver.image.registry) }}{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag }}"
           {{- end }}
           imagePullPolicy: {{ .Values.fileserver.image.pullPolicy }}
           ports:

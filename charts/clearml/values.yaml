@@ -1,3 +1,8 @@
+# -- Global parameters section
+global:
+  # -- Images registry
+  imageRegistry: "docker.io"
+
 # -- Container registry configuration
 imageCredentials:
   # -- Use private authentication mode
@@ -52,6 +57,7 @@ apiserver:
   prepopulateEnabled: true
   # -- Api Server image configuration
   image:
+    registry: ""
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
     tag: "1.9.2-317"
@@ -158,6 +164,7 @@ fileserver:
   enabled: true
   # -- File Server image configuration
   image:
+    registry: ""
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
     tag: "1.9.2-317"
@@ -228,6 +235,7 @@ webserver:
   enabled: true
   # -- Web Server image configuration
   image:
+    registry: ""
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
     tag: "1.9.2-317"
@@ -402,6 +410,7 @@ enterpriseFeatures:
     enabled: false
     # -- Air gapped documentation image configuration
     image:
+      registry: ""
       repository: ""
       tag: "4"
   # -- set this value AND overrideReferenceFileUrl if external endpoint exposure is in place (like a LoadBalancer)

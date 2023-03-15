@@ -53,6 +53,22 @@ app.kubernetes.io/instance: {{ include "clearmlAgent.name" . }}
 {{- end }}
 
 {{/*
+Registry name
+*/}}
+{{- define "registryNamePrefix" -}}
+  {{- $registryName := "" -}}
+  {{- if .globalValues }}
+    {{- if .globalValues.imageRegistry }}
+      {{- $registryName = printf "%s/" .globalValues.imageRegistry -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if .imageRegistryValue }}
+    {{- $registryName = printf "%s/" .imageRegistryValue -}}
+  {{- end -}}
+{{- printf "%s" $registryName }}
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "clearmlAgent.serviceAccountName" -}}
