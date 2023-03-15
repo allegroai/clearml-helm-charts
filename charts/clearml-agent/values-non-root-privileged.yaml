@@ -26,3 +26,6 @@ agentk8sglue:
         drop: ["ALL"]
       seccompProfile:
         type: RuntimeDefault
+
+enterpriseFeatures:
+  enabled: true

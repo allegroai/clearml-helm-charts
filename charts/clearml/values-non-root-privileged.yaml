@@ -29,6 +29,7 @@ webserver:
       type: RuntimeDefault
 
 enterpriseFeatures:
+  enabled: true
   clearmlApplications:
     containerSecurityContext:
       runAsUser: 1000

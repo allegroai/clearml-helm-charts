@@ -119,6 +119,8 @@ Before issuing helm upgrade:
 
 ## Non root/privileged environments
 
+*This feature is available for Enterprise version only*
+
 In environments like Openshift or Tanzu it can be required to run non-root/non-privileged pods/containers.
 In this case it's recommended to use values-non-root-privileged.yaml as base for override file.
 
