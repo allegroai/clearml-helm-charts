@@ -5,6 +5,10 @@ metadata:
   name: {{ include "apiserver.referenceName" . }}
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
+  {{- with .Values.apiserver.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.apiserver.service.type }}
   ports:

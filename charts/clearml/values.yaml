@@ -63,6 +63,8 @@ apiserver:
     tag: "1.9.2-317"
   # -- Api Server internal service configuration
   service:
+    # -- specific annotation for Api Server service
+    annotations: {}
     type: NodePort
     port: 8008
     # -- If service.type set to NodePort, this will be set to service's nodePort field.
@@ -170,6 +172,8 @@ fileserver:
     tag: "1.9.2-317"
   # -- File Server internal service configuration
   service:
+    # -- specific annotation for File Server service
+    annotations: {}
     type: NodePort
     port: 8081
     # -- If service.type set to NodePort, this will be set to service's nodePort field.
@@ -241,6 +245,8 @@ webserver:
     tag: "1.9.2-317"
   # -- Web Server internal service configuration
   service:
+    # -- specific annotation for Web Server service
+    annotations: {}
     type: NodePort
     port: 8080
     # -- If service.type set to NodePort, this will be set to service's nodePort field.

@@ -5,6 +5,10 @@ metadata:
   name: {{ include "fileserver.referenceName" . }}
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
+  {{- with .Values.fileserver.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.fileserver.service.type }}
   ports:

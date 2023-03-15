@@ -5,6 +5,10 @@ metadata:
   name: {{ include "webserver.referenceName" . }}
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
+  {{- with .Values.webserver.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.webserver.service.type }}
   ports:

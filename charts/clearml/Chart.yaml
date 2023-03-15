@@ -42,3 +42,5 @@ annotations:
       description: non-root non-privileged mode
     - kind: added
       description: global registry parameter
+    - kind: added
+      description: services annotations
