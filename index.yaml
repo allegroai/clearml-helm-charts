@@ -3,6 +3,56 @@ entries:
   clearml:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: dependency chart updates
+        - kind: changed
+          description: improved securityContexts
+        - kind: added
+          description: images version update
+        - kind: added
+          description: non-root non-privileged mode
+        - kind: added
+          description: global registry parameter
+        - kind: added
+          description: services annotations
+    apiVersion: v2
+    appVersion: 1.9.2
+    created: "2023-03-16T07:42:55.2065573Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.8.3
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.31
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://helm.elastic.co
+      version: 7.17.3
+    description: MLOps platform
+    digest: 79afc852f08f2927d985cd52e1d91c7fb083c19f15f769ce99e46ae1274dc17d
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    kubeVersion: '>= 1.21.0-0 < 1.27.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-6.0.0/clearml-6.0.0.tgz
+    version: 6.0.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: additional rolebindings for apps
     apiVersion: v2
@@ -2793,6 +2843,40 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: podSecurityContext/containerSecurityContext split
+        - kind: added
+          description: images version update
+        - kind: added
+          description: non-root non-privileged mode
+        - kind: added
+          description: global registry parameter
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2023-03-16T07:42:55.393607106Z"
+    description: MLOps platform Task running agent
+    digest: 7122790e81e56dfe26a40206602723d1412f593b4b97390da0fa929d5a5aa937
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.27.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-4.0.0/clearml-agent-4.0.0.tgz
+    version: 4.0.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: support for existing rolebindings and clusterrolebindings
     apiVersion: v2
     appVersion: "1.24"
@@ -3640,4 +3724,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-09T11:43:28.823334144Z"
+generated: "2023-03-16T07:42:55.394162103Z"
