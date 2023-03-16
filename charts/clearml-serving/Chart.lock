@@ -1,0 +1,12 @@
+dependencies:
+- name: kafka
+  repository: https://charts.bitnami.com/bitnami
+  version: 21.4.0
+- name: prometheus
+  repository: https://prometheus-community.github.io/helm-charts
+  version: 19.7.2
+- name: grafana
+  repository: https://grafana.github.io/helm-charts
+  version: 6.52.3
+digest: sha256:b28d01875a50b24230ba164d14671225b71d79172192a97e345661e4832f484b
+generated: "2023-03-16T09:10:35.77395+01:00"
