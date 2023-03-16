@@ -1,3 +1,7 @@
+# These values are for ENTERPRISE version only and they need to be adapted to specific infrastructure needs
+# containerSecurityContext is highly related to Kubernetes distribution used/configuration and will probably
+# need to be customized accordingly
+
 agentk8sglue:
   defaultContainerImage: "python:3.9"
   containerSecurityContext:

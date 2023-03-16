@@ -1,3 +1,7 @@
+# These values are for ENTERPRISE version only and they need to be adapted to specific infrastructure needs
+# containerSecurityContext is highly related to Kubernetes distribution used/configuration and will probably
+# need to be customized accordingly
+
 apiserver:
   containerSecurityContext:
     runAsUser: 1000

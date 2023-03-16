@@ -1,6 +1,6 @@
 # ClearML Kubernetes Agent
 
-![Version: 4.0.0](https://img.shields.io/badge/Version-4.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 4.0.1](https://img.shields.io/badge/Version-4.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
 MLOps platform Task running agent
 
@@ -40,12 +40,17 @@ Before issuing helm upgrade:
 
 * if using securityContexts check for new value form in values.yaml (podSecurityContext and containerSecurityContext)
 
-## Non root/privileged environments
+## ENTERPRISE Version
+
+There are some specific Enterprise version features that can be enabled only with specific Enterprise licensed images.
+Enabling this features on OSS version can cause the entire installation to break.
+
+### Non root/privileged environments
 
 *This feature is available for Enterprise version only*
 
 In environments like Openshift or Tanzu it can be required to run non-root/non-privileged pods/containers.
-In this case it's recommended to use values-non-root-privileged.yaml as base for override file.
+In this case it's recommended to use `values-enterprise-non-root-privileged.yaml` as base for override file.
 
 Keep in mind it's not possible to install packages on non-root containers so images used for Tasks must already have python and pip installed.
 
