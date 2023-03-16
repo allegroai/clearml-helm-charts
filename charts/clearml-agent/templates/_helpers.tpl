@@ -53,6 +53,22 @@ app.kubernetes.io/instance: {{ include "clearmlAgent.name" . }}
 {{- end }}
 
 {{/*
+Registry name
+*/}}
+{{- define "registryNamePrefix" -}}
+  {{- $registryName := "" -}}
+  {{- if .globalValues }}
+    {{- if .globalValues.imageRegistry }}
+      {{- $registryName = printf "%s/" .globalValues.imageRegistry -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if .imageRegistryValue }}
+    {{- $registryName = printf "%s/" .imageRegistryValue -}}
+  {{- end -}}
+{{- printf "%s" $registryName }}
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "clearmlAgent.serviceAccountName" -}}
@@ -105,7 +121,7 @@ imagePullSecrets:
 schedulerName: {{ .value.templateOverrides.schedulerName | default (.main.Values.agentk8sglue.basePodTemplate.schedulerName) }}
 restartPolicy: Never
 securityContext:
-  {{- .value.templateOverrides.securityContext | default .main.Values.agentk8sglue.basePodTemplate.securityContext | toYaml | nindent 2 }}
+  {{- .value.templateOverrides.podSecurityContext | default .main.Values.agentk8sglue.basePodTemplate.podSecurityContext | toYaml | nindent 2 }}
 hostAliases:
   {{- .value.templateOverrides.hostAliases | default .main.Values.agentk8sglue.basePodTemplate.hostAliases | toYaml | nindent 2 }}
 volumes:
@@ -129,6 +145,8 @@ priorityClassName: {{ .value.templateOverrides.priorityClassName | default .main
 containers:
 - resources:
     {{- .value.templateOverrides.resources | default .main.Values.agentk8sglue.basePodTemplate.resources | toYaml | nindent 4 }}
+  securityContext:
+    {{- .value.templateOverrides.containerSecurityContext | default .main.Values.agentk8sglue.basePodTemplate.containerSecurityContext | toYaml | nindent 4 }}
   ports:
     - containerPort: 10022
   volumeMounts:

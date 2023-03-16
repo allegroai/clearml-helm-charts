@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml-agent
 description: MLOps platform Task running agent
 type: application
-version: "3.7.0"
+version: "4.0.0"
 appVersion: "1.24"
 kubeVersion: ">= 1.21.0-0 < 1.27.0-0"
 home: https://clear.ml
@@ -21,4 +21,10 @@ keywords:
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: support for existing rolebindings and clusterrolebindings
+      description: podSecurityContext/containerSecurityContext split
+    - kind: added
+      description: images version update
+    - kind: added
+      description: non-root non-privileged mode
+    - kind: added
+      description: global registry parameter

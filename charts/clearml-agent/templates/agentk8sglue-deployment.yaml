@@ -28,176 +28,181 @@ spec:
       {{- end }}
       {{- end }}
       serviceAccountName: {{ include "clearmlAgent.serviceAccountName" . }}
-      securityContext: {{ toYaml .Values.agentk8sglue.securityContext | nindent 8 }}
+      securityContext:
+        {{ toYaml .Values.agentk8sglue.podSecurityContext | nindent 8 }}
       initContainers:
-      - name: init-k8s-glue
-        {{- if .Values.enterpriseFeatures.enabled }}
-        image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.enterpriseFeatures.agentImageTagOverride }}"
-        {{- else }}
-        image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
-        {{- end }}
-        command:
-          - /bin/sh
-          - -c
-          - >
-            set -x;
-            while [ $(curl {{ if not .Values.agentk8sglue.clearmlcheckCertificate }}--insecure{{ end }} -sw '%{http_code}' "{{.Values.agentk8sglue.apiServerUrlReference}}/debug.ping" -o /dev/null) -ne 200 ] ; do
-              echo "waiting for apiserver" ;
-              sleep 5 ;
-            done;
-            while [[ $(curl {{ if not .Values.agentk8sglue.clearmlcheckCertificate }}--insecure{{ end }} -sw '%{http_code}' "{{.Values.agentk8sglue.fileServerUrlReference}}/" -o /dev/null) =~ 403|405 ]] ; do
-              echo "waiting for fileserver" ;
-              sleep 5 ;
-            done;
-            while [ $(curl {{ if not .Values.agentk8sglue.clearmlcheckCertificate }}--insecure{{ end }} -sw '%{http_code}' "{{.Values.agentk8sglue.webServerUrlReference}}/" -o /dev/null) -ne 200 ] ; do
-              echo "waiting for webserver" ;
-              sleep 5 ;
-            done
-      containers:
-      - name: k8s-glue
-        {{- if .Values.enterpriseFeatures.enabled }}
-        image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.enterpriseFeatures.agentImageTagOverride }}"
-        {{- else }}
-        image: "{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
-        {{- end }}
-        imagePullPolicy: IfNotPresent
-        command:
-          - /bin/bash
-          - -c
-          - >
-            export PATH=$PATH:$HOME/bin;
-            source /root/.bashrc && /root/entrypoint.sh
-        volumeMounts:
-          - name: {{ include "clearmlAgent.name" . }}-pt
-            mountPath: /root/template
-          {{ if .Values.clearml.clearmlConfig }}
-          - name: k8sagent-clearml-conf-volume
-            mountPath: /root/clearml.conf
-            subPath: clearml.conf
-            readOnly: true
-          {{- end }}
-          {{- if .Values.agentk8sglue.volumeMounts }}
-          {{- toYaml .Values.agentk8sglue.volumeMounts | nindent 10 }}
-          {{- end }}
-          {{- range .Values.agentk8sglue.fileMounts }}
-          - name: filemounts
-            mountPath: "{{ .folderPath }}/{{ .name }}"
-            subPath: "{{ .name }}"
-            readOnly: true
-          {{- end }}
-        env:
-          - name: CLEARML_API_HOST
-            value: "{{.Values.agentk8sglue.apiServerUrlReference}}"
-          - name: CLEARML_WEB_HOST
-            value: "{{.Values.agentk8sglue.webServerUrlReference}}"
-          - name: CLEARML_FILES_HOST
-            value: "{{.Values.agentk8sglue.fileServerUrlReference}}"
-          {{- if not .Values.agentk8sglue.clearmlcheckCertificate }}
-          - name: CLEARML_API_HOST_VERIFY_CERT
-            value: "false"
-          {{- end }}
-          {{- if .Values.sessions.portModeEnabled }}
-          - name: K8S_GLUE_EXTRA_ARGS
-            value: "--namespace {{ .Release.Namespace }} --template-yaml /root/template/template.yaml \
-                    --ports-mode --num-of-services {{ .Values.sessions.maxServices }} \
-                    --base-port {{ .Values.sessions.startingPort }} \
-                    --gateway-address {{ .Values.sessions.externalIP }}{{ if .Values.enterpriseFeatures.enabled }}{{ if .Values.enterpriseFeatures.useOwnerToken }} --use-owner-token{{ end }}{{ end }}"
-          {{- if .Values.sessions.dynamicSvcs }}
-          - name: CLEARML_K8S_GLUE_POD_POST_APPLY_CMD
-            value: "kubectl -n {namespace} apply -f ~/template/services-{pod_number}.yaml ; kubectl -n {namespace} label svc clearml-session-{pod_number} service-for={pod_name}"
-          - name: CLEARML_K8S_GLUE_POD_POST_DELETE_CMD
-            value: "kubectl -n {namespace} delete svc -l service-for={pod_name}"
-          {{- end }}
-          {{- else}}
-          - name: K8S_GLUE_EXTRA_ARGS
-            value: "--namespace {{ .Release.Namespace }} --template-yaml /root/template/template.yaml \
-                    --max-pods {{.Values.enterpriseFeatures.maxPods}}{{ if .Values.enterpriseFeatures.enabled }}{{ if .Values.enterpriseFeatures.useOwnerToken }} --use-owner-token{{ end }}{{ end }}"
-          {{- end }}
-          {{- if .Values.clearml.clearmlConfig }}
-          - name: CLEARML_CONFIG_FILE
-            value: /root/clearml.conf
-          {{- end }}
-          - name: CLEARML_K8S_GLUE_LIMIT_POD_LABEL
-            value: "ai.allegro.agent.serial=pod-{pod_number}"
-          - name: CLEARML_K8S_SECRETS_LIST_FILE
-            value: /root/template/secrets.yaml
-          - name: K8S_DEFAULT_NAMESPACE
-            value: "{{ .Release.Namespace }}"
-          - name: CLEARML_API_ACCESS_KEY
-            valueFrom:
-              secretKeyRef:
-                name: {{ include "clearmlAgent.name" . }}-ac
-                key: agentk8sglue_key
-          - name: CLEARML_API_SECRET_KEY
-            valueFrom:
-              secretKeyRef:
-                name: {{ include "clearmlAgent.name" . }}-ac
-                key: agentk8sglue_secret
-          - name: CLEARML_WORKER_ID
-            value: {{ include "clearmlAgent.name" . }}
-          - name: CLEARML_AGENT_UPDATE_REPO
-            value: ""
-          - name: FORCE_CLEARML_AGENT_REPO
-            value: "" 
-          - name: CLEARML_DOCKER_IMAGE
-            value: "{{.Values.agentk8sglue.defaultContainerImage}}"
-          {{ if .Values.agentk8sglue.customBashScript }}
-          - name: CLEARML_K8S_GLUE_EXTRA_BASH_SCRIPT
-            value: "{{.Values.agentk8sglue.customBashScript}}"
-          {{- end }}
-          {{ if .Values.agentk8sglue.containerCustomBashScript }}
-          - name: CLEARML_K8S_GLUE_POD_BASH_SCRIPT
-            value: "{{.Values.agentk8sglue.containerCustomBashScript}}"
-          {{- end }}
-          {{- if .Values.agentk8sglue.debugMode }}
-          - name: "CLEARML_K8S_GLUE_DEBUG"
-            value: "1"
-          {{- end }}
-          {{- if .Values.agentk8sglue.extraEnvs }}
-          {{ toYaml .Values.agentk8sglue.extraEnvs | nindent 10 }}
-          {{- end }}
-          {{- if  .Values.sessions.portModeEnabled }}
-          {{- if  .Values.sessions.setInteractiveQueuesTag }}
-          - name: "CLEARML_K8S_GLUE_SET_QUEUE_SYSTEM_TAGS"
-            value: "interactive"
-          {{- end }}
-          {{- end }}
-          {{- if .Values.agentk8sglue.taskAsJob }}
-          - name: "CLEARML_K8S_GLUE_KIND"
-            value: "job"
-          {{- else }}
-          - name: "CLEARML_K8S_GLUE_KIND"
-            value: "pod"
-          {{- end }}
+        - name: init-k8s-glue
           {{- if .Values.enterpriseFeatures.enabled }}
-          - name: K8S_GLUE_QUEUE
-            value: {{ include "agentk8sglue.queues" . | quote }}
-          - name: CLEARML_K8S_GLUE_CREATE_QUEUE
-            value: {{ include "agentk8sglue.createQueues" . | quote }}
-          - name: CLEARML_K8S_GLUE_APPLY_VAULT_ENV_VARS
-            value: {{ .Values.enterpriseFeatures.applyVaultEnvVars | quote }}
-          - name: "CLEARML_K8S_GLUE_POD_MIN_RES_FIELD"
-            value: {{ .Values.enterpriseFeatures.monitoredResources.minResourcesFieldName }}
-          - name: "CLEARML_K8S_GLUE_MAX_RESOURCES"
-            value: "{{.Values.enterpriseFeatures.monitoredResources.maxResources}}"
-          - name: "CLEARML_K8S_GLUE_POD_MAX_RES_FIELD"
-            value: {{ .Values.enterpriseFeatures.monitoredResources.maxResourcesFieldName }}
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.agentk8sglue.image.registry) }}{{ .Values.agentk8sglue.image.repository }}:{{ .Values.enterpriseFeatures.agentImageTagOverride }}"
           {{- else }}
-          - name: K8S_GLUE_QUEUE
-            value: {{ .Values.agentk8sglue.queue }}
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.agentk8sglue.image.registry) }}{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
           {{- end }}
-      {{- with .Values.agentk8sglue.nodeSelector}}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.agentk8sglue.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.agentk8sglue.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+          command:
+            - /bin/sh
+            - -c
+            - >
+              set -x;
+              while [ $(curl {{ if not .Values.agentk8sglue.clearmlcheckCertificate }}--insecure{{ end }} -sw '%{http_code}' "{{.Values.agentk8sglue.apiServerUrlReference}}/debug.ping" -o /dev/null) -ne 200 ] ; do
+                echo "waiting for apiserver" ;
+                sleep 5 ;
+              done;
+              while [[ $(curl {{ if not .Values.agentk8sglue.clearmlcheckCertificate }}--insecure{{ end }} -sw '%{http_code}' "{{.Values.agentk8sglue.fileServerUrlReference}}/" -o /dev/null) =~ 403|405 ]] ; do
+                echo "waiting for fileserver" ;
+                sleep 5 ;
+              done;
+              while [ $(curl {{ if not .Values.agentk8sglue.clearmlcheckCertificate }}--insecure{{ end }} -sw '%{http_code}' "{{.Values.agentk8sglue.webServerUrlReference}}/" -o /dev/null) -ne 200 ] ; do
+                echo "waiting for webserver" ;
+                sleep 5 ;
+              done
+          securityContext:
+            {{ toYaml .Values.agentk8sglue.containerSecurityContext | nindent 12 }}
+      containers:
+        - name: k8s-glue
+          {{- if .Values.enterpriseFeatures.enabled }}
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.agentk8sglue.image.registry) }}{{ .Values.agentk8sglue.image.repository }}:{{ .Values.enterpriseFeatures.agentImageTagOverride }}"
+          {{- else }}
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.agentk8sglue.image.registry) }}{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
+          {{- end }}
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/bash
+            - -c
+            - >
+              export PATH=$PATH:$HOME/bin;
+              source /root/.bashrc && /root/entrypoint.sh
+          volumeMounts:
+            - name: {{ include "clearmlAgent.name" . }}-pt
+              mountPath: /root/template
+            {{ if .Values.clearml.clearmlConfig }}
+            - name: k8sagent-clearml-conf-volume
+              mountPath: /root/clearml.conf
+              subPath: clearml.conf
+              readOnly: true
+            {{- end }}
+            {{- if .Values.agentk8sglue.volumeMounts }}
+            {{- toYaml .Values.agentk8sglue.volumeMounts | nindent 10 }}
+            {{- end }}
+            {{- range .Values.agentk8sglue.fileMounts }}
+            - name: filemounts
+              mountPath: "{{ .folderPath }}/{{ .name }}"
+              subPath: "{{ .name }}"
+              readOnly: true
+            {{- end }}
+          env:
+            - name: CLEARML_API_HOST
+              value: "{{.Values.agentk8sglue.apiServerUrlReference}}"
+            - name: CLEARML_WEB_HOST
+              value: "{{.Values.agentk8sglue.webServerUrlReference}}"
+            - name: CLEARML_FILES_HOST
+              value: "{{.Values.agentk8sglue.fileServerUrlReference}}"
+            {{- if not .Values.agentk8sglue.clearmlcheckCertificate }}
+            - name: CLEARML_API_HOST_VERIFY_CERT
+              value: "false"
+            {{- end }}
+            {{- if .Values.sessions.portModeEnabled }}
+            - name: K8S_GLUE_EXTRA_ARGS
+              value: "--namespace {{ .Release.Namespace }} --template-yaml /root/template/template.yaml \
+                      --ports-mode --num-of-services {{ .Values.sessions.maxServices }} \
+                      --base-port {{ .Values.sessions.startingPort }} \
+                      --gateway-address {{ .Values.sessions.externalIP }}{{ if .Values.enterpriseFeatures.enabled }}{{ if .Values.enterpriseFeatures.useOwnerToken }} --use-owner-token{{ end }}{{ end }}"
+            {{- if .Values.sessions.dynamicSvcs }}
+            - name: CLEARML_K8S_GLUE_POD_POST_APPLY_CMD
+              value: "kubectl -n {namespace} apply -f ~/template/services-{pod_number}.yaml ; kubectl -n {namespace} label svc clearml-session-{pod_number} service-for={pod_name}"
+            - name: CLEARML_K8S_GLUE_POD_POST_DELETE_CMD
+              value: "kubectl -n {namespace} delete svc -l service-for={pod_name}"
+            {{- end }}
+            {{- else}}
+            - name: K8S_GLUE_EXTRA_ARGS
+              value: "--namespace {{ .Release.Namespace }} --template-yaml /root/template/template.yaml \
+                      --max-pods {{.Values.enterpriseFeatures.maxPods}}{{ if .Values.enterpriseFeatures.enabled }}{{ if .Values.enterpriseFeatures.useOwnerToken }} --use-owner-token{{ end }}{{ end }}"
+            {{- end }}
+            {{- if .Values.clearml.clearmlConfig }}
+            - name: CLEARML_CONFIG_FILE
+              value: /root/clearml.conf
+            {{- end }}
+            - name: CLEARML_K8S_GLUE_LIMIT_POD_LABEL
+              value: "ai.allegro.agent.serial=pod-{pod_number}"
+            - name: CLEARML_K8S_SECRETS_LIST_FILE
+              value: /root/template/secrets.yaml
+            - name: K8S_DEFAULT_NAMESPACE
+              value: "{{ .Release.Namespace }}"
+            - name: CLEARML_API_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "clearmlAgent.name" . }}-ac
+                  key: agentk8sglue_key
+            - name: CLEARML_API_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "clearmlAgent.name" . }}-ac
+                  key: agentk8sglue_secret
+            - name: CLEARML_WORKER_ID
+              value: {{ include "clearmlAgent.name" . }}
+            - name: CLEARML_AGENT_UPDATE_REPO
+              value: ""
+            - name: FORCE_CLEARML_AGENT_REPO
+              value: "" 
+            - name: CLEARML_DOCKER_IMAGE
+              value: "{{.Values.agentk8sglue.defaultContainerImage}}"
+            {{- if .Values.agentk8sglue.customBashScript }}
+            - name: CLEARML_K8S_GLUE_EXTRA_BASH_SCRIPT
+              value: "{{.Values.agentk8sglue.customBashScript}}"
+            {{- end }}
+            {{- if .Values.agentk8sglue.containerCustomBashScript }}
+            - name: CLEARML_K8S_GLUE_POD_BASH_SCRIPT
+              value: "{{.Values.agentk8sglue.containerCustomBashScript}}"
+            {{- end }}
+            {{- if .Values.agentk8sglue.debugMode }}
+            - name: "CLEARML_K8S_GLUE_DEBUG"
+              value: "1"
+            {{- end }}
+            {{- if  .Values.sessions.portModeEnabled }}
+            {{- if  .Values.sessions.setInteractiveQueuesTag }}
+            - name: "CLEARML_K8S_GLUE_SET_QUEUE_SYSTEM_TAGS"
+              value: "interactive"
+            {{- end }}
+            {{- end }}
+            {{- if .Values.agentk8sglue.taskAsJob }}
+            - name: "CLEARML_K8S_GLUE_KIND"
+              value: "job"
+            {{- else }}
+            - name: "CLEARML_K8S_GLUE_KIND"
+              value: "pod"
+            {{- end }}
+            {{- if .Values.enterpriseFeatures.enabled }}
+            - name: K8S_GLUE_QUEUE
+              value: {{ include "agentk8sglue.queues" . | quote }}
+            - name: CLEARML_K8S_GLUE_CREATE_QUEUE
+              value: {{ include "agentk8sglue.createQueues" . | quote }}
+            - name: CLEARML_K8S_GLUE_APPLY_VAULT_ENV_VARS
+              value: {{ .Values.enterpriseFeatures.applyVaultEnvVars | quote }}
+            - name: "CLEARML_K8S_GLUE_POD_MIN_RES_FIELD"
+              value: {{ .Values.enterpriseFeatures.monitoredResources.minResourcesFieldName }}
+            - name: "CLEARML_K8S_GLUE_MAX_RESOURCES"
+              value: "{{.Values.enterpriseFeatures.monitoredResources.maxResources}}"
+            - name: "CLEARML_K8S_GLUE_POD_MAX_RES_FIELD"
+              value: {{ .Values.enterpriseFeatures.monitoredResources.maxResourcesFieldName }}
+            {{- else }}
+            - name: K8S_GLUE_QUEUE
+              value: {{ .Values.agentk8sglue.queue }}
+            {{- end }}
+            {{- if .Values.agentk8sglue.extraEnvs }}
+            {{ toYaml .Values.agentk8sglue.extraEnvs | nindent 12 }}
+            {{- end }}
+          {{- with .Values.agentk8sglue.nodeSelector}}
+          nodeSelector:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          {{- with .Values.agentk8sglue.affinity }}
+          affinity:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          {{- with .Values.agentk8sglue.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          securityContext:
+            {{ toYaml .Values.agentk8sglue.containerSecurityContext | nindent 12 }}
       volumes:
         - name: {{ include "clearmlAgent.name" . }}-pt
           configMap:
@@ -210,11 +215,11 @@ spec:
             - key: clearml.conf
               path: clearml.conf
         {{ end }}
-        {{- if .Values.agentk8sglue.volumes }}
-        {{- toYaml .Values.agentk8sglue.volumes | nindent 8 }}
-        {{- end }}
         {{ if .Values.agentk8sglue.fileMounts }}
         - name: filemounts
           secret:
             secretName: {{ include "clearmlAgent.name" . }}-afm
+        {{ end }}
+        {{- if .Values.agentk8sglue.volumes }}
+        {{- toYaml .Values.agentk8sglue.volumes | nindent 8 }}
         {{- end }}

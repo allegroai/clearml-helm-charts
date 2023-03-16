@@ -42,29 +42,32 @@ spec:
         - name: fileserver-data
           emptyDir: {}
         {{- end }}
-      securityContext: {{ toYaml .Values.fileserver.podSecurityContext | nindent 8 }}
+      securityContext:
+        {{ toYaml .Values.fileserver.podSecurityContext | nindent 8 }}
       initContainers:
-          - name: init-fileserver
-            {{- if .Values.enterpriseFeatures.enabled }}
-            image: "{{ .Values.fileserver.image.repository }}:{{ .Values.enterpriseFeatures.fileserverImageTagOverride }}"
-            {{- else }}
-            image: "{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag }}"
-            {{- end }}
-            command:
-              - /bin/sh
-              - -c
-              - >
-                set -x;
-                while [ $(curl -sw '%{http_code}' "http://{{ include "apiserver.referenceName" . }}:{{ .Values.apiserver.service.port }}/debug.ping" -o /dev/null) -ne 200 ] ; do
-                  echo "waiting for apiserver" ;
-                  sleep 5 ;
-                done
+        - name: init-fileserver
+          {{- if .Values.enterpriseFeatures.enabled }}
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.fileserver.image.registry) }}{{ .Values.fileserver.image.repository }}:{{ .Values.enterpriseFeatures.fileserverImageTagOverride }}"
+          {{- else }}
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.fileserver.image.registry) }}{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag }}"
+          {{- end }}
+          command:
+            - /bin/sh
+            - -c
+            - >
+              set -x;
+              while [ $(curl -sw '%{http_code}' "http://{{ include "apiserver.referenceName" . }}:{{ .Values.apiserver.service.port }}/debug.ping" -o /dev/null) -ne 200 ] ; do
+                echo "waiting for apiserver" ;
+                sleep 5 ;
+              done
+          securityContext:
+            {{ toYaml .Values.fileserver.containerSecurityContext | nindent 12 }}
       containers:
         - name: clearml-fileserver
           {{- if .Values.enterpriseFeatures.enabled }}
-          image: "{{ .Values.fileserver.image.repository }}:{{ .Values.enterpriseFeatures.fileserverImageTagOverride }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.fileserver.image.registry) }}{{ .Values.fileserver.image.repository }}:{{ .Values.enterpriseFeatures.fileserverImageTagOverride }}"
           {{- else }}
-          image: "{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag }}"
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.fileserver.image.registry) }}{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag }}"
           {{- end }}
           imagePullPolicy: {{ .Values.fileserver.image.pullPolicy }}
           ports:
@@ -116,6 +119,8 @@ spec:
               mountPath: /mnt/fileserver
           resources:
             {{- toYaml .Values.fileserver.resources | nindent 12 }}
+          securityContext:
+            {{ toYaml .Values.fileserver.containerSecurityContext | nindent 12 }}
       {{- with .Values.fileserver.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

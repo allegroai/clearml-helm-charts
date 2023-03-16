@@ -34,10 +34,6 @@ redis:
       size: 5Gi
       ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
       storageClass: null
-  cluster:
-    enabled: true
-  sentinel:
-    enabled: true
 mongodb:
   enabled: true
   architecture: replicaset

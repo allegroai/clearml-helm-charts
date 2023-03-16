@@ -1,3 +1,8 @@
+# -- Global parameters section
+global:
+  # -- Images registry
+  imageRegistry: "docker.io"
+
 # -- Container registry configuration
 imageCredentials:
   # -- Use private authentication mode
@@ -52,11 +57,14 @@ apiserver:
   prepopulateEnabled: true
   # -- Api Server image configuration
   image:
+    registry: ""
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
     tag: "1.9.2-317"
   # -- Api Server internal service configuration
   service:
+    # -- specific annotation for Api Server service
+    annotations: {}
     type: NodePort
     port: 8008
     # -- If service.type set to NodePort, this will be set to service's nodePort field.
@@ -112,7 +120,9 @@ apiserver:
   # -- Api Server affinity setup
   affinity: {}
   # -- Api Server pod security context
-  securityContext: {}
+  podSecurityContext: {}
+  # -- Api Server containers security context
+  containerSecurityContext: {}
   #   runAsUser: 1001
   #   fsGroup: 1001
   # -- reference for files declared in existing ConfigMap will be mounted and read by apiserver (examples in values.yaml)
@@ -156,11 +166,14 @@ fileserver:
   enabled: true
   # -- File Server image configuration
   image:
+    registry: ""
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
     tag: "1.9.2-317"
   # -- File Server internal service configuration
   service:
+    # -- specific annotation for File Server service
+    annotations: {}
     type: NodePort
     port: 8081
     # -- If service.type set to NodePort, this will be set to service's nodePort field.
@@ -202,7 +215,9 @@ fileserver:
   # -- File Server affinity setup
   affinity: {}
   # -- File Server pod security context
-  securityContext: {}
+  podSecurityContext: {}
+  # -- File Server containers security context
+  containerSecurityContext: {}
   #   runAsUser: 1001
   #   fsGroup: 1001
   # -- File server persistence settings
@@ -224,11 +239,14 @@ webserver:
   enabled: true
   # -- Web Server image configuration
   image:
+    registry: ""
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
     tag: "1.9.2-317"
   # -- Web Server internal service configuration
   service:
+    # -- specific annotation for Web Server service
+    annotations: {}
     type: NodePort
     port: 8080
     # -- If service.type set to NodePort, this will be set to service's nodePort field.
@@ -271,6 +289,8 @@ webserver:
   affinity: {}
   # -- Web Server pod security context
   podSecurityContext: {}
+  # -- Web Server containers security context
+  containerSecurityContext: {}
   #   runAsUser: 1001
   #   fsGroup: 1001
   # -- Additional specific webserver configurations
@@ -293,7 +313,8 @@ externalServices:
 # -- Configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml
 redis:
   enabled: true
-  usePassword: false
+  auth:
+    enabled: false
   databaseNumber: 0
   master:
     name: "{{ .Release.Name }}-redis-master"
@@ -305,8 +326,7 @@ redis:
       size: 5Gi
       ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
       storageClass: null
-  cluster:
-    enabled: false
+  architecture: standalone
 
 # -- Configuration from https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
 mongodb:
@@ -385,17 +405,18 @@ enterpriseFeatures:
   # -- Company ID
   defaultCompanyGuid: "d1bd92a3b039400cbafc60a7a5b1e52b"
   # -- Image tag override for apiserver enterprise version
-  apiserverImageTagOverride: "3.15.3-909"
+  apiserverImageTagOverride: "3.16.0-959"
   # -- Image tag override for fileserver enterprise version
-  fileserverImageTagOverride: "3.15.3-909"
+  fileserverImageTagOverride: "3.16.0-959"
   # -- Image tag override for webserver enterprise version
-  webserverImageTagOverride: "3.15.3-801"
+  webserverImageTagOverride: "3.16-922"
   # -- Air gapped documentation  configurations
   airGappedDocumentation:
     # -- Enable/Disable air gapped documentation deployment
     enabled: false
     # -- Air gapped documentation image configuration
     image:
+      registry: ""
       repository: ""
       tag: "4"
   # -- set this value AND overrideReferenceFileUrl if external endpoint exposure is in place (like a LoadBalancer)
@@ -431,11 +452,20 @@ enterpriseFeatures:
     replicaCount: 1
     # -- APPS extra envrinoment variables
     extraEnvs: []
+    # -- additional existing ClusterRoleBindings
     additionalClusterRoleBindings: []
     # - privileged
     # -- additional existing RoleBindings
     additionalRoleBindings: []
     # - privileged
+    # -- Custom Bash script for the APPS Agent pod ran by Glue Agent
+    customBashScript: ""
+    # -- Custom Bash script for the APPS Task Pods ran by Glue Agent
+    containerCustomBashScript: ""
+    # -- APPS pod security context
+    podSecurityContext: {}
+    # -- APPS containers security context
+    containerSecurityContext: {}
     # -- file definition
     fileMounts: []
     # -- specific annotation for APPS pods

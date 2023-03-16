@@ -1,3 +1,8 @@
+# -- Global parameters section
+global:
+  # -- Images registry
+  imageRegistry: "docker.io"
+
 # -- Private image registry configuration
 imageCredentials:
   # -- Use private authentication mode
@@ -35,6 +40,7 @@ clearml:
 agentk8sglue:
   # -- Glue Agent image configuration
   image:
+    registry: ""
     repository: "allegroai/clearml-agent-k8s-base"
     tag: "1.24-21"
 
@@ -70,6 +76,7 @@ agentk8sglue:
   # -- annotations setup for Agent pod (example in values.yaml comments)
   annotations: {}
     # key1: value1
+  # -- Custom Bash script for the Agent pod ran by Glue Agent
   customBashScript: ""
   # -- Custom Bash script for the Task Pods ran by Glue Agent
   containerCustomBashScript: ""
@@ -77,8 +84,12 @@ agentk8sglue:
   extraEnvs: []
     # - name: PYTHONPATH
     #   value: "somepath"
-    # -- Web Server pod security context
-  securityContext: {}
+  # -- container securityContext setup for Agent pod (example in values.yaml comments)
+  podSecurityContext: {}
+    #  runAsUser: 1001
+    #  fsGroup: 1001
+  # -- container securityContext setup for Agent pod (example in values.yaml comments)
+  containerSecurityContext: {}
     #  runAsUser: 1001
     #  fsGroup: 1001
   # -- additional existing ClusterRoleBindings
@@ -187,7 +198,11 @@ agentk8sglue:
     # -- affinity setup for pods spawned to consume ClearML Task
     affinity: {}
     # -- securityContext setup for pods spawned to consume ClearML Task (example in values.yaml comments)
-    securityContext: {}
+    podSecurityContext: {}
+      #  runAsUser: 1001
+      #  fsGroup: 1001
+    # -- securityContext setup for containers spawned to consume ClearML Task (example in values.yaml comments)
+    containerSecurityContext: {}
       #  runAsUser: 1001
       #  fsGroup: 1001
     # -- hostAliases setup for pods spawned to consume ClearML Task (example in values.yaml comments)

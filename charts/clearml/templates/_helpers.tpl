@@ -51,6 +51,22 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Registry name
+*/}}
+{{- define "registryNamePrefix" -}}
+  {{- $registryName := "" -}}
+  {{- if .globalValues }}
+    {{- if .globalValues.imageRegistry }}
+      {{- $registryName = printf "%s/" .globalValues.imageRegistry -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if .imageRegistryValue }}
+    {{- $registryName = printf "%s/" .imageRegistryValue -}}
+  {{- end -}}
+{{- printf "%s" $registryName }}
+{{- end }}
+
+{{/*
 Reference Name (apiserver)
 */}}
 {{- define "apiserver.referenceName" -}}

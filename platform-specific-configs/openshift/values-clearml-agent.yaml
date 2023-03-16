@@ -1,7 +1,0 @@
-agentk8sglue:
-  securityContext:
-    fsGroup: <FSUSER>
-    runAsUser: <USER>
-  basePodTemplate:
-    securityContext:
-      runAsUser: 0

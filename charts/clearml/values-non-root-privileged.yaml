@@ -1,0 +1,80 @@
+apiserver:
+  containerSecurityContext:
+    runAsUser: 1000
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: RuntimeDefault
+
+fileserver:
+  containerSecurityContext:
+    runAsUser: 1000
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: RuntimeDefault
+
+webserver:
+  containerSecurityContext:
+    runAsUser: 1000
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: RuntimeDefault
+
+enterpriseFeatures:
+  enabled: true
+  clearmlApplications:
+    containerSecurityContext:
+      runAsUser: 1000
+      runAsNonRoot: true
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: ["ALL"]
+      seccompProfile:
+        type: RuntimeDefault
+    containerCustomBashScript: |
+      export HOME=/tmp ;
+      export LOCAL_PYTHON=python3 ; 
+      $LOCAL_PYTHON -m pip install clearml-agent{agent_install_args} ; 
+      $LOCAL_PYTHON -m clearml_agent execute {default_execution_agent_args} --id {task_id}
+    extraEnvs:
+      - name: CLEARML_K8S_GLUE_START_AGENT_SCRIPT_PATH
+        value: /tmp/__start_agent__.sh
+      - name: HOME
+        value: /tmp
+
+redis:
+  master:
+    containerSecurityContext:
+      runAsNonRoot: true
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: ["ALL"]
+      seccompProfile:
+        type: RuntimeDefault
+mongodb:
+  containerSecurityContext:
+    enabled: true
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: RuntimeDefault
+elasticsearch:
+  sysctlInitContainer:
+    enabled: false
+  securityContext:
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: RuntimeDefault
