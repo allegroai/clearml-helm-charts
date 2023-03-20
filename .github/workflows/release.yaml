@@ -17,6 +17,10 @@ jobs:
         run: helm repo add bitnami https://charts.bitnami.com/bitnami
       - name: Add elastic repo
         run: helm repo add elastic https://helm.elastic.co
+      - name: Add prometheus repo
+        run: helm repo add prometheus https://prometheus-community.github.io/helm-charts
+      - name: Add grafana repo
+        run: helm repo add grafana https://grafana.github.io/helm-charts
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
