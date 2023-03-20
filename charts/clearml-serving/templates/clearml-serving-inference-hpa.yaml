@@ -2,16 +2,16 @@
 apiVersion: {{ include "common.capabilities.hpa.apiVersion" ( dict "context" $ ) }}
 kind: HorizontalPodAutoscaler
 metadata:
-  name: clearml-serving-inference-hpa
+  name: {{ include "clearmlServing.fullname" . }}-inference-hpa
   namespace: {{ .Release.Namespace | quote }}
   annotations: {}
   labels:
-    clearml.serving.service: clearml-serving-inference
+    clearml.serving.service: {{ include "clearmlServing.fullname" . }}-inference
 spec:
   scaleTargetRef:
     apiVersion: "apps/v1"
     kind: Deployment
-    name: clearml-serving-inference
+    name: {{ include "clearmlServing.fullname" . }}-inference
   minReplicas: {{ .Values.clearml_serving_inference.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.clearml_serving_inference.autoscaling.maxReplicas }}
   metrics:

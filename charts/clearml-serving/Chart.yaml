@@ -2,9 +2,14 @@ apiVersion: v2
 name: clearml-serving
 description: ClearML Serving Helm Chart
 type: application
-version: 0.7.0
+version: "1.0.0"
 appVersion: "1.2.0"
-kubeVersion: ">= 1.19.0-0 < 1.26.0-0"
+kubeVersion: ">= 1.21.0-0 < 1.27.0-0"
+home: https://clear.ml
+icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+sources:
+  - https://github.com/allegroai/clearml-helm-charts
+  - https://github.com/allegroai/clearml
 maintainers:
   - name: valeriano-manassero
     url: https://github.com/valeriano-manassero
@@ -13,3 +18,20 @@ keywords:
   - "machine learning"
   - mlops
   - "model serving"
+dependencies:
+  - name: kafka
+    version: "21.4.0"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: kafka.enabled
+  - name: prometheus
+    version: "19.7.2"
+    repository: "https://prometheus-community.github.io/helm-charts"
+    condition: prometheus.enabled
+  - name: grafana
+    version: "6.52.3"
+    repository: "https://grafana.github.io/helm-charts"
+    condition: grafana.enabled
+annotations:
+  artifacthub.io/changes: |
+    - kind: changed
+      description: refactoring

@@ -8,62 +8,6 @@ clearml:
   defaultBaseServeUrl: http://127.0.0.1:8080/serve
   servingTaskId: "ClearML Serving Task ID"
 
-# -- Zookeeper generic configigurations
-zookeeper:
-  image:
-    repository: "bitnami/zookeeper"
-    tag: "3.7.0"
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
-  resources: {}
-
-# -- Kafka generic configigurations
-kafka:
-  image:
-    repository: "bitnami/kafka"
-    tag: "3.1.0"
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
-  resources: {}
-
-# -- Prometheus generic configigurations
-prometheus:
-  image:
-    repository: "prom/prometheus"
-    tag: "v2.34.0"
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
-  resources: {}
-
-# -- Grafana generic configigurations
-grafana:
-  image:
-    repository: "grafana/grafana"
-    tag: "8.4.4-ubuntu"
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
-  resources: {}
-  ingress:
-    enabled: false
-    hostName: "serving-grafana.clearml.127-0-0-1.nip.io"
-    tlsSecretName: ""
-    annotations: {}
-    path: "/"
-
-# -- Alertmanager generic configigurations
-alertmanager:
-  image:
-    repository: "prom/alertmanager"
-    tag: "v0.23.0"
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
-  resources: {}
-
 # -- ClearML serving statistics configurations
 clearml_serving_statistics:
   # -- Container Image
@@ -110,10 +54,17 @@ clearml_serving_inference:
     targetMemory: 50
   # -- Ingress exposing configurations
   ingress:
+    # -- Enable/Disable ingress
     enabled: false
+    # -- ClassName (must be defined if no default ingressClassName is available)
+    ingressClassName: ""
+    # -- Ingress hostname domain
     hostName: "serving.clearml.127-0-0-1.nip.io"
+    # -- Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule.
     tlsSecretName: ""
+    # -- Ingress annotations
     annotations: {}
+    # -- Ingress root path url
     path: "/"
 
 # -- ClearML serving Triton configurations
@@ -145,20 +96,56 @@ clearml_serving_triton:
     targetMemory: 50
   # -- Ingress exposing configurations
   ingress:
+    # -- Enable/Disable ingress
     enabled: false
+    # -- ClassName (must be defined if no default ingressClassName is available)
+    ingressClassName: ""
+    # -- Ingress hostname domain
     hostName: "serving-grpc.clearml.127-0-0-1.nip.io"
+    # -- Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule.
     tlsSecretName: ""
+    # -- Ingress annotations
     annotations: {}
-    #  # Example for AWS ALB
-    #  kubernetes.io/ingress.class: alb
-    #  alb.ingress.kubernetes.io/backend-protocol: HTTP
-    #  alb.ingress.kubernetes.io/backend-protocol-version: GRPC
-    #  alb.ingress.kubernetes.io/certificate-arn: <cerntificate arn>
-    #  alb.ingress.kubernetes.io/ssl-redirect: '443'
-    #  alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
-    #  alb.ingress.kubernetes.io/target-type: ip
-    #
-    #  # Example for NNGINX ingress controller
-    #  nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    #  nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+    # -- Ingress root path url
     path: "/"
+
+# -- Configuration from https://github.com/bitnami/charts/blob/main/bitnami/kafka/values.yaml
+kafka:
+  enabled: true
+
+# -- Configuration from https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus/values.yaml
+prometheus:
+  enabled: true
+  kube-state-metrics:
+    enabled: false
+  prometheus-node-exporter:
+    enabled: false
+  prometheus-pushgateway:
+    enabled: false
+  serverFiles:
+    prometheus.yml:
+      scrape_configs:
+        - job_name: prometheus
+          static_configs:
+            - targets:
+              - localhost:9090
+  extraScrapeConfigs: |
+    - job_name: "{{ .Release.Name }}-stats"
+      static_configs:
+        - targets:
+          - "{{ .Release.Name }}-statistics:9999"
+
+# -- Configuration from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
+grafana:
+  enabled: true
+  adminUser: admin
+  adminPassword: clearml
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: "http://{{ .Release.Name }}-prometheus-server"
+        access: proxy
+        isDefault: true

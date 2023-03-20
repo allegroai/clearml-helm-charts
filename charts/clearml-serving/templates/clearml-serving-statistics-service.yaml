@@ -3,12 +3,12 @@ kind: Service
 metadata:
   annotations: {}
   labels:
-    clearml.serving.service: clearml-serving-statistics
-  name: clearml-serving-statistics
+    clearml.serving.service: {{ include "clearmlServing.fullname" . }}-statistics
+  name: {{ include "clearmlServing.fullname" . }}-statistics
 spec:
   ports:
     - name: "9999"
       port: 9999
       targetPort: 9999
   selector:
-    clearml.serving.service: clearml-serving-statistics
+    clearml.serving.service: {{ include "clearmlServing.fullname" . }}-statistics

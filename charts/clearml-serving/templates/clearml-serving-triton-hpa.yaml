@@ -2,16 +2,16 @@
 apiVersion: {{ include "common.capabilities.hpa.apiVersion" ( dict "context" $ ) }}
 kind: HorizontalPodAutoscaler
 metadata:
-  name: clearml-serving-triton-hpa
+  name: {{ include "clearmlServing.fullname" . }}-triton-hpa
   namespace: {{ .Release.Namespace | quote }}
   annotations: {}
   labels:
-    clearml.serving.service: clearml-serving-triton
+    clearml.serving.service: {{ include "clearmlServing.fullname" . }}-triton
 spec:
   scaleTargetRef:
     apiVersion: "apps/v1"
     kind: Deployment
-    name: clearml-serving-triton
+    name: {{ include "clearmlServing.fullname" . }}-triton
   minReplicas: {{ .Values.clearml_serving_triton.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.clearml_serving_triton.autoscaling.maxReplicas }}
   metrics:

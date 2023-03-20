@@ -1,0 +1,38 @@
+# ClearML Kubernetes Serving
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.badgesSection" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+## Introduction
+
+The **clearml-serving** is the Kubernetes serving for for [ClearML](https://github.com/allegroai/clearml-serving).
+It allows you to serve mopdels on a Kubernetes cluster.
+
+# Upgrading Chart
+
+## Upgrades/ Values upgrades
+
+Updating to latest version of this chart can be done in two steps:
+
+```
+helm repo update
+helm upgrade clearml-serving allegroai/clearml-serving
+```
+
+Changing values on existing installation can be done with:
+
+```
+helm upgrade clearml-serving allegroai/clearml-serving --version <CURRENT CHART VERSION> -f custom_values.yaml
+```
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
