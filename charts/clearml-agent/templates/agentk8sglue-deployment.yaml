@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "clearmlAgent.name" . }}
+  name: {{ include "clearmlAgent.fullname" . }}
   labels:
     {{- include "clearmlAgent.labels" . | nindent 4 }}
   annotations:
@@ -24,7 +24,7 @@ spec:
       {{- if .Values.imageCredentials.existingSecret }}
       - name: {{ .Values.imageCredentials.existingSecret }}
       {{- else }}
-      - name: {{ include "clearmlAgent.name" . }}-ark
+      - name: {{ include "clearmlAgent.fullname" . }}-ark
       {{- end }}
       {{- end }}
       serviceAccountName: {{ include "clearmlAgent.serviceAccountName" . }}
@@ -71,7 +71,7 @@ spec:
               export PATH=$PATH:$HOME/bin;
               source /root/.bashrc && /root/entrypoint.sh
           volumeMounts:
-            - name: {{ include "clearmlAgent.name" . }}-pt
+            - name: {{ include "clearmlAgent.fullname" . }}-pt
               mountPath: /root/template
             {{ if .Values.clearml.clearmlConfig }}
             - name: k8sagent-clearml-conf-volume
@@ -129,15 +129,15 @@ spec:
             - name: CLEARML_API_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "clearmlAgent.name" . }}-ac
+                  name: {{ include "clearmlAgent.fullname" . }}-ac
                   key: agentk8sglue_key
             - name: CLEARML_API_SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "clearmlAgent.name" . }}-ac
+                  name: {{ include "clearmlAgent.fullname" . }}-ac
                   key: agentk8sglue_secret
             - name: CLEARML_WORKER_ID
-              value: {{ include "clearmlAgent.name" . }}
+              value: {{ include "clearmlAgent.fullname" . }}
             - name: CLEARML_AGENT_UPDATE_REPO
               value: ""
             - name: FORCE_CLEARML_AGENT_REPO
@@ -204,13 +204,13 @@ spec:
           securityContext:
             {{ toYaml .Values.agentk8sglue.containerSecurityContext | nindent 12 }}
       volumes:
-        - name: {{ include "clearmlAgent.name" . }}-pt
+        - name: {{ include "clearmlAgent.fullname" . }}-pt
           configMap:
-            name: {{ include "clearmlAgent.name" . }}-pt
+            name: {{ include "clearmlAgent.fullname" . }}-pt
         {{ if .Values.clearml.clearmlConfig }}
         - name: k8sagent-clearml-conf-volume
           secret:
-            secretName: {{ include "clearmlAgent.name" . }}-ac
+            secretName: {{ include "clearmlAgent.fullname" . }}-ac
             items:
             - key: clearml.conf
               path: clearml.conf
@@ -218,7 +218,7 @@ spec:
         {{ if .Values.agentk8sglue.fileMounts }}
         - name: filemounts
           secret:
-            secretName: {{ include "clearmlAgent.name" . }}-afm
+            secretName: {{ include "clearmlAgent.fullname" . }}-afm
         {{ end }}
         {{- if .Values.agentk8sglue.volumes }}
         {{- toYaml .Values.agentk8sglue.volumes | nindent 8 }}

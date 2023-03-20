@@ -2,7 +2,25 @@
 Expand the name of the chart.
 */}}
 {{- define "clearmlAgent.name" -}}
-{{- .Release.Name | trunc 59 | trimSuffix "-" }}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name it will be used as a full name.
+*/}}
+{{- define "clearmlAgent.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
 {{- end }}
 
 {{/*
@@ -40,7 +58,7 @@ Common annotations
 Selector labels
 */}}
 {{- define "clearmlAgent.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "clearmlAgent.name" . }}
+app.kubernetes.io/name: {{ include "clearmlAgent.fullname" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
@@ -48,8 +66,8 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Selector labels (agentk8sglue)
 */}}
 {{- define "agentk8sglue.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "clearmlAgent.name" . }}
-app.kubernetes.io/instance: {{ include "clearmlAgent.name" . }}
+app.kubernetes.io/name: {{ include "clearmlAgent.fullname" . }}
+app.kubernetes.io/instance: {{ include "clearmlAgent.fullname" . }}
 {{- end }}
 
 {{/*
@@ -75,7 +93,7 @@ Create the name of the service account to use
 {{- if .Values.agentk8sglue.serviceExistingAccountName }}
 {{- .Values.agentk8sglue.serviceExistingAccountName }}
 {{- else }}
-{{- include "clearmlAgent.name" . }}-sa
+{{- include "clearmlAgent.fullname" . }}-sa
 {{- end }}
 {{- end }}
 
@@ -116,7 +134,7 @@ Create a task container template
 {{- define "taskContainer.containerTemplate" -}}
 {{- if .main.Values.imageCredentials.enabled }}
 imagePullSecrets:
-  - name: {{ .main.Values.imageCredentials.existingSecret | default (printf "%s-ark" (include "clearmlAgent.name" .main )) }}
+  - name: {{ .main.Values.imageCredentials.existingSecret | default (printf "%s-ark" (include "clearmlAgent.fullname" .main )) }}
 {{- end }}
 schedulerName: {{ .value.templateOverrides.schedulerName | default (.main.Values.agentk8sglue.basePodTemplate.schedulerName) }}
 restartPolicy: Never
@@ -130,11 +148,11 @@ volumes:
   {{- if .value.templateOverrides.fileMounts }}
   - name: filemounts
     secret:
-      secretName: {{ include "clearmlAgent.name" .main }}-{{ .key }}-fm
+      secretName: {{ include "clearmlAgent.fullname" .main }}-{{ .key }}-fm
   {{- else if .main.Values.agentk8sglue.basePodTemplate.fileMounts }}
   - name: filemounts
     secret:
-      secretName: {{ include "clearmlAgent.name" .main }}-fm
+      secretName: {{ include "clearmlAgent.fullname" .main }}-fm
   {{- end }}
 {{- if not .main.Values.enterpriseFeatures.serviceAccountClusterAccess }}
 serviceAccountName: {{ include "clearmlAgent.serviceAccountName" .main }}
@@ -178,12 +196,12 @@ containers:
     - name: CLEARML_API_ACCESS_KEY
       valueFrom:
         secretKeyRef:
-          name: {{ .main.Values.clearml.existingAgentk8sglueSecret | default (printf "%s-ac" (include "clearmlAgent.name" .main )) }}
+          name: {{ .main.Values.clearml.existingAgentk8sglueSecret | default (printf "%s-ac" (include "clearmlAgent.fullname" .main )) }}
           key: agentk8sglue_key
     - name: CLEARML_API_SECRET_KEY
       valueFrom:
         secretKeyRef:
-          name: {{ .main.Values.clearml.existingAgentk8sglueSecret | default (printf "%s-ac" (include "clearmlAgent.name" .main )) }}
+          name: {{ .main.Values.clearml.existingAgentk8sglueSecret | default (printf "%s-ac" (include "clearmlAgent.fullname" .main )) }}
           key: agentk8sglue_secret
     {{- end }}
     - name: PYTHONUNBUFFERED

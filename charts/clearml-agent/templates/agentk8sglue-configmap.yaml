@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "clearmlAgent.name" . }}-pt
+  name: {{ include "clearmlAgent.fullname" . }}-pt
 data:
 {{- if .Values.enterpriseFeatures.enabled }}
   template.yaml: |
@@ -14,9 +14,9 @@ data:
     {{- range $key, $value := $.Values.enterpriseFeatures.queues }}
     {{ $key }}:
       {{- if $value.templateOverrides.fileMounts }}
-        - {{ include "clearmlAgent.name" $ }}-{{ $key }}-fm
+        - {{ include "clearmlAgent.fullname" $ }}-{{ $key }}-fm
       {{- else if $.Values.agentk8sglue.basePodTemplate.fileMounts }}
-        - {{ include "clearmlAgent.name" $ }}-fm
+        - {{ include "clearmlAgent.fullname" $ }}-fm
       {{- end }}
     {{- end }}
 {{- else }}
@@ -34,7 +34,7 @@ data:
       {{- if .Values.imageCredentials.existingSecret }}
       - name: {{ .Values.imageCredentials.existingSecret }}
       {{- else }}
-      - name: name: {{ include "clearmlAgent.name" $ }}-ark
+      - name: name: {{ include "clearmlAgent.fullname" $ }}-ark
       {{- end }}
       {{- end }}
       {{- with .Values.agentk8sglue.basePodTemplate.volumes }}
@@ -69,7 +69,7 @@ data:
               {{- if .Values.clearml.existingAgentk8sglueSecret }}
               name: {{ .Values.clearml.existingAgentk8sglueSecret }}
               {{- else }}
-              name: {{ include "clearmlAgent.name" . }}-ac
+              name: {{ include "clearmlAgent.fullname" . }}-ac
               {{- end }}
               key: agentk8sglue_key
         - name: CLEARML_API_SECRET_KEY
@@ -78,7 +78,7 @@ data:
               {{- if .Values.clearml.existingAgentk8sglueSecret }}
               name: {{ .Values.clearml.existingAgentk8sglueSecret }}
               {{- else }}
-              name: {{ include "clearmlAgent.name" . }}-ac
+              name: {{ include "clearmlAgent.fullname" . }}-ac
               {{- end }}
               key: agentk8sglue_secret
         {{- if .Values.agentk8sglue.basePodTemplate.env }}
