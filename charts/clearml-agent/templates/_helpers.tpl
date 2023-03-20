@@ -46,6 +46,21 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
+Common labels (agentk8sglue)
+*/}}
+{{- define "agentk8sglue.labels" -}}
+helm.sh/chart: {{ include "clearmlAgent.chart" . }}
+{{ include "agentk8sglue.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- if $.Values.agentk8sglue.labels }}
+{{ toYaml $.Values.agentk8sglue.labels }}
+{{- end }}
+{{- end }}
+
+{{/*
 Common annotations
 */}}
 {{- define "clearmlAgent.annotations" -}}
