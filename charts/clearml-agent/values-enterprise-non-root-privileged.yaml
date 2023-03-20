@@ -22,6 +22,9 @@ agentk8sglue:
       value: /tmp/__start_agent__.sh
 
   basePodTemplate:
+    env:
+      - name: HOME
+        value: /tmp
     containerSecurityContext:
       runAsUser: 1000
       runAsNonRoot: true

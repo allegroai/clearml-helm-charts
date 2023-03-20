@@ -1,6 +1,6 @@
 # ClearML Kubernetes Agent
 
-![Version: 4.0.1](https://img.shields.io/badge/Version-4.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 4.0.2](https://img.shields.io/badge/Version-4.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
 MLOps platform Task running agent
 
@@ -52,7 +52,7 @@ Enabling this features on OSS version can cause the entire installation to break
 In environments like Openshift or Tanzu it can be required to run non-root/non-privileged pods/containers.
 In this case it's recommended to use `values-enterprise-non-root-privileged.yaml` as base for override file.
 
-Keep in mind it's not possible to install packages on non-root containers so images used for Tasks must already have python and pip installed.
+Keep in mind it's not possible to install packages on non-root containers so images used for Tasks must already have python, pip and git installed.
 
 ## Source Code
 
