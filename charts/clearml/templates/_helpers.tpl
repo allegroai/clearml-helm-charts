@@ -46,7 +46,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "clearml.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "clearml.name" . }}
+app.kubernetes.io/name: {{ include "clearml.fullname" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
@@ -70,14 +70,14 @@ Registry name
 Reference Name (apiserver)
 */}}
 {{- define "apiserver.referenceName" -}}
-{{- include "clearml.name" . }}-apiserver
+{{- include "clearml.fullname" . }}-apiserver
 {{- end }}
 
 {{/*
 Selector labels (apiserver)
 */}}
 {{- define "apiserver.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "clearml.name" . }}
+app.kubernetes.io/name: {{ include "clearml.fullname" . }}
 app.kubernetes.io/instance: {{ include "apiserver.referenceName" . }}
 {{- end }}
 
@@ -85,14 +85,14 @@ app.kubernetes.io/instance: {{ include "apiserver.referenceName" . }}
 Reference Name (fileserver)
 */}}
 {{- define "fileserver.referenceName" -}}
-{{- include "clearml.name" . }}-fileserver
+{{- include "clearml.fullname" . }}-fileserver
 {{- end }}
 
 {{/*
 Selector labels (fileserver)
 */}}
 {{- define "fileserver.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "clearml.name" . }}
+app.kubernetes.io/name: {{ include "clearml.fullname" . }}
 app.kubernetes.io/instance: {{ include "fileserver.referenceName" . }}
 {{- end }}
 
@@ -100,14 +100,14 @@ app.kubernetes.io/instance: {{ include "fileserver.referenceName" . }}
 Reference Name (webserver)
 */}}
 {{- define "webserver.referenceName" -}}
-{{- include "clearml.name" . }}-webserver
+{{- include "clearml.fullname" . }}-webserver
 {{- end }}
 
 {{/*
 Selector labels (webserver)
 */}}
 {{- define "webserver.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "clearml.name" . }}
+app.kubernetes.io/name: {{ include "clearml.fullname" . }}
 app.kubernetes.io/instance: {{ include "webserver.referenceName" . }}
 {{- end }}
 
@@ -115,14 +115,14 @@ app.kubernetes.io/instance: {{ include "webserver.referenceName" . }}
 Reference Name (apps)
 */}}
 {{- define "clearmlApplications.referenceName" -}}
-{{- include "clearml.name" . }}-apps
+{{- include "clearml.fullname" . }}-apps
 {{- end }}
 
 {{/*
 Selector labels (apps)
 */}}
 {{- define "clearmlApplications.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "clearml.name" . }}
+app.kubernetes.io/name: {{ include "clearml.fullname" . }}
 app.kubernetes.io/instance: {{ include "clearmlApplications.referenceName" . }}
 {{- end }}
 

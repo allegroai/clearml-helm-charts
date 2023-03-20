@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "clearml.name" . }}-apps-pt
+  name: {{ include "clearml.fullname" . }}-apps-pt
 data:
   template.yaml: |
     apps_queue:
@@ -24,7 +24,7 @@ data:
           {{- if .Values.enterpriseFeatures.clearmlApplications.fileMounts }}
           - name: filemounts
             secret:
-              secretName: {{ include "clearml.name" . }}-apps-fm
+              secretName: {{ include "clearml.fullname" . }}-apps-fm
           {{- end }}
         containers:
         - resources:

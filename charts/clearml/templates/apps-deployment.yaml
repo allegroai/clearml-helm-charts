@@ -29,9 +29,9 @@ spec:
       {{- end }}
       {{- end }}
       volumes:
-        - name: {{ include "clearml.name" . }}-apps-pt
+        - name: {{ include "clearml.fullname" . }}-apps-pt
           configMap:
-            name: {{ include "clearml.name" . }}-apps-pt
+            name: {{ include "clearml.fullname" . }}-apps-pt
       {{- if .Values.enterpriseFeatures.clearmlApplications.additionalConfigs }}
         - name: apps-config
           configMap:
@@ -40,7 +40,7 @@ spec:
       {{- if .Values.enterpriseFeatures.clearmlApplications.fileMounts }}
         - name: filemounts
           secret:
-            secretName: {{ include "clearml.name" . }}-apps-fm
+            secretName: {{ include "clearml.fullname" . }}-apps-fm
       {{- end }}
       serviceAccountName: "clearml-apps-sa"
       securityContext:
@@ -117,7 +117,7 @@ spec:
           {{ toYaml .Values.enterpriseFeatures.clearmlApplications.extraEnvs | nindent 10 }}
           {{- end }}
           volumeMounts:
-          - name: {{ include "clearml.name" . }}-apps-pt
+          - name: {{ include "clearml.fullname" . }}-apps-pt
             mountPath: /root/template
           {{- if .Values.enterpriseFeatures.clearmlApplications.additionalConfigs }}
             - name: apps-config
