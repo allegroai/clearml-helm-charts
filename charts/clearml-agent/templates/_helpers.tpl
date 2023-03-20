@@ -192,7 +192,7 @@ containers:
     - name: CLEARML_API_HOST_VERIFY_CERT
       value: "false"
     {{- end }}
-    {{ $computedenvs := (.value.templateOverrides.env| default .main.Values.agentk8sglue.basePodTemplate.env) }}
+    {{- $computedenvs := (.value.templateOverrides.env | default .main.Values.agentk8sglue.basePodTemplate.env) -}}
     {{- if $computedenvs }}{{- $computedenvs | toYaml | nindent 4 }}{{- end }}
 nodeSelector:
   {{ .value.templateOverrides.nodeSelector | default .main.Values.agentk8sglue.basePodTemplate.nodeSelector | toYaml | nindent 2 }}
