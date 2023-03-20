@@ -3,20 +3,20 @@ kind: Deployment
 metadata:
   annotations: {}
   labels:
-    clearml.serving.service: clearml-serving-statistics
-  name: clearml-serving-statistics
+    clearml.serving.service: {{ include "clearml-serving.fullname" . }}-statistics
+  name: {{ include "clearml-serving.fullname" . }}-statistics
 spec:
   replicas: 1
   selector:
     matchLabels:
-      clearml.serving.service: clearml-serving-statistics
+      clearml.serving.service: {{ include "clearml-serving.fullname" . }}-statistics
   strategy: {}
   template:
     metadata:
       annotations: {}
       labels:
         clearml.serving.network/clearml-serving-backend: "true"
-        clearml.serving.service: clearml-serving-statistics
+        clearml.serving.service: {{ include "clearml-serving.fullname" . }}-statistics
     spec:
       containers:
         - env:
@@ -31,7 +31,7 @@ spec:
             - name: CLEARML_WEB_HOST
               value: "{{ .Values.clearml.webHost }}"
             - name: CLEARML_DEFAULT_KAFKA_SERVE_URL
-              value: clearml-serving-kafka:9092
+              value: {{ include "clearml-serving.fullname" . }}-kafka:9092
             - name: CLEARML_SERVING_POLL_FREQ
               value: "1.0"
             - name: CLEARML_SERVING_TASK_ID
@@ -41,7 +41,7 @@ spec:
               value: '{{ join " " .Values.clearml_serving_statistics.extraPythonPackages }}'
             {{- end }}
           image: "{{ .Values.clearml_serving_statistics.image.repository }}:{{ .Values.clearml_serving_statistics.image.tag }}"
-          name: clearml-serving-statistics
+          name: {{ include "clearml-serving.fullname" . }}-statistics
           ports:
             - containerPort: 9999
           resources: {}

@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: clearml-serving-backend
+  name: {{ include "clearml-serving.fullname" . }}-backend
 spec:
   ingress:
     - from:

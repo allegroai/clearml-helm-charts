@@ -9,9 +9,9 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: clearml-serving-triton
+  name: {{ include "clearml-serving.fullname" . }}-triton
   labels:
-    clearml.serving.service: clearml-serving-triton
+    clearml.serving.service: {{ include "clearml-serving.fullname" . }}-triton
   annotations:
     {{- toYaml .Values.clearml_serving_triton.ingress.annotations | nindent 4 }}
 spec:
@@ -30,12 +30,12 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: clearml-serving-triton
+            name: {{ include "clearml-serving.fullname" . }}-triton
             port:
               number: 8001
   {{ else }}
         backend:
-          serviceName: clearml-serving-triton
+          servicename: {{ include "clearml-serving.fullname" . }}-triton
           servicePort: 8001
   {{ end }}
 {{- end }}
