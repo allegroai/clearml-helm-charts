@@ -4,20 +4,20 @@ kind: Deployment
 metadata:
   annotations: {}
   labels:
-    clearml.serving.service: {{ include "clearml-serving.fullname" . }}-triton
-  name: {{ include "clearml-serving.fullname" . }}-triton
+    clearml.serving.service: {{ include "clearmlServing.fullname" . }}-triton
+  name: {{ include "clearmlServing.fullname" . }}-triton
 spec:
   replicas: 1
   selector:
     matchLabels:
-      clearml.serving.service: {{ include "clearml-serving.fullname" . }}-triton
+      clearml.serving.service: {{ include "clearmlServing.fullname" . }}-triton
   strategy: {}
   template:
     metadata:
       annotations: {}
       labels:
         clearml.serving.network/clearml-serving-backend: "true"
-        clearml.serving.service: {{ include "clearml-serving.fullname" . }}-triton
+        clearml.serving.service: {{ include "clearmlServing.fullname" . }}-triton
     spec:
       containers:
         - env:
@@ -42,7 +42,7 @@ spec:
               value: '{{ join " " .Values.clearml_serving_triton.extraPythonPackages }}'
             {{- end }}
           image: "{{ .Values.clearml_serving_triton.image.repository }}:{{ .Values.clearml_serving_triton.image.tag }}"
-          name: {{ include "clearml-serving.fullname" . }}-triton
+          name: {{ include "clearmlServing.fullname" . }}-triton
           ports:
             - containerPort: 8001
           resources: {}

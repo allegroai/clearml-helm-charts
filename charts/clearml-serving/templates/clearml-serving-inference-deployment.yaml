@@ -3,20 +3,20 @@ kind: Deployment
 metadata:
   annotations: {}
   labels:
-    clearml.serving.service: {{ include "clearml-serving.fullname" . }}-inference
-  name: {{ include "clearml-serving.fullname" . }}-inference
+    clearml.serving.service: {{ include "clearmlServing.fullname" . }}-inference
+  name: {{ include "clearmlServing.fullname" . }}-inference
 spec:
   replicas: 1
   selector:
     matchLabels:
-      clearml.serving.service: {{ include "clearml-serving.fullname" . }}-inference
+      clearml.serving.service: {{ include "clearmlServing.fullname" . }}-inference
   strategy: {}
   template:
     metadata:
       annotations: {}
       labels:
         clearml.serving.network/clearml-serving-backend: "true"
-        clearml.serving.service: {{ include "clearml-serving.fullname" . }}-inference
+        clearml.serving.service: {{ include "clearmlServing.fullname" . }}-inference
     spec:
       containers:
         - env:
@@ -31,14 +31,14 @@ spec:
             - name: CLEARML_WEB_HOST
               value: "{{ .Values.clearml.webHost }}"
             - name: CLEARML_DEFAULT_KAFKA_SERVE_URL
-              value: {{ include "clearml-serving.fullname" . }}-kafka:9092
+              value: {{ include "clearmlServing.fullname" . }}-kafka:9092
             - name: CLEARML_SERVING_POLL_FREQ
               value: "1.0"
             - name: CLEARML_DEFAULT_BASE_SERVE_URL
               value: "{{ .Values.clearml.defaultBaseServeUrl }}"
             - name: CLEARML_DEFAULT_TRITON_GRPC_ADDR
             {{- if .Values.clearml_serving_triton.enabled }}
-              value: "{{ include "clearml-serving.fullname" . }}-triton:8001"
+              value: "{{ include "clearmlServing.fullname" . }}-triton:8001"
             {{- else }}
               value: ""
             {{- end }}
@@ -55,7 +55,7 @@ spec:
               value: '{{ join " " .Values.clearml_serving_inference.extraPythonPackages }}'
             {{- end }}
           image: "{{ .Values.clearml_serving_inference.image.repository }}:{{ .Values.clearml_serving_inference.image.tag }}"
-          name: {{ include "clearml-serving.fullname" . }}-inference
+          name: {{ include "clearmlServing.fullname" . }}-inference
           ports:
             - containerPort: 8080
           resources: {}

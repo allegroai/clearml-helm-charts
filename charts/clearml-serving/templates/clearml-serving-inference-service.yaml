@@ -3,12 +3,12 @@ kind: Service
 metadata:
   annotations: {}
   labels:
-    clearml.serving.service: {{ include "clearml-serving.fullname" . }}-inference
-  name: {{ include "clearml-serving.fullname" . }}-inference
+    clearml.serving.service: {{ include "clearmlServing.fullname" . }}-inference
+  name: {{ include "clearmlServing.fullname" . }}-inference
 spec:
   ports:
     - name: "8080"
       port: 8080
       targetPort: 8080
   selector:
-    clearml.serving.service: {{ include "clearml-serving.fullname" . }}-inference
+    clearml.serving.service: {{ include "clearmlServing.fullname" . }}-inference

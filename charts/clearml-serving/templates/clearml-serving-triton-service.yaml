@@ -4,13 +4,13 @@ kind: Service
 metadata:
   annotations: {}
   labels:
-    clearml.serving.service: {{ include "clearml-serving.fullname" . }}-triton
-  name: {{ include "clearml-serving.fullname" . }}-triton
+    clearml.serving.service: {{ include "clearmlServing.fullname" . }}-triton
+  name: {{ include "clearmlServing.fullname" . }}-triton
 spec:
   ports:
     - name: "8001"
       port: 8001
       targetPort: 8001
   selector:
-    clearml.serving.service: {{ include "clearml-serving.fullname" . }}-triton
+    clearml.serving.service: {{ include "clearmlServing.fullname" . }}-triton
 {{ end }}

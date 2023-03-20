@@ -122,17 +122,11 @@ prometheus:
     enabled: false
   prometheus-pushgateway:
     enabled: false
-  serverFiles:
-    prometheus.yml:
-      scrape_configs:
-        - job_name: prometheus
-          static_configs:
-            - targets:
-              - localhost:9090
-        - job_name: "clearml-serving-stats"
-          static_configs:
-            - targets:
-              - "clearml-serving-statistics:9999"
+  extraScrapeConfigs: |
+    - job_name: "{{ .Release.Name }}-stats"
+      static_configs:
+        - targets:
+          - "{{ .Release.Name }}-statistics:9999"
 
 # -- Configuration from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
 grafana:
@@ -145,6 +139,6 @@ grafana:
       datasources:
       - name: Prometheus
         type: prometheus
-        url: "http://clearml-serving-prometheus-server"
+        url: "http://{{ .Release.Name }}-prometheus-server"
         access: proxy
         isDefault: true
