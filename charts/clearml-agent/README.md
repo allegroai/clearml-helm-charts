@@ -1,6 +1,6 @@
 # ClearML Kubernetes Agent
 
-![Version: 4.0.4](https://img.shields.io/badge/Version-4.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 4.0.5](https://img.shields.io/badge/Version-4.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
 MLOps platform Task running agent
 
@@ -34,7 +34,7 @@ Changing values on existing installation can be done with:
 helm upgrade clearml-agent allegroai/clearml-agent --version <CURRENT CHART VERSION> -f custom_values.yaml
 ```
 
-### Major upgrade from 5.* to 6.*
+### Major upgrade from 3.* to 4.*
 
 Before issuing helm upgrade:
 
