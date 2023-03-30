@@ -189,20 +189,20 @@ spec:
             {{- if .Values.agentk8sglue.extraEnvs }}
             {{ toYaml .Values.agentk8sglue.extraEnvs | nindent 12 }}
             {{- end }}
-          {{- with .Values.agentk8sglue.nodeSelector}}
-          nodeSelector:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.agentk8sglue.affinity }}
-          affinity:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.agentk8sglue.tolerations }}
-          tolerations:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
           securityContext:
             {{ toYaml .Values.agentk8sglue.containerSecurityContext | nindent 12 }}
+      {{- with .Values.agentk8sglue.nodeSelector}}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.agentk8sglue.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.agentk8sglue.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       volumes:
         - name: {{ include "clearmlAgent.fullname" . }}-pt
           configMap:
