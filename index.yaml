@@ -2963,6 +2963,36 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: readme
+        - kind: fixed
+          description: backoffLimit for enterprise
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2023-03-30T09:57:20.589217302Z"
+    description: MLOps platform Task running agent
+    digest: 5ca8dab35fafa8f9991b3e8ef01213e19a97f55fc23b9b4e5f4bea038e9f70fc
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.27.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-4.0.5/clearml-agent-4.0.5.tgz
+    version: 4.0.5
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: missing init-container in template
     apiVersion: v2
     appVersion: "1.24"
@@ -3999,4 +4029,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-29T09:55:27.477418885Z"
+generated: "2023-03-30T09:57:20.589812212Z"
