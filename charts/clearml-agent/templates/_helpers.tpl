@@ -274,6 +274,6 @@ Create a task container template
       spec:
         {{- $data := dict "main" $ "key" $key "value" $value -}}
         {{- include "taskContainer.containerTemplate" $data | nindent 8 }}
-    backoffLimit: 0
+    backoffLimit: 4
 {{- end }}
 {{- end }}
