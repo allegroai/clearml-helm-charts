@@ -2966,6 +2966,34 @@ entries:
           description: affinity indentation
     apiVersion: v2
     appVersion: "1.24"
+    created: "2023-03-30T13:17:14.429474998Z"
+    description: MLOps platform Task running agent
+    digest: dfc583c991d1fb167bff7f2aaa7753ff3049776fc6f040e92aa04ed4e17b0cb3
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.27.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-4.0.7/clearml-agent-4.0.7.tgz
+    version: 4.0.7
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: affinity indentation
+    apiVersion: v2
+    appVersion: "1.24"
     created: "2023-03-30T12:26:57.768759114Z"
     description: MLOps platform Task running agent
     digest: 513560f6c97320e7c84b8858c99366a25893871e6aa00bc2f559db4421274128
@@ -4057,4 +4085,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-30T12:26:57.769418916Z"
+generated: "2023-03-30T13:17:14.431065307Z"
