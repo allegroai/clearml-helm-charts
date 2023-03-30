@@ -191,15 +191,15 @@ spec:
             {{- end }}
           {{- with .Values.agentk8sglue.nodeSelector}}
           nodeSelector:
-            {{- toYaml . | nindent 8 }}
+            {{- toYaml . | nindent 10 }}
           {{- end }}
           {{- with .Values.agentk8sglue.affinity }}
           affinity:
-            {{- toYaml . | nindent 8 }}
+            {{- toYaml . | nindent 10 }}
           {{- end }}
           {{- with .Values.agentk8sglue.tolerations }}
           tolerations:
-            {{- toYaml . | nindent 8 }}
+            {{- toYaml . | nindent 10 }}
           {{- end }}
           securityContext:
             {{ toYaml .Values.agentk8sglue.containerSecurityContext | nindent 12 }}
