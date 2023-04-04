@@ -18,6 +18,7 @@ rules:
       - pods
       - secrets
       - services
+      - events
     verbs: ["get", "list", "watch", "create", "patch", "delete"]
   - apiGroups:
       - ""
@@ -58,6 +59,7 @@ rules:
       - pods
       - secrets
       - services
+      - events
     verbs: ["get", "list", "watch", "create", "patch", "delete"]
   - apiGroups:
       - ""
