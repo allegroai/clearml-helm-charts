@@ -46,11 +46,11 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed --chart-dirs=charts --target-branch=main)
+          changed=$(ct list-changed --chart-dirs charts --target-branch main)
           if [[ -n "$changed" ]]; then
-            echo "::set-output name=changed::true"
-            echo "::set-output name=changed_charts::\"${changed//$'\n'/,}\""
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "changed_charts=\"${changed//$'\n'/,}\"" >> "$GITHUB_OUTPUT"
           fi
       - name: Run chart-testing (lint and install)
-        run: ct lint-and-install --chart-dirs=charts --target-branch=main --helm-extra-args="--timeout=15m" --charts=${{steps.list-changed.outputs.changed_charts}} --debug=true
+        run: ct lint-and-install --chart-dirs charts --target-branch main --helm-extra-args "--timeout=15m" --charts=${{steps.list-changed.outputs.changed_charts}} --debug true
         if: steps.list-changed.outputs.changed == 'true'
