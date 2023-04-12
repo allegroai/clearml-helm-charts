@@ -1,6 +1,6 @@
 # ClearML Kubernetes Serving
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square)
 
 ClearML Serving Helm Chart
 
@@ -15,7 +15,7 @@ ClearML Serving Helm Chart
 ## Introduction
 
 The **clearml-serving** is the Kubernetes serving for for [ClearML](https://github.com/allegroai/clearml-serving).
-It allows you to serve mopdels on a Kubernetes cluster.
+It allows you to serve models on a Kubernetes cluster.
 
 # Upgrading Chart
 
@@ -41,7 +41,7 @@ helm upgrade clearml-serving allegroai/clearml-serving --version <CURRENT CHART 
 
 ## Requirements
 
-Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
+Kubernetes: `>= 1.21.0-0 < 1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|

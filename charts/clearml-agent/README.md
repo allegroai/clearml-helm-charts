@@ -1,6 +1,6 @@
 # ClearML Kubernetes Agent
 
-![Version: 4.0.9](https://img.shields.io/badge/Version-4.0.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 4.0.10](https://img.shields.io/badge/Version-4.0.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
 MLOps platform Task running agent
 
@@ -61,7 +61,7 @@ Keep in mind it's not possible to install packages on non-root containers so ima
 
 ## Requirements
 
-Kubernetes: `>= 1.21.0-0 < 1.27.0-0`
+Kubernetes: `>= 1.21.0-0 < 1.28.0-0`
 
 ## Values
 
