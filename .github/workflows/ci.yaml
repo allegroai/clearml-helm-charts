@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3.5.0
       - name: Run helm-docs
         run: .github/helm-docs.sh
   install-chart:
@@ -22,18 +22,21 @@ jobs:
     strategy:
       matrix:
         k8s:
-          - v1.24.7
-          - v1.25.3
-          - v1.26.0
+          - v1.24.12
+          - v1.25.8
+          - v1.26.3
+          - v1.27.0
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3.5.0
+        with:
+          fetch-depth: 0
       - name: Create kind ${{ matrix.k8s }} cluster
         uses: helm/kind-action@v1.5.0
         with:
           node_image: kindest/node:${{ matrix.k8s }}
       - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.3.1
+        uses: helm/chart-testing-action@v2.4.0
       - name: Add bitnami repo
         run: helm repo add bitnami https://charts.bitnami.com/bitnami
       - name: Add elastic repo
@@ -45,11 +48,11 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed --chart-dirs=charts --target-branch=main)
+          changed=$(ct list-changed --chart-dirs charts --target-branch main)
           if [[ -n "$changed" ]]; then
-            echo "::set-output name=changed::true"
-            echo "::set-output name=changed_charts::\"${changed//$'\n'/,}\""
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "changed_charts=\"${changed//$'\n'/,}\"" >> "$GITHUB_OUTPUT"
           fi
       - name: Run chart-testing (lint and install)
-        run: ct lint-and-install --chart-dirs=charts --target-branch=main --helm-extra-args="--timeout=15m" --charts=${{steps.list-changed.outputs.changed_charts}} --debug=true
+        run: ct lint-and-install --chart-dirs charts --target-branch main --helm-extra-args "--timeout=15m" --charts=${{steps.list-changed.outputs.changed_charts}} --debug true
         if: steps.list-changed.outputs.changed == 'true'

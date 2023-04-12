@@ -2,9 +2,9 @@ apiVersion: v2
 name: clearml-serving
 description: ClearML Serving Helm Chart
 type: application
-version: "1.0.0"
+version: "1.0.1"
 appVersion: "1.2.0"
-kubeVersion: ">= 1.21.0-0 < 1.27.0-0"
+kubeVersion: ">= 1.21.0-0 < 1.28.0-0"
 home: https://clear.ml
 icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
 sources:
@@ -33,5 +33,5 @@ dependencies:
     condition: grafana.enabled
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: refactoring
+    - kind: added
+      description: support for k8s 1.27
