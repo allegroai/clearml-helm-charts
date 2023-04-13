@@ -20,5 +20,5 @@ keywords:
   - "task agent"
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: support for k8s 1.27
+    - kind: changed
+      description: removed support for enterprise features due to chart split
