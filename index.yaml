@@ -3,6 +3,46 @@ entries:
   clearml:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: removed support for enterprise features due to chart split
+    apiVersion: v2
+    appVersion: 1.10.0
+    created: "2023-04-13T15:45:26.717155472Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.8.3
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.31
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://helm.elastic.co
+      version: 7.17.3
+    description: MLOps platform
+    digest: 7658ae5bf2fb887b821d4afb521289cfc0fa8bb19b6813ff6df66e201b96dab1
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    kubeVersion: '>= 1.21.0-0 < 1.28.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-7.0.0/clearml-7.0.0.tgz
+    version: 7.0.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: support for k8s 1.27
     apiVersion: v2
@@ -3002,6 +3042,34 @@ entries:
   clearml-agent:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: removed support for enterprise features due to chart split
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2023-04-13T15:45:26.848297749Z"
+    description: MLOps platform Task running agent
+    digest: d7c285b97bab2a6e335f99cd26365f5ca630cc86663c0e704cbfef65294bc54d
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.28.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-5.0.0/clearml-agent-5.0.0.tgz
+    version: 5.0.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: support for k8s 1.27
     apiVersion: v2
@@ -4250,4 +4318,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-12T07:07:43.905962168Z"
+generated: "2023-04-13T15:45:26.84897085Z"
