@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 6.1.1](https://img.shields.io/badge/Version-6.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.10.0](https://img.shields.io/badge/AppVersion-1.10.0-informational?style=flat-square)
+![Version: 7.0.0](https://img.shields.io/badge/Version-7.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.10.0](https://img.shields.io/badge/AppVersion-1.10.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -117,18 +117,6 @@ Before issuing helm upgrade:
 * scale MongoDB deployment(s) replicas to 0
 * if using securityContexts check for new value form in values.yaml (podSecurityContext and containerSecurityContext)
 
-## ENTERPRISE Version
-
-There are some specific Enterprise version features that can be enabled only with specific Enterprise licensed images.
-Enabling this features on OSS version can cause the entire installation to break.
-
-### Non root/privileged environments
-
-*This feature is available for Enterprise version only*
-
-In environments like Openshift or Tanzu it can be required to run non-root/non-privileged pods/containers.
-In this case it's recommended to use `values-enterprise-non-root-privileged.yaml` as base for override file.
-
 ## Additional Configuration for ClearML Server
 
 You can also configure the **clearml-server** for:
@@ -206,40 +194,6 @@ Kubernetes: `>= 1.21.0-0 < 1.28.0-0`
 | clearml.testUserKey | string | `"ENP39EQM4SLACGD5FXB7"` | Test Server basic auth key |
 | clearml.testUserSecret | string | `"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"` | Test File Server basic auth secret |
 | elasticsearch | object | `{"clusterHealthCheckParams":"wait_for_status=yellow&timeout=1s","clusterName":"clearml-elastic","enabled":true,"esConfig":{"elasticsearch.yml":"xpack.security.enabled: false\n"},"esJavaOpts":"-Xmx2g -Xms2g","extraEnvs":[{"name":"bootstrap.memory_lock","value":"false"},{"name":"cluster.routing.allocation.node_initial_primaries_recoveries","value":"500"},{"name":"cluster.routing.allocation.disk.watermark.low","value":"500mb"},{"name":"cluster.routing.allocation.disk.watermark.high","value":"500mb"},{"name":"cluster.routing.allocation.disk.watermark.flood_stage","value":"500mb"},{"name":"http.compression_level","value":"7"},{"name":"reindex.remote.whitelist","value":"*.*"},{"name":"xpack.monitoring.enabled","value":"false"},{"name":"xpack.security.enabled","value":"false"}],"httpPort":9200,"minimumMasterNodes":1,"persistence":{"enabled":true},"replicas":1,"resources":{"limits":{"cpu":"2000m","memory":"4Gi"},"requests":{"cpu":"100m","memory":"2Gi"}},"roles":{"data":"true","ingest":"true","master":"true","remote_cluster_client":"true"},"volumeClaimTemplate":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"50Gi"}},"storageClassName":null}}` | Configuration from https://github.com/elastic/helm-charts/blob/7.16/elasticsearch/values.yaml |
-| enterpriseFeatures | object | `{"airGappedDocumentation":{"enabled":false,"image":{"registry":"","repository":"","tag":"4"}},"apiserverImageTagOverride":"3.16.0-959","clearmlApplications":{"additionalClusterRoleBindings":[],"additionalRoleBindings":[],"affinity":{},"agentKey":"GK4PRTVT3706T25K6BA1","agentSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","basePodImage":{"repository":"","tag":"app-1.1.1-47"},"containerCustomBashScript":"","containerSecurityContext":{},"customBashScript":"","enabled":true,"extraEnvs":[],"fileMounts":[],"gitAgentPass":"git_password","gitAgentUser":"git_user","image":{"pullPolicy":"IfNotPresent","repository":"","tag":"1.24-58"},"nodeSelector":{},"podAnnotations":{},"podSecurityContext":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"tolerations":[]},"defaultCompanyGuid":"d1bd92a3b039400cbafc60a7a5b1e52b","enabled":false,"extraIndexUrl":"","fileserverImageTagOverride":"3.16.0-959","overrideReferenceApiUrl":"","overrideReferenceFileUrl":"","webserverImageTagOverride":"3.16-922"}` | Enterprise features (work only with an Enterprise license) |
-| enterpriseFeatures.airGappedDocumentation | object | `{"enabled":false,"image":{"registry":"","repository":"","tag":"4"}}` | Air gapped documentation  configurations |
-| enterpriseFeatures.airGappedDocumentation.enabled | bool | `false` | Enable/Disable air gapped documentation deployment |
-| enterpriseFeatures.airGappedDocumentation.image | object | `{"registry":"","repository":"","tag":"4"}` | Air gapped documentation image configuration |
-| enterpriseFeatures.apiserverImageTagOverride | string | `"3.16.0-959"` | Image tag override for apiserver enterprise version |
-| enterpriseFeatures.clearmlApplications | object | `{"additionalClusterRoleBindings":[],"additionalRoleBindings":[],"affinity":{},"agentKey":"GK4PRTVT3706T25K6BA1","agentSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","basePodImage":{"repository":"","tag":"app-1.1.1-47"},"containerCustomBashScript":"","containerSecurityContext":{},"customBashScript":"","enabled":true,"extraEnvs":[],"fileMounts":[],"gitAgentPass":"git_password","gitAgentUser":"git_user","image":{"pullPolicy":"IfNotPresent","repository":"","tag":"1.24-58"},"nodeSelector":{},"podAnnotations":{},"podSecurityContext":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"tolerations":[]}` | APPS configurations |
-| enterpriseFeatures.clearmlApplications.additionalClusterRoleBindings | list | `[]` | additional existing ClusterRoleBindings |
-| enterpriseFeatures.clearmlApplications.additionalRoleBindings | list | `[]` | additional existing RoleBindings |
-| enterpriseFeatures.clearmlApplications.affinity | object | `{}` | APPS affinity setup |
-| enterpriseFeatures.clearmlApplications.agentKey | string | `"GK4PRTVT3706T25K6BA1"` | Apps Server basic auth key |
-| enterpriseFeatures.clearmlApplications.agentSecret | string | `"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2"` | Apps Server basic auth secret |
-| enterpriseFeatures.clearmlApplications.basePodImage | object | `{"repository":"","tag":"app-1.1.1-47"}` | APPS base spawning pods image |
-| enterpriseFeatures.clearmlApplications.containerCustomBashScript | string | `""` | Custom Bash script for the APPS Task Pods ran by Glue Agent |
-| enterpriseFeatures.clearmlApplications.containerSecurityContext | object | `{}` | APPS containers security context |
-| enterpriseFeatures.clearmlApplications.customBashScript | string | `""` | Custom Bash script for the APPS Agent pod ran by Glue Agent |
-| enterpriseFeatures.clearmlApplications.enabled | bool | `true` | Enable/Disable component deployment |
-| enterpriseFeatures.clearmlApplications.extraEnvs | list | `[]` | APPS extra envrinoment variables |
-| enterpriseFeatures.clearmlApplications.fileMounts | list | `[]` | file definition |
-| enterpriseFeatures.clearmlApplications.gitAgentPass | string | `"git_password"` | Apps Server Git password |
-| enterpriseFeatures.clearmlApplications.gitAgentUser | string | `"git_user"` | Apps Server Git user |
-| enterpriseFeatures.clearmlApplications.image | object | `{"pullPolicy":"IfNotPresent","repository":"","tag":"1.24-58"}` | APPS image configuration |
-| enterpriseFeatures.clearmlApplications.nodeSelector | object | `{}` | APPS nodeselector |
-| enterpriseFeatures.clearmlApplications.podAnnotations | object | `{}` | specific annotation for APPS pods |
-| enterpriseFeatures.clearmlApplications.podSecurityContext | object | `{}` | APPS pod security context |
-| enterpriseFeatures.clearmlApplications.replicaCount | int | `1` | APPS number of pods |
-| enterpriseFeatures.clearmlApplications.resources | object | `{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}}` | APPS resources per pod; these are minimal requirements, it's suggested to increase these values in production environments |
-| enterpriseFeatures.clearmlApplications.tolerations | list | `[]` | APPS tolerations setup |
-| enterpriseFeatures.defaultCompanyGuid | string | `"d1bd92a3b039400cbafc60a7a5b1e52b"` | Company ID |
-| enterpriseFeatures.enabled | bool | `false` | Enable/Disable Enterprise features |
-| enterpriseFeatures.extraIndexUrl | string | `""` | extra index URL for Enterprise packages |
-| enterpriseFeatures.fileserverImageTagOverride | string | `"3.16.0-959"` | Image tag override for fileserver enterprise version |
-| enterpriseFeatures.overrideReferenceApiUrl | string | `""` | set this value AND overrideReferenceFileUrl if external endpoint exposure is in place (like a LoadBalancer) example: "https://api.clearml.local" |
-| enterpriseFeatures.overrideReferenceFileUrl | string | `""` | set this value AND overrideReferenceAPIUrl if external endpoint exposure is in place (like a LoadBalancer) example: "https://files.clearml.local" |
-| enterpriseFeatures.webserverImageTagOverride | string | `"3.16-922"` | Image tag override for webserver enterprise version |
 | externalServices | object | `{"elasticsearchConnectionString":"","mongodbConnectionStringAuth":"","mongodbConnectionStringBackend":"","redisHost":"","redisPort":6379}` | Definition of external services to use if not enabled as dependency charts here |
 | externalServices.elasticsearchConnectionString | string | `""` | Existing ElasticSearch connectionstring if elasticsearch.enabled is false (example in values.yaml) |
 | externalServices.mongodbConnectionStringAuth | string | `""` | Existing MongoDB connection string for BACKEND to use if mongodb.enabled is false |

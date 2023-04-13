@@ -6,24 +6,6 @@ metadata:
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
 data:
-  {{- if .Values.enterpriseFeatures.enabled }}
-  configuration.json: |
-    {
-      "gettingStartedContext": {
-        "install":"pip install -U --extra-index-url {{ .Values.enterpriseFeatures.extraIndexUrl }} allegroai",
-        "configure": "allegroai-init",
-        "packageName": "allegroai",
-        "agentName": "allegroai"
-      },
-      "docsLink": "https://clear.ml/docs/",
-      "applicationsBackground": "ui-assets/apps-message.svg"
-      {{- if and .Values.enterpriseFeatures.overrideReferenceApiUrl .Values.enterpriseFeatures.overrideReferenceFileUrl }}
-      ,
-      "fileBaseUrl": "{{ .Values.enterpriseFeatures.overrideReferenceFileUrl }}",
-      "apiBaseUrl": "{{ .Values.enterpriseFeatures.overrideReferenceApiUrl }}"
-      {{- end }}
-    }
-  {{- end }}
   {{- range $key, $val := .Values.webserver.additionalConfigs }}
   {{ $key }}: |
     {{- $val | nindent 4 }}

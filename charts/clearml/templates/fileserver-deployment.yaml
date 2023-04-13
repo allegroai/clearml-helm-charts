@@ -46,11 +46,7 @@ spec:
         {{ toYaml .Values.fileserver.podSecurityContext | nindent 8 }}
       initContainers:
         - name: init-fileserver
-          {{- if .Values.enterpriseFeatures.enabled }}
-          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.fileserver.image.registry) }}{{ .Values.fileserver.image.repository }}:{{ .Values.enterpriseFeatures.fileserverImageTagOverride }}"
-          {{- else }}
           image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.fileserver.image.registry) }}{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag }}"
-          {{- end }}
           command:
             - /bin/sh
             - -c
@@ -64,11 +60,7 @@ spec:
             {{ toYaml .Values.fileserver.containerSecurityContext | nindent 12 }}
       containers:
         - name: clearml-fileserver
-          {{- if .Values.enterpriseFeatures.enabled }}
-          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.fileserver.image.registry) }}{{ .Values.fileserver.image.repository }}:{{ .Values.enterpriseFeatures.fileserverImageTagOverride }}"
-          {{- else }}
           image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.fileserver.image.registry) }}{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag }}"
-          {{- end }}
           imagePullPolicy: {{ .Values.fileserver.image.pullPolicy }}
           ports:
             - name: http
@@ -98,10 +90,8 @@ spec:
           {{- if .Values.fileserver.extraEnvs }}
           {{ toYaml .Values.fileserver.extraEnvs | nindent 10 }}
           {{- end }}
-          {{- if not .Values.enterpriseFeatures.enabled }}
           args:
             - fileserver
-          {{- end }}
           livenessProbe:
             exec:
               command:

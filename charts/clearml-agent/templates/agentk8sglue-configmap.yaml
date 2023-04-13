@@ -3,23 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ include "clearmlAgent.fullname" . }}-pt
 data:
-{{- if .Values.enterpriseFeatures.enabled }}
-  template.yaml: |
-    {{- if .Values.agentk8sglue.taskAsJob }}
-    {{ include "taskContainer.jobTemplate" . | nindent 4}}
-    {{- else }}
-    {{ include "taskContainer.podTemplate" . | nindent 4}}
-    {{- end }}
-  secrets.yaml: |
-    {{- range $key, $value := $.Values.enterpriseFeatures.queues }}
-    {{ $key }}:
-      {{- if $value.templateOverrides.fileMounts }}
-        - {{ include "clearmlAgent.fullname" $ }}-{{ $key }}-fm
-      {{- else if $.Values.agentk8sglue.basePodTemplate.fileMounts }}
-        - {{ include "clearmlAgent.fullname" $ }}-fm
-      {{- end }}
-    {{- end }}
-{{- else }}
   template.yaml: |
     apiVersion: v1
     metadata:
@@ -98,7 +81,6 @@ data:
       affinity:
           {{- toYaml . | nindent 8 }}
         {{- end }}
-{{- end }}
 {{- if .Values.sessions.portModeEnabled }}
 {{- range untilStep 1 ( ( add .Values.sessions.maxServices 1 ) | int ) 1 }}
   services-{{ . }}.yaml: |

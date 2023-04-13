@@ -5,48 +5,6 @@ metadata:
   name: {{ include "clearmlAgent.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}
 {{- end }}
-{{- if .Values.enterpriseFeatures.serviceAccountClusterAccess }}
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: {{ include "clearmlAgent.fullname" . }}-kpa
-rules:
-  - apiGroups:
-      - ""
-    resources:
-      - pods
-      - secrets
-      - services
-      - events
-    verbs: ["get", "list", "watch", "create", "patch", "delete"]
-  - apiGroups:
-      - ""
-    resources:
-      - namespaces
-    verbs: ["list"]
-  {{- if .Values.agentk8sglue.taskAsJob }}
-  - apiGroups:
-      - batch
-      - extensions
-    resources:
-      - jobs
-    verbs: ["get", "list", "watch", "create", "patch", "delete"]
-  {{- end }} 
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: {{ include "clearmlAgent.fullname" . }}-kpa
-subjects:
-  - kind: ServiceAccount
-    name: {{ include "clearmlAgent.serviceAccountName" . }}
-    namespace: {{ .Release.Namespace }}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: {{ include "clearmlAgent.fullname" . }}-kpa
-{{- else }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -87,7 +45,6 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: {{ include "clearmlAgent.fullname" . }}-kpa
-{{- end }}
 {{- range .Values.agentk8sglue.additionalClusterRoleBindings }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1

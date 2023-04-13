@@ -45,11 +45,7 @@ spec:
         {{ toYaml .Values.apiserver.podSecurityContext | nindent 8 }}
       initContainers:
         - name: init-apiserver
-          {{- if .Values.enterpriseFeatures.enabled }}
-          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.apiserver.image.registry) }}{{ .Values.apiserver.image.repository }}:{{ .Values.enterpriseFeatures.apiserverImageTagOverride }}"
-          {{- else }}
           image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.apiserver.image.registry) }}{{ .Values.apiserver.image.repository }}:{{ .Values.apiserver.image.tag }}"
-          {{- end }}
           command:
             - /bin/sh
             - -c
@@ -77,11 +73,7 @@ spec:
             {{ toYaml .Values.apiserver.containerSecurityContext | nindent 12 }}
       containers:
         - name: clearml-apiserver
-          {{- if .Values.enterpriseFeatures.enabled }}
-          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.apiserver.image.registry) }}{{ .Values.apiserver.image.repository }}:{{ .Values.enterpriseFeatures.apiserverImageTagOverride }}"
-          {{- else }}
           image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.apiserver.image.registry) }}{{ .Values.apiserver.image.repository }}:{{ .Values.apiserver.image.tag }}"
-          {{- end }}
           imagePullPolicy: {{ .Values.apiserver.image.pullPolicy }}
           ports:
             - name: http
@@ -140,70 +132,6 @@ spec:
           - name: CLEARML__APISERVER__PRE_POPULATE__ZIP_FILES
             value: "/opt/clearml/db-pre-populate"
           {{- end }}
-          {{- if .Values.enterpriseFeatures.enabled }}
-          - name: CLEARML__apiserver__default_company
-            value: "{{ .Values.enterpriseFeatures.defaultCompanyGuid }}"
-          - name: APPLY_ES_MAPPINGS
-            value: "false"
-          - name: NUMBER_OF_GUNICORN_WORKERS
-            value: "{{ .Values.apiserver.processes.count }}"
-          - name: GUNICORN_TIMEOUT
-            value: "{{ .Values.apiserver.processes.timeout }}"
-          - name: GUNICORN_MAX_REQUESTS
-            value: "{{ .Values.apiserver.processes.maxRequests }}"
-          - name: GUNICORN_MAX_REQUESTS_JITTER
-            value: "{{ .Values.apiserver.processes.maxRequestsJitter }}"
-          - name: CLEARML_CONFIG_VERBOSE
-            value: "0"
-          - name: CLEARML__SERVICES__APPLICATIONS__TEMPLATES__FOLDER
-            value: "/opt/allegro/config/applications"
-          - name: CLEARML__apiserver__apilog__prefix
-            value: "fluentd."
-          - name: CLEARML__apiserver__apilog__index_name_prefix__default
-            value: "allegro.apiserver.api-logs."
-          - name: CLEARML__apiserver__apilog__adapter
-            value: "logging"
-          - name: CLEARML__apiserver__apilog__rotation__index_size
-            value: "225000"
-          - name: CLEARML__services__tasks__non_responsive_tasks_watchdog__enabled
-            value: "false"
-          - name: CLEARML__APISERVER__AUTH__COOKIES__MAX_AGE
-            value: "2678400"
-          - name: CLEARML__services__frames__scroll_state_expiration_hours
-            value: "6"
-          - name: CLEARML__services__organization__features__applications
-            value: "true"
-          - name: CLEARML__services__organization__features__app_management
-            value: "true"
-          - name: CLEARML__SERVICES___ELASTIC__MAPPINGS__EVENTS__NUMBER_OF_REPLICAS
-            value: {{ .Values.apiserver.indexReplicas | quote }}
-          - name: CLEARML__SERVICES___ELASTIC__MAPPINGS__EVENTS__NUMBER_OF_SHARDS
-            value: {{ .Values.apiserver.indexShards | quote }}
-          - name: CLEARML__APISERVER__LOG_CALLS
-            value: "false"
-          - name: ALLEGRO_ENV
-            value: "onprem_k8s"
-          - name: CLEARML__secure__credentials__fileserver__user_key
-            valueFrom:
-              secretKeyRef:
-                name: clearml-conf
-                key: fileserver_key
-          - name: CLEARML__secure__credentials__fileserver__user_secret
-            valueFrom:
-              secretKeyRef:
-                name: clearml-conf
-                key: fileserver_secret
-          - name: CLEARML__secure__applications__agents_credentials__apps_agent__user_key
-            valueFrom:
-              secretKeyRef:
-                name: clearml-conf
-                key: apps_agent_key
-          - name: CLEARML__secure__applications__agents_credentials__apps_agent__user_secret
-            valueFrom:
-              secretKeyRef:
-                name: clearml-conf
-                key: apps_agent_secret
-          {{- else }}
           - name: CLEARML__SECURE__CREDENTIALS__TESTS__USER_KEY
             valueFrom:
               secretKeyRef:
@@ -216,14 +144,11 @@ spec:
                 key: test_user_secret
           - name: CLEARML_ENV
             value: "helm-cloud"
-          {{- end }}
           {{- if .Values.apiserver.extraEnvs }}
           {{ toYaml .Values.apiserver.extraEnvs | nindent 10 }}
           {{- end }}
-          {{- if not .Values.enterpriseFeatures.enabled }}
           args:
             - apiserver
-          {{- end }}
           livenessProbe:
             initialDelaySeconds: 60
             httpGet:
@@ -233,11 +158,7 @@ spec:
             initialDelaySeconds: 60
             failureThreshold: 8
             httpGet:
-              {{- if .Values.enterpriseFeatures.enabled }}
-              path: /server.health_check
-              {{- else }}
               path: /debug.ping
-              {{- end }}
               port: 8008
               httpHeaders:
                 - name: Authorization
@@ -245,11 +166,7 @@ spec:
           {{- if or .Values.apiserver.additionalConfigs .Values.apiserver.existingAdditionalConfigsConfigMap  .Values.apiserver.existingAdditionalConfigsSecret }}
           volumeMounts:  
             - name: apiserver-config
-              {{- if .Values.enterpriseFeatures.enabled }}
-              mountPath: /opt/clearml/config/default
-              {{- else }}
               mountPath: /opt/clearml/config
-              {{- end }}
           {{- end }}
           resources:
             {{- toYaml .Values.apiserver.resources | nindent 12 }}
