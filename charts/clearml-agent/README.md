@@ -1,6 +1,6 @@
 # ClearML Kubernetes Agent
 
-![Version: 4.0.10](https://img.shields.io/badge/Version-4.0.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 5.0.0](https://img.shields.io/badge/Version-5.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
 MLOps platform Task running agent
 
@@ -39,20 +39,6 @@ helm upgrade clearml-agent allegroai/clearml-agent --version <CURRENT CHART VERS
 Before issuing helm upgrade:
 
 * if using securityContexts check for new value form in values.yaml (podSecurityContext and containerSecurityContext)
-
-## ENTERPRISE Version
-
-There are some specific Enterprise version features that can be enabled only with specific Enterprise licensed images.
-Enabling this features on OSS version can cause the entire installation to break.
-
-### Non root/privileged environments
-
-*This feature is available for Enterprise version only*
-
-In environments like Openshift or Tanzu it can be required to run non-root/non-privileged pods/containers.
-In this case it's recommended to use `values-enterprise-non-root-privileged.yaml` as base for override file.
-
-Keep in mind it's not possible to install packages on non-root containers so images used for Tasks must already have python, pip and git installed.
 
 ## Source Code
 
@@ -117,19 +103,6 @@ Kubernetes: `>= 1.21.0-0 < 1.28.0-0`
 | clearml.clearmlConfig | string | `"sdk {\n}"` | ClearML configuration file |
 | clearml.existingAgentk8sglueSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
 | clearml.existingClearmlConfigSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
-| enterpriseFeatures | object | `{"agentImageTagOverride":"1.24-58","applyVaultEnvVars":true,"createQueues":false,"enabled":false,"maxPods":10,"monitoredResources":{"maxResources":0,"maxResourcesFieldName":"resources|limits|nvidia.com/gpu","minResourcesFieldName":"resources|limits|nvidia.com/gpu"},"queues":null,"serviceAccountClusterAccess":false,"useOwnerToken":true}` | Enterprise features (work only with an Enterprise license) |
-| enterpriseFeatures.agentImageTagOverride | string | `"1.24-58"` | Image tag override for enterprise version |
-| enterpriseFeatures.applyVaultEnvVars | bool | `true` | push env vars from Clear.ML Vault to task pods |
-| enterpriseFeatures.createQueues | bool | `false` | Create queues if they don't exist |
-| enterpriseFeatures.enabled | bool | `false` | Enable/Disable Enterprise features |
-| enterpriseFeatures.maxPods | int | `10` | maximum concurrent consume ClearML Task pod |
-| enterpriseFeatures.monitoredResources | object | `{"maxResources":0,"maxResourcesFieldName":"resources|limits|nvidia.com/gpu","minResourcesFieldName":"resources|limits|nvidia.com/gpu"}` | GPU resource general counters |
-| enterpriseFeatures.monitoredResources.maxResources | int | `0` | Maximum resources counter |
-| enterpriseFeatures.monitoredResources.maxResourcesFieldName | string | `"resources|limits|nvidia.com/gpu"` | Field name used by Agent to count maximum resources |
-| enterpriseFeatures.monitoredResources.minResourcesFieldName | string | `"resources|limits|nvidia.com/gpu"` | Field name used by Agent to count minimum resources |
-| enterpriseFeatures.queues | string | `nil` | ClearML queues and related template OVERRIDES used this agent will consume |
-| enterpriseFeatures.serviceAccountClusterAccess | bool | `false` | service account access every namespace flag |
-| enterpriseFeatures.useOwnerToken | bool | `true` | Agent must use owner Token |
 | global | object | `{"imageRegistry":"docker.io"}` | Global parameters section |
 | global.imageRegistry | string | `"docker.io"` | Images registry |
 | imageCredentials | object | `{"email":"someone@host.com","enabled":false,"existingSecret":"","password":"pwd","registry":"docker.io","username":"someone"}` | Private image registry configuration |

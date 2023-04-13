@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml-agent
 description: MLOps platform Task running agent
 type: application
-version: "4.0.10"
+version: "5.0.0"
 appVersion: "1.24"
 kubeVersion: ">= 1.21.0-0 < 1.28.0-0"
 home: https://clear.ml

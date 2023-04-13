@@ -31,36 +31,11 @@ spec:
         - name: webserver-config
           configMap:
             name: "{{ include "webserver.referenceName" . }}-configmap"
-        {{- if .Values.enterpriseFeatures.airGappedDocumentation.enabled }}
-        - name: documentation
-          emptyDir: {}
-        {{- end }}
       securityContext:
         {{ toYaml .Values.webserver.podSecurityContext | nindent 8 }}
       initContainers:
-        {{- if .Values.enterpriseFeatures.airGappedDocumentation.enabled }}
-        - name: init-airgap-docs
-          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.enterpriseFeatures.airGappedDocumentation.image.registry) }}{{ .Values.enterpriseFeatures.airGappedDocumentation.image.repository }}:{{ .Values.enterpriseFeatures.airGappedDocumentation.image.tag | default .Chart.AppVersion }}"
-          command:
-            - /bin/sh
-            - -c
-            - cp -a /docs_site/* /usr/share/nginx/html/clearml
-          volumeMounts:
-            - name: webserver-config
-              mountPath: /mnt/external_files/configs
-            {{- if .Values.enterpriseFeatures.airGappedDocumentation.enabled }}
-            - mountPath: /usr/share/nginx/html/clearml
-              name: documentation
-            {{- end }}
-          securityContext:
-            {{ toYaml .Values.webserver.containerSecurityContext | nindent 12 }}
-        {{- end }}
         - name: init-webserver
-          {{- if .Values.enterpriseFeatures.enabled }}
-          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.webserver.image.registry) }}{{ .Values.webserver.image.repository }}:{{ .Values.enterpriseFeatures.webserverImageTagOverride }}"
-          {{- else }}
           image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.webserver.image.registry) }}{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag }}"
-          {{- end }}
           command:
             - /bin/sh
             - -c
@@ -74,67 +49,29 @@ spec:
             {{ toYaml .Values.webserver.containerSecurityContext | nindent 12 }}
       containers:
         - name: clearml-webserver
-          {{- if .Values.enterpriseFeatures.enabled }}
-          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.webserver.image.registry) }}{{ .Values.webserver.image.repository }}:{{ .Values.enterpriseFeatures.webserverImageTagOverride }}"
-          {{- else }}
           image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.webserver.image.registry) }}{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag }}"
-          {{- end }}
           imagePullPolicy: {{ .Values.webserver.image.pullPolicy }}
           ports:
             - name: http
-              {{- if .Values.enterpriseFeatures.enabled }}
-              containerPort: 8080
-              {{- else }}
               containerPort: 80
-              {{- end }}
               protocol: TCP
           livenessProbe:
             exec:
               command:
                 - curl
                 - -X OPTIONS
-                {{- if .Values.enterpriseFeatures.enabled }}
-                - http://localhost:8080/
-                {{- else }}
                 - http://localhost:80/
-                {{- end }}
           readinessProbe:
             exec:
               command:
                 - curl
                 - -X OPTIONS
-                {{- if .Values.enterpriseFeatures.enabled }}
-                - http://localhost:8080/
-                {{- else }}
                 - http://localhost:80/
-                {{- end }}
           env:
           - name: NGINX_APISERVER_ADDRESS
             value: "http://{{ include "apiserver.referenceName" . }}:{{ .Values.apiserver.service.port }}"
           - name: NGINX_FILESERVER_ADDRESS
             value: "http://{{ include "fileserver.referenceName" . }}:{{ .Values.fileserver.service.port }}"
-          {{- if .Values.enterpriseFeatures.enabled }}
-          {{- if .Values.enterpriseFeatures.airGappedDocumentation.enabled }}
-          - name: WEBSERVER__docsLink
-            value: "\"clearml/docs/\""
-          {{- end }}
-          - name: COMPANY_ID
-            value: "{{ .Values.clearml.defaultCompany }}"
-          - name: WEBSERVER__appsYouTubeIntroLink
-            value: "\"https://www.youtube.com/embed/HACL60h1Z54\""
-          - name: WEBSERVER__appsYouTubeIntroVideoId
-            value: "\"HACL60h1Z54\""
-          - name: USER_KEY
-            valueFrom:
-              secretKeyRef:
-                name: clearml-conf
-                key: apiserver_key
-          - name: USER_SECRET
-            valueFrom:
-              secretKeyRef:
-                name: clearml-conf
-                key: apiserver_secret
-          {{- end }}
           {{- if include "clearml.clientConfiguration" . }}
           - name: WEBSERVER__displayedServerUrls
             value: {{ include "clearml.clientConfiguration" . | quote }} 
@@ -142,17 +79,11 @@ spec:
           {{- if .Values.webserver.extraEnvs }}
           {{ toYaml .Values.webserver.extraEnvs | nindent 10 }}
           {{- end }}
-          {{- if not .Values.enterpriseFeatures.enabled }}
           args:
             - webserver
-          {{- end }}
           volumeMounts:
             - name: webserver-config
               mountPath: /mnt/external_files/configs
-            {{- if .Values.enterpriseFeatures.airGappedDocumentation.enabled }}
-            - mountPath: /usr/share/nginx/html/clearml
-              name: documentation
-            {{- end }}
           resources:
             {{- toYaml .Values.webserver.resources | nindent 12 }}
           securityContext:

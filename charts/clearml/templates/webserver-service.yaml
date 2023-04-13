@@ -13,11 +13,7 @@ spec:
   type: {{ .Values.webserver.service.type }}
   ports:
     - port: {{ .Values.webserver.service.port }}
-      {{- if .Values.enterpriseFeatures.enabled }}
-      targetPort: 8080
-      {{- else }}
       targetPort: 80
-      {{- end }}
       {{- if eq .Values.webserver.service.type "NodePort" }}
       nodePort: {{ .Values.webserver.service.nodePort }}
       {{- end }}

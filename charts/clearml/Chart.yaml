@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "6.1.1"
+version: "7.0.0"
 appVersion: "1.10.0"
 kubeVersion: ">= 1.21.0-0 < 1.28.0-0"
 home: https://clear.ml
