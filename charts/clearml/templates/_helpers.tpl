@@ -194,7 +194,7 @@ MongoDB Comnnection string
 {{- end }}
 
 {{/*
-MongoDB hotname
+MongoDB hostname
 */}}
 {{- define "mongodb.hostname" -}}
 {{- if eq .Values.mongodb.architecture "standalone" }}
@@ -209,7 +209,11 @@ Redis Service name
 */}}
 {{- define "redis.servicename" -}}
 {{- if .Values.redis.enabled }}
+{{- if eq .Values.redis.architecture "standalone" }}
 {{- tpl .Values.redis.master.name . }}
+{{- else }}
+{{- printf "%s-headless" (tpl .Values.redis.master.name . ) }}
+{{- end }}
 {{- else }}
 {{- .Values.externalServices.redisHost }}
 {{- end }}
