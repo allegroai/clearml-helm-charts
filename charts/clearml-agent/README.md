@@ -112,8 +112,7 @@ Kubernetes: `>= 1.21.0-0 < 1.28.0-0`
 | imageCredentials.password | string | `"pwd"` | Registry password |
 | imageCredentials.registry | string | `"docker.io"` | Registry name |
 | imageCredentials.username | string | `"someone"` | Registry username |
-| sessions | object | `{"dynamicSvcs":false,"externalIP":"0.0.0.0","maxServices":20,"portModeEnabled":false,"setInteractiveQueuesTag":true,"startingPort":30000,"svcAnnotations":{},"svcType":"NodePort"}` | Sessions internal service configuration |
-| sessions.dynamicSvcs | bool | `false` | Enable/Disable dynamic svc for sessions pods |
+| sessions | object | `{"externalIP":"0.0.0.0","maxServices":20,"portModeEnabled":false,"setInteractiveQueuesTag":true,"startingPort":30000,"svcAnnotations":{},"svcType":"NodePort"}` | Sessions internal service configuration |
 | sessions.externalIP | string | `"0.0.0.0"` | External IP sessions clients can connect to |
 | sessions.maxServices | int | `20` | maximum number of NodePorts exposed |
 | sessions.portModeEnabled | bool | `false` | Enable/Disable sessions portmode WARNING: only one Agent deployment can have this set to true |
