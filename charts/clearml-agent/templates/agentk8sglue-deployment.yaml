@@ -97,12 +97,6 @@ spec:
                       --ports-mode --num-of-services {{ .Values.sessions.maxServices }} \
                       --base-port {{ .Values.sessions.startingPort }} \
                       --gateway-address {{ .Values.sessions.externalIP }}"
-            {{- if .Values.sessions.dynamicSvcs }}
-            - name: CLEARML_K8S_GLUE_POD_POST_APPLY_CMD
-              value: "kubectl -n {namespace} apply -f ~/template/services-{pod_number}.yaml ; kubectl -n {namespace} label svc clearml-session-{pod_number} service-for={pod_name}"
-            - name: CLEARML_K8S_GLUE_POD_POST_DELETE_CMD
-              value: "kubectl -n {namespace} delete svc -l service-for={pod_name}"
-            {{- end }}
             {{- else}}
             - name: K8S_GLUE_EXTRA_ARGS
               value: "--namespace {{ .Release.Namespace }} --template-yaml /root/template/template.yaml"
@@ -113,8 +107,6 @@ spec:
             {{- end }}
             - name: CLEARML_K8S_GLUE_LIMIT_POD_LABEL
               value: "ai.allegro.agent.serial=pod-{pod_number}"
-            - name: CLEARML_K8S_SECRETS_LIST_FILE
-              value: /root/template/secrets.yaml
             - name: K8S_DEFAULT_NAMESPACE
               value: "{{ .Release.Namespace }}"
             - name: CLEARML_API_ACCESS_KEY
