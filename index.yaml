@@ -3086,6 +3086,34 @@ entries:
           description: removed support for enterprise features due to chart split
     apiVersion: v2
     appVersion: "1.24"
+    created: "2023-05-08T15:25:22.886373225Z"
+    description: MLOps platform Task running agent
+    digest: 778da59cb930226f8d2d89c9553e43d1ba1275e052438317af26c08bb6746d03
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.28.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-5.0.1/clearml-agent-5.0.1.tgz
+    version: 5.0.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: removed support for enterprise features due to chart split
+    apiVersion: v2
+    appVersion: "1.24"
     created: "2023-04-13T15:45:26.848297749Z"
     description: MLOps platform Task running agent
     digest: d7c285b97bab2a6e335f99cd26365f5ca630cc86663c0e704cbfef65294bc54d
@@ -4358,4 +4386,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-14T10:11:58.729943272Z"
+generated: "2023-05-08T15:25:22.886870027Z"
