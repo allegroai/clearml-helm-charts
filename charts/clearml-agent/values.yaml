@@ -216,8 +216,6 @@ agentk8sglue:
 sessions:
   # -- Enable/Disable sessions portmode WARNING: only one Agent deployment can have this set to true
   portModeEnabled: false
-  # -- Enable/Disable dynamic svc for sessions pods
-  dynamicSvcs: false
   # -- specific annotations for session services
   svcAnnotations: {}
   # -- service type ("NodePort" or "ClusterIP" or "LoadBalancer")
