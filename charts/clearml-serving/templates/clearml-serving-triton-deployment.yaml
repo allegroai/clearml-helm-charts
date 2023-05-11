@@ -46,7 +46,7 @@ spec:
           ports:
             - containerPort: 8001
           resources:
-            {{ toYaml .Values.clearml_serving_triton.resources | indent 12 }}
+            {{- toYaml .Values.clearml_serving_triton.resources | indent 12 }}
       restartPolicy: Always
 {{ end }}
 
