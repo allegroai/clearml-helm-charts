@@ -58,5 +58,6 @@ spec:
           name: {{ include "clearmlServing.fullname" . }}-inference
           ports:
             - containerPort: 8080
-          resources: {}
+          resources:
+            {{- toYaml .Values.clearml_serving_inference.resources | nindent 12 }}
       restartPolicy: Always

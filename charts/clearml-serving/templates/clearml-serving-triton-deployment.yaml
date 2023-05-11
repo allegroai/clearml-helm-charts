@@ -45,7 +45,8 @@ spec:
           name: {{ include "clearmlServing.fullname" . }}-triton
           ports:
             - containerPort: 8001
-          resources: {}
+          resources:
+            {{ toYaml .Values.clearml_serving_triton.resources | indent 12 }}
       restartPolicy: Always
 {{ end }}
 

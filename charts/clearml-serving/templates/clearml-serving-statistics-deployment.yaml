@@ -44,5 +44,6 @@ spec:
           name: {{ include "clearmlServing.fullname" . }}-statistics
           ports:
             - containerPort: 9999
-          resources: {}
+          resources:
+            {{- toYaml .Values.clearml_serving_statistics.resources | nindent 12 }}
       restartPolicy: Always
