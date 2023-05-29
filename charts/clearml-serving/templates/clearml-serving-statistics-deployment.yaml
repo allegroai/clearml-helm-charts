@@ -37,7 +37,7 @@ spec:
             - name: CLEARML_SERVING_TASK_ID
               value: "{{ .Values.clearml.servingTaskId }}"
             {{- if .Values.clearml_serving_statistics.extraPythonPackages }}
-            - name: EXTRA_PYTHON_PACKAGES
+            - name: CLEARML_EXTRA_PYTHON_PACKAGES
               value: '{{ join " " .Values.clearml_serving_statistics.extraPythonPackages }}'
             {{- end }}
           image: "{{ .Values.clearml_serving_statistics.image.repository }}:{{ .Values.clearml_serving_statistics.image.tag }}"

@@ -38,7 +38,7 @@ spec:
             - name: CLEARML_TRITON_METRIC_FREQ
               value: "1.0"
             {{- if .Values.clearml_serving_triton.extraPythonPackages }}
-            - name: EXTRA_PYTHON_PACKAGES
+            - name: CLEARML_EXTRA_PYTHON_PACKAGES
               value: '{{ join " " .Values.clearml_serving_triton.extraPythonPackages }}'
             {{- end }}
           image: "{{ .Values.clearml_serving_triton.image.repository }}:{{ .Values.clearml_serving_triton.image.tag }}"
