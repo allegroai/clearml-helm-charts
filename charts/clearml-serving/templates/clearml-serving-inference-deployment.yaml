@@ -51,7 +51,7 @@ spec:
             - name: CLEARML_USE_GUNICORN
               value: "true"
             {{- if .Values.clearml_serving_inference.extraPythonPackages }}
-            - name: EXTRA_PYTHON_PACKAGES
+            - name: CLEARML_EXTRA_PYTHON_PACKAGES
               value: '{{ join " " .Values.clearml_serving_inference.extraPythonPackages }}'
             {{- end }}
           image: "{{ .Values.clearml_serving_inference.image.repository }}:{{ .Values.clearml_serving_inference.image.tag }}"
