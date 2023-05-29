@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml-serving
 description: ClearML Serving Helm Chart
 type: application
-version: "1.0.2"
+version: "1.0.3"
 appVersion: "1.2.0"
 kubeVersion: ">= 1.21.0-0 < 1.28.0-0"
 home: https://clear.ml
@@ -34,4 +34,4 @@ dependencies:
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: resources limits and requests not used
+      description: env var referenced for extra packages
