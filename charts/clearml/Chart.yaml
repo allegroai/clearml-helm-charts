@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "7.1.0"
+version: "7.2.0"
 appVersion: "1.11.0"
 kubeVersion: ">= 1.21.0-0 < 1.28.0-0"
 home: https://clear.ml
@@ -32,5 +32,5 @@ dependencies:
     condition: elasticsearch.enabled
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: upgrade to app version 1.11
+    - kind: added
+      description: initContainers resources definition

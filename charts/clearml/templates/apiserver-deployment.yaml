@@ -71,6 +71,8 @@ spec:
               {{- end }}
           securityContext:
             {{ toYaml .Values.apiserver.containerSecurityContext | nindent 12 }}
+          resources:
+            {{- toYaml .Values.apiserver.initContainers.resources | nindent 12 }}
       containers:
         - name: clearml-apiserver
           image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.apiserver.image.registry) }}{{ .Values.apiserver.image.repository }}:{{ .Values.apiserver.image.tag }}"

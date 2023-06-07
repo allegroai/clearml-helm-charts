@@ -58,6 +58,8 @@ spec:
               done
           securityContext:
             {{ toYaml .Values.fileserver.containerSecurityContext | nindent 12 }}
+          resources:
+            {{- toYaml .Values.fileserver.initContainers.resources | nindent 12 }}
       containers:
         - name: clearml-fileserver
           image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.fileserver.image.registry) }}{{ .Values.fileserver.image.repository }}:{{ .Values.fileserver.image.tag }}"
