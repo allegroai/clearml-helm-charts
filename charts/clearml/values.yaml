@@ -72,6 +72,15 @@ apiserver:
     nodePort: 30008
   # -- Api Server number of pods
   replicaCount: 1
+  # -- Api Server resources per initContainers pod
+  initContainers:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        cpu: 10m
+        memory: 64Mi
   # -- Ingress configuration for Api Server component
   ingress:
     # -- Enable/Disable ingress
@@ -181,6 +190,15 @@ fileserver:
     nodePort: 30081
   # -- File Server number of pods
   replicaCount: 1
+  # -- File Server resources per initContainers pod
+  initContainers:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        cpu: 10m
+        memory: 64Mi
   # -- Ingress configuration for File Server component
   ingress:
     # -- Enable/Disable ingress
@@ -254,6 +272,15 @@ webserver:
     nodePort: 30080
   # -- Web Server number of pods
   replicaCount: 1
+  # -- Web Server resources per initContainers pod
+  initContainers:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        cpu: 10m
+        memory: 64Mi
   # -- Ingress configuration for Web Server component
   ingress:
     # -- Enable/Disable ingress
