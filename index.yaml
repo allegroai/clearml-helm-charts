@@ -4231,6 +4231,47 @@ entries:
           description: env var referenced for extra packages
     apiVersion: v2
     appVersion: 1.2.0
+    created: "2023-06-08T13:32:56.667159516Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 21.4.0
+    - condition: prometheus.enabled
+      name: prometheus
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 19.7.2
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 6.52.3
+    description: ClearML Serving Helm Chart
+    digest: 49c3f425a00f862baa35139f47544d2fde27fed42cb50dc1a4f7269aa736c990
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - model serving
+    kubeVersion: '>= 1.21.0-0 < 1.28.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-serving
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-1.1.0/clearml-serving-1.1.0.tgz
+    version: 1.1.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: env var referenced for extra packages
+    apiVersion: v2
+    appVersion: 1.2.0
     created: "2023-05-29T10:55:33.618320757Z"
     dependencies:
     - condition: kafka.enabled
@@ -4548,4 +4589,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-06-07T06:34:48.520432091Z"
+generated: "2023-06-08T13:32:56.667520018Z"
