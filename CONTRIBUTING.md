@@ -52,9 +52,11 @@ Before you submit a new PR:
 
 * Verify the work you plan to merge addresses an existing [issue](https://github.com/allegroai/clearml-helm-charts/issues) (If not, open a new one)
 * Check related discussions in the [ClearML slack community](https://joinslack.clear.ml) (or start your own discussion on the `#clearml-dev` channel)
-* Make sure your code conforms to the ClearML coding standards by running:  
-  `flake8 --max-line-length=120 --statistics --show-source --extend-ignore=E501 ./clearml*`
+* Check your branch with `helm lint`
+* Update `version` in `Chart.yaml` according [semver](https://semver.org/) rules
+* Update chart README using [helm-docs](https://github.com/norwoodj/helm-docs)
 
 In your PR include:
+
 * A reference to the issue it addresses
 * A brief description of the approach you've taken for implementing
