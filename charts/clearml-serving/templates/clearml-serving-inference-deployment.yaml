@@ -54,6 +54,9 @@ spec:
             - name: CLEARML_EXTRA_PYTHON_PACKAGES
               value: '{{ join " " .Values.clearml_serving_inference.extraPythonPackages }}'
             {{- end }}
+            {{- with .Values.clearml_serving_inference.extraEnvironment }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           image: "{{ .Values.clearml_serving_inference.image.repository }}:{{ .Values.clearml_serving_inference.image.tag }}"
           name: {{ include "clearmlServing.fullname" . }}-inference
           ports:
