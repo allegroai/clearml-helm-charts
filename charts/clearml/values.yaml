@@ -49,7 +49,7 @@ clearml:
   # -- Override the Files Urls displayed when showing an example of the SDK's clearml.conf configuration
   clientConfigurationFilesUrl: ""
   existingAdditionalSecret: ""
-  
+
 # -- Api Server configurations
 apiserver:
   # -- Enable/Disable component deployment
