@@ -1,6 +1,6 @@
 # ClearML Kubernetes Serving
 
-![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square)
 
 ClearML Serving Helm Chart
 
@@ -54,9 +54,10 @@ Kubernetes: `>= 1.21.0-0 < 1.28.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | clearml | object | `{"apiAccessKey":"ClearML API Access Key","apiHost":"http://clearml-server-apiserver:8008","apiSecretKey":"ClearML API Secret Key","defaultBaseServeUrl":"http://127.0.0.1:8080/serve","filesHost":"http://clearml-server-fileserver:8081","servingTaskId":"ClearML Serving Task ID","webHost":"http://clearml-server-webserver:80"}` | ClearMl generic configurations |
-| clearml_serving_inference | object | `{"affinity":{},"autoscaling":{"enabled":false,"maxReplicas":11,"minReplicas":1,"targetCPU":50,"targetMemory":50},"extraPythonPackages":[],"image":{"repository":"allegroai/clearml-serving-inference","tag":"1.2.0"},"ingress":{"annotations":{},"enabled":false,"hostName":"serving.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"resources":{},"tolerations":[]}` | ClearML serving inference configurations |
+| clearml_serving_inference | object | `{"affinity":{},"autoscaling":{"enabled":false,"maxReplicas":11,"minReplicas":1,"targetCPU":50,"targetMemory":50},"extraEnvironment":[],"extraPythonPackages":[],"image":{"repository":"allegroai/clearml-serving-inference","tag":"1.2.0"},"ingress":{"annotations":{},"enabled":false,"hostName":"serving.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"resources":{},"tolerations":[]}` | ClearML serving inference configurations |
 | clearml_serving_inference.affinity | object | `{}` | Affinity configuration |
 | clearml_serving_inference.autoscaling | object | `{"enabled":false,"maxReplicas":11,"minReplicas":1,"targetCPU":50,"targetMemory":50}` | Autoscaling configuration |
+| clearml_serving_inference.extraEnvironment | list | `[]` | Extra environment variables |
 | clearml_serving_inference.extraPythonPackages | list | `[]` | Extra Python Packages to be installed in running pods |
 | clearml_serving_inference.image | object | `{"repository":"allegroai/clearml-serving-inference","tag":"1.2.0"}` | Container Image |
 | clearml_serving_inference.ingress | object | `{"annotations":{},"enabled":false,"hostName":"serving.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""}` | Ingress exposing configurations |
