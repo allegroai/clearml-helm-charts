@@ -116,17 +116,17 @@ spec:
           - name: CLEARML__secure__credentials__apiserver__user_key
             valueFrom:
               secretKeyRef:
-                name: {{ default “clearml-conf” .Values.clearml.existingAdditionalSecret }}
+                name: {{ if .Values.clearml.existingAdditionalSecret -}} {{ default "clearml-conf" .Values.clearml.existingAdditionalSecret  | quote }} {{- else -}} "clearml-conf" {{- end }}
                 key: apiserver_key
           - name: CLEARML__secure__credentials__apiserver__user_secret
             valueFrom:
               secretKeyRef:
-                name: {{ default “clearml-conf” .Values.clearml.existingAdditionalSecret }}
+                name: {{ if .Values.clearml.existingAdditionalSecret -}} {{ default "clearml-conf" .Values.clearml.existingAdditionalSecret  | quote }} {{- else -}} "clearml-conf" {{- end }}
                 key: apiserver_secret
           - name: CLEARML__secure__auth__token_secret
             valueFrom:
               secretKeyRef:
-                name: {{ default “clearml-conf” .Values.clearml.existingAdditionalSecret }}
+                name: {{ if .Values.clearml.existingAdditionalSecret -}} {{ default "clearml-conf" .Values.clearml.existingAdditionalSecret  | quote }} {{- else -}} "clearml-conf" {{- end }}
                 key: secure_auth_token_secret
           {{- if .Values.apiserver.prepopulateEnabled }}
           - name: CLEARML__APISERVER__PRE_POPULATE__ENABLED
@@ -137,12 +137,12 @@ spec:
           - name: CLEARML__SECURE__CREDENTIALS__TESTS__USER_KEY
             valueFrom:
               secretKeyRef:
-                name: {{ default “clearml-conf” .Values.clearml.existingAdditionalSecret }}
+                name: {{ if .Values.clearml.existingAdditionalSecret -}} {{ default "clearml-conf" .Values.clearml.existingAdditionalSecret  | quote }} {{- else -}} "clearml-conf" {{- end }}
                 key: test_user_key
           - name: CLEARML__SECURE__CREDENTIALS__TESTS__USER_SECRET
             valueFrom:
               secretKeyRef:
-                name: {{ default “clearml-conf” .Values.clearml.existingAdditionalSecret }}
+                name: {{ if .Values.clearml.existingAdditionalSecret -}} {{ default "clearml-conf" .Values.clearml.existingAdditionalSecret  | quote }} {{- else -}} "clearml-conf" {{- end }}
                 key: test_user_secret
           - name: CLEARML_ENV
             value: "helm-cloud"

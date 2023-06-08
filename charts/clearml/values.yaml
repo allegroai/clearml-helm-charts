@@ -48,7 +48,7 @@ clearml:
   clientConfigurationApiUrl: ""
   # -- Override the Files Urls displayed when showing an example of the SDK's clearml.conf configuration
   clientConfigurationFilesUrl: ""
-  existingAdditionalSecret: "mysecret"
+  existingAdditionalSecret: ""
   
 # -- Api Server configurations
 apiserver:
