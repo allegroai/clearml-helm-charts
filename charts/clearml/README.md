@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 7.2.0](https://img.shields.io/badge/Version-7.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.11.0](https://img.shields.io/badge/AppVersion-1.11.0-informational?style=flat-square)
+![Version: 7.2.1](https://img.shields.io/badge/Version-7.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.11.0](https://img.shields.io/badge/AppVersion-1.11.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -179,7 +179,7 @@ Kubernetes: `>= 1.21.0-0 < 1.28.0-0`
 | apiserver.service.annotations | object | `{}` | specific annotation for Api Server service |
 | apiserver.service.nodePort | int | `30008` | If service.type set to NodePort, this will be set to service's nodePort field. If service.type is set to others, this field will be ignored |
 | apiserver.tolerations | list | `[]` | Api Server tolerations setup |
-| clearml | object | `{"apiserverKey":"GGS9F4M6XB2DXJ5AFT9F","apiserverSecret":"2oGujVFhPfaozhpuz2GzQfA5OyxmMsR3WVJpsCR5hrgHFs20PO","clientConfigurationApiUrl":"","clientConfigurationFilesUrl":"","cookieDomain":"","cookieName":"clearml-token-k8s","defaultCompany":"d1bd92a3b039400cbafc60a7a5b1e52b","fileserverKey":"XXCRJ123CEE2KSQ068WO","fileserverSecret":"YIy8EVAC7QCT4FtgitxAQGyW7xRHDZ4jpYlTE7HKiscpORl1hG","readinessprobeKey":"GK4PRTVT3706T25K6BA1","readinessprobeSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","secureAuthTokenSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","testUserKey":"ENP39EQM4SLACGD5FXB7","testUserSecret":"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"}` | ClearMl generic configurations |
+| clearml | object | `{"apiserverKey":"GGS9F4M6XB2DXJ5AFT9F","apiserverSecret":"2oGujVFhPfaozhpuz2GzQfA5OyxmMsR3WVJpsCR5hrgHFs20PO","clientConfigurationApiUrl":"","clientConfigurationFilesUrl":"","cookieDomain":"","cookieName":"clearml-token-k8s","defaultCompany":"d1bd92a3b039400cbafc60a7a5b1e52b","existingSecret":"","fileserverKey":"XXCRJ123CEE2KSQ068WO","fileserverSecret":"YIy8EVAC7QCT4FtgitxAQGyW7xRHDZ4jpYlTE7HKiscpORl1hG","readinessprobeKey":"GK4PRTVT3706T25K6BA1","readinessprobeSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","secureAuthTokenSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","testUserKey":"ENP39EQM4SLACGD5FXB7","testUserSecret":"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"}` | ClearMl generic configurations |
 | clearml.apiserverKey | string | `"GGS9F4M6XB2DXJ5AFT9F"` | Api Server basic auth key |
 | clearml.apiserverSecret | string | `"2oGujVFhPfaozhpuz2GzQfA5OyxmMsR3WVJpsCR5hrgHFs20PO"` | Api Server basic auth secret |
 | clearml.clientConfigurationApiUrl | string | `""` | Override the API Urls displayed when showing an example of the SDK's clearml.conf configuration |
@@ -187,6 +187,7 @@ Kubernetes: `>= 1.21.0-0 < 1.28.0-0`
 | clearml.cookieDomain | string | `""` | Cookie domain to be left empty if not exposed with an ingress |
 | clearml.cookieName | string | `"clearml-token-k8s"` | Name fo the UI cookie |
 | clearml.defaultCompany | string | `"d1bd92a3b039400cbafc60a7a5b1e52b"` | Company name |
+| clearml.existingSecret | string | `""` | Pass Clearml secrets using an existing secret must contain the keys: apiserver_key, apiserver_secret, secure_auth_token_secret, test_user_key, test_user_secret |
 | clearml.fileserverKey | string | `"XXCRJ123CEE2KSQ068WO"` | File Server basic auth key |
 | clearml.fileserverSecret | string | `"YIy8EVAC7QCT4FtgitxAQGyW7xRHDZ4jpYlTE7HKiscpORl1hG"` | File Server basic auth secret |
 | clearml.readinessprobeKey | string | `"GK4PRTVT3706T25K6BA1"` | Readiness probe basic auth key |
