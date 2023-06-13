@@ -154,6 +154,13 @@ Create readiness probe auth token
 {{- end }}
 
 {{/*
+Create configuration secret name
+*/}}
+{{- define "clearml.confSecretName" }}
+{{- if .Values.clearml.existingAdditionalSecret -}} {{ default "clearml-conf" .Values.clearml.existingAdditionalSecret  | quote }} {{- else -}} "clearml-conf" {{- end }}
+{{- end }}
+
+{{/*
 Elasticsearch Service name
 */}}
 {{- define "elasticsearch.servicename" -}}

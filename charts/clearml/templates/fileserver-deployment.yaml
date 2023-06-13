@@ -82,12 +82,12 @@ spec:
           - name: USER_KEY
             valueFrom:
               secretKeyRef:
-                name: {{ if .Values.clearml.existingAdditionalSecret -}} {{ default "clearml-conf" .Values.clearml.existingAdditionalSecret  | quote }} {{- else -}} "clearml-conf" {{- end }}
+                name: {{ include "clearml.confSecretName" .}}
                 key: fileserver_key
           - name: USER_SECRET
             valueFrom:
               secretKeyRef: 
-                name: {{ if .Values.clearml.existingAdditionalSecret -}} {{ default "clearml-conf" .Values.clearml.existingAdditionalSecret  | quote }} {{- else -}} "clearml-conf" {{- end }}
+                name: {{ include "clearml.confSecretName" .}}
                 key: fileserver_secret
           {{- if .Values.fileserver.extraEnvs }}
           {{ toYaml .Values.fileserver.extraEnvs | nindent 10 }}
