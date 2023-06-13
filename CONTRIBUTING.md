@@ -54,6 +54,7 @@ Before you submit a new PR:
 * Check related discussions in the [ClearML slack community](https://joinslack.clear.ml) (or start your own discussion on the `#clearml-dev` channel)
 * Check your branch with `helm lint`
 * Update `version` in `Chart.yaml` according [semver](https://semver.org/) rules
+* Substitute `annotations` section in `Chart.yaml` annotating implementations (useful for Artifecthub changelog)
 * Update chart README using [helm-docs](https://github.com/norwoodj/helm-docs)
 
 In your PR include:
