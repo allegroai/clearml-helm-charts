@@ -41,6 +41,8 @@ clearml_serving_inference:
   affinity: {}
   # -- Pod resources definition
   resources: {}
+  # -- Extra environment variables
+  extraEnvironment: []
   # -- Extra Python Packages to be installed in running pods
   extraPythonPackages: []
   #  - numpy==1.22.4
