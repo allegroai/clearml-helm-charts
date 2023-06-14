@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml-agent
 description: MLOps platform Task running agent
 type: application
-version: "5.0.1"
+version: "5.0.2"
 appVersion: "1.24"
 kubeVersion: ">= 1.21.0-0 < 1.28.0-0"
 home: https://clear.ml
@@ -20,5 +20,5 @@ keywords:
   - "task agent"
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: removed support for enterprise features due to chart split
+    - kind: fixed
+      description: typo in registry secret name
