@@ -1,3 +1,4 @@
+{{- if .Values.clearml_serving_triton.enabled }}
 {{- if .Values.clearml_serving_triton.autoscaling.enabled }}
 apiVersion: {{ include "common.capabilities.hpa.apiVersion" ( dict "context" $ ) }}
 kind: HorizontalPodAutoscaler
@@ -39,4 +40,5 @@ spec:
           averageUtilization: {{ .Values.clearml_serving_triton.autoscaling.targetMemory }}
         {{- end }}
     {{- end }}
+{{- end }}
 {{- end }}
