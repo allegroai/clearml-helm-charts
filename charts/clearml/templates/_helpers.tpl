@@ -157,7 +157,7 @@ Create readiness probe auth token
 Create configuration secret name
 */}}
 {{- define "clearml.confSecretName" }}
-{{- if .Values.clearml.existingAdditionalSecret -}} {{ default "clearml-conf" .Values.clearml.existingAdditionalSecret  | quote }} {{- else -}} "clearml-conf" {{- end }}
+{{- if .Values.clearml.existingSecret -}} {{ default "clearml-conf" .Values.clearml.existingSecret | quote }} {{- else -}} "clearml-conf" {{- end }}
 {{- end }}
 
 {{/*
