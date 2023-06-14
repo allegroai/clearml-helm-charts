@@ -17,7 +17,7 @@ data:
       {{- if .Values.imageCredentials.existingSecret }}
       - name: {{ .Values.imageCredentials.existingSecret }}
       {{- else }}
-      - name: name: {{ include "clearmlAgent.fullname" $ }}-ark
+      - name: {{ include "clearmlAgent.fullname" $ }}-ark
       {{- end }}
       {{- end }}
       {{- with .Values.agentk8sglue.basePodTemplate.volumes }}
