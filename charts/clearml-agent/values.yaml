@@ -47,6 +47,14 @@ agentk8sglue:
   # -- Glue Agent number of pods
   replicaCount: 1
 
+  # -- Glue Agent pod resources
+  resources: {}
+
+  # -- Glue Agent pod initContainers configs
+  initContainers:
+    # -- Glue Agent initcontainers pod resources
+    resources: {}
+
   # -- if set, don't create a serviceAccountName but use defined existing one
   serviceExistingAccountName: ""
 

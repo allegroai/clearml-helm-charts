@@ -52,6 +52,8 @@ spec:
               done
           securityContext:
             {{ toYaml .Values.agentk8sglue.containerSecurityContext | nindent 12 }}
+          resources:
+            {{- toYaml .Values.agentk8sglue.initContainers.resources | nindent 12 }}
       containers:
         - name: k8s-glue
           image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.agentk8sglue.image.registry) }}{{ .Values.agentk8sglue.image.repository }}:{{ .Values.agentk8sglue.image.tag }}"
@@ -132,6 +134,8 @@ spec:
             {{- end }}
           securityContext:
             {{ toYaml .Values.agentk8sglue.containerSecurityContext | nindent 12 }}
+          resources:
+            {{- toYaml .Values.agentk8sglue.resources | nindent 12 }}
       {{- with .Values.agentk8sglue.nodeSelector}}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
