@@ -3202,6 +3202,34 @@ entries:
   clearml-agent:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: resource parameters for agentk8sglue
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2023-06-15T07:06:02.965247106Z"
+    description: MLOps platform Task running agent
+    digest: 64ca71e512f8fbf9d3e99534e1565c4a75bff7a27a3f725c970c22722c46a3fe
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.28.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-5.1.0/clearml-agent-5.1.0.tgz
+    version: 5.1.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: typo in registry secret name
     apiVersion: v2
@@ -4700,4 +4728,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2023-06-14T13:53:39.762283388Z"
+generated: "2023-06-15T07:06:02.965715509Z"
