@@ -298,6 +298,8 @@ webserver:
     annotations: {}
     # -- Ingress root path url
     path: "/"
+    # -- Ingress pathType override default
+    pathType: ""
   # -- Web Server extra envrinoment variables
   extraEnvs: []
   # -- specific annotation for Web Server pods
