@@ -329,14 +329,13 @@ webserver:
 # -- Definition of external services to use if not enabled as dependency charts here
 externalServices:
   # -- Existing ElasticSearch connectionstring if elasticsearch.enabled is false (example in values.yaml)
-  elasticsearchConnectionString: ""
-  #    [{"host":"hostname1","port":9200},{"host":"hostname2","port":9200},{"host":"hostname3","port":9200}]
-  # -- Existing MongoDB connection string for BACKEND to use if mongodb.enabled is false
-  mongodbConnectionStringAuth: ""
-  # -- Existing MongoDB connection string for AUTH to use if mongodb.enabled is false
-  mongodbConnectionStringBackend: ""
-  # -- Existing Redis Hostname to use if redis.enabled is false
-  redisHost: ""
+  elasticsearchConnectionString: "[{\"host\":\"es_hostname1\",\"port\":9200},{\"host\":\"es_hostname2\",\"port\":9200},{\"host\":\"es_hostname3\",\"port\":9200}]"
+  # -- Existing MongoDB connection string for BACKEND to use if mongodb.enabled is false (example in values.yaml)
+  mongodbConnectionStringAuth: "mongodb://mongodb_hostname:27017/auth"
+  # -- Existing MongoDB connection string for AUTH to use if mongodb.enabled is false (example in values.yaml)
+  mongodbConnectionStringBackend: "mongodb://mongodb_hostnamehostname:27017/backend"
+  # -- Existing Redis Hostname to use if redis.enabled is false (example in values.yaml)
+  redisHost: "redis_hostname"
   # -- Existing Redis Port to use if redis.enabled is false
   redisPort: 6379
 
