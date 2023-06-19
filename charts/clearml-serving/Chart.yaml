@@ -33,5 +33,5 @@ dependencies:
     condition: grafana.enabled
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
+    - kind: changed
       description: removed deprecated networkPolicy
