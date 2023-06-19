@@ -14,6 +14,9 @@ metadata:
   annotations:
     {{- toYaml .Values.clearml_serving_inference.ingress.annotations | nindent 4 }}
 spec:
+  {{- if .Values.clearml_serving_inference.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.clearml_serving_inference.ingress.ingressClassName }}
+  {{- end }}
   {{- if .Values.clearml_serving_inference.ingress.tlsSecretName }}
   tls:
     - hosts:
