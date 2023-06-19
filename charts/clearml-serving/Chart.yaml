@@ -35,3 +35,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: changed
       description: removed deprecated networkPolicy
+    - kind: fixed
+      description: missng ingresses className
