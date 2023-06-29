@@ -30,8 +30,14 @@ spec:
               value: "{{ .Values.clearml.filesHost }}"
             - name: CLEARML_WEB_HOST
               value: "{{ .Values.clearml.webHost }}"
+            {{- if .Values.clearml_serving_statistics.enabled }}
             - name: CLEARML_DEFAULT_KAFKA_SERVE_URL
+              {{- if .Values.clearml.kafkaServeUrl }}
+              value: {{ .Values.clearml.kafkaServeUrl }}
+              {{- else }}
               value: {{ include "clearmlServing.fullname" . }}-kafka:9092
+              {{- end }}
+            {{- end }}
             - name: CLEARML_SERVING_POLL_FREQ
               value: "1.0"
             - name: CLEARML_DEFAULT_BASE_SERVE_URL
