@@ -1,3 +1,4 @@
+{{- if .Values.clearml_serving_statistics.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -31,7 +32,11 @@ spec:
             - name: CLEARML_WEB_HOST
               value: "{{ .Values.clearml.webHost }}"
             - name: CLEARML_DEFAULT_KAFKA_SERVE_URL
+              {{- if .Values.clearml.kafkaServeUrl }}
+              value: {{ .Values.clearml.kafkaServeUrl }}
+              {{- else }}
               value: {{ include "clearmlServing.fullname" . }}-kafka:9092
+              {{- end }}
             - name: CLEARML_SERVING_POLL_FREQ
               value: "1.0"
             - name: CLEARML_SERVING_TASK_ID
@@ -47,3 +52,4 @@ spec:
           resources:
             {{- toYaml .Values.clearml_serving_statistics.resources | nindent 12 }}
       restartPolicy: Always
+{{- end }}

@@ -7,9 +7,12 @@ clearml:
   webHost: http://clearml-server-webserver:80
   defaultBaseServeUrl: http://127.0.0.1:8080/serve
   servingTaskId: "ClearML Serving Task ID"
+  kafkaServeUrl: ""
 
 # -- ClearML serving statistics configurations
 clearml_serving_statistics:
+  # -- Enable ClearML Serving Statistics
+  enabled: true
   # -- Container Image
   image:
     repository: "allegroai/clearml-serving-statistics"
