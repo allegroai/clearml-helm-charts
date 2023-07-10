@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 7.2.2](https://img.shields.io/badge/Version-7.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.11.0](https://img.shields.io/badge/AppVersion-1.11.0-informational?style=flat-square)
+![Version: 7.2.3](https://img.shields.io/badge/Version-7.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.11.0](https://img.shields.io/badge/AppVersion-1.11.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -145,7 +145,7 @@ Kubernetes: `>= 1.21.0-0 < 1.28.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| apiserver | object | `{"additionalConfigs":{},"affinity":{},"containerSecurityContext":{},"enabled":true,"existingAdditionalConfigsConfigMap":"","existingAdditionalConfigsSecret":"","extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","registry":"","repository":"allegroai/clearml","tag":"1.11.0-373"},"indexReplicas":0,"indexShards":1,"ingress":{"annotations":{},"enabled":false,"hostName":"api.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"initContainers":{"resources":{"limits":{"cpu":"10m","memory":"64Mi"},"requests":{"cpu":"10m","memory":"64Mi"}}},"nodeSelector":{},"podAnnotations":{},"podSecurityContext":{},"prepopulateEnabled":true,"processes":{"count":8,"maxRequests":1000,"maxRequestsJitter":300,"timeout":24000},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"annotations":{},"nodePort":30008,"port":8008,"type":"NodePort"},"tolerations":[]}` | Api Server configurations |
+| apiserver | object | `{"additionalConfigs":{},"affinity":{},"containerSecurityContext":{},"enabled":true,"existingAdditionalConfigsConfigMap":"","existingAdditionalConfigsSecret":"","extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","registry":"","repository":"allegroai/clearml","tag":"1.11.0-373"},"ingress":{"annotations":{},"enabled":false,"hostName":"api.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"initContainers":{"resources":{"limits":{"cpu":"10m","memory":"64Mi"},"requests":{"cpu":"10m","memory":"64Mi"}}},"nodeSelector":{},"podAnnotations":{},"podSecurityContext":{},"prepopulateEnabled":true,"processes":{"count":8,"maxRequests":1000,"maxRequestsJitter":300,"timeout":24000},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"annotations":{},"nodePort":30008,"port":8008,"type":"NodePort"},"tolerations":[]}` | Api Server configurations |
 | apiserver.additionalConfigs | object | `{}` | files declared in this parameter will be mounted and read by apiserver (examples in values.yaml) if not overridden by existingAdditionalConfigsSecret |
 | apiserver.affinity | object | `{}` | Api Server affinity setup |
 | apiserver.containerSecurityContext | object | `{}` | Api Server containers security context |
@@ -154,8 +154,6 @@ Kubernetes: `>= 1.21.0-0 < 1.28.0-0`
 | apiserver.existingAdditionalConfigsSecret | string | `""` | reference for files declared in existing Secret will be mounted and read by apiserver (examples in values.yaml) if not overridden by existingAdditionalConfigsConfigMap |
 | apiserver.extraEnvs | list | `[]` | Api Server extra envrinoment variables |
 | apiserver.image | object | `{"pullPolicy":"IfNotPresent","registry":"","repository":"allegroai/clearml","tag":"1.11.0-373"}` | Api Server image configuration |
-| apiserver.indexReplicas | int | `0` | Number of additional replicas in Elasticsearch indexes |
-| apiserver.indexShards | int | `1` | Number of shards in Elasticsearch indexes |
 | apiserver.ingress | object | `{"annotations":{},"enabled":false,"hostName":"api.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""}` | Ingress configuration for Api Server component |
 | apiserver.ingress.annotations | object | `{}` | Ingress annotations |
 | apiserver.ingress.enabled | bool | `false` | Enable/Disable ingress |
