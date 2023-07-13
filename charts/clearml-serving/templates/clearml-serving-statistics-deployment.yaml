@@ -19,6 +19,14 @@ spec:
         clearml.serving.network/clearml-serving-backend: "true"
         clearml.serving.service: {{ include "clearmlServing.fullname" . }}-statistics
     spec:
+      {{- if .Values.imageCredentials.enabled }}
+      imagePullSecrets:
+      {{- if .Values.imageCredentials.existingSecret }}
+      - name: {{ .Values.imageCredentials.existingSecret }}
+      {{- else }}
+      - name: clearml-registry-key
+      {{- end }}
+      {{- end }}
       containers:
         - env:
             - name: CLEARML_API_ACCESS_KEY
