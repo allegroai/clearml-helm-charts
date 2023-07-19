@@ -33,9 +33,5 @@ dependencies:
     condition: grafana.enabled
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: removed deprecated networkPolicy
-    - kind: fixed
-      description: missng ingresses className
     - kind: added
       description: add support for imageCredentials
