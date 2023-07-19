@@ -1,6 +1,6 @@
 # ClearML Kubernetes Serving
 
-![Version: 1.3.0](https://img.shields.io/badge/Version-1.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
+![Version: 1.4.0](https://img.shields.io/badge/Version-1.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
 
 ClearML Serving Helm Chart
 
@@ -95,5 +95,12 @@ Kubernetes: `>= 1.21.0-0 < 1.28.0-0`
 | clearml_serving_triton.resources | object | `{}` | Pod resources definition |
 | clearml_serving_triton.tolerations | list | `[]` | Tolerations configuration |
 | grafana | object | `{"adminPassword":"clearml","adminUser":"admin","datasources":{"datasources.yaml":{"apiVersion":1,"datasources":[{"access":"proxy","isDefault":true,"name":"Prometheus","type":"prometheus","url":"http://{{ .Release.Name }}-prometheus-server"}]}},"enabled":true}` | Configuration from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml |
+| imageCredentials | object | `{"email":"someone@host.com","enabled":false,"existingSecret":"","password":"pwd","registry":"docker.io","username":"someone"}` | Private image registry configuration |
+| imageCredentials.email | string | `"someone@host.com"` | Email |
+| imageCredentials.enabled | bool | `false` | Use private authentication mode |
+| imageCredentials.existingSecret | string | `""` | If this is set, chart will not generate a secret but will use what is defined here |
+| imageCredentials.password | string | `"pwd"` | Registry password |
+| imageCredentials.registry | string | `"docker.io"` | Registry name |
+| imageCredentials.username | string | `"someone"` | Registry username |
 | kafka | object | `{"enabled":true}` | Configuration from https://github.com/bitnami/charts/blob/main/bitnami/kafka/values.yaml |
 | prometheus | object | `{"enabled":true,"extraScrapeConfigs":"- job_name: \"{{ .Release.Name }}-stats\"\n  static_configs:\n    - targets:\n      - \"{{ .Release.Name }}-statistics:9999\"\n","kube-state-metrics":{"enabled":false},"prometheus-node-exporter":{"enabled":false},"prometheus-pushgateway":{"enabled":false},"serverFiles":{"prometheus.yml":{"scrape_configs":[{"job_name":"prometheus","static_configs":[{"targets":["localhost:9090"]}]}]}}}` | Configuration from https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus/values.yaml |
