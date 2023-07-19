@@ -110,10 +110,6 @@ apiserver:
     maxRequestsJitter: 300
   # -- Api Server extra envrinoment variables
   extraEnvs: []
-  # -- Number of additional replicas in Elasticsearch indexes
-  indexReplicas: 0
-    # -- Number of shards in Elasticsearch indexes
-  indexShards: 1
   # -- specific annotation for Api Server pods
   podAnnotations: {}
   # -- Api Server resources per pod; these are minimal requirements, it's suggested to increase

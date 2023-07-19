@@ -17,29 +17,21 @@ webserver:
     enabled: true
     hostName: "app.clearml.127-0-0-1.nip.io"
 redis:
-  master:
-    name: "{{ .Release.Name }}-redis"
-    persistence:
-      enabled: true
-      accessModes:
-        - ReadWriteOnce
-      size: 5Gi
-      ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
-      storageClass: null
-  slave:
-    persistence:
-      enabled: true
-      accessModes:
-        - ReadWriteOnce
-      size: 5Gi
-      ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
-      storageClass: null
   architecture: replication
-
+  master:
+    persistence:
+      enabled: true
+      accessModes:
+        - ReadWriteOnce
+      size: 5Gi
+      ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
+      storageClass: null
+  replica:
+    replicaCount: 2
 mongodb:
   enabled: true
   architecture: replicaset
-  replicaCount: 3
+  replicaCount: 2
   arbiter:
     enabled: false
   pdb:
