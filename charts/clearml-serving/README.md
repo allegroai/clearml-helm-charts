@@ -1,6 +1,6 @@
 # ClearML Kubernetes Serving
 
-![Version: 1.4.0](https://img.shields.io/badge/Version-1.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
+![Version: 1.4.1](https://img.shields.io/badge/Version-1.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
 
 ClearML Serving Helm Chart
 
@@ -41,7 +41,7 @@ helm upgrade clearml-serving allegroai/clearml-serving --version <CURRENT CHART 
 
 ## Requirements
 
-Kubernetes: `>= 1.21.0-0 < 1.28.0-0`
+Kubernetes: `>= 1.21.0-0 < 1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
