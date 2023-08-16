@@ -21,4 +21,4 @@ keywords:
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: resource parameters for agentk8sglue
+      description: kubernetes 1.28 support
