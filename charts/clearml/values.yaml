@@ -380,7 +380,8 @@ elasticsearch:
   replicas: 1
   # Readiness probe hack for a single-node cluster (where status will never be green). Should be removed if using replicas > 1
   clusterHealthCheckParams: "wait_for_status=yellow&timeout=1s"
-
+  rbac:
+    create: true
   minimumMasterNodes: 1
   clusterName: clearml-elastic
   esJavaOpts: "-Xmx2g -Xms2g"
