@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "7.3.1"
+version: "7.4.0"
 appVersion: "1.12.0"
 kubeVersion: ">= 1.21.0-0 < 1.29.0-0"
 home: https://clear.ml
@@ -33,4 +33,4 @@ dependencies:
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: kubernetes 1.28 support
+      description: service accounts for core clearml components
