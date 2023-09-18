@@ -19,7 +19,7 @@ spec:
       labels:
         {{- include "apiserver.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ .Values.apiserver.serviceAccountName }}
+      serviceAccountName: {{ .Values.apiserver.serviceAccountName }}-apiserver
       {{- if .Values.imageCredentials.enabled }}
       imagePullSecrets:
       {{- if .Values.imageCredentials.existingSecret }}
