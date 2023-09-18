@@ -19,7 +19,7 @@ spec:
       labels:
         {{- include "fileserver.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ .Values.fileserver.serviceAccountName }}
+      serviceAccountName: {{ .Values.fileserver.serviceAccountName }}-fileserver
       {{- if .Values.imageCredentials.enabled }}
       imagePullSecrets:
       {{- if .Values.imageCredentials.existingSecret }}
