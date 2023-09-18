@@ -58,8 +58,8 @@ apiserver:
   enabled: true
   # -- Enable/Disable example data load
   prepopulateEnabled: true
-  # -- The default serviceAccountName to use when deploying
-  serviceAccountName: clearml-core
+  # -- The default serviceAccountName to be used
+  serviceAccountName: clearml
   # -- Api Server image configuration
   image:
     registry: ""
@@ -174,8 +174,8 @@ apiserver:
 fileserver:
   # -- Enable/Disable component deployment
   enabled: true
-  # -- The default serviceAccountName to use when deploying
-  serviceAccountName: clearml-core
+  # -- The default serviceAccountName to be used
+  serviceAccountName: clearml
   # -- File Server image configuration
   image:
     registry: ""
@@ -258,8 +258,8 @@ fileserver:
 webserver:
   # -- Enable/Disable component deployment
   enabled: true
-  # -- The default serviceAccountName to use when deploying
-  serviceAccountName: clearml-core
+  # -- The default serviceAccountName to be used
+  serviceAccountName: clearml
   # -- Web Server image configuration
   image:
     registry: ""
