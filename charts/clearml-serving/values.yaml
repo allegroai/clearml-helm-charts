@@ -40,10 +40,19 @@ clearml_serving_statistics:
   affinity: {}
   # -- Pod resources definition
   resources: {}
+  extraEnvironment: []
   # -- Extra Python Packages to be installed in running pods
   extraPythonPackages: []
   #  - numpy==1.22.4
   #  - pandas==1.4.2
+  # -- reference for files declared in existing ConfigMap will be mounted and read by pod (examples in values.yaml)
+  existingAdditionalConfigsConfigMap: ""
+  # -- reference for files declared in existing Secret will be mounted and read by pod (examples in values.yaml) if not overridden by existingAdditionalConfigsConfigMap
+  existingAdditionalConfigsSecret: ""
+  # -- files declared in this parameter will be mounted on internal folder /opt/clearml/config and read by pod (examples in values.yaml) if not overridden by existingAdditionalConfigsSecret
+  additionalConfigs: {}
+  #   additionalFile.conf: |
+  #     <filecontent>
 
 # -- ClearML serving inference configurations
 clearml_serving_inference:
@@ -65,6 +74,14 @@ clearml_serving_inference:
   extraPythonPackages: []
   #  - numpy==1.22.4
   #  - pandas==1.4.2
+  # -- reference for files declared in existing ConfigMap will be mounted and read by pod (examples in values.yaml)
+  existingAdditionalConfigsConfigMap: ""
+  # -- reference for files declared in existing Secret will be mounted and read by pod (examples in values.yaml) if not overridden by existingAdditionalConfigsConfigMap
+  existingAdditionalConfigsSecret: ""
+  # -- files declared in this parameter will be mounted on internal folder /opt/clearml/config and read by pod (examples in values.yaml) if not overridden by existingAdditionalConfigsSecret
+  additionalConfigs: {}
+  #   additionalFile.conf: |
+  #     <filecontent>
   # -- Autoscaling configuration
   autoscaling:
     enabled: false
@@ -103,10 +120,20 @@ clearml_serving_triton:
   affinity: {}
   # -- Pod resources definition
   resources: {}
+  # -- Extra environment variables
+  extraEnvironment: []
   # -- Extra Python Packages to be installed in running pods
   extraPythonPackages: []
   #  - numpy==1.22.4
   #  - pandas==1.4.2
+  # -- reference for files declared in existing ConfigMap will be mounted and read by pod (examples in values.yaml)
+  existingAdditionalConfigsConfigMap: ""
+  # -- reference for files declared in existing Secret will be mounted and read by pod (examples in values.yaml) if not overridden by existingAdditionalConfigsConfigMap
+  existingAdditionalConfigsSecret: ""
+  # -- files declared in this parameter will be mounted on internal folder /opt/clearml/config and read by pod (examples in values.yaml) if not overridden by existingAdditionalConfigsSecret
+  additionalConfigs: {}
+  #   additionalFile.conf: |
+  #     <filecontent>
   # -- Autoscaling configuration
   autoscaling:
     enabled: false
