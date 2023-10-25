@@ -72,6 +72,18 @@ spec:
             - name: additional-config
               mountPath: /opt/clearml/config
           {{- end }}
+          {{- with .Values.clearml_serving_triton.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.clearml_serving_triton.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.clearml_serving_triton.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.clearml_serving_triton.resources | nindent 12 }}
       restartPolicy: Always

@@ -94,6 +94,18 @@ spec:
             - name: additional-config
               mountPath: /opt/clearml/config
           {{- end }}
+          {{- with .Values.clearml_serving_inference.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.clearml_serving_inference.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.clearml_serving_inference.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.clearml_serving_inference.resources | nindent 12 }}
       restartPolicy: Always
