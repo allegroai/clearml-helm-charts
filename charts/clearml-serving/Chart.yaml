@@ -35,3 +35,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: external file mount
+    - kind: fixed
+      description: missinf parameters application in deploymets from values file
