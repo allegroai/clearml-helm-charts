@@ -27,6 +27,20 @@ spec:
       - name: clearml-registry-key
       {{- end }}
       {{- end }}
+      {{- if or .Values.clearml_serving_triton.additionalConfigs .Values.clearml_serving_triton.existingAdditionalConfigsConfigMap  .Values.clearml_serving_triton.existingAdditionalConfigsSecret }}
+      volumes:
+        - name: additional-config
+          {{- if or .Values.clearml_serving_triton.existingAdditionalConfigsConfigMap }}
+          configMap:
+            name: {{ .Values.clearml_serving_triton.existingAdditionalConfigsConfigMap }}
+          {{- else if or .Values.clearml_serving_triton.existingAdditionalConfigsSecret }}
+          secret:
+            secretName: {{ .Values.clearml_serving_triton.existingAdditionalConfigsSecret }}
+          {{- else if or .Values.clearml_serving_triton.additionalConfigs }}
+          configMap:
+            name: "{{ include "clearmlServing.fullname" . }}-triton-configmap"
+          {{- end }}
+      {{- end }}
       containers:
         - env:
             - name: CLEARML_API_ACCESS_KEY
@@ -53,6 +67,11 @@ spec:
           name: {{ include "clearmlServing.fullname" . }}-triton
           ports:
             - containerPort: 8001
+          {{- if or .Values.clearml_serving_triton.additionalConfigs .Values.clearml_serving_triton.existingAdditionalConfigsConfigMap  .Values.clearml_serving_triton.existingAdditionalConfigsSecret }}
+          volumeMounts:  
+            - name: additional-config
+              mountPath: /opt/clearml/config
+          {{- end }}
           resources:
             {{- toYaml .Values.clearml_serving_triton.resources | nindent 12 }}
       restartPolicy: Always

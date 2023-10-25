@@ -26,6 +26,20 @@ spec:
       - name: clearml-registry-key
       {{- end }}
       {{- end }}
+      {{- if or .Values.clearml_serving_inference.additionalConfigs .Values.clearml_serving_inference.existingAdditionalConfigsConfigMap  .Values.clearml_serving_inference.existingAdditionalConfigsSecret }}
+      volumes:
+        - name: additional-config
+          {{- if or .Values.clearml_serving_inference.existingAdditionalConfigsConfigMap }}
+          configMap:
+            name: {{ .Values.clearml_serving_inference.existingAdditionalConfigsConfigMap }}
+          {{- else if or .Values.clearml_serving_inference.existingAdditionalConfigsSecret }}
+          secret:
+            secretName: {{ .Values.clearml_serving_inference.existingAdditionalConfigsSecret }}
+          {{- else if or .Values.clearml_serving_inference.additionalConfigs }}
+          configMap:
+            name: "{{ include "clearmlServing.fullname" . }}-inference-configmap"
+          {{- end }}
+      {{- end }}
       containers:
         - env:
             - name: CLEARML_API_ACCESS_KEY
@@ -75,6 +89,11 @@ spec:
           name: {{ include "clearmlServing.fullname" . }}-inference
           ports:
             - containerPort: 8080
+          {{- if or .Values.clearml_serving_inference.additionalConfigs .Values.clearml_serving_inference.existingAdditionalConfigsConfigMap  .Values.clearml_serving_inference.existingAdditionalConfigsSecret }}
+          volumeMounts:  
+            - name: additional-config
+              mountPath: /opt/clearml/config
+          {{- end }}
           resources:
             {{- toYaml .Values.clearml_serving_inference.resources | nindent 12 }}
       restartPolicy: Always

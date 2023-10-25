@@ -1,0 +1,15 @@
+{{- if .Values.clearml_serving_statistics.enabled }}
+{{- if .Values.clearml_serving_statistics.additionalConfigs }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ include "clearmlServing.fullname" . }}-statistics-configmap"
+  labels:
+    {{- include "clearml.labels" . | nindent 4 }}
+data:
+  {{- range $key, $val := .Values.clearml_serving_statistics.additionalConfigs }}
+  {{ $key }}: |
+    {{- $val | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}
