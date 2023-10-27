@@ -67,6 +67,9 @@ spec:
             - name: CLEARML_EXTRA_PYTHON_PACKAGES
               value: '{{ join " " .Values.clearml_serving_statistics.extraPythonPackages }}'
             {{- end }}
+            {{- with .Values.clearml_serving_statistics.extraEnvironment }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           image: "{{ .Values.clearml_serving_statistics.image.repository }}:{{ .Values.clearml_serving_statistics.image.tag }}"
           name: {{ include "clearmlServing.fullname" . }}-statistics
           ports:
