@@ -63,6 +63,9 @@ spec:
             - name: CLEARML_EXTRA_PYTHON_PACKAGES
               value: '{{ join " " .Values.clearml_serving_triton.extraPythonPackages }}'
             {{- end }}
+            {{- with .Values.clearml_serving_triton.extraEnvironment }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           image: "{{ .Values.clearml_serving_triton.image.repository }}:{{ .Values.clearml_serving_triton.image.tag }}"
           name: {{ include "clearmlServing.fullname" . }}-triton
           ports:
