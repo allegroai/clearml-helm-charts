@@ -112,6 +112,9 @@ clearml_serving_triton:
   image:
     repository: "allegroai/clearml-serving-triton"
     tag: "1.3.0"
+  # -- Runtime Class configuration
+  # uncomment to use custom runtime class, eg. nvidia when using GPU operator
+  # runtimeClassName: "nvidia"
   # -- Node Selector configuration
   nodeSelector: {}
   # -- Tolerations configuration

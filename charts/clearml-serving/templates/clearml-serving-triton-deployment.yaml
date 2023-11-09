@@ -27,6 +27,9 @@ spec:
       - name: clearml-registry-key
       {{- end }}
       {{- end }}
+      {{ if .Values.clearml_serving_triton.runtimeClassName}}
+      runtimeClassName: {{ .Values.clearml_serving_triton.runtimeClassName }}
+      {{- end}}
       {{- if or .Values.clearml_serving_triton.additionalConfigs .Values.clearml_serving_triton.existingAdditionalConfigsConfigMap  .Values.clearml_serving_triton.existingAdditionalConfigsSecret }}
       volumes:
         - name: additional-config
@@ -75,10 +78,7 @@ spec:
             - name: additional-config
               mountPath: /opt/clearml/config
           {{- end }}
-          {{- with .Values.clearml_serving_triton.nodeSelector }}
-          nodeSelector:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+          
           {{- with .Values.clearml_serving_triton.affinity }}
           affinity:
             {{- toYaml . | nindent 12 }}
@@ -90,5 +90,9 @@ spec:
           resources:
             {{- toYaml .Values.clearml_serving_triton.resources | nindent 12 }}
       restartPolicy: Always
+      {{- with .Values.clearml_serving_triton.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
 {{ end }}
 
