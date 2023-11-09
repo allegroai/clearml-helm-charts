@@ -35,3 +35,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: fixed
       description: missing extraEnvs
+    - kind: fixed
+      description: added runtimeClassName for triton pods and fixed nodeSelector not working
