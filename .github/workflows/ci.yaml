@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 0
       - name: Run helm-docs
         run: .github/helm-docs.sh
   install-chart:
