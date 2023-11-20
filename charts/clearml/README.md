@@ -1,6 +1,7 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 7.4.1](https://img.shields.io/badge/Version-7.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.12.0](https://img.shields.io/badge/AppVersion-1.12.0-informational?style=flat-square)
+
+![Version: 7.4.1](https://img.shields.io/badge/Version-7.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.12.0](https://img.shields.io/badge/AppVersion-1.12.0-informational?style=flat-square) 
 
 MLOps platform
 
@@ -77,7 +78,7 @@ In a production environment it's suggested to install an ingress controller and 
 During ClearML deployment enable `ingress` section of chart values.
 This will create 3 ingress rules:
 
-* `app.<your domain name>`
+* `app.<your domain name>` 
 * `files.<your domain name>`
 * `api.<your domain name>`
 
@@ -106,7 +107,7 @@ Changing values on existing installation can be done with:
 helm upgrade clearml allegroai/clearml --version <CURRENT CHART VERSION> -f custom_values.yaml
 ```
 
-Please note: updating values only should always be done setting explicit chart version to avoid a possible chart update.
+Please note: updating values only should always be done setting explicit chart version to avoid a possible chart update. 
 Keeping separate updates procedures between version and values can be a good practice to seprate potential concerns.
 
 ### Major upgrade from 5.* to 6.*
@@ -120,10 +121,10 @@ Before issuing helm upgrade:
 ## Additional Configuration for ClearML Server
 
 You can also configure the **clearml-server** for:
-
+ 
 * fixed users (users with credentials)
 * non-responsive experiment watchdog settings
-
+ 
 For detailed instructions, see the [Optional Configuration](https://github.com/allegroai/clearml-server#optional-configuration) section in the **clearml-server** repository README file.
 
 ## Source Code
