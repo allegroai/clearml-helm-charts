@@ -65,7 +65,7 @@ apiserver:
     registry: ""
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.12.0-393"
+    tag: "1.13.0-414"
   # -- Api Server internal service configuration
   service:
     # -- specific annotation for Api Server service
@@ -181,7 +181,7 @@ fileserver:
     registry: ""
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.12.0-393"
+    tag: "1.13.0-414"
   # -- File Server internal service configuration
   service:
     # -- specific annotation for File Server service
@@ -265,7 +265,7 @@ webserver:
     registry: ""
     repository: "allegroai/clearml"
     pullPolicy: IfNotPresent
-    tag: "1.12.0-393"
+    tag: "1.13.0-414"
   # -- Web Server internal service configuration
   service:
     # -- specific annotation for Web Server service
