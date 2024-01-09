@@ -5,7 +5,7 @@ kind: ConfigMap
 metadata:
   name: "{{ include "clearmlServing.fullname" . }}-statistics-configmap"
   labels:
-    {{- include "clearml.labels" . | nindent 4 }}
+    {{- include "clearmlServing.labels" . | nindent 4 }}
 data:
   {{- range $key, $val := .Values.clearml_serving_statistics.additionalConfigs }}
   {{ $key }}: |
