@@ -3562,6 +3562,34 @@ entries:
   clearml-agent:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: wrong indentation on volumeMounts
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2024-01-10T08:24:12.105777202Z"
+    description: MLOps platform Task running agent
+    digest: f90f212b29946a06d34db03907e318b36966bbf4bb9a3702bf0294c92886ce73
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.29.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-5.1.2/clearml-agent-5.1.2.tgz
+    version: 5.1.2
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: kubernetes 1.28 support
     apiVersion: v2
@@ -5493,4 +5521,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2024-01-09T16:19:27.551560393Z"
+generated: "2024-01-10T08:24:12.106240664Z"
