@@ -74,7 +74,7 @@ spec:
               readOnly: true
             {{- end }}
             {{- if .Values.agentk8sglue.volumeMounts }}
-            {{- toYaml .Values.agentk8sglue.volumeMounts | nindent 10 }}
+            {{- toYaml .Values.agentk8sglue.volumeMounts | nindent 12 }}
             {{- end }}
             {{- range .Values.agentk8sglue.fileMounts }}
             - name: filemounts
