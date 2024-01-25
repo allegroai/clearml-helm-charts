@@ -70,7 +70,7 @@ agentk8sglue:
 
   # -- default container image for ClearML Task pod
   defaultContainerImage: ubuntu:18.04
-  # -- ClearML queue this agent will consume
+  # -- ClearML queue this agent will consume. Multiple queues can be specified with the following format: queue1,queue2,queue3
   queue: default
   # -- labels setup for Agent pod (example in values.yaml comments)
   labels: {}
