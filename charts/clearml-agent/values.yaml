@@ -72,6 +72,8 @@ agentk8sglue:
   defaultContainerImage: ubuntu:18.04
   # -- ClearML queue this agent will consume. Multiple queues can be specified with the following format: queue1,queue2,queue3
   queue: default
+  # -- if ClearML queue does not exist, it will be create if the value is set to true
+  createQueueIfNotExists: true
   # -- labels setup for Agent pod (example in values.yaml comments)
   labels: {}
     # schedulerName: scheduler
