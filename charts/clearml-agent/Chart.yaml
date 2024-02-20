@@ -21,4 +21,4 @@ keywords:
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: wrong indentation on volumeMounts
+      description: kubernetes 1.29 support
