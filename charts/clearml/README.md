@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 7.7.0](https://img.shields.io/badge/Version-7.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.14.1](https://img.shields.io/badge/AppVersion-1.14.1-informational?style=flat-square)
+![Version: 7.7.1](https://img.shields.io/badge/Version-7.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.14.1](https://img.shields.io/badge/AppVersion-1.14.1-informational?style=flat-square)
 
 MLOps platform
 
@@ -133,7 +133,7 @@ For detailed instructions, see the [Optional Configuration](https://github.com/a
 
 ## Requirements
 
-Kubernetes: `>= 1.21.0-0 < 1.29.0-0`
+Kubernetes: `>= 1.21.0-0 < 1.30.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
