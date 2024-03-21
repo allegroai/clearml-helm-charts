@@ -34,3 +34,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: changed
       description: application version 1.15
+    - kind: added
+      description: async delete deployment
