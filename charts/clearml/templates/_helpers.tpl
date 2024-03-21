@@ -161,6 +161,23 @@ Create configuration secret name
 {{- end }}
 
 {{/*
+compose file url
+*/}}
+{{- define "clearml.fileUrl" -}}
+{{- if .Values.clearml.clientConfigurationFilesUrl }}
+{{- .Values.clearml.clientConfigurationFilesUrl }}
+{{- else if .Values.fileserver.ingress.enabled }}
+{{- $protocol := "http" }}
+{{- if .Values.fileserver.ingress.tlsSecretName }}
+{{- $protocol = "https" }}
+{{- end }}
+{{- printf "%s%s%s" $protocol "://" .Values.fileserver.ingress.hostName }}
+{{- else }}
+{{- printf "%s%s%s%s" "http://" (include "fileserver.referenceName" .) ":" .Values.fileserver.service.port }}
+{{- end }}
+{{- end }}
+
+{{/*
 Elasticsearch Service name
 */}}
 {{- define "elasticsearch.servicename" -}}
@@ -175,11 +192,18 @@ Elasticsearch Service port
 {{- end }}
 
 {{/*
+Elasticsearch Service schema
+*/}}
+{{- define "elasticsearch.servicescheme" -}}
+{{- .Values.elasticsearch.httpScheme }}
+{{- end }}
+
+{{/*
 Elasticsearch Comnnection string
 */}}
 {{- define "elasticsearch.connectionstring" -}}
 {{- if .Values.elasticsearch.enabled }}
-{{- printf "[{\"host\":\"%s\",\"port\":%s}]" (include "elasticsearch.servicename" .) (include "elasticsearch.serviceport" .) | quote }}
+{{- printf "[{\"host\":\"%s\",\"port\":%s,\"scheme\":\"%s\"}]" (include "elasticsearch.servicename" .) (include "elasticsearch.serviceport" .) (include "elasticsearch.servicescheme" .) | quote }}
 {{- else }}
 {{- .Values.externalServices.elasticsearchConnectionString | quote }}
 {{- end }}
