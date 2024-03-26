@@ -119,6 +119,11 @@ spec:
               secretKeyRef:
                 name: {{ include "clearml.confSecretName" .}}
                 key: secure_auth_token_secret
+          {{- if or .Values.apiserver.additionalConfigs .Values.apiserver.existingAdditionalConfigsConfigMap  .Values.apiserver.existingAdditionalConfigsSecret }}
+          volumeMounts:  
+            - name: apiserver-config
+              mountPath: /opt/clearml/config
+          {{- end }}
           resources:
             {{- toYaml .Values.apiserver.resources | nindent 12 }}
           securityContext:
