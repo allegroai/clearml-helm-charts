@@ -10,7 +10,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "apiserver.selectorLabels" . | nindent 6 }}
+      {{- include "clearml.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.apiserver.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "apiserver.selectorLabels" . | nindent 8 }}
+        {{- include "clearml.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ .Values.apiserver.serviceAccountName }}-apiserver
       {{- if .Values.imageCredentials.enabled }}
