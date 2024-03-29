@@ -21,6 +21,4 @@ keywords:
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: kubernetes 1.29 support
-    - kind: fixed
       description: Issue 275
