@@ -21,4 +21,4 @@ keywords:
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: Issue 275
+      description: honor existingAgentk8sglueSecret in deployment template
