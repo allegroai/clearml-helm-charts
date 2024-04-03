@@ -20,5 +20,5 @@ keywords:
   - "task agent"
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: wrong indentation on volumeMounts
+    - kind: feature
+      description: support for multiple queues
