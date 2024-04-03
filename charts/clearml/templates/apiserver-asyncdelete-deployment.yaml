@@ -1,0 +1,144 @@
+{{- if .Values.apiserver.enabled }}
+{{- if (include "clearml.fileUrl" .) }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "apiserver.referenceName" . }}-asyncdelete
+  labels:
+    {{- include "clearml.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "clearml.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.apiserver.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "clearml.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ .Values.apiserver.serviceAccountName }}-apiserver
+      {{- if .Values.imageCredentials.enabled }}
+      imagePullSecrets:
+      {{- if .Values.imageCredentials.existingSecret }}
+      - name: {{ .Values.imageCredentials.existingSecret }}
+      {{- else }}
+      - name: clearml-registry-key
+      {{- end }}
+      {{- end }}
+      {{- if or .Values.apiserver.additionalConfigs .Values.apiserver.existingAdditionalConfigsConfigMap  .Values.apiserver.existingAdditionalConfigsSecret }}
+      volumes:
+        - name: apiserver-config
+          {{- if or .Values.apiserver.existingAdditionalConfigsConfigMap }}
+          configMap:
+            name: {{ .Values.apiserver.existingAdditionalConfigsConfigMap }}
+          {{- else if or .Values.apiserver.existingAdditionalConfigsSecret }}
+          secret:
+            secretName: {{ .Values.apiserver.existingAdditionalConfigsSecret }}
+          {{- else if or .Values.apiserver.additionalConfigs }}
+          configMap:
+            name: "{{ include "apiserver.referenceName" . }}-configmap"
+          {{- end }}
+      {{- end }}
+      securityContext:
+        {{ toYaml .Values.apiserver.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init-apiserver
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.apiserver.image.registry) }}{{ .Values.apiserver.image.repository }}:{{ .Values.apiserver.image.tag }}"
+          command:
+            - /bin/sh
+            - -c
+            - >
+              set -x;
+              {{- if .Values.elasticsearch.enabled }}
+              while [ $(curl -sw '%{http_code}' "http://{{ include "elasticsearch.servicename" . }}:{{ include "elasticsearch.serviceport" . }}/_cluster/health" -o /dev/null) -ne 200 ] ; do
+                echo "waiting for elasticsearch" ;
+                sleep 5 ;
+              done ;
+              {{- end }}
+              {{- if .Values.mongodb.enabled }}
+              while [ $(curl --telnet-option BOGUS --connect-timeout 2 -s "telnet://{{ .Release.Name }}-{{ include "mongodb.hostname" . }}:27017" -o /dev/null; echo $?) -ne 49 ] ; do
+                echo "waiting for mongodb" ;
+                sleep 5 ;
+              done ;
+              {{- end }}
+              {{- if .Values.redis.enabled }}
+              while [ $(curl --telnet-option BOGUS --connect-timeout 2 -s "telnet://{{ include "redis.servicename" . }}:{{ include "redis.serviceport" . }}" -o /dev/null; echo $?) -ne 49 ] ; do
+                echo "waiting for redis" ;
+                sleep 5 ;
+              done ;
+              {{- end }}
+          securityContext:
+            {{ toYaml .Values.apiserver.containerSecurityContext | nindent 12 }}
+          resources:
+            {{- toYaml .Values.apiserver.initContainers.resources | nindent 12 }}
+      containers:
+        - name: clearml-apiserver
+          image: "{{ include "registryNamePrefix" (dict "globalValues" .Values.global "imageRegistryValue" .Values.apiserver.image.registry) }}{{ .Values.apiserver.image.repository }}:{{ .Values.apiserver.image.tag }}"
+          imagePullPolicy: {{ .Values.apiserver.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - -c
+            - >
+              python3 -m jobs.async_urls_delete --fileserver-host http://{{ include "fileserver.referenceName" . }}:{{ .Values.fileserver.service.port }}
+          env:
+          - name: CLEARML_REDIS_SERVICE_HOST
+            value: {{ include "redis.servicename" . }}
+          - name: CLEARML_REDIS_SERVICE_PORT
+            value: "{{ include "redis.serviceport" . }}"
+          {{- if .Values.mongodb.enabled }}
+          - name: CLEARML_MONGODB_SERVICE_CONNECTION_STRING
+            value: {{ include "mongodb.connectionstring" . | quote }}
+          {{- else }}
+          - name: CLEARML__HOSTS__MONGO__BACKEND__HOST
+            value: {{ .Values.externalServices.mongodbConnectionStringBackend | quote }}
+          - name: CLEARML__HOSTS__MONGO__AUTH__HOST
+            value: {{ .Values.externalServices.mongodbConnectionStringAuth | quote }}
+          {{- end }}
+          - name: CLEARML__HOSTS__ELASTIC__WORKERS__HOSTS
+            value: {{ include "elasticsearch.connectionstring" . }}
+          - name: CLEARML__HOSTS__ELASTIC__EVENTS__HOSTS
+            value: {{ include "elasticsearch.connectionstring" . }}
+          - name: CLEARML__HOSTS__ELASTIC__DATASETS__HOSTS
+            value: {{ include "elasticsearch.connectionstring" . }}
+          - name: CLEARML__HOSTS__ELASTIC__LOGS__HOSTS
+            value: {{ include "elasticsearch.connectionstring" . }}
+          - name: CLEARML__logging__handlers__text_file__filename
+            value: "/dev/null"
+          - name: PYTHONPATH
+            value: /opt/clearml/apiserver
+          - name: CLEARML__apiserver__default_company
+            value: "{{ .Values.clearml.defaultCompanyGuid }}"
+          - name: CLEARML__services__async_urls_delete__fileserver__url_prefixes
+            value: "[\"{{ include "clearml.fileUrl" . }}\"]"
+          - name: CLEARML__secure__auth__token_secret
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "clearml.confSecretName" .}}
+                key: secure_auth_token_secret
+          {{- if or .Values.apiserver.additionalConfigs .Values.apiserver.existingAdditionalConfigsConfigMap  .Values.apiserver.existingAdditionalConfigsSecret }}
+          volumeMounts:  
+            - name: apiserver-config
+              mountPath: /opt/clearml/config
+          {{- end }}
+          resources:
+            {{- toYaml .Values.apiserver.resources | nindent 12 }}
+          securityContext:
+            {{ toYaml .Values.apiserver.containerSecurityContext | nindent 12 }}
+      {{- with .Values.apiserver.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.apiserver.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.apiserver.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}
+{{- end }}

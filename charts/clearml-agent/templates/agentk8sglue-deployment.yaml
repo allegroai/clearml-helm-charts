@@ -114,12 +114,20 @@ spec:
             - name: CLEARML_API_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
+                  {{- if .Values.clearml.existingAgentk8sglueSecret }}
+                  name: {{ .Values.clearml.existingAgentk8sglueSecret }}
+                  {{- else }}
                   name: {{ include "clearmlAgent.fullname" . }}-ac
+                  {{- end }}
                   key: agentk8sglue_key
             - name: CLEARML_API_SECRET_KEY
               valueFrom:
                 secretKeyRef:
+                  {{- if .Values.clearml.existingAgentk8sglueSecret }}
+                  name: {{ .Values.clearml.existingAgentk8sglueSecret }}
+                  {{- else }}
                   name: {{ include "clearmlAgent.fullname" . }}-ac
+                  {{- end }}
                   key: agentk8sglue_secret
             - name: CLEARML_WORKER_ID
               value: {{ include "clearmlAgent.fullname" . }}
