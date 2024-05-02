@@ -40,6 +40,10 @@ spec:
             name: "{{ include "clearmlServing.fullname" . }}-inference-configmap"
           {{- end }}
       {{- end }}
+      {{- with .Values.clearml_serving_inference.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - env:
             - name: CLEARML_API_ACCESS_KEY
@@ -96,10 +100,6 @@ spec:
           {{- end }}
           {{- with .Values.clearml_serving_inference.nodeSelector }}
           nodeSelector:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.clearml_serving_inference.affinity }}
-          affinity:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.clearml_serving_inference.tolerations }}
