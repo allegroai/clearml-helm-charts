@@ -41,6 +41,10 @@ spec:
             name: "{{ include "clearmlServing.fullname" . }}-statistics-configmap"
           {{- end }}
       {{- end }}
+      {{- with .Values.clearml_serving_statistics.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - env:
             - name: CLEARML_API_ACCESS_KEY
@@ -81,10 +85,6 @@ spec:
           {{- end }}
           {{- with .Values.clearml_serving_statistics.nodeSelector }}
           nodeSelector:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.clearml_serving_statistics.affinity }}
-          affinity:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.clearml_serving_statistics.tolerations }}
