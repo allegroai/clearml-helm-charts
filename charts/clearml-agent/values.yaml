@@ -28,6 +28,16 @@ clearml:
   agentk8sglueSecret: "SECRETKEY"
 
   # -- If this is set, chart will not generate a secret but will use what is defined here
+  # The secret should be defined as the following example
+  #
+  # apiVersion: v1
+  # kind: Secret
+  # metadata:
+  #   name: secret-name
+  # stringData:
+  #   clearml.conf: |-
+  #     sdk {
+  #     }
   existingClearmlConfigSecret: ""
   # -- ClearML configuration file
   clearmlConfig: |-
