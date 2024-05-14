@@ -67,7 +67,7 @@ spec:
           volumeMounts:
             - name: {{ include "clearmlAgent.fullname" . }}-pt
               mountPath: /root/template
-            {{ if .Values.clearml.clearmlConfig }}
+            {{ if or (.Values.clearml.clearmlConfig) (.Values.clearml.existingClearmlConfigSecret) }}
             - name: k8sagent-clearml-conf-volume
               mountPath: /root/clearml.conf
               subPath: clearml.conf
@@ -103,7 +103,7 @@ spec:
             - name: K8S_GLUE_EXTRA_ARGS
               value: "--namespace {{ .Release.Namespace }} --template-yaml /root/template/template.yaml"
             {{- end }}
-            {{- if .Values.clearml.clearmlConfig }}
+            {{ if or (.Values.clearml.clearmlConfig) (.Values.clearml.existingClearmlConfigSecret) }}
             - name: CLEARML_CONFIG_FILE
               value: /root/clearml.conf
             {{- end }}
@@ -160,7 +160,14 @@ spec:
         - name: {{ include "clearmlAgent.fullname" . }}-pt
           configMap:
             name: {{ include "clearmlAgent.fullname" . }}-pt
-        {{ if .Values.clearml.clearmlConfig }}
+        {{ if .Values.clearml.existingClearmlConfigSecret }}
+        - name: k8sagent-clearml-conf-volume
+          secret:
+            secretName: {{ .Values.clearml.existingClearmlConfigSecret }}
+            items:
+            - key: clearml.conf
+              path: clearml.conf
+        {{ else if .Values.clearml.clearmlConfig }}
         - name: k8sagent-clearml-conf-volume
           secret:
             secretName: {{ include "clearmlAgent.fullname" . }}-ac
