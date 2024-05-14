@@ -3805,6 +3805,34 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: Use existingClearmlConfigSecret in deployment template
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2024-05-14T09:05:23.003795427Z"
+    description: MLOps platform Task running agent
+    digest: 43635bbdb3688680a5e2785062d588bb1405f53cf1a598e9bc72a62c8ae160a5
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.30.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-5.1.5/clearml-agent-5.1.5.tgz
+    version: 5.1.5
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: honor existingAgentk8sglueSecret in deployment template
     apiVersion: v2
     appVersion: "1.24"
@@ -5901,4 +5929,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2024-05-14T06:24:50.830606205Z"
+generated: "2024-05-14T09:05:23.004344875Z"
