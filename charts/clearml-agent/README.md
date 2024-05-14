@@ -53,7 +53,7 @@ Kubernetes: `>= 1.21.0-0 < 1.30.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agentk8sglue | object | `{"additionalClusterRoleBindings":[],"additionalRoleBindings":[],"affinity":{},"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"affinity":{},"annotations":{},"containerSecurityContext":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"podSecurityContext":{},"priorityClassName":"","resources":{},"schedulerName":"","tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerSecurityContext":{},"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"registry":"","repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"initContainers":{"resources":{}},"labels":{},"nodeSelector":{},"podSecurityContext":{},"queue":"default","replicaCount":1,"resources":{},"serviceExistingAccountName":"","tolerations":[],"volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
+| agentk8sglue | object | `{"additionalClusterRoleBindings":[],"additionalRoleBindings":[],"affinity":{},"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"affinity":{},"annotations":{},"containerSecurityContext":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"podSecurityContext":{},"priorityClassName":"","resources":{},"schedulerName":"","tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerSecurityContext":{},"createQueueIfNotExists":true,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"registry":"","repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"initContainers":{"resources":{}},"labels":{},"nodeSelector":{},"podSecurityContext":{},"queue":"default","replicaCount":1,"resources":{},"serviceExistingAccountName":"","tolerations":[],"volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
 | agentk8sglue.additionalClusterRoleBindings | list | `[]` | additional existing ClusterRoleBindings |
 | agentk8sglue.additionalRoleBindings | list | `[]` | additional existing RoleBindings |
 | agentk8sglue.affinity | object | `{}` | affinity setup for Agent pod (example in values.yaml comments) |
@@ -78,6 +78,7 @@ Kubernetes: `>= 1.21.0-0 < 1.30.0-0`
 | agentk8sglue.basePodTemplate.volumes | list | `[]` | volumes definition for pods spawned to consume ClearML Task (example in values.yaml comments) |
 | agentk8sglue.clearmlcheckCertificate | bool | `true` | Check certificates validity for evefry UrlReference below. |
 | agentk8sglue.containerSecurityContext | object | `{}` | container securityContext setup for Agent pod (example in values.yaml comments) |
+| agentk8sglue.createQueueIfNotExists | bool | `true` | if ClearML queue does not exist, it will be create it if the value is set to true |
 | agentk8sglue.defaultContainerImage | string | `"ubuntu:18.04"` | default container image for ClearML Task pod |
 | agentk8sglue.extraEnvs | list | `[]` | Extra Environment variables for Glue Agent |
 | agentk8sglue.fileMounts | list | `[]` | file definition for Glue Agent (example in values.yaml comments) |
@@ -88,7 +89,7 @@ Kubernetes: `>= 1.21.0-0 < 1.30.0-0`
 | agentk8sglue.labels | object | `{}` | labels setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.nodeSelector | object | `{}` | nodeSelector setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.podSecurityContext | object | `{}` | container securityContext setup for Agent pod (example in values.yaml comments) |
-| agentk8sglue.queue | string | `"default"` | ClearML queue this agent will consume |
+| agentk8sglue.queue | string | `"default"` | ClearML queue this agent will consume. Multiple queues can be specified with the following format: queue1,queue2,queue3 |
 | agentk8sglue.replicaCount | int | `1` | Glue Agent number of pods |
 | agentk8sglue.resources | object | `{}` | Glue Agent pod resources |
 | agentk8sglue.serviceExistingAccountName | string | `""` | if set, don't create a serviceAccountName but use defined existing one |
