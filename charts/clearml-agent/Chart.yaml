@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml-agent
 description: MLOps platform Task running agent
 type: application
-version: "5.1.5"
+version: "5.1.6"
 appVersion: "1.24"
 kubeVersion: ">= 1.21.0-0 < 1.30.0-0"
 home: https://clear.ml
@@ -20,5 +20,5 @@ keywords:
   - "task agent"
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: Use existingClearmlConfigSecret in deployment template
+    - kind: feature
+      description: Support for multiple queues
