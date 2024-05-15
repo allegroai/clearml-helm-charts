@@ -3845,6 +3845,36 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: Support for 1.30 kubernetes
+        - kind: added
+          description: Support for multiple queues
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2024-05-15T14:19:56.988085823Z"
+    description: MLOps platform Task running agent
+    digest: d4966888cfbe73e20ff2bcb01811b2dafdeaf7b4a7fb562e8c4e5b449ad37a8f
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.31.0-0'
+    maintainers:
+    - name: valeriano-manassero
+      url: https://github.com/valeriano-manassero
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-5.2.0/clearml-agent-5.2.0.tgz
+    version: 5.2.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: Use existingClearmlConfigSecret in deployment template
     apiVersion: v2
     appVersion: "1.24"
@@ -6010,4 +6040,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2024-05-15T07:32:33.865286313Z"
+generated: "2024-05-15T14:19:56.988559968Z"
