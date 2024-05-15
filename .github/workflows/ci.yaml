@@ -1,6 +1,10 @@
 name: Lint and Test Charts
 
 on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/multiplequeues
   pull_request:
     types: [opened, synchronize, edited, reopened]
     paths:
