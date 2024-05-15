@@ -98,10 +98,12 @@ spec:
               value: "--namespace {{ .Release.Namespace }} --template-yaml /root/template/template.yaml \
                       --ports-mode --num-of-services {{ .Values.sessions.maxServices }} \
                       --base-port {{ .Values.sessions.startingPort }} \
-                      --gateway-address {{ .Values.sessions.externalIP }}"
+                      --gateway-address {{ .Values.sessions.externalIP }} \
+                      {{- if .Values.agentk8sglue.createQueueIfNotExists }} --create-queue{{- end }}"
             {{- else}}
             - name: K8S_GLUE_EXTRA_ARGS
-              value: "--namespace {{ .Release.Namespace }} --template-yaml /root/template/template.yaml"
+              value: "--namespace {{ .Release.Namespace }} --template-yaml /root/template/template.yaml \
+                {{- if .Values.agentk8sglue.createQueueIfNotExists }} --create-queue{{- end }}"
             {{- end }}
             {{ if or (.Values.clearml.clearmlConfig) (.Values.clearml.existingClearmlConfigSecret) }}
             - name: CLEARML_CONFIG_FILE
