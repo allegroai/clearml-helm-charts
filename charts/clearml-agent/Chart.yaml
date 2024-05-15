@@ -20,5 +20,7 @@ keywords:
   - "task agent"
 annotations:
   artifacthub.io/changes: |
-    - kind: feature
+    - kind: fixed
+      description: Support for 1.30 kubernetes
+    - kind: added
       description: Support for multiple queues
