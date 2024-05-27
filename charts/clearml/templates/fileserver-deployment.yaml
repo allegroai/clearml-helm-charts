@@ -5,6 +5,10 @@ metadata:
   name: {{ include "fileserver.referenceName" . }}
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
+{{- with .Values.fileserver.deploymentAnnotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
 spec:
   replicas: {{ .Values.fileserver.replicaCount }}
   selector:

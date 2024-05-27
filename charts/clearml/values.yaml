@@ -56,6 +56,8 @@ clearml:
 apiserver:
   # -- Enable/Disable component deployment
   enabled: true
+  # -- Add the provided map to the annotations for the Deployment resource created by this chart.
+  deploymentAnnotations:
   # -- Enable/Disable example data load
   prepopulateEnabled: true
   # -- The default serviceAccountName to be used
@@ -174,6 +176,8 @@ apiserver:
 fileserver:
   # -- Enable/Disable component deployment
   enabled: true
+  # -- Add the provided map to the annotations for the Deployment resource created by this chart.
+  deploymentAnnotations: {}
   # -- The default serviceAccountName to be used
   serviceAccountName: clearml
   # -- File Server image configuration
@@ -258,6 +262,8 @@ fileserver:
 webserver:
   # -- Enable/Disable component deployment
   enabled: true
+  # -- Add the provided map to the annotations for the Deployment resource created by this chart.
+  deploymentAnnotations: {}
   # -- The default serviceAccountName to be used
   serviceAccountName: clearml
   # -- Web Server image configuration
