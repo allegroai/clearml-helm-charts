@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 7.8.4](https://img.shields.io/badge/Version-7.8.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16](https://img.shields.io/badge/AppVersion-1.16-informational?style=flat-square)
+![Version: 7.9.0](https://img.shields.io/badge/Version-7.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.15](https://img.shields.io/badge/AppVersion-1.15-informational?style=flat-square)
 
 MLOps platform
 
