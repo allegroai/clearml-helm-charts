@@ -5,6 +5,10 @@ metadata:
   name: {{ include "apiserver.referenceName" . }}
   labels:
     {{- include "clearml.labels" . | nindent 4 }}
+{{- with .Values.apiserver.deploymentAnnotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
 spec:
   replicas: {{ .Values.apiserver.replicaCount }}
   selector:
