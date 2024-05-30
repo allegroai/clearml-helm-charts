@@ -171,6 +171,16 @@ apiserver:
   #         ]
   #       }
   #     }
+  # -- # Defines extra Kubernetes volumes to be attached to the pod.
+  additionalVolumes: {}
+  #  - name: ramdisk
+  #    emptyDir:
+  #      medium: Memory
+  #      sizeLimit: 32Gi
+  # -- Specifies where and how the volumes defined in additionalVolumes.
+  additionalVolumeMounts: {}
+  #  - mountPath: /dev/shm
+  #    name: ramdisk
 
 # -- File Server configurations
 fileserver:
@@ -257,6 +267,16 @@ fileserver:
       # -- Access mode (must be ReadWriteMany if fileserver replica > 1)
       accessMode: ReadWriteOnce
       size: 50Gi
+  # -- # Defines extra Kubernetes volumes to be attached to the pod.
+  additionalVolumes: {}
+  #  - name: ramdisk
+  #    emptyDir:
+  #      medium: Memory
+  #      sizeLimit: 32Gi
+  # -- Specifies where and how the volumes defined in additionalVolumes.
+  additionalVolumeMounts: {}
+  #  - mountPath: /dev/shm
+  #    name: ramdisk
 
 # -- Web Server configurations
 webserver:
@@ -333,6 +353,16 @@ webserver:
   #   fsGroup: 1001
   # -- Additional specific webserver configurations
   additionalConfigs: {}
+  # -- # Defines extra Kubernetes volumes to be attached to the pod.
+  additionalVolumes: {}
+  #  - name: ramdisk
+  #    emptyDir:
+  #      medium: Memory
+  #      sizeLimit: 32Gi
+  # -- Specifies where and how the volumes defined in additionalVolumes.
+  additionalVolumeMounts: {}
+  #  - mountPath: /dev/shm
+  #    name: ramdisk
 
 # -- Definition of external services to use if not enabled as dependency charts here
 externalServices:

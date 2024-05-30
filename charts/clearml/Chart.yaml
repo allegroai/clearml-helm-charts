@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "7.9.0"
+version: "7.10.0"
 appVersion: "1.15"
 kubeVersion: ">= 1.21.0-0 < 1.31.0-0"
 home: https://clear.ml
@@ -33,4 +33,4 @@ dependencies:
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: Ability to add annotations to Deployments
+      description: Ability to add volumes and volumeMounts to Deployments

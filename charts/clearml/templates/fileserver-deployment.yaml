@@ -47,6 +47,9 @@ spec:
         - name: fileserver-data
           emptyDir: {}
         {{- end }}
+        {{- if .Values.fileserver.additionalVolumes }}
+        {{- toYaml .Values.fileserver.additionalVolumes | nindent 8 }}
+        {{- end }}
       securityContext:
         {{ toYaml .Values.fileserver.podSecurityContext | nindent 8 }}
       initContainers:
@@ -114,6 +117,9 @@ spec:
           volumeMounts:
             - name: fileserver-data
               mountPath: /mnt/fileserver
+            {{- if .Values.fileserver.additionalVolumeMounts }}
+            {{- toYaml .Values.fileserver.additionalVolumeMounts | nindent 8 }}
+            {{- end }}
           resources:
             {{- toYaml .Values.fileserver.resources | nindent 12 }}
           securityContext:
