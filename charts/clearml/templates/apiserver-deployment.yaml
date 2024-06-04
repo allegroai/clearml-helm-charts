@@ -182,7 +182,7 @@ spec:
               mountPath: /opt/clearml/config
             {{- end }}
             {{- if .Values.apiserver.additionalVolumeMounts }}
-            {{- toYaml .Values.apiserver.additionalVolumeMounts | nindent 8 }}
+            {{- toYaml .Values.apiserver.additionalVolumeMounts | nindent 12 }}
             {{- end }}
           {{- end }}
           resources:

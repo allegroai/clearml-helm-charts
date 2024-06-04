@@ -95,7 +95,7 @@ spec:
             - name: webserver-config
               mountPath: /mnt/external_files/configs
             {{- if .Values.webserver.additionalVolumeMounts }}
-            {{- toYaml .Values.webserver.additionalVolumeMounts | nindent 8 }}
+            {{- toYaml .Values.webserver.additionalVolumeMounts | nindent 12 }}
             {{- end }}
           resources:
             {{- toYaml .Values.webserver.resources | nindent 12 }}

@@ -118,7 +118,7 @@ spec:
             - name: fileserver-data
               mountPath: /mnt/fileserver
             {{- if .Values.fileserver.additionalVolumeMounts }}
-            {{- toYaml .Values.fileserver.additionalVolumeMounts | nindent 8 }}
+            {{- toYaml .Values.fileserver.additionalVolumeMounts | nindent 12 }}
             {{- end }}
           resources:
             {{- toYaml .Values.fileserver.resources | nindent 12 }}
