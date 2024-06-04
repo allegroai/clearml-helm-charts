@@ -36,6 +36,9 @@ spec:
         - name: webserver-config
           configMap:
             name: "{{ include "webserver.referenceName" . }}-configmap"
+        {{- if .Values.webserver.additionalVolumes }}
+        {{- toYaml .Values.webserver.additionalVolumes | nindent 8 }}
+        {{- end }}
       securityContext:
         {{ toYaml .Values.webserver.podSecurityContext | nindent 8 }}
       initContainers:
@@ -91,6 +94,9 @@ spec:
           volumeMounts:
             - name: webserver-config
               mountPath: /mnt/external_files/configs
+            {{- if .Values.webserver.additionalVolumeMounts }}
+            {{- toYaml .Values.webserver.additionalVolumeMounts | nindent 8 }}
+            {{- end }}
           resources:
             {{- toYaml .Values.webserver.resources | nindent 12 }}
           securityContext:

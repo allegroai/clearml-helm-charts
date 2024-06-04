@@ -32,19 +32,24 @@ spec:
       - name: clearml-registry-key
       {{- end }}
       {{- end }}
-      {{- if or .Values.apiserver.additionalConfigs .Values.apiserver.existingAdditionalConfigsConfigMap  .Values.apiserver.existingAdditionalConfigsSecret }}
+      {{- if or .Values.apiserver.additionalConfigs .Values.apiserver.existingAdditionalConfigsConfigMap .Values.apiserver.existingAdditionalConfigsSecret .Values.apiserver.additionalVolumes }}
       volumes:
+        {{- if .Values.apiserver.existingAdditionalConfigsConfigMap }}
         - name: apiserver-config
-          {{- if or .Values.apiserver.existingAdditionalConfigsConfigMap }}
           configMap:
             name: {{ .Values.apiserver.existingAdditionalConfigsConfigMap }}
-          {{- else if or .Values.apiserver.existingAdditionalConfigsSecret }}
+        {{- else if .Values.apiserver.existingAdditionalConfigsSecret }}
+        - name: apiserver-config
           secret:
             secretName: {{ .Values.apiserver.existingAdditionalConfigsSecret }}
-          {{- else if or .Values.apiserver.additionalConfigs }}
+        {{- else if .Values.apiserver.additionalConfigs }}
+        - name: apiserver-config
           configMap:
             name: "{{ include "apiserver.referenceName" . }}-configmap"
-          {{- end }}
+        {{- end }}
+        {{- if .Values.apiserver.additionalVolumes }}
+        {{- toYaml .Values.apiserver.additionalVolumes | nindent 8 }}
+        {{- end }}
       {{- end }}
       securityContext:
         {{ toYaml .Values.apiserver.podSecurityContext | nindent 8 }}
@@ -170,10 +175,15 @@ spec:
               httpHeaders:
                 - name: Authorization
                   value: Basic {{ include "readinessProbeAuth" . }}
-          {{- if or .Values.apiserver.additionalConfigs .Values.apiserver.existingAdditionalConfigsConfigMap  .Values.apiserver.existingAdditionalConfigsSecret }}
+          {{- if or .Values.apiserver.additionalConfigs .Values.apiserver.existingAdditionalConfigsConfigMap  .Values.apiserver.existingAdditionalConfigsSecret .Values.apiserver.additionalVolumeMounts }}
           volumeMounts:  
+            {{- if or .Values.apiserver.additionalConfigs .Values.apiserver.existingAdditionalConfigsConfigMap  .Values.apiserver.existingAdditionalConfigsSecret }}
             - name: apiserver-config
               mountPath: /opt/clearml/config
+            {{- end }}
+            {{- if .Values.apiserver.additionalVolumeMounts }}
+            {{- toYaml .Values.apiserver.additionalVolumeMounts | nindent 8 }}
+            {{- end }}
           {{- end }}
           resources:
             {{- toYaml .Values.apiserver.resources | nindent 12 }}
