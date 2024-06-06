@@ -83,7 +83,7 @@ agentk8sglue:
   # -- ClearML queue this agent will consume. Multiple queues can be specified with the following format: queue1,queue2,queue3
   queue: default
   # -- if ClearML queue does not exist, it will be create it if the value is set to true
-  createQueueIfNotExists: true
+  createQueueIfNotExists: false
   # -- labels setup for Agent pod (example in values.yaml comments)
   labels: {}
     # schedulerName: scheduler
