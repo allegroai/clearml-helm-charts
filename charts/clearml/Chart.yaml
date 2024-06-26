@@ -2,8 +2,8 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "7.10.1"
-appVersion: "1.15"
+version: "7.10.2"
+appVersion: "1.16"
 kubeVersion: ">= 1.21.0-0 < 1.31.0-0"
 home: https://clear.ml
 icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
@@ -32,5 +32,7 @@ dependencies:
     condition: elasticsearch.enabled
 annotations:
   artifacthub.io/changes: |
+    - kind: changed
+      description: app version 1.16
     - kind: fixed
-      description: additionalVolumeMount indentation is fixed
+      description: missing env vars in async
