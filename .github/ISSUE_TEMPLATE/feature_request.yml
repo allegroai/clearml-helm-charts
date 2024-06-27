@@ -3,7 +3,7 @@ description: Suggest an idea for this project
 title: "[name of the chart e.g. clearml-agent] Issue Title"
 labels: [enhancement]
 assignees:
-  - valeriano-manassero
+  - filippo-clearml
 body:
   - type: markdown
     attributes:

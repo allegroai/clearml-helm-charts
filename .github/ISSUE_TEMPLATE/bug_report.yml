@@ -3,7 +3,7 @@ description: Create a report to help us improve
 title: "[name of the chart e.g. clearml-agent] Issue Title"
 labels: [bug]
 assignees:
-  - valeriano-manassero
+  - filippo-clearml
 body:
   - type: markdown
     attributes:
