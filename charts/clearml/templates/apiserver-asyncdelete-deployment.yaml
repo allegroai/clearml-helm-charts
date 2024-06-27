@@ -106,6 +106,13 @@ spec:
             value: {{ include "elasticsearch.connectionstring" . }}
           - name: CLEARML__HOSTS__ELASTIC__LOGS__HOSTS
             value: {{ include "elasticsearch.connectionstring" . }}
+          - name: CLEARML__secure__auth__token_secret
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "clearml.confSecretName" .}}
+                key: secure_auth_token_secret
+          - name: CLEARML__apiserver__default_company_name
+            value: "{{ .Values.clearml.defaultCompany }}"
           - name: CLEARML__logging__handlers__text_file__filename
             value: "/dev/null"
           - name: PYTHONPATH
