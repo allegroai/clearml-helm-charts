@@ -26,10 +26,6 @@ clearml:
   cookieDomain: ""
   # -- Company name
   defaultCompany: "d1bd92a3b039400cbafc60a7a5b1e52b"
-  # -- Readiness probe basic auth key
-  readinessprobeKey: GK4PRTVT3706T25K6BA1
-  # -- Readiness probe basic auth secret
-  readinessprobeSecret: ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2
   # -- Override the API Urls displayed when showing an example of the SDK's clearml.conf configuration
   clientConfigurationApiUrl: ""
   # -- Override the Files Urls displayed when showing an example of the SDK's clearml.conf configuration
@@ -50,6 +46,10 @@ clearml:
   # testUserKey: "ENP39EQM4SLACGD5FXB7"
   # -- Test File Server basic auth secret
   # testUserSecret: "lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"
+  # -- Readiness probe basic auth key
+  # readinessprobeKey: GK4PRTVT3706T25K6BA1
+  # -- Readiness probe basic auth secret
+  # readinessprobeSecret: ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2
 
   # -- Pass Clearml secrets using an existing secret
   # must contain the keys: apiserver_key, apiserver_secret, secure_auth_token_secret, test_user_key, test_user_secret

@@ -150,7 +150,7 @@ Create secret to access docker registry
 Create readiness probe auth token
 */}}
 {{- define "readinessProbeAuth" }}
-{{- printf "%s:%s" .Values.clearml.readinessprobeKey .Values.clearml.readinessprobeSecret | b64enc }}
+{{- printf "%s:%s" (default (randAlpha 20 | upper) .Values.clearml.readinessprobeKey) (default (randAlpha 20 | upper) .Values.clearml.readinessprobeSecret) | b64enc }}
 {{- end }}
 
 {{/*
