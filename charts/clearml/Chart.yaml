@@ -32,7 +32,5 @@ dependencies:
     condition: elasticsearch.enabled
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: app version 1.16
-    - kind: fixed
-      description: missing env vars in async
+    - kind: added
+      description: Ability to generate secrets and keys for ClearML generic configurations randomly
