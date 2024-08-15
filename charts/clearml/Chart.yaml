@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "7.11.1"
+version: "7.11.2"
 appVersion: "1.16"
 kubeVersion: ">= 1.21.0-0 < 1.31.0-0"
 home: https://clear.ml
@@ -11,8 +11,8 @@ sources:
   - https://github.com/allegroai/clearml-helm-charts
   - https://github.com/allegroai/clearml
 maintainers:
-  - name: valeriano-manassero
-    url: https://github.com/valeriano-manassero
+  - name: filippo-brintazzoli
+    url: https://github.com/filippo-clearml
 keywords:
   - clearml
   - "machine learning"
@@ -33,4 +33,4 @@ dependencies:
 annotations:
   artifacthub.io/changes: |
     - kind: changed
-      description: app version 1.16.1
+      description: Updated README

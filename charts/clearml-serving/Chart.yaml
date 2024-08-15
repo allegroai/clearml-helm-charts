@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml-serving
 description: ClearML Serving Helm Chart
 type: application
-version: "1.5.6"
+version: "1.5.7"
 appVersion: "1.3.0"
 kubeVersion: ">= 1.21.0-0 < 1.31.0-0"
 home: https://clear.ml
@@ -11,8 +11,8 @@ sources:
   - https://github.com/allegroai/clearml-helm-charts
   - https://github.com/allegroai/clearml
 maintainers:
-  - name: valeriano-manassero
-    url: https://github.com/valeriano-manassero
+  - name: filippo-brintazzoli
+    url: https://github.com/filippo-clearml
 keywords:
   - clearml
   - "machine learning"
@@ -33,5 +33,5 @@ dependencies:
     condition: grafana.enabled
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: k8s 1.30 support
+    - kind: changed
+      description: Updated README

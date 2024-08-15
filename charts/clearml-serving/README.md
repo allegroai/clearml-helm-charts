@@ -1,6 +1,6 @@
 # ClearML Kubernetes Serving
 
-![Version: 1.5.6](https://img.shields.io/badge/Version-1.5.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
+![Version: 1.5.7](https://img.shields.io/badge/Version-1.5.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
 
 ClearML Serving Helm Chart
 
@@ -10,12 +10,20 @@ ClearML Serving Helm Chart
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| valeriano-manassero |  | <https://github.com/valeriano-manassero> |
+| filippo-brintazzoli |  | <https://github.com/filippo-clearml> |
 
 ## Introduction
 
 The **clearml-serving** is the Kubernetes serving for for [ClearML](https://github.com/allegroai/clearml-serving).
 It allows you to serve models on a Kubernetes cluster.
+
+## Add to local Helm repository
+
+To add this chart to your local Helm repository:
+
+```
+helm repo add allegroai https://allegroai.github.io/clearml-helm-charts
+```
 
 # Upgrading Chart
 

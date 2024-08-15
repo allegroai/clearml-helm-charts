@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 7.11.1](https://img.shields.io/badge/Version-7.11.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16](https://img.shields.io/badge/AppVersion-1.16-informational?style=flat-square)
+![Version: 7.11.2](https://img.shields.io/badge/Version-7.11.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16](https://img.shields.io/badge/AppVersion-1.16-informational?style=flat-square)
 
 MLOps platform
 
@@ -10,7 +10,7 @@ MLOps platform
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| valeriano-manassero |  | <https://github.com/valeriano-manassero> |
+| filippo-brintazzoli |  | <https://github.com/filippo-clearml> |
 
 ## Introduction
 
@@ -24,6 +24,14 @@ It allows multiple users to collaborate and manage their experiments.
     * Documenting and logging experiment information, statistics and results
     * Querying experiments history, logs and results
 * Locally-hosted file server for storing images and models making them easily accessible using the Web-App
+
+## Add to local Helm repository
+
+To add this chart to your local Helm repository:
+
+```
+helm repo add allegroai https://allegroai.github.io/clearml-helm-charts
+```
 
 ## Local environment
 
