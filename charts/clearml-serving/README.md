@@ -24,6 +24,7 @@ It allows you to serve models on a Kubernetes cluster.
 Updating to latest version of this chart can be done in two steps:
 
 ```
+helm repo add allegroai https://allegroai.github.io/clearml-helm-charts/
 helm repo update
 helm upgrade clearml-serving allegroai/clearml-serving
 ```
