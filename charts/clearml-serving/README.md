@@ -10,7 +10,7 @@ ClearML Serving Helm Chart
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| filippo-brintazzoli |  | <https://github.com/filippo-clearml> |
+| filippo-clearml |  | <https://github.com/filippo-clearml> |
 
 ## Introduction
 
