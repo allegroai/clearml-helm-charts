@@ -11,7 +11,7 @@ sources:
   - https://github.com/allegroai/clearml-helm-charts
   - https://github.com/allegroai/clearml
 maintainers:
-  - name: filippo-brintazzoli
+  - name: filippo-clearml
     url: https://github.com/filippo-clearml
 keywords:
   - clearml
