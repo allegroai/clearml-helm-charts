@@ -1,6 +1,6 @@
 # ClearML Kubernetes Agent
 
-![Version: 5.2.1](https://img.shields.io/badge/Version-5.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 5.2.2](https://img.shields.io/badge/Version-5.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
 MLOps platform Task running agent
 
@@ -10,12 +10,20 @@ MLOps platform Task running agent
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| valeriano-manassero |  | <https://github.com/valeriano-manassero> |
+| filippo-clearml |  | <https://github.com/filippo-clearml> |
 
 ## Introduction
 
 The **clearml-agent** is the Kubernetes agent for for [ClearML](https://github.com/allegroai/clearml).
 It allows you to schedule distributed experiments on a Kubernetes cluster.
+
+## Add to local Helm repository
+
+To add this chart to your local Helm repository:
+
+```
+helm repo add allegroai https://allegroai.github.io/clearml-helm-charts
+```
 
 # Upgrading Chart
 
