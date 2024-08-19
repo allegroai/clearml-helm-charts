@@ -4046,6 +4046,34 @@ entries:
   clearml-agent:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: Updated README
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2024-08-19T13:52:03.835763614Z"
+    description: MLOps platform Task running agent
+    digest: 1abfa8d6bc6cf2656cb87a37335ee0f698baff59f4900cd307b387495c632bff
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.31.0-0'
+    maintainers:
+    - name: filippo-clearml
+      url: https://github.com/filippo-clearml
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-5.2.2/clearml-agent-5.2.2.tgz
+    version: 5.2.2
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: Create queue must be disabled by default to preserve backward compatibility
     apiVersion: v2
@@ -6270,4 +6298,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2024-07-22T06:18:34.638093998Z"
+generated: "2024-08-19T13:52:03.836088282Z"
