@@ -2,3 +2,5 @@ prometheus:
   enabled: false
 grafana:
   enabled: false
+kafka:
+  enabled: false
