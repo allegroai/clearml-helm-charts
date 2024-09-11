@@ -153,7 +153,7 @@ Kubernetes: `>= 1.21.0-0 < 1.31.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| apiserver | object | `{"additionalConfigs":{},"additionalVolumeMounts":{},"additionalVolumes":{},"affinity":{},"containerSecurityContext":{},"deploymentAnnotations":null,"enabled":true,"existingAdditionalConfigsConfigMap":"","existingAdditionalConfigsSecret":"","extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","registry":"","repository":"allegroai/clearml","tag":"1.16.2-502"},"ingress":{"annotations":{},"enabled":false,"hostName":"api.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"initContainers":{"resources":{"limits":{"cpu":"10m","memory":"64Mi"},"requests":{"cpu":"10m","memory":"64Mi"}}},"nodeSelector":{},"podAnnotations":{},"podSecurityContext":{},"prepopulateEnabled":true,"processes":{"count":8,"maxRequests":1000,"maxRequestsJitter":300,"timeout":24000},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"annotations":{},"nodePort":30008,"port":8008,"type":"NodePort"},"serviceAccountName":"clearml","tolerations":[]}` | Api Server configurations |
+| apiserver | object | `{"additionalConfigs":{},"additionalVolumeMounts":{},"additionalVolumes":{},"affinity":{},"containerSecurityContext":{},"deploymentAnnotations":null,"enabled":true,"existingAdditionalConfigsConfigMap":"","existingAdditionalConfigsSecret":"","extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","registry":"","repository":"allegroai/clearml","tag":"1.16.2-502"},"ingress":{"annotations":{},"enabled":false,"hostName":"api.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"initContainers":{"resources":{"limits":{"cpu":"10m","memory":"64Mi"},"requests":{"cpu":"10m","memory":"64Mi"}}},"nodeSelector":{},"pdb":{"enabled":false,"maxUnavailable":1,"minAvailable":1},"podAnnotations":{},"podSecurityContext":{},"prepopulateEnabled":true,"processes":{"count":8,"maxRequests":1000,"maxRequestsJitter":300,"timeout":24000},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"annotations":{},"nodePort":30008,"port":8008,"type":"NodePort"},"serviceAccountName":"clearml","strategy":{"type":"RollingUpdate"},"tolerations":[],"topologySpreadConstraints":[]}` | Api Server configurations |
 | apiserver.additionalConfigs | object | `{}` | files declared in this parameter will be mounted and read by apiserver (examples in values.yaml) if not overridden by existingAdditionalConfigsSecret |
 | apiserver.additionalVolumeMounts | object | `{}` | Specifies where and how the volumes defined in additionalVolumes. |
 | apiserver.additionalVolumes | object | `{}` | # Defines extra Kubernetes volumes to be attached to the pod. |
@@ -174,6 +174,10 @@ Kubernetes: `>= 1.21.0-0 < 1.31.0-0`
 | apiserver.ingress.tlsSecretName | string | `""` | Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule. |
 | apiserver.initContainers | object | `{"resources":{"limits":{"cpu":"10m","memory":"64Mi"},"requests":{"cpu":"10m","memory":"64Mi"}}}` | Api Server resources per initContainers pod |
 | apiserver.nodeSelector | object | `{}` | Api Server nodeselector |
+| apiserver.pdb | object | `{"enabled":false,"maxUnavailable":1,"minAvailable":1}` | Specifies PodDisruptionBudget settings |
+| apiserver.pdb.enabled | bool | `false` | If set to false no PDB is created |
+| apiserver.pdb.maxUnavailable | int | `1` | Specifies maxUnavailable for PDB. |
+| apiserver.pdb.minAvailable | int | `1` | Specifies minAvailable for PDB. |
 | apiserver.podAnnotations | object | `{}` | specific annotation for Api Server pods |
 | apiserver.podSecurityContext | object | `{}` | Api Server pod security context |
 | apiserver.prepopulateEnabled | bool | `true` | Enable/Disable example data load |
@@ -188,7 +192,9 @@ Kubernetes: `>= 1.21.0-0 < 1.31.0-0`
 | apiserver.service.annotations | object | `{}` | specific annotation for Api Server service |
 | apiserver.service.nodePort | int | `30008` | If service.type set to NodePort, this will be set to service's nodePort field. If service.type is set to others, this field will be ignored |
 | apiserver.serviceAccountName | string | `"clearml"` | The default serviceAccountName to be used |
+| apiserver.strategy | object | `{"type":"RollingUpdate"}` | Api Server deployment strategy |
 | apiserver.tolerations | list | `[]` | Api Server tolerations setup |
+| apiserver.topologySpreadConstraints | list | `[]` | Specifies topologySpreadConstraints settings |
 | clearml | object | `{"apiserverKey":"GGS9F4M6XB2DXJ5AFT9F","apiserverSecret":"2oGujVFhPfaozhpuz2GzQfA5OyxmMsR3WVJpsCR5hrgHFs20PO","clientConfigurationApiUrl":"","clientConfigurationFilesUrl":"","cookieDomain":"","cookieName":"clearml-token-k8s","defaultCompany":"d1bd92a3b039400cbafc60a7a5b1e52b","existingSecret":"","fileserverKey":"XXCRJ123CEE2KSQ068WO","fileserverSecret":"YIy8EVAC7QCT4FtgitxAQGyW7xRHDZ4jpYlTE7HKiscpORl1hG","readinessprobeKey":"GK4PRTVT3706T25K6BA1","readinessprobeSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","secureAuthTokenSecret":"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2","testUserKey":"ENP39EQM4SLACGD5FXB7","testUserSecret":"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"}` | ClearMl generic configurations |
 | clearml.apiserverKey | string | `"GGS9F4M6XB2DXJ5AFT9F"` | Api Server basic auth key |
 | clearml.apiserverSecret | string | `"2oGujVFhPfaozhpuz2GzQfA5OyxmMsR3WVJpsCR5hrgHFs20PO"` | Api Server basic auth secret |
@@ -212,7 +218,7 @@ Kubernetes: `>= 1.21.0-0 < 1.31.0-0`
 | externalServices.mongodbConnectionStringBackend | string | `"mongodb://mongodb_hostnamehostname:27017/backend"` | Existing MongoDB connection string for AUTH to use if mongodb.enabled is false (example in values.yaml) |
 | externalServices.redisHost | string | `"redis_hostname"` | Existing Redis Hostname to use if redis.enabled is false (example in values.yaml) |
 | externalServices.redisPort | int | `6379` | Existing Redis Port to use if redis.enabled is false |
-| fileserver | object | `{"additionalVolumeMounts":{},"additionalVolumes":{},"affinity":{},"containerSecurityContext":{},"deploymentAnnotations":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","registry":"","repository":"allegroai/clearml","tag":"1.16.2-502"},"ingress":{"annotations":{},"enabled":false,"hostName":"files.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"initContainers":{"resources":{"limits":{"cpu":"10m","memory":"64Mi"},"requests":{"cpu":"10m","memory":"64Mi"}}},"nodeSelector":{},"podAnnotations":{},"podSecurityContext":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"annotations":{},"nodePort":30081,"port":8081,"type":"NodePort"},"serviceAccountName":"clearml","storage":{"data":{"accessMode":"ReadWriteOnce","class":"","existingPVC":"","size":"50Gi"},"enabled":true},"tolerations":[]}` | File Server configurations |
+| fileserver | object | `{"additionalVolumeMounts":{},"additionalVolumes":{},"affinity":{},"containerSecurityContext":{},"deploymentAnnotations":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","registry":"","repository":"allegroai/clearml","tag":"1.16.2-502"},"ingress":{"annotations":{},"enabled":false,"hostName":"files.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"initContainers":{"resources":{"limits":{"cpu":"10m","memory":"64Mi"},"requests":{"cpu":"10m","memory":"64Mi"}}},"nodeSelector":{},"pdb":{"enabled":false,"maxUnavailable":1,"minAvailable":1},"podAnnotations":{},"podSecurityContext":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"annotations":{},"nodePort":30081,"port":8081,"type":"NodePort"},"serviceAccountName":"clearml","storage":{"data":{"accessMode":"ReadWriteOnce","class":"","existingPVC":"","size":"50Gi"},"enabled":true},"strategy":{"type":"RollingUpdate"},"tolerations":[],"topologySpreadConstraints":[]}` | File Server configurations |
 | fileserver.additionalVolumeMounts | object | `{}` | Specifies where and how the volumes defined in additionalVolumes. |
 | fileserver.additionalVolumes | object | `{}` | # Defines extra Kubernetes volumes to be attached to the pod. |
 | fileserver.affinity | object | `{}` | File Server affinity setup |
@@ -230,6 +236,10 @@ Kubernetes: `>= 1.21.0-0 < 1.31.0-0`
 | fileserver.ingress.tlsSecretName | string | `""` | Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule. |
 | fileserver.initContainers | object | `{"resources":{"limits":{"cpu":"10m","memory":"64Mi"},"requests":{"cpu":"10m","memory":"64Mi"}}}` | File Server resources per initContainers pod |
 | fileserver.nodeSelector | object | `{}` | File Server nodeselector |
+| fileserver.pdb | object | `{"enabled":false,"maxUnavailable":1,"minAvailable":1}` | Specifies PodDisruptionBudget settings |
+| fileserver.pdb.enabled | bool | `false` | If set to false no PDB is created |
+| fileserver.pdb.maxUnavailable | int | `1` | Specifies maxUnavailable for PDB. |
+| fileserver.pdb.minAvailable | int | `1` | Specifies minAvailable for PDB. |
 | fileserver.podAnnotations | object | `{}` | specific annotation for File Server pods |
 | fileserver.podSecurityContext | object | `{}` | File Server pod security context |
 | fileserver.replicaCount | int | `1` | File Server number of pods |
@@ -243,7 +253,9 @@ Kubernetes: `>= 1.21.0-0 < 1.31.0-0`
 | fileserver.storage.data.class | string | `""` | Storage class (use default if empty) |
 | fileserver.storage.data.existingPVC | string | `""` | If set, it uses an already existing PVC instead of dynamic provisioning |
 | fileserver.storage.enabled | bool | `true` | If set to false no PVC is created and emptyDir is used |
+| fileserver.strategy | object | `{"type":"RollingUpdate"}` | File Server deployment strategy |
 | fileserver.tolerations | list | `[]` | File Server tolerations setup |
+| fileserver.topologySpreadConstraints | list | `[]` | Specifies topologySpreadConstraints settings |
 | global | object | `{"imageRegistry":"docker.io"}` | Global parameters section |
 | global.imageRegistry | string | `"docker.io"` | Images registry |
 | imageCredentials | object | `{"email":"someone@host.com","enabled":false,"existingSecret":"","password":"pwd","registry":"docker.io","username":"someone"}` | Container registry configuration |
@@ -255,7 +267,7 @@ Kubernetes: `>= 1.21.0-0 < 1.31.0-0`
 | imageCredentials.username | string | `"someone"` | Registry username |
 | mongodb | object | `{"architecture":"standalone","auth":{"enabled":false},"enabled":true,"persistence":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"50Gi","storageClass":null},"replicaCount":1}` | Configuration from https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml |
 | redis | object | `{"architecture":"standalone","auth":{"enabled":false},"databaseNumber":0,"enabled":true,"master":{"name":"{{ .Release.Name }}-redis-master","persistence":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"5Gi","storageClass":null},"port":6379}}` | Configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml |
-| webserver | object | `{"additionalConfigs":{},"additionalVolumeMounts":{},"additionalVolumes":{},"affinity":{},"containerSecurityContext":{},"deploymentAnnotations":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","registry":"","repository":"allegroai/clearml","tag":"1.16.2-502"},"ingress":{"annotations":{},"enabled":false,"hostName":"app.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"initContainers":{"resources":{"limits":{"cpu":"10m","memory":"64Mi"},"requests":{"cpu":"10m","memory":"64Mi"}}},"nodeSelector":{},"podAnnotations":{},"podSecurityContext":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"annotations":{},"nodePort":30080,"port":8080,"type":"NodePort"},"serviceAccountName":"clearml","tolerations":[]}` | Web Server configurations |
+| webserver | object | `{"additionalConfigs":{},"additionalVolumeMounts":{},"additionalVolumes":{},"affinity":{},"containerSecurityContext":{},"deploymentAnnotations":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","registry":"","repository":"allegroai/clearml","tag":"1.16.2-502"},"ingress":{"annotations":{},"enabled":false,"hostName":"app.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"initContainers":{"resources":{"limits":{"cpu":"10m","memory":"64Mi"},"requests":{"cpu":"10m","memory":"64Mi"}}},"nodeSelector":{},"pdb":{"enabled":false,"maxUnavailable":1,"minAvailable":1},"podAnnotations":{},"podSecurityContext":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"annotations":{},"nodePort":30080,"port":8080,"type":"NodePort"},"serviceAccountName":"clearml","strategy":{"type":"RollingUpdate"},"tolerations":[],"topologySpreadConstraints":[]}` | Web Server configurations |
 | webserver.additionalConfigs | object | `{}` | Additional specific webserver configurations |
 | webserver.additionalVolumeMounts | object | `{}` | Specifies where and how the volumes defined in additionalVolumes. |
 | webserver.additionalVolumes | object | `{}` | # Defines extra Kubernetes volumes to be attached to the pod. |
@@ -274,6 +286,10 @@ Kubernetes: `>= 1.21.0-0 < 1.31.0-0`
 | webserver.ingress.tlsSecretName | string | `""` | Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule. |
 | webserver.initContainers | object | `{"resources":{"limits":{"cpu":"10m","memory":"64Mi"},"requests":{"cpu":"10m","memory":"64Mi"}}}` | Web Server resources per initContainers pod |
 | webserver.nodeSelector | object | `{}` | Web Server nodeselector |
+| webserver.pdb | object | `{"enabled":false,"maxUnavailable":1,"minAvailable":1}` | Specifies PodDisruptionBudget settings |
+| webserver.pdb.enabled | bool | `false` | If set to false no PDB is created |
+| webserver.pdb.maxUnavailable | int | `1` | Specifies maxUnavailable for PDB. |
+| webserver.pdb.minAvailable | int | `1` | Specifies minAvailable for PDB. |
 | webserver.podAnnotations | object | `{}` | specific annotation for Web Server pods |
 | webserver.podSecurityContext | object | `{}` | Web Server pod security context |
 | webserver.replicaCount | int | `1` | Web Server number of pods |
@@ -282,4 +298,6 @@ Kubernetes: `>= 1.21.0-0 < 1.31.0-0`
 | webserver.service.annotations | object | `{}` | specific annotation for Web Server service |
 | webserver.service.nodePort | int | `30080` | If service.type set to NodePort, this will be set to service's nodePort field. If service.type is set to others, this field will be ignored |
 | webserver.serviceAccountName | string | `"clearml"` | The default serviceAccountName to be used |
+| webserver.strategy | object | `{"type":"RollingUpdate"}` | Web Server deployment strategy |
 | webserver.tolerations | list | `[]` | Web Server tolerations setup |
+| webserver.topologySpreadConstraints | list | `[]` | Specifies topologySpreadConstraints settings |

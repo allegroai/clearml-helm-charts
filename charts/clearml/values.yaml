@@ -79,6 +79,9 @@ apiserver:
     nodePort: 30008
   # -- Api Server number of pods
   replicaCount: 1
+  # -- Api Server deployment strategy
+  strategy:
+    type: RollingUpdate
   # -- Api Server resources per initContainers pod
   initContainers:
     resources:
@@ -181,6 +184,22 @@ apiserver:
   additionalVolumeMounts: {}
   #  - mountPath: /dev/shm
   #    name: ramdisk
+  # -- Specifies PodDisruptionBudget settings
+  pdb:
+    # -- If set to false no PDB is created
+    enabled: false
+    # -- Specifies maxUnavailable for PDB.
+    maxUnavailable: 1
+    # -- Specifies minAvailable for PDB.
+    minAvailable: 1
+  # -- Specifies topologySpreadConstraints settings
+  topologySpreadConstraints: []
+  # - maxSkew: 1
+  #   topologyKey: "topology.kubernetes.io/zone"
+  #   whenUnsatisfiable: DoNotSchedule
+  #   labelSelector:
+  #     matchLabels:
+  #       app.kubernetes.io/instance=clearml-apiserver
 
 # -- File Server configurations
 fileserver:
@@ -207,6 +226,9 @@ fileserver:
     nodePort: 30081
   # -- File Server number of pods
   replicaCount: 1
+  # -- File Server deployment strategy
+  strategy:
+    type: RollingUpdate
   # -- File Server resources per initContainers pod
   initContainers:
     resources:
@@ -277,6 +299,22 @@ fileserver:
   additionalVolumeMounts: {}
   #  - mountPath: /dev/shm
   #    name: ramdisk
+  # -- Specifies PodDisruptionBudget settings
+  pdb:
+    # -- If set to false no PDB is created
+    enabled: false
+    # -- Specifies maxUnavailable for PDB.
+    maxUnavailable: 1
+    # -- Specifies minAvailable for PDB.
+    minAvailable: 1
+  # -- Specifies topologySpreadConstraints settings
+  topologySpreadConstraints: []
+  # - maxSkew: 1
+  #   topologyKey: "topology.kubernetes.io/zone"
+  #   whenUnsatisfiable: DoNotSchedule
+  #   labelSelector:
+  #     matchLabels:
+  #       app.kubernetes.io/instance=clearml-fileserver
 
 # -- Web Server configurations
 webserver:
@@ -303,6 +341,9 @@ webserver:
     nodePort: 30080
   # -- Web Server number of pods
   replicaCount: 1
+  # -- Web Server deployment strategy
+  strategy:
+    type: RollingUpdate
   # -- Web Server resources per initContainers pod
   initContainers:
     resources:
@@ -363,6 +404,22 @@ webserver:
   additionalVolumeMounts: {}
   #  - mountPath: /dev/shm
   #    name: ramdisk
+  # -- Specifies PodDisruptionBudget settings
+  pdb:
+    # -- If set to false no PDB is created
+    enabled: false
+    # -- Specifies maxUnavailable for PDB.
+    maxUnavailable: 1
+    # -- Specifies minAvailable for PDB.
+    minAvailable: 1
+  # -- Specifies topologySpreadConstraints settings
+  topologySpreadConstraints: []
+  # - maxSkew: 1
+  #   topologyKey: "topology.kubernetes.io/zone"
+  #   whenUnsatisfiable: DoNotSchedule
+  #   labelSelector:
+  #     matchLabels:
+  #       app.kubernetes.io/instance=clearml-webserver
 
 # -- Definition of external services to use if not enabled as dependency charts here
 externalServices:
