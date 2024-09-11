@@ -11,6 +11,8 @@ metadata:
 {{- end }}
 spec:
   replicas: {{ .Values.apiserver.replicaCount }}
+  strategy:
+    type: {{ .Values.apiserver.strategy.type }}
   selector:
     matchLabels:
       {{- include "apiserver.selectorLabels" . | nindent 6 }}
@@ -199,6 +201,10 @@ spec:
       {{- end }}
       {{- with .Values.apiserver.tolerations }}
       tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.apiserver.topologySpreadConstraints }}
+      topologySpreadConstraints:
         {{- toYaml . | nindent 8 }}
       {{- end }}
 {{- end }}

@@ -1,0 +1,14 @@
+{{- if and .Values.webserver.enabled .Values.webserver.pdb.enabled }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "webserver.referenceName" . }}-pdb
+  labels:
+    {{- include "clearml.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "webserver.selectorLabels" . | nindent 6 }}
+  maxUnavailable: {{ .Values.webserver.pdb.maxUnavailable }}
+  minAvailable: {{ .Values.webserver.pdb.minAvailable }}
+{{- end }}
