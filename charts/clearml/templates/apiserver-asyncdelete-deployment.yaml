@@ -121,11 +121,6 @@ spec:
             value: "{{ .Values.clearml.defaultCompanyGuid }}"
           - name: CLEARML__services__async_urls_delete__fileserver__url_prefixes
             value: "[\"{{ include "clearml.fileUrl" . }}\"]"
-          - name: CLEARML__secure__auth__token_secret
-            valueFrom:
-              secretKeyRef:
-                name: {{ include "clearml.confSecretName" .}}
-                key: secure_auth_token_secret
           {{- if or .Values.apiserver.additionalConfigs .Values.apiserver.existingAdditionalConfigsConfigMap  .Values.apiserver.existingAdditionalConfigsSecret }}
           volumeMounts:  
             - name: apiserver-config
