@@ -48,6 +48,10 @@ spec:
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.clearml_serving_triton.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - env:
             - name: CLEARML_API_ACCESS_KEY
@@ -81,10 +85,6 @@ spec:
           volumeMounts:  
             - name: additional-config
               mountPath: /opt/clearml/config
-          {{- end }}
-          {{- with .Values.clearml_serving_triton.tolerations }}
-          tolerations:
-            {{- toYaml . | nindent 12 }}
           {{- end }}
           resources:
             {{- toYaml .Values.clearml_serving_triton.resources | nindent 12 }}
