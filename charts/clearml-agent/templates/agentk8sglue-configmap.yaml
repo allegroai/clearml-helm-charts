@@ -4,6 +4,7 @@ metadata:
   name: {{ include "clearmlAgent.fullname" . }}-pt
 data:
   template.yaml: |
+    apiVersion: v1
     metadata:
       namespace: {{ .Release.Namespace }}
       labels:
