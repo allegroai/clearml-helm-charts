@@ -2,9 +2,9 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "7.11.4"
+version: "7.11.5"
 appVersion: "1.16"
-kubeVersion: ">= 1.21.0-0 < 1.31.0-0"
+kubeVersion: ">= 1.21.0-0 < 1.32.0-0"
 home: https://clear.ml
 icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
 sources:
@@ -32,5 +32,5 @@ dependencies:
     condition: elasticsearch.enabled
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: Removed duplicated env
+    - kind: added
+      description: Support for Kubernetes 1.31

@@ -1,6 +1,6 @@
 # ClearML Kubernetes Agent
 
-![Version: 5.2.2](https://img.shields.io/badge/Version-5.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 5.2.3](https://img.shields.io/badge/Version-5.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
 MLOps platform Task running agent
 
@@ -55,7 +55,7 @@ Before issuing helm upgrade:
 
 ## Requirements
 
-Kubernetes: `>= 1.21.0-0 < 1.31.0-0`
+Kubernetes: `>= 1.21.0-0 < 1.32.0-0`
 
 ## Values
 
