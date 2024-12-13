@@ -62,6 +62,8 @@ apiserver:
   prepopulateEnabled: true
   # -- The default serviceAccountName to be used
   serviceAccountName: clearml
+  # -- Add the provided map to the annotations for the ServiceAccount resource created by this chart.
+  serviceAccountAnnotations: {}
   # -- Api Server image configuration
   image:
     registry: ""
@@ -190,6 +192,8 @@ fileserver:
   deploymentAnnotations: {}
   # -- The default serviceAccountName to be used
   serviceAccountName: clearml
+  # -- Add the provided map to the annotations for the ServiceAccount resource created by this chart.
+  serviceAccountAnnotations: {}
   # -- File Server image configuration
   image:
     registry: ""
@@ -286,6 +290,8 @@ webserver:
   deploymentAnnotations: {}
   # -- The default serviceAccountName to be used
   serviceAccountName: clearml
+  # -- Add the provided map to the annotations for the ServiceAccount resource created by this chart.
+  serviceAccountAnnotations: {}
   # -- Web Server image configuration
   image:
     registry: ""
