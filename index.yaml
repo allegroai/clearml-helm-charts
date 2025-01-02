@@ -4247,6 +4247,34 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Support for additional ServiceAccount annotations"
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2025-01-02T15:37:21.699475277Z"
+    description: MLOps platform Task running agent
+    digest: 1bdc0853a92fed58ad0da0d5a74b0ceb35130ced7385676e4667b187a7022060
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.32.0-0'
+    maintainers:
+    - name: filippo-clearml
+      url: https://github.com/filippo-clearml
+    name: clearml-agent
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-agent-5.3.0/clearml-agent-5.3.0.tgz
+    version: 5.3.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: Support for Kubernetes 1.31
     apiVersion: v2
     appVersion: "1.24"
@@ -6608,4 +6636,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-02T14:56:43.435788607Z"
+generated: "2025-01-02T15:37:21.700108213Z"
