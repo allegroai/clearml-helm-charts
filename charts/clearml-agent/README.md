@@ -1,6 +1,6 @@
 # ClearML Kubernetes Agent
 
-![Version: 5.2.3](https://img.shields.io/badge/Version-5.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 5.3.0](https://img.shields.io/badge/Version-5.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
 MLOps platform Task running agent
 
@@ -61,7 +61,7 @@ Kubernetes: `>= 1.21.0-0 < 1.32.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agentk8sglue | object | `{"additionalClusterRoleBindings":[],"additionalRoleBindings":[],"affinity":{},"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"affinity":{},"annotations":{},"containerSecurityContext":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"podSecurityContext":{},"priorityClassName":"","resources":{},"schedulerName":"","tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerSecurityContext":{},"createQueueIfNotExists":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"registry":"","repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"initContainers":{"resources":{}},"labels":{},"nodeSelector":{},"podSecurityContext":{},"queue":"default","replicaCount":1,"resources":{},"serviceExistingAccountName":"","tolerations":[],"volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
+| agentk8sglue | object | `{"additionalClusterRoleBindings":[],"additionalRoleBindings":[],"affinity":{},"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"affinity":{},"annotations":{},"containerSecurityContext":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"podSecurityContext":{},"priorityClassName":"","resources":{},"schedulerName":"","tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerSecurityContext":{},"createQueueIfNotExists":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"registry":"","repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"initContainers":{"resources":{}},"labels":{},"nodeSelector":{},"podSecurityContext":{},"queue":"default","replicaCount":1,"resources":{},"serviceAccountAnnotations":{},"serviceExistingAccountName":"","tolerations":[],"volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
 | agentk8sglue.additionalClusterRoleBindings | list | `[]` | additional existing ClusterRoleBindings |
 | agentk8sglue.additionalRoleBindings | list | `[]` | additional existing RoleBindings |
 | agentk8sglue.affinity | object | `{}` | affinity setup for Agent pod (example in values.yaml comments) |
@@ -100,7 +100,8 @@ Kubernetes: `>= 1.21.0-0 < 1.32.0-0`
 | agentk8sglue.queue | string | `"default"` | ClearML queue this agent will consume. Multiple queues can be specified with the following format: queue1,queue2,queue3 |
 | agentk8sglue.replicaCount | int | `1` | Glue Agent number of pods |
 | agentk8sglue.resources | object | `{}` | Glue Agent pod resources |
-| agentk8sglue.serviceExistingAccountName | string | `""` | if set, don't create a serviceAccountName but use defined existing one |
+| agentk8sglue.serviceAccountAnnotations | object | `{}` | Add the provided map to the annotations for the ServiceAccount resource created by this chart |
+| agentk8sglue.serviceExistingAccountName | string | `""` | If set, do not create a serviceAccountName and use the existing one with the provided name |
 | agentk8sglue.tolerations | list | `[]` | tolerations setup for Agent pod (example in values.yaml comments) |
 | agentk8sglue.volumeMounts | list | `[]` | volume mounts definition for Glue Agent (example in values.yaml comments) |
 | agentk8sglue.volumes | list | `[]` | volumes definition for Glue Agent (example in values.yaml comments) |
