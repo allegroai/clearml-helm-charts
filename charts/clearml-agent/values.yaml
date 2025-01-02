@@ -65,7 +65,9 @@ agentk8sglue:
     # -- Glue Agent initcontainers pod resources
     resources: {}
 
-  # -- if set, don't create a serviceAccountName but use defined existing one
+  # -- Add the provided map to the annotations for the ServiceAccount resource created by this chart
+  serviceAccountAnnotations: {}
+  # -- If set, do not create a serviceAccountName and use the existing one with the provided name
   serviceExistingAccountName: ""
 
   # -- Check certificates validity for evefry UrlReference below.
