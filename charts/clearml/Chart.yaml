@@ -2,8 +2,8 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "7.12.0"
-appVersion: "1.16"
+version: "7.13.0"
+appVersion: "1.17"
 kubeVersion: ">= 1.21.0-0 < 1.32.0-0"
 home: https://clear.ml
 icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
@@ -32,5 +32,5 @@ dependencies:
     condition: elasticsearch.enabled
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: Added ability to add annotations to server service accounts
+    - kind: changed
+      description: "Updated app version 1.17.1"
