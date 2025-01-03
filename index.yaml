@@ -3,6 +3,46 @@ entries:
   clearml:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Updated app version 1.17.1"
+    apiVersion: v2
+    appVersion: "1.17"
+    created: "2025-01-03T08:59:15.846123477Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.8.3
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.31
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://helm.elastic.co
+      version: 7.17.3
+    description: MLOps platform
+    digest: 4623be2707477bee684c0589994640043bad4110ae216e29ce349a32e6bba74e
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    kubeVersion: '>= 1.21.0-0 < 1.32.0-0'
+    maintainers:
+    - name: filippo-clearml
+      url: https://github.com/filippo-clearml
+    name: clearml
+    sources:
+    - https://github.com/allegroai/clearml-helm-charts
+    - https://github.com/allegroai/clearml
+    type: application
+    urls:
+    - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-7.13.0/clearml-7.13.0.tgz
+    version: 7.13.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: Added ability to add annotations to server service accounts
     apiVersion: v2
@@ -6636,4 +6676,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-02T15:37:21.700108213Z"
+generated: "2025-01-03T08:59:15.846541963Z"
