@@ -4,9 +4,9 @@ dependencies:
   version: 17.8.3
 - name: mongodb
   repository: https://charts.bitnami.com/bitnami
-  version: 12.1.31
+  version: 13.18.5
 - name: elasticsearch
   repository: https://helm.elastic.co
   version: 7.17.3
-digest: sha256:e92c4ac212dfd90a527af0260fa71a5fcc33f485a21c1cca3daa2ced667858b2
-generated: "2023-03-10T14:59:49.01676+01:00"
+digest: sha256:d5864444fa8c5cb66a83ec02cdbe4b0776f9f6538dfe67132be7eeb2781b50e4
+generated: "2025-01-07T15:18:46.845769+01:00"
