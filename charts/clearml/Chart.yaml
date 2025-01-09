@@ -35,4 +35,4 @@ annotations:
     - kind: changed
       description: "Updated to MongoDB v6"
     - kind: changed
-      description: "Updated app image versions v2.0
+      description: "Updated app image versions v2.0"
